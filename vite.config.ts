@@ -55,6 +55,9 @@ export default defineConfig({
       ...aliases,
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1600,
+  },
   server: {
     fs: {
       allow: ["."],

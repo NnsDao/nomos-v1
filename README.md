@@ -1,12 +1,6 @@
-# Dfinity-React-Typescript-tailwind2
+# Nomos Core
 
 ## Quick Start
-
-![Demo Screenshots](./staic/Screenshots.png)
-
-A recipe,template that includes Vite, Dfinity, Typescript, ReactJS, React-Router, Tailwind2.
-
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
 To learn more before you start working with icptree, see the following documentation available online:
 
@@ -15,6 +9,16 @@ To learn more before you start working with icptree, see the following documenta
 - [Motoko Programming Language Guide](https://sdk.dfinity.org/docs/language-guide/motoko.html)
 - [Motoko Language Quick Reference](https://sdk.dfinity.org/docs/language-guide/language-manual.html)
 - [JavaScript API Reference](https://erxue-5aaaa-aaaab-qaagq-cai.raw.ic0.app)
+
+### Step0
+
+0.install vessel
+
+1.Download the binary file from [https://github.com/dfinity/vessel/releases/](https://github.com/dfinity/vessel/releases/)
+
+2.Open the `/usr/local/bin` directory via terminal, hold the binary and drag it into this directory
+
+3.Then source the configuration file, if you are using zsh, you can run: `source ~/.zshrc`
 
 ### Step1
 
@@ -44,16 +48,8 @@ npm run dev
 
 Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 8000.
 
-### Error fix
-
-+ Address already in use (os error 48)
-  + sudo killall dfx replica nodemanager
-
-+ Error: EACCES: permission denied, scandir '/Users/xxxxx/work/Dfinity-React-Typescript-tailwind2/.dfx/state/replicated_state/node-100/crypto'
-  + If the dfx directory permission does not work, please set the directory permission.
-
 # [Reference]
 
-+ https://github.com/MioQuispe/create-ic-app
++ https://github.com/NnsDao/ICTexas-UI
 
-+ https://github.com/FloorLamp/dfinity-react-ts-tailwind-starter
++ https://github.com/metascore/tourney

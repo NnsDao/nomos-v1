@@ -6,6 +6,7 @@ import tailwindlogo from "./assets/tailwindcss.svg"
 import {
   Link
 } from "react-router-dom";
+import { StoicIdentity } from 'ic-stoic-identity';
 
 export function Intro() {
   const [count, setCount] = useState<string>()
@@ -23,6 +24,20 @@ export function Intro() {
     await counter.increment()
     refreshCounter()
   }
+ 
+
+  const onStoic = async () => {
+    await StoicIdentity.load();
+    try {
+      let identity = await StoicIdentity.connect();
+      if (identity) {
+        console.log("sign", identity.getPrincipal().toText());
+      }
+    } catch (error) {
+      window.alert("log in was refused");
+    }
+  };
+
 
   return (
     <>
@@ -45,6 +60,7 @@ export function Intro() {
         <button className="mt-5 px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
           <Link to="/about" target="_blank" >Click Go About</Link>
         </button>
+        <button className="mt-5 px-4 py-1 text-sm text-green-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2" onClick={() => onStoic().then() } >Test Stoic Identity</button>
       </header>
     </>
   )
