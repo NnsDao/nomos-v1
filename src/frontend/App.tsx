@@ -1,11 +1,13 @@
 import React from "react"
-import { Intro } from "./Intro"
-import { About } from "./About"
+// import { Intro } from "./view/Intro"
+import { About } from "./view/About"
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
+import Index from "./view/Index";
 
 function App() {
   return (
@@ -17,8 +19,9 @@ function App() {
           <Route path="/about">
             <About />
           </Route>
+
           <Route path="/">
-            <Intro />
+            <Index />
           </Route>
         </Switch>
       </div>

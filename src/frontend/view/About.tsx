@@ -4,8 +4,8 @@ import {
   } from "react-router-dom";
 import { counter } from "canisters/counter"
 import { Auth } from "./Auth"
-import logo from "./assets/logo-dark.svg"
-import tailwindlogo from "./assets/tailwindcss.svg"
+import logo from "@/assets/logo-dark.svg"
+import tailwindlogo from "@/assets/tailwindcss.svg"
 
 export function About() {
   const [count, setCount] = useState<string>()

@@ -39,6 +39,7 @@ const aliases = Object.entries(dfxJson.canisters).reduce(
 // This strange way of JSON.stringifying the value is required by vite
 const canisterDefinitions = Object.entries(canisterIds).reduce((acc, [key, val]) => ({
   ...acc,
+  
   [`process.env.${key.toUpperCase()}_CANISTER_ID`]: isDev ? JSON.stringify(val.local) : JSON.stringify(val.ic),
 }), {})
 
@@ -52,6 +53,7 @@ export default defineConfig({
   resolve: {
     alias: {
       // Here we tell Vite the "fake" modules that we want to define
+      "@": path.resolve(__dirname, "src/frontend"),
       ...aliases,
     },
   },
