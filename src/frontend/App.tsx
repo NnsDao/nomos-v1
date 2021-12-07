@@ -1,7 +1,7 @@
 import React from "react"
 // import { Intro } from "./view/Intro"
 import { About } from "./view/About"
-
+import 'antd/dist/antd.css';
 import {
   BrowserRouter as Router,
   Switch,
