@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Input } from 'antd';
+import { Input, Collapse } from 'antd';
 import "./index.css"
 // dao img
 import earth9 from '../assets/home/patrickearth_9.png'
@@ -7,13 +7,19 @@ import earth3 from '../assets/home/patrickearth_3.png'
 import earth2 from '../assets/home/patrickearth_2.png'
 import earth1 from '../assets/home/patrickearth_1.png'
 // logo
-
 import Collaboration from '../assets/home/Collaboration.png'
 import DAOs from '../assets/home/DAO.png'
 import Roadmap from '../assets/home/Roadmap.png'
 import Statistic from '../assets/home/Statistic.png'
 import Moon from '../assets/home/Moon.png'
 import Holder from '../assets/home/Holder.png'
+
+// store
+import marketplace from '../assets/home/marketplace.png'
+import window from '../assets/home/window.png'
+import google from '../assets/home/google.png'
+import app from '../assets/home/app.png'
+
 const index = () => {
 
     const activeClass = 'text-white transition delay-150 duration-500'
@@ -70,14 +76,52 @@ const index = () => {
             text: 'For Holder, they enjoy the lasting benefits of the project, which will be incentivized through GameFi, NFTs, Marketplace, Token issuance, etc.'
         },
     ]
+    let [work, setWork] = useState('Architecture');
+
+    const workFlowList = [
+        {
+            text: 'Architecture',
+        },
+        {
+            text: 'DAOn',
+        },
+        {
+            text: 'Work',
+        }
+    ]
+    //Collapse
+    const { Panel } = Collapse;
+    const faqList = [
+        {
+            frequently: '1',
+            questions: '1'
+        },
+        {
+            frequently: '2',
+            questions: '2'
+        },
+        {
+            frequently: '3',
+            questions: '3'
+        },
+    ]
+    const text = `
+    A dog is a type of domesticated animal.
+    Known for its loyalty and faithfulness,
+    it can be found as a welcome guest in many households across the world.
+  `;
     return (
         <>
             <div className={"w-full  mx-auto min-h-screen flex flex-col flex-wrap items-center bg-primary pb-32"}>
+                {/* <div className={"w-full  mx-auto min-h-screen flex flex-col flex-wrap items-center bg-primary pb-32"}> */}
+
+
+                {/* <div className={"w-full min-w-full max-w-screen  min-h-screen flex flex-col flex-wrap items-center bg-primary pb-32"}> */}
                 <div className={'w-4/5 min-w-1400px flex justify-between items-center mt-7 '}>
                     <div className={'flex jsutify-between items-center'}>
                         <div className=" flex  space-x-10">
                             {linkList.map((item, index) => (
-                                <a key={item} href={item}
+                                <a key={index} href={`#${item}`}
                                     onClick={() => {
                                         setLink(link = item);
                                     }}
@@ -95,7 +139,7 @@ const index = () => {
                         {'Sign up'}
                     </div>
                 </div>
-                <div className={'w-screen h-full home-bg -mt-32 flex justify-center'}>
+                <div className={'w-screen h-1000px home-bg -mt-32 flex justify-center'}>
                     <div className={"min-w-1200px h-screen flex flex-wrap  items-center  "}>
                         <div className={'flex min-w-1200px flex-col justify-content items-start text-white '}>
                             <span className={'text-4xl font-mono mb-4'}> Find Your </span>
@@ -135,22 +179,78 @@ const index = () => {
                     <span className={'text-base '}>DAOs To Earn</span>
                     <div className={' w-1200px flex flex-wrap justify-between my-24'}>
                         {
-                            featuresList.map((item) => (
-                                <div style={{ background: ' linear-gradient(180deg, #3A4FE7 0%, #C931B5 100%)' }} className={'w-30 flex flex-wrap flex-col justify-content items-start pl-14 pr-24 pt-16 pb-32 mx-2 my-6'}>
+                            featuresList.map((item, index) => (
+                                <div key={index} style={{ background: ' linear-gradient(180deg, #3A4FE7 0%, #C931B5 100%)' }} className={'w-30 flex flex-wrap flex-col justify-content items-start pl-14 pr-24 pt-16 pb-32 mx-2 my-6'}>
                                     <div className={'flex justify-between items-center '}>
                                         <img src={item.url} alt="" />
                                         <span className={'text-xl ml-2'}>{item.title}</span>
                                     </div>
-                                    <div className={'mt-12 text-left'}>
+                                    <div className={'mt-16 text-left'}>
                                         {item.text}
                                     </div>
                                 </div>
                             ))
                         }
                     </div>
+
                 </div>
+                <div id="WorkFlow" className={'min-w-1200px flex flex-col justify-center items-start  text-white '}>
+                    <span className={'text-4xl font-mono mb-4'}>Work Flow</span>
+                    <span className={'text-base '}>You can be a boss, you just work for yourself. </span>
+                    <div className={' w-1200px h-500px flex flex-row justify-center items-center  my-24 '}>
+                        <div className={'flex h-500px flex-col justify-around '}>
+                            {
+                                workFlowList.map((item, index) => (
+                                    <div key={index} className={'ml-2 flex w-48 h-1/4 justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`}
+                                        onClick={() => (
+                                            setWork(work = item.text)
+
+                                        )}>
+                                        <div className={'text-3xl '}>{item.text}</div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+
+                        <div className={'flex-grow h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'DAOn' : 'work'}`}>
+                        </div>
 
 
+                    </div>
+
+                </div>
+                <div className={'min-w-1200px flex flex-col justify-content items-start  text-white '}>
+                    <span className={'text-4xl font-mono mb-4'}>Virtual Reputation Governance</span>
+                    <div className={' w-1200px flex flex-wrap justify-between my-24'}>
+                        <div className={'flex-grow h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'DAOn' : 'work'}`}>
+                        </div>
+                    </div>
+
+                </div>
+                <div id='FAQs' className={'min-w-1200px flex flex-col justify-content items-start  text-white '}>
+
+                    <span className={'text-4xl font-mono mb-4'}>FAQs</span>
+                    <div className={' w-1200px flex flex-wrap justify-between my-24 text-white '}>
+                        <Collapse defaultActiveKey={['1']} ghost accordion expandIconPosition={"right"}>
+
+                            {
+                                faqList.map((item, index) => (
+                                    <Panel header={item.frequently} key={index.toString()} forceRender={true} >
+                                        <p>{item.questions}</p>
+                                    </Panel>
+                                ))
+                            }
+                        </Collapse>
+                    </div>
+
+                </div>
+                <div className={'min-w-1000px w-1000px flex justify-between items-start  text-white '}>
+                    <img src={marketplace} alt="" />
+                    <img src={window} alt="" />
+                    <img src={google} alt="" />
+                    <img src={app} alt="" />
+
+                </div>
 
             </div>
         </>
