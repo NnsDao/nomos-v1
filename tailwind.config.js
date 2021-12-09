@@ -35,6 +35,9 @@ module.exports = {
         '50': '50%',
         '66': '66%',
         '75': '75%',
+        '48px': "48px",
+        '50px': '50px',
+        '240px': '240px',
         '840px': '840px',
         '500px': '500px',
         '1000px': '1000px',
@@ -48,6 +51,7 @@ module.exports = {
         'danger': '#e3342f',
         'sign': '#D130B3',
         'border': '#3F62E4',
+        'main-content': '#251F5E'
       }),
       backgroundImage: {
       }
@@ -65,7 +69,8 @@ module.exports = {
       'emerald', // first one will be the default theme
       'dark',
       'forest',
-      'synthwave'
+      'synthwave',
+
     ],
     base: true,
     utils: true,

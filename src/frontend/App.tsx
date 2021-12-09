@@ -1,25 +1,28 @@
 import React from "react"
-// import { Intro } from "./view/Intro"
-import { About } from "./view/About"
-import 'antd/dist/antd.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
+import 'antd/dist/antd.css';
+
+// import { Intro } from "./view/Intro"
+import { About } from "./view/About"
 import Index from "./view/Index";
+import MainIndex from './view/main/MainIndex'
 
 function App() {
   return (
     <Router>
       <div className="App">
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
+
+          <Route path="/main" >
+            <MainIndex />
+          </Route>
           <Route path="/about">
             <About />
           </Route>
-
           <Route path="/">
             <Index />
           </Route>

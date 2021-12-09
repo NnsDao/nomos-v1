@@ -20,7 +20,8 @@ import window from '../assets/home/window.png'
 import google from '../assets/home/google.png'
 import app from '../assets/home/app.png'
 
-const index = () => {
+
+export default function index() {
 
     const activeClass = 'text-white transition delay-150 duration-500'
     const inactiveClass = 'text-white opacity-50 transform hover:scale-90'
@@ -121,7 +122,7 @@ const index = () => {
                     <div className={'flex jsutify-between items-center'}>
                         <div className=" flex  space-x-10">
                             {linkList.map((item, index) => (
-                                <a key={index} href={`#${item}`}
+                                <a key={item} href={`#${item}`}
                                     onClick={() => {
                                         setLink(link = item);
                                     }}
@@ -130,7 +131,7 @@ const index = () => {
                                         : inactiveClass
                                         } ${index > 4 ? 'ml-4' : ''}`}
                                 >
-                                    <span className={''}>{item}</span>
+                                    <span key={item} className={''}>{item}</span>
                                 </a>
                             ))}
                         </div>
@@ -162,7 +163,7 @@ const index = () => {
                     <div className={'flex min-w-1200px flex justify-between my-24'}>
                         {
                             daoList.map((item) => (
-                                <div className={'w-1/5 flex flex-col justify-content items-center transform hover:text-pink-400 hover:scale-125 transition duration-500  '}>
+                                <div key={item.url} className={'w-1/5 flex flex-col justify-content items-center transform hover:text-pink-400 hover:scale-125 transition duration-500  '}>
                                     <div >
                                         <img src={item.url} alt="" />
                                     </div>
@@ -256,4 +257,4 @@ const index = () => {
         </>
     )
 }
-export default index
+// export default index
