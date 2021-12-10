@@ -91,5 +91,12 @@
     flex:1;
     text-align: left;
     color: #927BFA;
+}
 
+.table-content-button{
+    color: #29a6e0;
+    border: 1px solid #29a6e0 ;
+    border-radius: 8px ;
+    font-size: 16px;
+    padding: 2px 15px ;
 }

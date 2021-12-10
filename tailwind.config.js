@@ -51,7 +51,8 @@ module.exports = {
         'danger': '#e3342f',
         'sign': '#D130B3',
         'border': '#3F62E4',
-        'main-content': '#251F5E'
+        'main-content': '#251F5E',
+        'creatCard': '#35296b'
       }),
       backgroundImage: {
       }

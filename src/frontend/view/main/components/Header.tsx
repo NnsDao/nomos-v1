@@ -18,7 +18,7 @@ const Header = () => {
                     </a>
                 </div>
                 <div className={'relative'} >
-                    <Input style={{ minWidth: '50%', width: '50vw', height: '52px', background: 'rgba(225, 225, 225, 0.13)', borderColor: '#3F62E4', textIndent: '50px', color: 'white', borderRadius: '26px' }} placeholder='input your want dao' />
+                    <Input style={{ minWidth: '47%', width: '47vw', height: '48px', background: 'rgba(225, 225, 225, 0.13)', borderColor: '#3F62E4', textIndent: '50px', color: 'white', borderRadius: '26px' }} placeholder='input your want dao' />
                     <img src={magnifier} className={'absolute bottom-1 left-1 px-4 py-2 rounded  '} alt="" />
                 </div>
                 <div className="flex items-center mr-11">
