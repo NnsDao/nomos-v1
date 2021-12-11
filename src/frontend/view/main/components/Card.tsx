@@ -18,12 +18,13 @@ type Prop = {
 
 const Card = (prop: Prop) => (
 
+    // <div className={`card-wrapper`} style={{ width: '21%' }} >
 
-    <div className={`card-wrapper`} style={{ width: '21%' }} >
+    <div className={`card-wrapper`}  >
         <div className=" w-full my-4 flex justify-between items-center ">
             <div className=" flex justify-center items-center">
                 {
-                    prop.isCreate ? <div className="w-full flex justify-center items-center ">+</div> :
+                    prop.isCreate ? <div className="w-4/5 flex justify-center items-center " >+</div> :
                         <img src={patrick3} width={"80%"} alt="" />
                 }
             </div>

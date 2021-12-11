@@ -3,6 +3,7 @@ import Header from "./components/Header"
 import Nav from "./components/Nav"
 import Wallet from './wallet/Index'
 import DashBoard from './DashBoard/Index'
+import Daos from './daos/Index'
 const MainIndex = () => {
     let daoList = [
         {
@@ -22,6 +23,7 @@ const MainIndex = () => {
                     <Nav daoList={daoList} />
                 </div>
                 <div className="mx-6 rounded-3xl bg-main-content flex-1 mb-5">
+                    <Daos />
                     <DashBoard />
                     <Wallet />
                 </div>

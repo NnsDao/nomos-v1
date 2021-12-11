@@ -1,0 +1,79 @@
+.daos-button{
+    width: 200px;
+    height: 40px;
+    background: rgba(36, 191, 242, 0.1);
+    border-radius: 9px;
+    border: 1px solid #24BFF2;
+    font-size: 18px;
+    font-family: Arial-BoldMT, Arial;
+    font-weight: normal;
+    color: #24BFF2;
+    line-height: 21px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.daos-button-selected{
+    background: linear-gradient(90deg, #006AE9 0%, #129DEF 100%);
+    color: #FFFFFF;
+}
+.daos-content-text{
+    font-size: 24px;
+    color: #FFFFFF;
+    line-height: 28px;
+    margin-left: 30px;
+    line-height: 48px;
+
+}
+.daos-content-join{
+    width: 126px;
+    height: 48px;
+    background: #D130B3;
+    border-radius: 24px;
+    color: #FFFFFF;
+    font-size: 24px;
+    line-height: 48px;
+
+}
+
+.daos-content{
+    margin-top: 18px;
+    padding: 20px 36px;
+    width: 100%;
+    background: #5048B2;
+    border-radius: 14px;
+    opacity: 0.66;
+}
+.daos-members-wrapper{
+}
+.daos-members-header{
+    display: flex;
+    justify-content: space-between;
+}
+.daos-members-text{
+    font-size: 16px;
+    color: #927BFA;
+    line-height: 18px;
+}
+.daos-members-content{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    color: #fff !important;
+}
+.daos-rule-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+}
+.daos-rule-wrapper  p{
+    color: #fff !important;
+
+}
+.daos-rule-wrapper-title{
+    font-size: 36px;
+    color: #FFFFFF;
+    line-height: 42px;
+}

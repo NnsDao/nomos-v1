@@ -9,16 +9,24 @@ import 'antd/dist/antd.css';
 // import { Intro } from "./view/Intro"
 import { About } from "./view/About"
 import Index from "./view/Index";
-import MainIndex from './view/main/MainIndex'
+import Main from './view/main/MainIndex'
+import Product from "./view/product/Index"
+import Login from "./view/Login";
+
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
-
+          <Route path="/login" >
+            <Login />
+          </Route>
+          <Route path="/product" >
+            <Product />
+          </Route>
           <Route path="/main" >
-            <MainIndex />
+            <Main />
           </Route>
           <Route path="/about">
             <About />
