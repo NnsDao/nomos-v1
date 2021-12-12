@@ -1,46 +1,46 @@
-.home-bg{
-    background: url('../assets/home/bg.png')  no-repeat;
-    background-size: 100% 100%;
+.home-bg {
+  background: url('../assets/home/bg.png') no-repeat;
+  background-size: 100% 100%;
 }
-.avtive-work{
-    background: url('../assets/home/active-work.png')  no-repeat;
-    background-size: 100% 100%;
+.avtive-work {
+  background: url('../assets/home/active-work.png') no-repeat;
+  background-size: 100% 100%;
 }
-.work-flow{
-    background: url('../assets/home/work-flow.png')  no-repeat;
-    background-size: 100% 100%;
+.work-flow {
+  background: url('../assets/home/work-flow.png') no-repeat;
+  background-size: 100% 100%;
 }
-.architecture{
-    background: url('../assets/home/Architecture.png')  no-repeat;
-    background-size: 100% 100%;
+.architecture {
+  background: url('../assets/home/Architecture.png') no-repeat;
+  background-size: 100% 100%;
 }
-.DAOn{
-    background: url('../assets/home/Architecture.png')  no-repeat;
-    background-size: 100% 100%;
+.DAOn {
+  background: url('../assets/home/Architecture.png') no-repeat;
+  background-size: 100% 100%;
 }
-.work{
-    background: url('../assets/home/Architecture.png')  no-repeat;
-    background-size: 100% 100%;
+.work {
+  background: url('../assets/home/Architecture.png') no-repeat;
+  background-size: 100% 100%;
 }
 .ant-collapse {
-    width: 100% !important;
+  width: 100% !important;
 }
-.ant-collapse-header{
-    width: 100% !important;
-    color: white !important;
+.ant-collapse-header {
+  width: 100% !important;
+  color: white !important;
 }
-.ant-collapse-content-box{
-    color: #C9CCD1 !important;
-    text-align: left;
+.ant-collapse-content-box {
+  color: #c9ccd1 !important;
+  text-align: left;
 }
 
-.introduction-wrapper{
-    background: url('../assets/home/introduction.png')  no-repeat;
-    background-size: 100% 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-width: 1400px;
-    color: #fff;
+.introduction-wrapper {
+  background: url('../assets/home/introduction.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 1400px;
+  color: #fff;
 }

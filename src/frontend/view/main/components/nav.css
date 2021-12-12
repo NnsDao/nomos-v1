@@ -1,53 +1,53 @@
-.nav-wrapper{
-    height: 93vh;
-    width: 310px;
+.nav-wrapper {
+  height: 93vh;
+  width: 310px;
 }
-.style-text{
-    font-size: 24px;
-    font-family: Arial-BoldMT, Arial;
-    font-weight: normal;
-    color: #D130B3;
+.style-text {
+  font-size: 24px;
+  font-family: Arial-BoldMT, Arial;
+  font-weight: normal;
+  color: #d130b3;
 }
-.bg-gradient{
-    background: linear-gradient(90deg, #D130B3 0%, #3A4FE7 100%);
-    border-radius: 24px;
+.bg-gradient {
+  background: linear-gradient(90deg, #d130b3 0%, #3a4fe7 100%);
+  border-radius: 24px;
 }
-.create{
-    margin-top: 200px;
-    width: 240px;
-    height: 160px;
-    background: url('../../../assets/main/bg.png')  no-repeat;
-    background-size: 100% 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+.create {
+  margin-top: 200px;
+  width: 240px;
+  height: 160px;
+  background: url('../../../assets/main/bg.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
-.combinedShape{
-    width: 36px;
-    height: 24px;
-    background: url('../../../assets/main/CombinedShape.png')  no-repeat;
-    background-size: 100% 100%;
+.combinedShape {
+  width: 36px;
+  height: 24px;
+  background: url('../../../assets/main/CombinedShape.png') no-repeat;
+  background-size: 100% 100%;
 }
-.Group2{
-    width: 4px;
-    height: 16px;
-    background: url('../../../assets/main/Group2.png')  no-repeat;
-    background-size: 100% 100%;
+.Group2 {
+  width: 4px;
+  height: 16px;
+  background: url('../../../assets/main/Group2.png') no-repeat;
+  background-size: 100% 100%;
 }
-.img-wrapper{
-    width: 200px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 13px 17px 0px 17px;
+.img-wrapper {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 13px 17px 0px 17px;
 }
-.logout{
-    margin-top: 50px;
-    width: 126px;
-    height: 48px;
-    background: #3A4FE7;
-    border-radius: 24px;
-    text-align: center;
-    line-height: 48px;
+.logout {
+  margin-top: 50px;
+  width: 126px;
+  height: 48px;
+  background: #3a4fe7;
+  border-radius: 24px;
+  text-align: center;
+  line-height: 48px;
 }

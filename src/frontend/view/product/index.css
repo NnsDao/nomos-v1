@@ -1,58 +1,56 @@
-
-.product-wrapper{
-    width: 100%;
-    background: url('../../assets/product/bg.png')  no-repeat;
-    background-size: 100% 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
+.product-wrapper {
+  width: 100%;
+  background: url('../../assets/product/bg.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
 }
-.product{
-    width: 66.66%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.product {
+  width: 66.66%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.product-title{
-    margin-top: 200px;
-    margin-bottom: 160px;
-    width: 100%;
-    text-align: center;
-    font-size: 68px;
-    color: #FFFFFF;
-    line-height: 78px;
-    letter-spacing: 1px;
+.product-title {
+  margin-top: 200px;
+  margin-bottom: 160px;
+  width: 100%;
+  text-align: center;
+  font-size: 68px;
+  color: #ffffff;
+  line-height: 78px;
+  letter-spacing: 1px;
 }
-.product-info{
-    text-align: left;
-    color: #fff;
-    font-size: 18px;
-
+.product-info {
+  text-align: left;
+  color: #fff;
+  font-size: 18px;
 }
-.product-subheading{
-    font-size: 42px;
-    color: #7AA9FF;
-    line-height: 48px;
-    letter-spacing: 1px;
-    margin-bottom: 50px;
+.product-subheading {
+  font-size: 42px;
+  color: #7aa9ff;
+  line-height: 48px;
+  letter-spacing: 1px;
+  margin-bottom: 50px;
 }
-.product-item{
-    width: 80vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    border-radius: 8px;
-    border: 1px solid #24BFF2;
-    margin-bottom: 178px;
+.product-item {
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid #24bff2;
+  margin-bottom: 178px;
 }
 
-.product-progress{
-    width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.product-progress {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

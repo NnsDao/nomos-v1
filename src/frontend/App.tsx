@@ -1,31 +1,25 @@
-import React from "react"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
 import 'antd/dist/antd.css';
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { Intro } from "./view/Intro"
-import { About } from "./view/About"
-import Index from "./view/Index";
-import Main from './view/main/MainIndex'
-import Product from "./view/product/Index"
-import Login from "./view/Login";
-
+import { About } from './view/About';
+import Index from './view/Index';
+import Login from './view/Login';
+import Main from './view/main/MainIndex';
+import Product from './view/product/Index';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/login" >
+          <Route path="/login">
             <Login />
           </Route>
-          <Route path="/product" >
+          <Route path="/product">
             <Product />
           </Route>
-          <Route path="/main" >
+          <Route path="/main">
             <Main />
           </Route>
           <Route path="/about">
@@ -37,7 +31,7 @@ function App() {
         </Switch>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
