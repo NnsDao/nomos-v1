@@ -20,7 +20,7 @@ import './index.css';
 export default function index() {
   const activeClass = 'text-white transition delay-150 duration-500';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90';
-  let [link, setLink] = useState('Story');
+  const [link, setLink] = useState('Story');
   const linkList = ['Story', 'WorkFlow', 'FAQs', 'NnsDAO'];
   const daoList = [
     {
@@ -118,7 +118,7 @@ export default function index() {
                     key={item}
                     href={`#${item}`}
                     onClick={() => {
-                      setLink((link = item));
+                      setLink(item);
                     }}
                     className={`px-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
                     <span key={item} className={''}>
@@ -195,7 +195,7 @@ export default function index() {
           <div className={' w-1200px h-500px flex flex-row justify-center items-center  my-24 '}>
             <div className={'flex h-500px flex-col justify-around '}>
               {workFlowList.map((item, index) => (
-                <div key={index} className={'ml-2 flex w-48 h-1/4 justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`} onClick={() => setWork((work = item.text))}>
+                <div key={index} className={'ml-2 flex w-48 h-1/4 justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`} onClick={() => setWork(item.text)}>
                   <div className={'text-3xl '}>{item.text}</div>
                 </div>
               ))}
