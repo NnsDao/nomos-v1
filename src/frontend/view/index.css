@@ -1,6 +1,5 @@
 .home-bg {
-  background: url('../assets/home/bg.png') no-repeat;
-  background-size: 100% 100%;
+  background: center / cover url('../assets/home/bg.png') no-repeat;
 }
 .avtive-work {
   background: url('../assets/home/active-work.png') no-repeat;

@@ -4,21 +4,19 @@ import app from '../assets/home/app.png';
 // logo
 import Collaboration from '../assets/home/Collaboration.png';
 import DAOs from '../assets/home/DAO.png';
+// dao img
 import google from '../assets/home/google.png';
 import Holder from '../assets/home/Holder.png';
-// store
 import marketplace from '../assets/home/marketplace.png';
 import Moon from '../assets/home/Moon.png';
 import earth1 from '../assets/home/patrickearth_1.png';
 import earth2 from '../assets/home/patrickearth_2.png';
 import earth3 from '../assets/home/patrickearth_3.png';
-// dao img
 import earth9 from '../assets/home/patrickearth_9.png';
 import Roadmap from '../assets/home/Roadmap.png';
 import Statistic from '../assets/home/Statistic.png';
 import window from '../assets/home/window.png';
 import './index.css';
-
 export default function index() {
   const activeClass = 'text-white transition delay-150 duration-500';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90';
@@ -74,7 +72,7 @@ export default function index() {
       text: 'For Holder, they enjoy the lasting benefits of the project, which will be incentivized through GameFi, NFTs, Marketplace, Token issuance, etc.',
     },
   ];
-  let [work, setWork] = useState('Architecture');
+  const [work, setWork] = useState('Architecture');
 
   const workFlowList = [
     {
@@ -110,33 +108,31 @@ export default function index() {
   `;
   return (
     <>
-      <div className={'w-full  mx-auto min-h-screen flex flex-col flex-wrap items-center bg-primary pb-32'}>
-        {/* <div className={"w-full  mx-auto min-h-screen flex flex-col flex-wrap items-center bg-primary pb-32"}> */}
-
-        {/* <div className={"w-full min-w-full max-w-screen  min-h-screen flex flex-col flex-wrap items-center bg-primary pb-32"}> */}
-        <div className={'w-4/5 min-w-1400px flex justify-between items-center mt-7 '}>
-          <div className={'flex jsutify-between items-center'}>
-            <div className=" flex  space-x-10">
-              {linkList.map((item, index) => (
-                <a
-                  key={item}
-                  href={`#${item}`}
-                  onClick={() => {
-                    setLink((link = item));
-                  }}
-                  className={`px-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}
-                >
-                  <span key={item} className={''}>
-                    {item}
-                  </span>
-                </a>
-              ))}
+      <div className="w-full m-auto bg-primary pb-32">
+        <div className="p-6 sticky top-0 bg-primary z-10">
+          <div className="flex justify-between items-center max-w-1200px m-auto">
+            <div className={'flex jsutify-between items-center'}>
+              <div className=" flex  space-x-10">
+                {linkList.map((item, index) => (
+                  <a
+                    key={item}
+                    href={`#${item}`}
+                    onClick={() => {
+                      setLink((link = item));
+                    }}
+                    className={`px-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
+                    <span key={item} className={''}>
+                      {item}
+                    </span>
+                  </a>
+                ))}
+              </div>
             </div>
+            <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
           </div>
-          <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
         </div>
-        <div className={'w-screen h-1000px home-bg -mt-32 flex justify-center'}>
-          <div className={'min-w-1200px h-screen flex flex-wrap  items-center  '}>
+        <div className="w-screen h-screen home-bg">
+          <div className="max-w-1200px flex flex-wrap  m-auto items-center pt-240px">
             <div className={'flex min-w-1200px flex-col justify-content items-start text-white '}>
               <span className={'text-4xl font-mono mb-4'}> Find Your </span>
               <span className={'text-4xl font-mono mb-4'}> Favourite </span>
@@ -157,9 +153,6 @@ export default function index() {
                 <span className={'absolute bottom-1 right-1 px-4 py-2 rounded  buttonGradient'}>Let's Go</span>
               </div>
             </div>
-            {/* <div className={'flex flex-clo justify-content items-center boeder'}>
-                        <img src="src/frontend/assets/home/bg.png" />
-                    </div> */}
           </div>
         </div>
         <div className={'min-w-1200px flex flex-col justify-content items-start  text-white '}>
@@ -186,8 +179,7 @@ export default function index() {
                 style={{
                   background: ' linear-gradient(180deg, #3A4FE7 0%, #C931B5 100%)',
                 }}
-                className={'w-30 flex flex-wrap flex-col justify-content items-start pl-14 pr-24 pt-16 pb-32 mx-2 my-6'}
-              >
+                className={'w-30 flex flex-wrap flex-col justify-content items-start pl-14 pr-24 pt-16 pb-32 mx-2 my-6'}>
                 <div className={'flex justify-between items-center '}>
                   <img src={item.url} alt="" />
                   <span className={'text-xl ml-2'}>{item.title}</span>

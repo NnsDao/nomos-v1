@@ -1,41 +1,37 @@
 module.exports = {
-  purge: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"
-  ],
+  purge: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     minWidth: {
-      '0': '0',
-      '25': '25%',
-      '30': '30%',
-      '33': '33%',
-      '50': '50%',
-      '66': '66%',
-      '75': '75%',
+      0: '0',
+      25: '25%',
+      30: '30%',
+      33: '33%',
+      50: '50%',
+      66: '66%',
+      75: '75%',
       '1400px': '1400px',
       '1600px': '1600px',
       '1200px': '1200px',
-
     },
     maxWidth: {
       '1400px': '1400px',
       '1200px': '1200px',
       '1600px': '1600px',
-      '33': '33%',
-      '50': '50%',
-      '66': '66%',
+      33: '33%',
+      50: '50%',
+      66: '66%',
     },
     extend: {
       spacing: {
-        '0': '0',
-        '25': '25%',
-        '30': '30%',
-        '33': '33%',
-        '50': '50%',
-        '66': '66%',
-        '75': '75%',
-        '48px': "48px",
+        0: '0',
+        25: '25%',
+        30: '30%',
+        33: '33%',
+        50: '50%',
+        66: '66%',
+        75: '75%',
+        '48px': '48px',
         '50px': '50px',
         '100px': '100px',
         '240px': '240px',
@@ -47,16 +43,15 @@ module.exports = {
         '1200px': '1200px',
       },
       backgroundColor: theme => ({
-        'primary': '#010D41',
-        'secondary': '#ffed4a',
-        'danger': '#e3342f',
-        'sign': '#D130B3',
-        'border': '#3F62E4',
+        primary: '#010D41',
+        secondary: '#ffed4a',
+        danger: '#e3342f',
+        sign: '#D130B3',
+        border: '#3F62E4',
         'main-content': '#251F5E',
-        'creatCard': '#35296b'
+        creatCard: '#35296b',
       }),
-      backgroundImage: {
-      }
+      backgroundImage: {},
     },
   },
   variants: {
@@ -72,11 +67,10 @@ module.exports = {
       'dark',
       'forest',
       'synthwave',
-
     ],
     base: true,
     utils: true,
     logs: true,
     rtl: false,
   },
-}
+};
