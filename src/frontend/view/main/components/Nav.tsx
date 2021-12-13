@@ -32,7 +32,6 @@ const Nav = (prop: prop) => {
               <div className="flex items-center mb-8 justify-center w-240px h-48px bg-gradient">
                 <div className="flex items-center justify-center -ml-24">
                   <Avatar size={28} />
-
                   {/* <img src={item.url} alt="" /> */}
                   <span className="ml-3"> {item.text}</span>
                 </div>

@@ -22,7 +22,7 @@ const MainIndex = () => {
         <div>
           <Nav daoList={daoList} />
         </div>
-        <div className="mx-6 rounded-3xl bg-main-content flex-1 mb-5">
+        <div className="mx-6 min-w-1550px rounded-3xl bg-main-content flex-1 mb-5">
           <Daos />
           <DashBoard />
           <Wallet />

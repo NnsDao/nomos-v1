@@ -99,8 +99,10 @@ const Index = () => {
             ))}
           </div>
         </div>
-        <div className="w-full my-10">
-          <Card url="11" title={'title'} content={'daos daon dao dao dao '} number={'19899'} />
+        <div className="w-full my-10 ">
+          <div className='w-200px'>
+            <Card url="11" title={'title'} content={'daos daon dao dao dao '} number={'19899'} />
+          </div>
         </div>
       </div>
     </>

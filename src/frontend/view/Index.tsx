@@ -108,7 +108,7 @@ export default function index() {
   `;
   return (
     <>
-      <div className="w-full m-auto bg-primary pb-32">
+      <div className="w-full m-auto bg-primary ">
         <div className="p-6 sticky top-0 bg-primary z-10">
           <div className="flex justify-between items-center max-w-1400px m-auto">
             <div className={'flex jsutify-between items-center'}>
@@ -150,7 +150,7 @@ export default function index() {
                   }}
                   placeholder="input your want dao"
                 />
-                <span className={'absolute bottom-1 right-1 px-4 py-2 rounded  buttonGradient'}>Let's Go</span>
+                <span className={'absolute bottom-1 right-1 px-4 py-2 rounded  buttonGradient cursor-pointer'}>Let's Go</span>
               </div>
             </div>
           </div>

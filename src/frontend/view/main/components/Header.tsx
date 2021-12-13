@@ -12,7 +12,7 @@ const Header = () => {
             <img className="h-10 w-24" src={logo} alt="nnsdao logo" />
           </a>
         </div>
-        <div className={'relative'}>
+        <div className={'relative ml-32'}>
           <Input
             style={{ minWidth: '47%', width: '47vw', height: '48px', background: 'rgba(225, 225, 225, 0.13)', borderColor: '#3F62E4', textIndent: '50px', color: 'white', borderRadius: '26px' }}
             placeholder="input your want dao"

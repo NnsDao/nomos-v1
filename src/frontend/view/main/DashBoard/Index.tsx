@@ -68,7 +68,9 @@ const Index = () => {
           <div className="w-full  flex flex-wrap justify-start ">
             {cardList.map(item => (
               <div style={{ width: '25%' }}>
-                <Card isCreate={item.isCreated} url={item.url} title={item.title} content={item.content} number={item.number} />
+                <div className='w-200px'>
+                  <Card isCreate={item.isCreated} url={item.url} title={item.title} content={item.content} number={item.number} />
+                </div>
               </div>
             ))}
           </div>

@@ -17,15 +17,27 @@ type Prop = {
 const Card = (prop: Prop) => (
   // <div className={`card-wrapper`} style={{ width: '21%' }} >
 
-  <div className={`card-wrapper`}>
-    <div className=" w-full my-4 flex justify-between items-center ">
-      <div className=" flex justify-center items-center">{prop.isCreate ? <div className="w-4/5 flex justify-center items-center ">+</div> : <img src={patrick3} width={'80%'} alt="" />}</div>
+  <div className={`card-wrapper `}>
+    <div className='card'>
+      <div className=" w-full flex justify-center items-center ">
+        <div className=" flex justify-center items-center rounded-full  overflow-hidden relative z-1">
+          {prop.isCreate ?
+            <div className="w-140px h-140px flex justify-center items-center text-4xl">+</div> :
+            <div className='w-140px h-140px  mx-auto flex justify-center items-center  '>
+              <div className='w-140px h-140px '>
+                <img src={patrick3} alt="" width={'140px'} height={'140px'} />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      <div className="flex flex-col justify-between h-1/3">
+        <div className=" card-title ">{prop.title}</div>
+        <div className=" card-number ">{prop.number}</div>
+        {prop.isCreate ? <div className=" card-content ">{'Create DAOs'}</div> : <div className=" card-content ">{prop.content}</div>}
+      </div>
     </div>
-    <div className="flex flex-col justify-between h-1/3">
-      <div className=" card-title ">{prop.title}</div>
-      <div className=" card-number ">{prop.number}</div>
-      {prop.isCreate ? <div className=" card-content ">{'Create DAOs'}</div> : <div className=" card-content ">{prop.content}</div>}
-    </div>
+
   </div>
 );
 export default Card;
