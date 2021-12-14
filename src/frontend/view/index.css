@@ -1,5 +1,5 @@
 .home-bg {
-  background: center / cover url('../assets/home/bg.png') no-repeat;
+  background: border-box center / contain url('../assets/home/bg.png') no-repeat;
 }
 .avtive-work {
   background: url('../assets/home/active-work.png') no-repeat;
@@ -10,8 +10,7 @@
   background-size: 100% 100%;
 }
 .architecture {
-  background: url('../assets/home/Architecture.png') no-repeat;
-  background-size: 100% 100%;
+  background: border-box center / contain url('../assets/home/Architecture.png') no-repeat;
 }
 .DAOn {
   background: url('../assets/home/Architecture.png') no-repeat;
@@ -36,18 +35,12 @@ hr {
   color: rgba(255, 255, 255, 0.1);
 }
 .introduction-wrapper {
-  background: center / cover url('../assets/home/introduction.png') no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 1400px;
+  background: border-box center / contain url('../assets/home/introduction.png') no-repeat;
   color: #fff;
   margin-top: 105px;
 }
-.featuresList-item{
-  width: 29%;
-  padding: 50px 70px 110px 35px;
-  margin-right:  30px;
-  margin-bottom: 38px;
+.featuresList-item {
+  width: 208px;
+  min-height: 240px;
+  padding: 34px 22px;
 }

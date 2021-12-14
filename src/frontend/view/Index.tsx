@@ -107,8 +107,8 @@ export default function index() {
   return (
     <>
       <div className="w-full m-auto bg-primary ">
-        <div className="p-6 sticky top-0 bg-primary z-10">
-          <div className="flex justify-between items-center max-w-1400px m-auto">
+        <div className="p-4 sticky top-0 bg-primary z-10">
+          <div className="flex justify-between items-center max-w-1200px m-auto">
             <div className={'flex jsutify-between items-center'}>
               <div className=" flex  space-x-10 flex jsutify-between items-center ">
                 {linkList.map((item, index) => (
@@ -139,9 +139,9 @@ export default function index() {
             </Link>
           </div>
         </div>
-        <div className="w-screen h-screen home-bg ">
+        <div className="w-screen h-screen home-bg px-4">
           <div className="max-w-1200px flex flex-wrap  m-auto items-center pt-240px">
-            <div className={'flex min-w-1200px flex-col justify-content items-start text-white '}>
+            <div className={'flex flex-col justify-content items-start text-white '}>
               <span className={'text-4xl font-mono mb-4'}> Find Your </span>
               <span className={'text-4xl font-mono mb-4'}> Favourite </span>
               <span className={'text-4xl font-mono mb-4'}> DAOn or DAOs </span>
@@ -149,14 +149,13 @@ export default function index() {
               <div className={'relative'}>
                 <Input
                   style={{
-                    minWidth: '500px',
-                    width: '25vw',
+                    width: '306px',
                     height: '45px',
                     background: 'rgba(225, 225, 225, 0.13)',
                     borderColor: '#3F62E4',
                     color: 'white',
                   }}
-                  placeholder="input your want dao"
+                  placeholder="Enter your desired dao"
                 />
                 <Link to="/main">
                   <span className={'absolute bottom-1 right-1 px-4 py-2 rounded text-white  buttonGradient cursor-pointer'}>Let's Go</span>
@@ -166,10 +165,10 @@ export default function index() {
             </div>
           </div>
         </div>
-        <div className={'max-w-1200px mx-auto mt-200px flex flex-col justify-content items-start  text-white '}>
-          <span className={'text-4xl font-mono mb-4'}>Every DAOs is unique</span>
-          <span className={'text-base '}>Join different DAOn's to brainstorm and collide with your own DAOs</span>
-          <div className={'flex min-w-1200px flex justify-between mt-24'}>
+        <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
+          <div className="text-4xl font-mono mb-4">Every DAOs is unique</div>
+          <div className="text-base ">Join different DAOn's to brainstorm and collide with your own DAOs</div>
+          <div className="flex justify-between mt-24">
             {daoList.map(item => (
               <div key={item.url} className={'w-1/5 flex flex-col justify-content items-center transform hover:text-pink-400 hover:scale-125 transition duration-500  '}>
                 <div>
@@ -180,17 +179,23 @@ export default function index() {
             ))}
           </div>
         </div>
-        <div className={'max-w-1200px m-auto mt-200px flex flex-col justify-content items-start  text-white '}>
-          <span className={'text-4xl font-mono mb-4'}>Features</span>
-          <span className={'text-base '}>DAOs To Earn</span>
-          <div className={' w-full flex flex-wrap justify-between mt-24'}>
-            {featuresList.map((item, index) => (
-              <div
-                key={index}
-                style={{
-                  background: ' linear-gradient(180deg, #3A4FE7 0%, #C931B5 100%)',
-                }}
-                className={'  featuresList-item'}>
+        <div className="max-w-1200px m-auto mt-200px px-4 text-white ">
+          <div className="text-4xl font-mono mb-4">Features</div>
+          <div className="text-base ">DAOs To Earn</div>
+          <div className="flex mt-24 justify-evenly items-stretch flex-wrap">
+            {featuresList.slice(0, 3).map((item, index) => (
+              <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item mb-6">
+                <div className={'flex items-center '}>
+                  <img src={item.url} alt="" width={'29px'} height={'29px'} />
+                  <span className={'text-xl ml-2'}>{item.title}</span>
+                </div>
+                <div className={'mt-16 text-left'}>{item.text}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex mt-24 flex-wrap justify-evenly items-stretch">
+            {featuresList.slice(3).map((item, index) => (
+              <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item mb-6">
                 <div className={'flex items-center '}>
                   <img src={item.url} alt="" width={'29px'} height={'29px'} />
                   <span className={'text-xl ml-2'}>{item.title}</span>
@@ -200,11 +205,11 @@ export default function index() {
             ))}
           </div>
         </div>
-        <div id="WorkFlow" className={'max-w-1200px mx-auto mt-200px flex flex-col justify-center items-start  text-white '}>
-          <span className={'text-4xl font-mono mb-4'}>Work Flow</span>
-          <span className={'text-base '}>You can be a boss, you just work for yourself. </span>
-          <div className={' w-1200px h-500px flex flex-row justify-center items-center  my-24 '}>
-            <div className={'flex h-500px flex-col justify-around '}>
+        <div id="WorkFlow" className="max-w-1200px mx-auto mt-200px px-4 text-white ">
+          <div className="text-4xl font-mono mb-4">Work Flow</div>
+          <div className="text-base ">You can be a boss, you just work for yourself. </div>
+          <div className=" w-1200px h-500px flex flex-row justify-center items-center  my-24 ">
+            <div className="flex h-500px flex-col justify-around ">
               {workFlowList.map((item, index) => (
                 <div key={index} className={'ml-2 flex w-48 h-1/4 justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`} onClick={() => setWork(item.text)}>
                   <div className={'text-3xl '}>{item.text}</div>
@@ -217,7 +222,7 @@ export default function index() {
         </div>
         <div className={'max-w-1200px m-auto mt-140px flex flex-col justify-content items-start  text-white '}>
           <span className={'text-4xl font-mono mb-4'}>Virtual Reputation Governance</span>
-          <div className={' w-1200px flex flex-wrap justify-between my-24'}>
+          <div className={'flex flex-wrap justify-between my-24'}>
             <div className={'flex-grow h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'DAOn' : 'work'}`}></div>
           </div>
         </div>
