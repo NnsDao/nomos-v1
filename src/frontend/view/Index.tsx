@@ -13,6 +13,7 @@ import earth3 from '../assets/home/patrickearth_3.png';
 import earth9 from '../assets/home/patrickearth_9.png';
 import Roadmap from '../assets/home/Roadmap.png';
 import Statistic from '../assets/home/Statistic.png';
+import Footer from '../components/Footer'
 
 import './index.css';
 export default function index() {
@@ -124,7 +125,7 @@ export default function index() {
                         {item}
                       </span>
                     </a> :
-                    <Link to="/Story">
+                    <Link to="/story">
                       <span onClick={() => { setLink(item); }}
                         key={item} className={`px-3 py-2  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
                         {item}
@@ -238,10 +239,9 @@ export default function index() {
             </Collapse>
           </div>
         </div>
+        <Footer />
 
 
-        <div className='w-full h-px  bg-opacity-10 bg-white'></div>
-        <div className="w-1200px mx-auto my-7 text-left text-white pb-5 text-sl opacity-50">@ 2021, NnsDAO Labs</div>
 
       </div>
     </>

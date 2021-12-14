@@ -34,11 +34,7 @@
 hr {
   color: rgba(255, 255, 255, 0.1);
 }
-.introduction-wrapper {
-  background: border-box center / contain url('../assets/home/introduction.png') no-repeat;
-  color: #fff;
-  margin-top: 105px;
-}
+
 .featuresList-item {
   width: 208px;
   min-height: 240px;

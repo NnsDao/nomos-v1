@@ -17,7 +17,7 @@ const Nav = (prop: prop) => {
           </div>
         </div>
         <div className="mt-10 mb-20 justify-center w-240px h-48px">
-          <span className={' style-text -ml-16'}>ACCOUNT</span>
+          <span className={' style-text '}>ACCOUNT</span>
           <div className="flex items-center mt-9 justify-center w-240px h-48px bg-gradient">
             <div className="flex items-center justify-center -ml-28">
               <img src={wallet} alt="" />
@@ -26,7 +26,7 @@ const Nav = (prop: prop) => {
           </div>
         </div>
         <div className="mt-10">
-          <span className={' style-text -ml-28'}>DAOs</span>
+          <span className={' style-text '}>DAOs</span>
           <div className={' mt-9  justify-center w-240px h-48px'}>
             {prop.daoList.map(item => (
               <div className="flex items-center mb-8 justify-center w-240px h-48px bg-gradient">

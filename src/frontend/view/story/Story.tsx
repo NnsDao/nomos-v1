@@ -1,15 +1,11 @@
 import React from 'react';
-import marketplace from '../../assets/home/marketplace.png';
-import google from '../../assets/home/google.png';
-import window from '../../assets/home/window.png';
-import app from '../../assets/home/app.png';
-
-const Index = () => {
-    const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
+import Footer from '../../components/Footer'
+import './story.css'
+const Novel = () => {
     return (
         <>
-            <div>
-                <div className="introduction-wrapper ">
+            <div className=" bg-primary">
+                <div className="introduction-wrapper">
                     <div className="max-w-1200px m-auto flex flex-col justify-center items-center">
                         <div className="text-7xl mt-60 mb-100px max-w-900px">Introduction à la notion de grille</div>
                         <div className="min-w-1000px text-left mb-64 ">
@@ -28,24 +24,10 @@ const Index = () => {
                             <p className="mb-6">Les marges sont l'espace entre le contenu et les bords de l'écran. Elles aident à encadrer et à créer de l'espace autour du contenu :</p>
                         </div>
                     </div>
-
-                    <div className={'w-840px mx-auto flex justify-between items-start  text-white '}>
-                        <img src={marketplace} width={'135px'} height={'45px'} alt="" />
-                        <img src={window} width={'135px'} height={'45px'} alt="" />
-                        <img src={google} width={'135px'} height={'45px'} alt="" />
-                        <img src={app} width={'135px'} height={'45px'} alt="" />
-                    </div>
-                    <div className={'w-840px mx-auto mt-200px mb-4 flex justify-between items-start  text-white '}>
-
-                        <span className={inactiveClass}>Nomos</span>
-                        <span className={inactiveClass}>Story</span>
-                        <span className={inactiveClass}>VRG</span>
-                        <span className={inactiveClass}>Partners</span>
-                    </div>
-
+                    <Footer />
                 </div>
             </div>
         </>
     );
 };
-export default Index;
+export default Novel;
