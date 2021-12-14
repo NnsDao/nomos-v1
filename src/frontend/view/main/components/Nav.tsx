@@ -5,20 +5,22 @@ import wallet from '../../../assets/main/Wallet.png';
 import './nav.css';
 type prop = {
   daoList: Array<{ text?: string; url?: string }>;
+  active: string,
+  onClick: Function
 };
 const Nav = (prop: prop) => {
   return (
     <>
       <div className=" text-white flex flex-col items-center nav-wrapper  ">
-        <div className=" mt-1  flex items-center justify-center w-240px h-48px bg-gradient p-3 ">
+        <div onClick={() => prop.onClick('Dashboard')} className={`$mt-1  flex items-center justify-center w-240px h-48px cursor-pointer ${prop.active === 'Dashboard' ? 'bg-gradient' : ''}  p-3 `}>
           <div className="flex items-center justify-center -ml-20">
             <img src={dashboard} alt="" />
             <span className="ml-3 ">Dashboard</span>
           </div>
         </div>
-        <div className="mt-10 mb-20 justify-center w-240px h-48px">
+        <div onClick={() => prop.onClick('Wallet')} className="mt-10 mb-20 justify-center w-240px h-48px">
           <span className={' style-text '}>ACCOUNT</span>
-          <div className="flex items-center mt-9 justify-center w-240px h-48px bg-gradient">
+          <div className={`flex items-center mt-9 justify-center w-240px h-48px cursor-pointer ${prop.active === 'Wallet' ? 'bg-gradient' : ''}`}>
             <div className="flex items-center justify-center -ml-28">
               <img src={wallet} alt="" />
               <span className="ml-3">Wallet</span>
@@ -28,8 +30,8 @@ const Nav = (prop: prop) => {
         <div className="mt-10">
           <span className={' style-text '}>DAOs</span>
           <div className={' mt-9  justify-center w-240px h-48px'}>
-            {prop.daoList.map(item => (
-              <div className="flex items-center mb-8 justify-center w-240px h-48px bg-gradient">
+            {prop.daoList.map((item, index) => (
+              <div onClick={() => prop.onClick(item.text)} key={index} className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
                 <div className="flex items-center justify-center -ml-24">
                   <Avatar size={28} />
                   {/* <img src={item.url} alt="" /> */}

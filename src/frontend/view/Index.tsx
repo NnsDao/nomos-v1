@@ -1,5 +1,5 @@
 import { Collapse, Input, message } from 'antd';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer'
 
@@ -24,6 +24,7 @@ import state3 from '../assets/home/state3.png';
 import state4 from '../assets/home/state4.png';
 
 import './index.css';
+import ErrorBoundary from 'antd/lib/alert/ErrorBoundary';
 export default function index(prop: any) {
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
@@ -116,7 +117,14 @@ export default function index(prop: any) {
   const nnsdaoAddress = 'b42b8aa849ad9617b9dbb5080ffaa8e7cadd1e6b8dc6b7985c51512a02261944'
   const isLogin = window.isLogin
   let history = useHistory();
+  const goStory = () => {
+    console.log(111);
 
+    history.push('/story')
+  }
+  const goProduct = () => {
+    history.push('/product')
+  }
   const copyAddress = () => {
     if (isLogin) {
       navigator.clipboard.writeText(nnsdaoAddress)
@@ -125,7 +133,22 @@ export default function index(prop: any) {
       history.push('/login')
     }
   }
-  const currentContributes: number = 0
+  const [contributesImg, setContributesImg] = useState(state0);
+
+  const changeContributesImg = (currentContributes: number) => {
+    if (currentContributes > 0 && currentContributes < 0.25) {
+      setContributesImg(state1)
+    } else if (currentContributes >= 0.25 && currentContributes < 0.5) {
+      setContributesImg(state2)
+    } else if (currentContributes >= 0.5 && currentContributes < 0.75) {
+      setContributesImg(state3)
+    } else {
+      setContributesImg(state4)
+    }
+  }
+
+
+
   return (
     <>
       <div className="w-full m-auto bg-primary ">
@@ -139,19 +162,19 @@ export default function index(prop: any) {
                       key={item}
                       href={`#${item}`}
                       onClick={() => {
-                        setLink(item);
+                        setLink(item)
                       }}
                       className={`px-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
                       <span key={item} className={''}>
                         {item}
                       </span>
                     </a> :
-                    <Link to="/story">
-                      <span onClick={() => { setLink(item); }}
-                        key={item} className={`px-3 py-2  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
-                        {item}
-                      </span>
-                    </Link >
+                    <span onClick={() => {
+                      goStory()
+                    }}
+                      key={item} className={`px-3 py-2  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
+                      {item}
+                    </span>
                 ))}
               </div>
             </div>
@@ -190,22 +213,27 @@ export default function index(prop: any) {
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
           <div className="text-4xl font-mono mb-4">DAOs Fund</div>
           <div className="text-base mt-8">The DAO fund belongs to every user who contributes.</div>
-          <div className='mt-20 mb-10 '>
-            {
+          <div className=''>
+            <div className='mt-20 mb-10 '>
+              {
+                <img className='' src={contributesImg} alt="" width={'1235px'} height={'300px'} />
+              }
+            </div>
+            <div>
+              <p className='text-center mb-5 -ml-10'>
+                Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):
+              </p>
+              <div className='daos-address ' onClick={copyAddress}>
+                <span className={`mr-4  + ${isLogin ? '' : 'filter'}`}>{nnsdaoAddress}</span>
+                <img className='' src={copy} width={'19px'} height={'19px'} alt="" />
+              </div>
+            </div>
 
-              <img className='m-auto' src={state0} alt="" width={'1035px'} height={'300px'} />
-            }
           </div>
-          <p className='text-center'>
-            Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):
-          </p>
-          <div className='mx-auto daos-address ' onClick={copyAddress}>
-            <span className={`mr-4  + ${isLogin ? '' : 'filter'}`}>{nnsdaoAddress}</span>
-            <img className='' src={copy} width={'19px'} height={'19px'} alt="" />
-          </div>
+
           <div className='my-10'>
             <span className='mr-6'>Hotness data per phase</span>
-            <button className='rounded text-white px-5 py-2.5 buttonGradient cursor-pointer'>Contribute Detail</button>
+            <button onClick={() => goProduct()} className='rounded text-white px-5 py-2.5 buttonGradient cursor-pointer'>Contribute Detail</button>
           </div>
           <div> Canvas </div>
           <p className='mt-6 text-center ' >(6650,9674.804) indicates that 6650 ICPs are currently donated, and the calculated NDP cost price is 0.0009674804 ICP.</p>

@@ -3,8 +3,19 @@ import './login.css';
 import stoic from '../assets/login/stoic.png';
 import dfinity from '../assets/login/dfinity.png';
 import plug from '../assets/login/plug.png';
+import { useHistory } from 'react-router-dom';
 const Index = () => {
   window.isLogin = false
+  let history = useHistory();
+  const routerLink = (hash: string) => {
+    if (hash === 'Story') {
+      history.push('/story')
+    } else if (hash === 'Product') {
+      history.push('/product')
+    } else if (hash === 'Home') {
+      history.push('/home')
+    }
+  }
   return (
     <>
       <div className="login-wrapper">
@@ -23,9 +34,10 @@ const Index = () => {
         </div>
         <div className="login-right">
           <div className="login-link-wrapper">
-            <span>Story</span>
-            <span>Workflow</span>
-            <span>FAQs</span>
+
+            <span onClick={() => routerLink('Story')} className=' cursor-pointer '>Story</span>
+            <span onClick={() => routerLink('Product')} className=' cursor-pointer '>Product</span>
+            <span onClick={() => routerLink('Home')} className=' cursor-pointer '>Home</span>
           </div>
           <div className="login-function-wrapper">
             <div className="login-item login-item-stoic">
