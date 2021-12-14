@@ -72,7 +72,7 @@ export default function index(prop: any) {
     {
       url: Moon,
       title: 'Moon',
-      text: 'Whenever a project meets the moon landing plan and new milestone stages, a new flow pool is formed to give back to users who hold NDPs and virtual reputations.',
+      text: 'Whenever a project meets the moon landing plan and new milestone stages, a new flow pool is formed to give back to users who hodl NDPs and virtual reputations.',
     },
     {
       url: Holder,
@@ -97,16 +97,24 @@ export default function index(prop: any) {
   const { Panel } = Collapse;
   const faqList = [
     {
-      frequently: '1',
-      questions: '1',
+      frequently: 'What is NnsDAO Protocol?',
+      questions: 'NnsDAO is a boundaryless autonomous organization, which provides some basic modular programmable services for building the world of DAOn.',
     },
     {
-      frequently: '2',
-      questions: '2',
+      frequently: 'What is a DAO fund?',
+      questions: 'NnsDAO Fund is a DAO fund launched based on the protocol, it is a kind of investment DAO created through sponsorship, which allows users to have the right to manage, vote, and select DAOs, mainly layout IC ecological products and NnsDAO own ecological DAOs incubation, whenever new DAOs are created, they can be selected and voted to decide whether they are eligible for DAO Fund if they are eligible The project will be supported and the proceeds will be put into DAO fund, which always belongs to all the sponsored users.',
     },
     {
-      frequently: '3',
-      questions: '3',
+      frequently: 'What is Patrick Program?',
+      questions: 'Patrick is an activity initiated by NnsDAO. It is an initiative to set up DAOs through the coordination among users and become the founding members, to let the whole DAOs, DAOn working model get practice through different dApps and applications, and to let those who participate in the program get NDP rewards, so that more users can participate in the ecology through early incentives.',
+    },
+    {
+      frequently: 'What are the current DAOs?',
+      questions: 'Currently, we have created two independent organizations, Patrick DAOs and Japan Daos Association, and have reached an initial cooperation agreement. More and more DAOs will be built in the future, and when it reaches 10 DAOs or more, NnsDAO Protocol will start the master protocol, which is a model of governance, equity, reputation, etc. Eventually, it will completely have DAOs, DAOn within the community for governance and development.',
+    },
+    {
+      frequently: 'Why DAOn, DAOs can be split infinitely?',
+      questions: 'The DAO is not single, it is a DAO composed of multiple people collaborating and therefore defined as DAOs, you can learn by reading the NnsDAO whitepaper that each DAOs, DAOn has a cap on the number of people, when a DAOn, DAOs are infinitely scaled and growing, we may need to subdivide the responsibilities of each DAO more and therefore can decide by voting Whether to split this DAO (collection) to further form smaller organizations or called new DAOs.',
     },
   ];
   const text = `
@@ -302,7 +310,7 @@ export default function index(prop: any) {
         <div id="FAQs" className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
           <span className={'text-4xl font-mono mb-4'}>FAQs</span>
           <div className={' w-1200px flex flex-wrap justify-between my-24 text-white '}>
-            <Collapse defaultActiveKey={['1']} ghost accordion expandIconPosition={'right'}>
+            <Collapse defaultActiveKey={['0']} ghost accordion expandIconPosition={'right'}>
               {faqList.map((item, index) => (
                 <Panel header={item.frequently} key={index.toString()} forceRender={true}>
                   <p>{item.questions}</p>
