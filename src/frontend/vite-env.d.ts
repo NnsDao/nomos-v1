@@ -3,7 +3,9 @@ declare module '*.md' {
   const value: any;
   export default value;
 }
-
+interface Window {
+  isLogin: boolean;
+}
 declare module '*.md' {
   // "unknown" would be more detailed depends on how you structure frontmatter
   const attributes: Record<string, unknown>;

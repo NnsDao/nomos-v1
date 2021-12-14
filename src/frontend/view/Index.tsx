@@ -1,22 +1,30 @@
-import { Collapse, Input } from 'antd';
+import { Collapse, Input, message } from 'antd';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-// logo
+import { Link, useHistory } from 'react-router-dom';
+import Footer from '../components/Footer'
+
 import Collaboration from '../assets/home/Collaboration.png';
 import DAOs from '../assets/home/DAO.png';
-// dao img
 import Holder from '../assets/home/Holder.png';
 import Moon from '../assets/home/Moon.png';
+
 import earth1 from '../assets/home/patrickearth_1.png';
 import earth2 from '../assets/home/patrickearth_2.png';
 import earth3 from '../assets/home/patrickearth_3.png';
 import earth9 from '../assets/home/patrickearth_9.png';
+
 import Roadmap from '../assets/home/Roadmap.png';
 import Statistic from '../assets/home/Statistic.png';
-import Footer from '../components/Footer'
+import copy from '../assets/home/copy.png';
+
+import state0 from '../assets/home/state0.png';
+import state1 from '../assets/home/state1.png';
+import state2 from '../assets/home/state2.png';
+import state3 from '../assets/home/state3.png';
+import state4 from '../assets/home/state4.png';
 
 import './index.css';
-export default function index() {
+export default function index(prop: any) {
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
   const [link, setLink] = useState('');
@@ -105,6 +113,19 @@ export default function index() {
     Known for its loyalty and faithfulness,
     it can be found as a welcome guest in many households across the world.
   `;
+  const nnsdaoAddress = 'b42b8aa849ad9617b9dbb5080ffaa8e7cadd1e6b8dc6b7985c51512a02261944'
+  const isLogin = window.isLogin
+  let history = useHistory();
+
+  const copyAddress = () => {
+    if (isLogin) {
+      navigator.clipboard.writeText(nnsdaoAddress)
+      message.info("The account address has been copied to the clipboard");
+    } else {
+      history.push('/login')
+    }
+  }
+  const currentContributes: number = 0
   return (
     <>
       <div className="w-full m-auto bg-primary ">
@@ -167,6 +188,29 @@ export default function index() {
           </div>
         </div>
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
+          <div className="text-4xl font-mono mb-4">DAOs Fund</div>
+          <div className="text-base mt-8">The DAO fund belongs to every user who contributes.</div>
+          <div className='mt-20 mb-10 '>
+            {
+
+              <img className='m-auto' src={state0} alt="" width={'1035px'} height={'300px'} />
+            }
+          </div>
+          <p className='text-center'>
+            Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):
+          </p>
+          <div className='mx-auto daos-address ' onClick={copyAddress}>
+            <span className={`mr-4  + ${isLogin ? '' : 'filter'}`}>{nnsdaoAddress}</span>
+            <img className='' src={copy} width={'19px'} height={'19px'} alt="" />
+          </div>
+          <div className='my-10'>
+            <span className='mr-6'>Hotness data per phase</span>
+            <button className='rounded text-white px-5 py-2.5 buttonGradient cursor-pointer'>Contribute Detail</button>
+          </div>
+          <div> Canvas </div>
+          <p className='mt-6 text-center ' >(6650,9674.804) indicates that 6650 ICPs are currently donated, and the calculated NDP cost price is 0.0009674804 ICP.</p>
+        </div>
+        <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
           <div className="text-4xl font-mono mb-4">Every DAOs is unique</div>
           <div className="text-base ">Join different DAOn's to brainstorm and collide with your own DAOs</div>
           <div className="flex justify-between mt-24">
@@ -212,7 +256,7 @@ export default function index() {
           <div className=" w-1200px h-500px flex flex-row justify-center items-center  my-24 ">
             <div className="flex h-500px flex-col justify-around ">
               {workFlowList.map((item, index) => (
-                <div key={index} className={'ml-2 flex w-48 h-1/4 justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`} onClick={() => setWork(item.text)}>
+                <div key={index} className={'ml-2 flex w-150px h-91px justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`} onClick={() => setWork(item.text)}>
                   <div className={'text-3xl '}>{item.text}</div>
                 </div>
               ))}
@@ -221,13 +265,13 @@ export default function index() {
             <div className={'flex-grow h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'DAOn' : 'work'}`}></div>
           </div>
         </div>
-        <div className={'max-w-1200px m-auto mt-140px flex flex-col justify-content items-start  text-white '}>
+        <div className={'max-w-1200px m-auto mt-200px flex flex-col justify-content items-start  text-white '}>
           <span className={'text-4xl font-mono mb-4'}>Virtual Reputation Governance</span>
-          <div className={'flex flex-wrap justify-between my-24'}>
-            <div className={'flex-grow h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'DAOn' : 'work'}`}></div>
+          <div className={'mx-auto '}>
+            <div className={'flex-grow m-auto -ml-4 w-1000px  h-1000px reputation '}></div>
           </div>
         </div>
-        <div id="FAQs" className={'max-w-1200px m-auto mt-200px  flex flex-col justify-content items-start  text-white '}>
+        <div id="FAQs" className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
           <span className={'text-4xl font-mono mb-4'}>FAQs</span>
           <div className={' w-1200px flex flex-wrap justify-between my-24 text-white '}>
             <Collapse defaultActiveKey={['1']} ghost accordion expandIconPosition={'right'}>
@@ -240,9 +284,6 @@ export default function index() {
           </div>
         </div>
         <Footer />
-
-
-
       </div>
     </>
   );

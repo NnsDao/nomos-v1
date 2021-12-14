@@ -2,23 +2,22 @@
   background: border-box center / contain url('../assets/home/bg.png') no-repeat;
 }
 .avtive-work {
-  background: url('../assets/home/active-work.png') no-repeat;
-  background-size: 100% 100%;
+  background: border-box center / contain url('../assets/home/active-work.png') no-repeat;
 }
 .work-flow {
-  background: url('../assets/home/work-flow.png') no-repeat;
-  background-size: 100% 100%;
+  background: border-box center / contain url('../assets/home/work-flow.png') no-repeat;
 }
 .architecture {
-  background: border-box center / contain url('../assets/home/Architecture.png') no-repeat;
+  background: border-box center / contain url('../assets/home/architecture.png') no-repeat;
 }
 .DAOn {
-  background: url('../assets/home/Architecture.png') no-repeat;
-  background-size: 100% 100%;
+  background: border-box center / contain url('../assets/home/Architecture.png') no-repeat;
 }
 .work {
-  background: url('../assets/home/Architecture.png') no-repeat;
-  background-size: 100% 100%;
+  background: border-box center / contain url('../assets/home/Architecture.png') no-repeat;
+}
+.reputation {
+  background: border-box center / contain url('../assets/home/reputation.png') no-repeat;
 }
 .ant-collapse {
   width: 100% !important;
@@ -39,4 +38,21 @@ hr {
   width: 208px;
   min-height: 240px;
   padding: 34px 22px;
+}
+.daos-address{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1035px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 14px;
+  border: 1px solid #AAE563;
+  text-align: center;
+  color: #AAE563;
+  cursor: pointer;
+}
+.filter{
+  
+  filter: blur(2px);
 }

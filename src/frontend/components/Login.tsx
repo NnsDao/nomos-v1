@@ -4,6 +4,7 @@ import stoic from '../assets/login/stoic.png';
 import dfinity from '../assets/login/dfinity.png';
 import plug from '../assets/login/plug.png';
 const Index = () => {
+  window.isLogin = false
   return (
     <>
       <div className="login-wrapper">
