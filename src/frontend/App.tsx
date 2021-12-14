@@ -2,11 +2,12 @@ import 'antd/dist/antd.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { Intro } from "./view/Intro"
-import { About } from './view/About';
+// import { About } from './view/About';
 import Index from './view/Index';
 import Login from './view/Login';
 import Main from './view/main/MainIndex';
 import Product from './view/product/Index';
+import Story from './view/story/Story';
 
 function App() {
   return (
@@ -16,15 +17,15 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
+          <Route path="/story">
+            <Story />
+          </Route>
           <Route path="/product">
             <Product />
           </Route>
           <Route path="/main">
             <Main />
           </Route>
-          {/* <Route path="/about">
-            <About />
-          </Route> */}
           <Route path="/">
             <Index />
           </Route>

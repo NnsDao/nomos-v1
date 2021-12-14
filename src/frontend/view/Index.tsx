@@ -1,13 +1,11 @@
 import { Collapse, Input } from 'antd';
 import React, { useState } from 'react';
-import app from '../assets/home/app.png';
+import { Link } from 'react-router-dom';
 // logo
 import Collaboration from '../assets/home/Collaboration.png';
 import DAOs from '../assets/home/DAO.png';
 // dao img
-import google from '../assets/home/google.png';
 import Holder from '../assets/home/Holder.png';
-import marketplace from '../assets/home/marketplace.png';
 import Moon from '../assets/home/Moon.png';
 import earth1 from '../assets/home/patrickearth_1.png';
 import earth2 from '../assets/home/patrickearth_2.png';
@@ -15,12 +13,12 @@ import earth3 from '../assets/home/patrickearth_3.png';
 import earth9 from '../assets/home/patrickearth_9.png';
 import Roadmap from '../assets/home/Roadmap.png';
 import Statistic from '../assets/home/Statistic.png';
-import window from '../assets/home/window.png';
+
 import './index.css';
 export default function index() {
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
-  const [link, setLink] = useState('Story');
+  const [link, setLink] = useState('');
   const linkList = ['Story', 'WorkFlow', 'FAQs', 'NnsDAO'];
   const daoList = [
     {
@@ -112,23 +110,33 @@ export default function index() {
         <div className="p-6 sticky top-0 bg-primary z-10">
           <div className="flex justify-between items-center max-w-1400px m-auto">
             <div className={'flex jsutify-between items-center'}>
-              <div className=" flex  space-x-10">
+              <div className=" flex  space-x-10 flex jsutify-between items-center ">
                 {linkList.map((item, index) => (
-                  <a
-                    key={item}
-                    href={`#${item}`}
-                    onClick={() => {
-                      setLink(item);
-                    }}
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
-                    <span key={item} className={''}>
-                      {item}
-                    </span>
-                  </a>
+                  item !== "Story" ?
+                    <a
+                      key={item}
+                      href={`#${item}`}
+                      onClick={() => {
+                        setLink(item);
+                      }}
+                      className={`px-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
+                      <span key={item} className={''}>
+                        {item}
+                      </span>
+                    </a> :
+                    <Link to="/Story">
+                      <span onClick={() => { setLink(item); }}
+                        key={item} className={`px-3 py-2  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
+                        {item}
+                      </span>
+                    </Link >
                 ))}
               </div>
             </div>
-            <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
+            <Link to="/login">
+              <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
+
+            </Link>
           </div>
         </div>
         <div className="w-screen h-screen home-bg ">
@@ -150,7 +158,10 @@ export default function index() {
                   }}
                   placeholder="input your want dao"
                 />
-                <span className={'absolute bottom-1 right-1 px-4 py-2 rounded  buttonGradient cursor-pointer'}>Let's Go</span>
+                <Link to="/main">
+                  <span className={'absolute bottom-1 right-1 px-4 py-2 rounded text-white  buttonGradient cursor-pointer'}>Let's Go</span>
+                </Link>
+
               </div>
             </div>
           </div>
@@ -223,41 +234,7 @@ export default function index() {
           </div>
         </div>
 
-        <div className="introduction-wrapper ">
-          <div className="max-w-1200px m-auto flex flex-col justify-center items-center">
-            <div className="text-7xl mt-60 mb-100px max-w-900px">Introduction à la notion de grille</div>
-            <div className="min-w-1000px text-left mb-64 ">
-              <p className="mb-6">
-                Bien que les grilles proviennent des imprimés, elles trouvent leur application partout autour de nous, de l'architecture à l'ingénierie. Une grille bien conçue peut fournir une
-                structure et une cohérence, aider à mettre de l'ordre dans le chaos et créer une disposition plus harmonieuse. Les interfaces n'étant plus rigides, nos systèmes de grille ne le sont
-                plus également. Les grilles sont idéales pour concevoir des interfaces dynamiques au-delà d'un seul support ou d'une seule taille d'écran. De la plus petite à la plus grande, les
-                grilles vous couvrent.
-              </p>
-              <p className="mb-6">
-                Une grille se compose de trois éléments : des colonnes (ou lignes), des Espace intercolonnes (gutters) et des marges. Pour la mise en œuvre, il est préférable de définir chacun d'entre
-                eux à l'aide de pourcentages, plutôt que de valeurs fixes. Cela permettra au contenu de s'adapter dynamiquement à n'importe quelle taille d'écran. Les colonnes de la grille comportent
-                du contenu :
-              </p>
-              <p className="mb-6">Les Gutters ou Espace intercolonnes sont l'espace maintenu entre deux colonnes. Elles aident à séparer le contenu :</p>
-              <p className="mb-6">Les marges sont l'espace entre le contenu et les bords de l'écran. Elles aident à encadrer et à créer de l'espace autour du contenu :</p>
-            </div>
-          </div>
 
-          <div className={'w-840px mx-auto flex justify-between items-start  text-white '}>
-            <img src={marketplace} width={'135px'} height={'45px'} alt="" />
-            <img src={window} width={'135px'} height={'45px'} alt="" />
-            <img src={google} width={'135px'} height={'45px'} alt="" />
-            <img src={app} width={'135px'} height={'45px'} alt="" />
-          </div>
-          <div className={'w-840px mx-auto mt-200px mb-4 flex justify-between items-start  text-white '}>
-
-            <span className={inactiveClass}>Nomos</span>
-            <span className={inactiveClass}>Story</span>
-            <span className={inactiveClass}>VRG</span>
-            <span className={inactiveClass}>Partners</span>
-          </div>
-
-        </div>
         <div className='w-full h-px  bg-opacity-10 bg-white'></div>
         <div className="w-1200px mx-auto my-7 text-left text-white pb-5 text-sl opacity-50">@ 2021, NnsDAO Labs</div>
 
