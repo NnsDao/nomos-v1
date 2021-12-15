@@ -27,16 +27,33 @@ import './index.css';
 import { Post } from '../utils/http/index'
 export default function index(prop: any) {
   console.log(11)
-  Post({
-    url: '/api/block/search',
-    data: { 'recorde_addr': '9805ed18d7b85868894035e602e20faad616e3feeed61b5d87fa26f976b37387' }
-  }).then((response) => {
-    if (response) {
-      console.log(response);
-    } else {
-      return Promise.reject();
-    }
-  })
+  // Post({
+  //   url: '/api/block/search',
+  //   data: { 'recorde_addr': 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908' }
+  // }).then((response) => {
+  //   if (response) {
+  //     console.log(response);
+  //   } else {
+  //     return Promise.reject();
+  //   }
+  // })
+
+  const id = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908' ; 
+
+  const getDetail = async () => {
+    const res = await fetch(
+      `https://dapi.nnsdao.com/api/block/search?recorde_addr=`+id
+    ).then(rsp => rsp.json())
+
+      console.log(res.data,9099)
+  
+  }
+
+  getDetail();
+
+  
+
+
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
   const [link, setLink] = useState('');
@@ -165,6 +182,8 @@ export default function index(prop: any) {
       setContributesImg(state4)
     }
   }
+
+  
 
 
 

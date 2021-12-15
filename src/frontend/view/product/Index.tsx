@@ -187,7 +187,7 @@ const Index = () => {
             <span className="process-title">Product Process</span>
             <div>
               {ProcessList.map((item, index) => (
-                <div className="product-item">
+                <div className="product-item" key={index}>
                   <div>
                     <img src={item.imgs} className='opacity-50' alt="product-nnsdao" width={'224px'} height={'224px'} />
                   </div>

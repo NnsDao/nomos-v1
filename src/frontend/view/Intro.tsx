@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { counter } from 'canisters/counter';
 import { Auth } from './Auth';
-import logo from './assets/logo-dark.svg';
-import tailwindlogo from './assets/tailwindcss.svg';
+import logo from '../assets/logo-dark.svg';
+import tailwindlogo from '../assets/tailwindcss.svg';
 import { Link } from 'react-router-dom';
 import { StoicIdentity } from 'ic-stoic-identity';
 
