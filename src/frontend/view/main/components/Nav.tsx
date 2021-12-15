@@ -1,5 +1,6 @@
 import { Avatar } from 'antd';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import dashboard from '../../../assets/main/Dashboard.png';
 import wallet from '../../../assets/main/Wallet.png';
 import './nav.css';
@@ -7,7 +8,15 @@ type prop = {
   daoList: Array<{ text?: string; url?: string }>;
   active: string,
   onClick: Function
+
 };
+// let history = useHistory()
+// // console.log(history);
+
+// const logout = () => {
+//   window.localStorage.setItem('isLogin', '0')
+//   history.replace('/home')
+// }
 const Nav = (prop: prop) => {
   return (
     <>
@@ -49,7 +58,9 @@ const Nav = (prop: prop) => {
           <div className="ml-4">Create DAOn</div>
           <div className="ml-4 mb-6 text-left">Increase your speed with more members</div>
         </div>
-        <div className="logout -ml-24">
+        <div className="logout -ml-24 cursor-pointer" onClick={() => {
+          // logout()
+        }}>
           <span>Logout</span>
         </div>
       </div>

@@ -4,8 +4,8 @@ import stoic from '../assets/login/stoic.png';
 import dfinity from '../assets/login/dfinity.png';
 import plug from '../assets/login/plug.png';
 import { useHistory } from 'react-router-dom';
+import { StoicIdentity } from 'ic-stoic-identity';
 const Index = () => {
-  window.isLogin = false
   let history = useHistory();
   const routerLink = (hash: string) => {
     if (hash === 'Story') {
@@ -16,6 +16,21 @@ const Index = () => {
       history.push('/home')
     }
   }
+  const onStoic = async () => {
+    await StoicIdentity.load();
+    try {
+      let identity = await StoicIdentity.connect();
+      console.log(identity);
+      if (identity) {
+        window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText())
+        window.localStorage.setItem('isLogin', '1')
+        window.localStorage.setItem('logonTime', JSON.stringify(new Date().getTime()))
+        history.push('/home')
+      }
+    } catch (error) {
+      window.alert('log in was refused');
+    }
+  };
   return (
     <>
       <div className="login-wrapper">
@@ -40,7 +55,7 @@ const Index = () => {
             <span onClick={() => routerLink('Home')} className=' cursor-pointer '>Home</span>
           </div>
           <div className="login-function-wrapper">
-            <div className="login-item login-item-stoic">
+            <div className="login-item login-item-stoic" onClick={() => onStoic().then()}>
               <img src={stoic} alt="" />
               <span>Stoic Identity</span>
             </div>

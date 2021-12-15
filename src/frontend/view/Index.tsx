@@ -25,6 +25,8 @@ import state4 from '../assets/home/state4.png';
 
 import './index.css';
 export default function index(prop: any) {
+  const usePrincipal = window.localStorage.getItem('usePrincipal')
+  const isLogin: boolean = Boolean(Number((window.localStorage.getItem('isLogin'))))
 
   const contributesAdress = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
   const [totalContributes, setTotalContributes] = useState(14000 * 100000000)
@@ -131,7 +133,6 @@ export default function index(prop: any) {
     },
   ];
 
-  const isLogin = window.isLogin
   let history = useHistory();
   const goStory = () => {
     history.push('/story')
@@ -195,10 +196,16 @@ export default function index(prop: any) {
                 ))}
               </div>
             </div>
-            <Link to="/login">
-              <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
-
-            </Link>
+            {
+              isLogin ?
+                <Link to="/main">
+                  <div className={'w-500px h-10 leading-10 text-right text-white cursor-pointer'}>{usePrincipal?.slice(0, 20) + '...'}</div>
+                </Link>
+                :
+                <Link to="/login">
+                  <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
+                </Link>
+            }
           </div>
         </div>
         <div className="w-screen h-screen home-bg px-4">
@@ -222,7 +229,6 @@ export default function index(prop: any) {
                 <Link to="/main">
                   <span className={'absolute bottom-1 right-1 px-4 py-2 rounded text-white  buttonGradient cursor-pointer'}>Let's Go</span>
                 </Link>
-
               </div>
             </div>
           </div>

@@ -16,17 +16,14 @@ const MainIndex = () => {
     },
   ];
   const [active, setActive] = useState('Wallet')
+
   return (
     <div className={'bg-primary'}>
       <Header />
       <div className={'flex'}>
         <div>
           <Nav daoList={daoList} active={active} onClick={(val: string) => {
-            console.log(val,111);
-            
-
             setActive(val)
-            console.log(val,999);
           }} />
         </div>
         <div className="mx-6 min-w-1550px rounded-3xl bg-main-content flex-1 mb-5">
