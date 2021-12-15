@@ -24,35 +24,20 @@ import state3 from '../assets/home/state3.png';
 import state4 from '../assets/home/state4.png';
 
 import './index.css';
-import { Post } from '../utils/http/index'
 export default function index(prop: any) {
-  console.log(11)
-  // Post({
-  //   url: '/api/block/search',
-  //   data: { 'recorde_addr': 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908' }
-  // }).then((response) => {
-  //   if (response) {
-  //     console.log(response);
-  //   } else {
-  //     return Promise.reject();
-  //   }
-  // })
 
-  const id = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908' ; 
+  const contributesAdress = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
+  const [totalContributes, setTotalContributes] = useState(14000 * 100000000)
+  const [currentContributes, setCurrentContributes] = useState(0)
 
-  const getDetail = async () => {
+  const getCurrentContributes = async () => {
     const res = await fetch(
-      `https://dapi.nnsdao.com/api/block/search?recorde_addr=`+id
-    ).then(rsp => rsp.json())
-
-      console.log(res.data,9099)
-  
+      `https://dapi.nnsdao.com/api/block/search?recorde_addr=` + contributesAdress
+    ).then(res => res.json())
+    setCurrentContributes(res.data.Balance)
+    changeContributesImg(currentContributes / totalContributes)
   }
-
-  getDetail();
-
-  
-
+  getCurrentContributes();
 
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
@@ -145,17 +130,10 @@ export default function index(prop: any) {
       questions: 'The DAO is not single, it is a DAO composed of multiple people collaborating and therefore defined as DAOs, you can learn by reading the NnsDAO whitepaper that each DAOs, DAOn has a cap on the number of people, when a DAOn, DAOs are infinitely scaled and growing, we may need to subdivide the responsibilities of each DAO more and therefore can decide by voting Whether to split this DAO (collection) to further form smaller organizations or called new DAOs.',
     },
   ];
-  const text = `
-    A dog is a type of domesticated animal.
-    Known for its loyalty and faithfulness,
-    it can be found as a welcome guest in many households across the world.
-  `;
-  const nnsdaoAddress = 'b42b8aa849ad9617b9dbb5080ffaa8e7cadd1e6b8dc6b7985c51512a02261944'
+
   const isLogin = window.isLogin
   let history = useHistory();
   const goStory = () => {
-    console.log(111);
-
     history.push('/story')
   }
   const goProduct = () => {
@@ -163,28 +141,29 @@ export default function index(prop: any) {
   }
   const copyAddress = () => {
     if (isLogin) {
-      navigator.clipboard.writeText(nnsdaoAddress)
+      navigator.clipboard.writeText(contributesAdress)
       message.info("The account address has been copied to the clipboard");
     } else {
       history.push('/login')
     }
   }
+
   const [contributesImg, setContributesImg] = useState(state0);
 
   const changeContributesImg = (currentContributes: number) => {
-    if (currentContributes > 0 && currentContributes < 0.25) {
-      setContributesImg(state1)
-    } else if (currentContributes >= 0.25 && currentContributes < 0.5) {
-      setContributesImg(state2)
-    } else if (currentContributes >= 0.5 && currentContributes < 0.75) {
-      setContributesImg(state3)
-    } else {
+    if (currentContributes >= 1) {
       setContributesImg(state4)
+    } else if (currentContributes >= 0.75) {
+      setContributesImg(state3)
+    } else if (currentContributes >= 0.5) {
+      setContributesImg(state2)
+    } else if (currentContributes >= 0.25) {
+      setContributesImg(state1)
+    } else {
+      setContributesImg(state0)
+
     }
   }
-
-  
-
 
 
   return (
@@ -262,7 +241,7 @@ export default function index(prop: any) {
                 Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):
               </p>
               <div className='daos-address ' onClick={copyAddress}>
-                <span className={`mr-4  + ${isLogin ? '' : 'filter'}`}>{nnsdaoAddress}</span>
+                <span className={`mr-4  + ${isLogin ? '' : 'filter'}`}>{contributesAdress}</span>
                 <img className='' src={copy} width={'19px'} height={'19px'} alt="" />
               </div>
             </div>
