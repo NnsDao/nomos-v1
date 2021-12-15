@@ -39,7 +39,7 @@ const aliases = Object.entries(dfxJson.canisters).reduce(
 // This strange way of JSON.stringifying the value is required by vite
 const canisterDefinitions = Object.entries(canisterIds).reduce((acc, [key, val]) => ({
   ...acc,
-  
+
   [`process.env.${key.toUpperCase()}_CANISTER_ID`]: isDev ? JSON.stringify(val.local) : JSON.stringify(val.ic),
 }), {})
 
@@ -66,11 +66,17 @@ export default defineConfig({
     },
     proxy: {
       // This proxies all http requests made to /api to our running dfx instance
-      "/api": {
-        target: `http://localhost:${DFX_PORT}`,
+      // "/api": {
+      //   target: `http://localhost:${DFX_PORT}`,
+      //   changeOrigin: true,
+      //   rewrite: path => path.replace(/^\/api/, "/api"),
+      // },
+      '^/api': {
+        target: 'https://dapi.nnsdao.com/',
         changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, "/api"),
-      },
+        secure: false,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
     },
   },
   define: {
