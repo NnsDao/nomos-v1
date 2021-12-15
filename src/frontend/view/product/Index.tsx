@@ -108,8 +108,8 @@ const Index = () => {
               <div className="flex flex-col justify-start items-start mb-20px">
                 <span className="product-subheading">How do I get the Token after I contribute?</span>
                 <p>
-                If you participate in the contribution, then you can access Nomos wallet to claim the assets, after getting authorization you can see your balance on the wallet page, 
-                or you can use Stoicwallet to add Canister, then view the assets, transfer money, etc.
+                  If you participate in the contribution, then you can access Nomos wallet to claim the assets, after getting authorization you can see your balance on the wallet page,
+                  or you can use Stoicwallet to add Canister, then view the assets, transfer money, etc.
                 </p>
               </div>
 
@@ -128,7 +128,7 @@ const Index = () => {
             <div>
               {ProcessList.map((item, index) => (
                 <div className="product-item">
-                  <div>
+                  <div className=" flex justify-center items-center rounded-full  overflow-hidden relative z-1">
                     <img src={item.imgs} className='opacity-50' alt="product-nnsdao" width={'224px'} height={'224px'} />
                   </div>
                   <div style={{ fontSize: '42px', color: '#FFFFFF' }}>{item.name}</div>
