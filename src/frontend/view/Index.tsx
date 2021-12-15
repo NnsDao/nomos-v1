@@ -24,8 +24,19 @@ import state3 from '../assets/home/state3.png';
 import state4 from '../assets/home/state4.png';
 
 import './index.css';
-import ErrorBoundary from 'antd/lib/alert/ErrorBoundary';
+import { Post } from '../utils/http/index'
 export default function index(prop: any) {
+  console.log(11)
+  Post({
+    url: '/api/block/search',
+    data: { 'recorde_addr': '9805ed18d7b85868894035e602e20faad616e3feeed61b5d87fa26f976b37387' }
+  }).then((response) => {
+    if (response) {
+      console.log(response);
+    } else {
+      return Promise.reject();
+    }
+  })
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
   const [link, setLink] = useState('');
