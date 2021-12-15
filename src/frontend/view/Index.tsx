@@ -3,6 +3,8 @@ import React, { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer'
 
+import Neuron from '../assets/neuron.svg';
+
 import Collaboration from '../assets/home/Collaboration.png';
 import DAOs from '../assets/home/DAO.png';
 import Holder from '../assets/home/Holder.png';
@@ -44,7 +46,7 @@ export default function index(prop: any) {
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
   const [link, setLink] = useState('');
-  const linkList = ['Story', 'WorkFlow', 'FAQs', 'NnsDAO'];
+  const linkList = ['NnsDAO','Story', 'WorkFlow', 'FAQs'];
   const daoList = [
     {
       url: earth1,
@@ -173,7 +175,7 @@ export default function index(prop: any) {
         <div className="p-4 sticky top-0 bg-primary z-10">
           <div className="flex justify-between items-center max-w-1200px m-auto">
             <div className={'flex jsutify-between items-center'}>
-              <div className=" flex  space-x-10 flex jsutify-between items-center ">
+              <div className=" flex  space-x-10 jsutify-between items-center ">
                 {linkList.map((item, index) => (
                   item !== "Story" ?
                     <a
@@ -234,7 +236,9 @@ export default function index(prop: any) {
           </div>
         </div>
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
-          <div className="text-4xl font-mono mb-4">DAOs Fund</div>
+          <div className="text-4xl font-mono mb-4 flex">
+            DAOs Fund (<img src={Neuron} alt="" width={'45px'} height={'45px'} />,<img src={Neuron} alt="" width={'45px'} height={'45px'} /> )
+          </div>
           <div className="text-base mt-8">The DAO fund belongs to every user who contributes.</div>
           <div className=''>
             <div className='mt-20 mb-10 '>
