@@ -58,6 +58,7 @@ module.exports = {
         border: '#3F62E4',
         'main-content': '#251F5E',
         creatCard: '#35296b',
+        'subTitleColor':'#7aa9ff',
       }),
       backgroundImage: {},
     },

@@ -24,12 +24,22 @@
 }
 .product-title {
   margin-top: 200px;
-  margin-bottom: 160px;
+  margin-bottom: 109px;
   width: 100%;
   text-align: center;
   font-size: 68px;
   color: #ffffff;
   line-height: 78px;
+  letter-spacing: 1px;
+}
+.process-title {
+  margin-top: 209px;
+  margin-bottom: 126px;
+  width: 100%;
+  text-align: center;
+  font-size: 54px;
+  color: #ffffff;
+  line-height: 62px;
   letter-spacing: 1px;
 }
 .product-info {
@@ -38,11 +48,11 @@
   font-size: 18px;
 }
 .product-subheading {
-  font-size: 42px;
+  font-size: 34px;
   color: #7aa9ff;
   line-height: 48px;
   letter-spacing: 1px;
-  margin-bottom: 50px;
+  padding-bottom: 40px;
 }
 .product-item {
   width: 66.66vw;

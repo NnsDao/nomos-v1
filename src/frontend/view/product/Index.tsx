@@ -61,7 +61,7 @@ const Index = () => {
             <span className="product-title">Contribute Intro</span>
 
             <div className="product-info">
-              <div className="flex flex-col justify-start items-start mb-20px">
+              <div className="flex flex-col justify-start items-start mb-2">
                 <span className="product-subheading">What are the advantages of participating in the contribution?</span>
                 <p>
                   For the members who participate in the contribution, NnsDAO opens the community autonomy mode, after all the credits are obtained by
@@ -70,61 +70,121 @@ const Index = () => {
                   how to invest will be researched and decided by the community.The final investment will be decided by the community through research and voting.
                 </p>
               </div>
-              <div className="flex flex-col justify-start items-start mb-20px">
+              <div className="flex flex-col justify-start items-start mb-2 ">
                 <span className="product-subheading">How does it work?</span>
                 <p>
                   IC ecology's first DAO to issue token based on Canister smart contract, NDP determines the final issue price
                   through user contribution, and for the contributing users, we give the following rules:
                 </p>
-
                 <p>1.Each contribution from a single address cannot be less than 3 ICP.</p>
-
                 <p>2.A single contribution of more than 50 ICP can get part of the reputation value.</p>
-
                 <p>3.If you contribute more than 100 ICP to a single address, you will get priority access to the Genesis NFTs in the Universe.</p>
               </div>
 
-              <div className="flex flex-col justify-start items-start mb-20px">
-                <span className="product-subheading">What is the total amount of contribution this time?</span>
+              <div className="flex flex-col justify-start items-start mb-2">
+                <span className="text-subTitleColor font-bold text-2xl my-2">What is the total amount of contribution this time?</span>
                 <p>
                   The total number of NDPs issued is 100 million, and the maximum contribution activity is 16% of the total.
                 </p>
               </div>
 
-              <div className="flex flex-col justify-start items-start mb-20px">
-                <span className="product-subheading">What is the contract address of NDP?</span>
+              <div className="flex flex-col justify-start items-start mb-2">
+                <span className="text-subTitleColor font-bold text-2xl my-2">What is the contract address of NDP?</span>
                 <p>
                   Canister address, which can be viewed through icpscan.
                 </p>
               </div>
 
-              <div className="flex flex-col justify-start items-start mb-20px">
-                <span className="product-subheading">How is the issue price defined?</span>
+              <div className="flex flex-col justify-start items-start mb-2">
+                <span className="text-subTitleColor font-bold text-2xl my-2">How is the issue price defined?</span>
                 <p>
                   For the price, you can refer to the formula below, where we give the detailed calculation formula.
                 </p>
               </div>
 
-              <div className="flex flex-col justify-start items-start mb-20px">
-                <span className="product-subheading">How do I get the Token after I contribute?</span>
+              <div className="flex flex-col justify-start items-start mb-2">
+                <span className="text-subTitleColor font-bold text-2xl my-2">How do I get the Token after I contribute?</span>
                 <p>
-                If you participate in the contribution, then you can access Nomos wallet to claim the assets, after getting authorization you can see your balance on the wallet page, 
-                or you can use Stoicwallet to add Canister, then view the assets, transfer money, etc.
+                  If you participate in the contribution, then you can access Nomos wallet to claim the assets, after getting authorization you can see your balance on the wallet page,
+                  or you can use Stoicwallet to add Canister, then view the assets, transfer money, etc.
                 </p>
               </div>
 
-              <div className="flex flex-col justify-start items-start mb-20px">
-                <span className="product-subheading">Calculation formula</span>
+              {/* table */}
+              <div className="flex flex-col justify-start items-start mb-2">
+                <span className="text-subTitleColor font-bold text-2xl my-2 mb-2">Table Details</span>
                 <p>
-                  NnsDAO Labs defines this contribution model as a three-stage (multi-stage) inverse step curve
+                  NnsDAO Labs defines this contribution model as a three-stage (multi-stage) inverse step curve,
+                  the more total ICP contributed, the more NDPs will be received and the cheaper NDPs will be bought.
                 </p>
-                <p>The more total ICP contributed, the more NDPs will be received and the cheaper NDPs will be bought.</p>
-                <img src={contributeModel} alt="" width={'100%'} height={'100%'} />
+                <div className="shadow  rounded border-b border-gray-600 mt-3 mb-8">
+                  <table className="min-w-full bg-gray-700 table-fixed border-collapse">
+                    <thead className="bg-gray-800 text-white">
+                      <tr>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">Number of ICP contributions n</th>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">Real-time heat gradient t</th>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">Total NDP Token distribution s</th>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">NDP price p</th>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">Price range (ICP)</th>
+                      </tr>
+                    </thead>
+                  <tbody className="text-white">
+                    <tr>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">[0, 3000]</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">0</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">s = 1000 n</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">p = 0.001</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">0.001</td>
+                    </tr>
 
+                    <tr>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">[3000, 8000]</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">1</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">s = n / p</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">See the figure below and substitute it into the formula</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">0.0009632 - 0.001</td>
+                    </tr>
+
+                    <tr>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">[8000, 12000]</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">2</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">s = n / p</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">See the figure below and substitute it into the formula</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">0.0009570 - 0.0009501</td>
+                    </tr>
+
+
+                    <tr>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">[12000, 15000]</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">3</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">s = n / p</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">See the figure below and substitute it into the formula</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">0.0009439 - 0.0009412</td>
+                    </tr>
+
+
+                    <tr>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">[15000,N]</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">1</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">s = 16,000,000</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">p = 0.000</td>
+                      <td className="border border-white border-opacity-25 text-left py-3 px-4">0.0009375</td>
+                    </tr>
+                    
+                  </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+              <div className="flex flex-col justify-start items-start mb-5">
+                <span className="text-subTitleColor font-bold text-2xl my-2 mb-5">Calculation formula</span>
+                <img src={contributeModel} className=' opacity-70' alt="" width={'100%'} height={'100%'} />
               </div>
 
             </div>
-            <span className="product-title">Product Process</span>
+            {/* process */}
+            <span className="process-title">Product Process</span>
             <div>
               {ProcessList.map((item, index) => (
                 <div className="product-item">
