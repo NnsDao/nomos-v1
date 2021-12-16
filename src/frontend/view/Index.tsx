@@ -321,7 +321,7 @@ export default function index(prop: any) {
         <div id="WorkFlow" className="max-w-1200px mx-auto mt-200px px-4 text-white ">
           <div className="text-4xl font-mono mb-4">Work Flow</div>
           <div className="text-base ">You can be a boss, you just work for yourself. </div>
-          <div className=" w-1200px h-500px flex flex-row justify-center items-center  my-24 ">
+          <div className="h-500px flex flex-row justify-center items-center  my-24 ">
             <div className="flex h-500px flex-col justify-around ">
               {workFlowList.map((item, index) => (
                 <div key={index} className={'ml-2 flex w-150px h-91px justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`} onClick={() => setWork(item.text)}>
