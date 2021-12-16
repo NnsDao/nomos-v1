@@ -1,7 +1,9 @@
+import { Actor, HttpAgent } from '@dfinity/agent';
 import { Collapse, Input, message } from 'antd';
-import BigNumber from "bignumber.js";
+import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { idlFactory } from '../../declarations/ndp';
 import Collaboration from '../assets/home/Collaboration.png';
 import copy from '../assets/home/copy.png';
 import DAOs from '../assets/home/DAO.png';
@@ -21,17 +23,9 @@ import Statistic from '../assets/home/Statistic.png';
 import Neuron from '../assets/neuron.svg';
 import Footer from '../components/Footer';
 import './index.css';
-import { Actor, ActorSubclass, HttpAgent } from "@dfinity/agent";
-
-import { idlFactory } from "../../declarations/ndp";
-
-
 
 export default function index(prop: any) {
-
-
-  const NDP_TOKEN = "cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908";
-
+  const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
 
   const [count, setCount] = useState<string>();
 
@@ -40,11 +34,8 @@ export default function index(prop: any) {
     const nToken = Actor.createActor(idlFactory, { agent: new HttpAgent(), canisterId: canisterId });
     const okk: any = await nToken.minted();
 
-    console.log(new BigNumber(okk.toString())
-      .div(new BigNumber("100000000"))
-      .toString(), 7777)
-
-  }
+    console.log(new BigNumber(okk.toString()).div(new BigNumber('100000000')).toString(), 7777);
+  };
 
   getData();
 
@@ -339,7 +330,7 @@ export default function index(prop: any) {
               ))}
             </div>
 
-            <div className={'flex-grow w-500px h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'daon' : work === 'Work'? 'work' : 'daos' }`}></div>
+            <div className={'flex-grow w-500px h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'daon' : work === 'Work' ? 'work' : 'daos'}`}></div>
           </div>
         </div>
         <div className={'max-w-1200px m-auto mt-200px flex flex-col justify-content items-start  text-white '}>
@@ -350,7 +341,7 @@ export default function index(prop: any) {
         </div>
         <div id="FAQs" className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
           <span className={'text-4xl font-mono mb-4'}>FAQs</span>
-          <div className={' w-1200px flex flex-wrap justify-between my-24 text-white '}>
+          <div className={'flex flex-wrap justify-between my-24 text-white '}>
             <Collapse defaultActiveKey={['0']} ghost accordion expandIconPosition={'right'}>
               {faqList.map((item, index) => (
                 <Panel header={item.frequently} key={index.toString()} forceRender={true}>
