@@ -1,52 +1,45 @@
 import { Collapse, Input, message } from 'antd';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Footer from '../components/Footer'
-
-import Neuron from '../assets/neuron.svg';
-
 import Collaboration from '../assets/home/Collaboration.png';
+import copy from '../assets/home/copy.png';
 import DAOs from '../assets/home/DAO.png';
 import Holder from '../assets/home/Holder.png';
 import Moon from '../assets/home/Moon.png';
-
 import earth1 from '../assets/home/patrickearth_1.png';
 import earth2 from '../assets/home/patrickearth_2.png';
 import earth3 from '../assets/home/patrickearth_3.png';
 import earth9 from '../assets/home/patrickearth_9.png';
-
 import Roadmap from '../assets/home/Roadmap.png';
-import Statistic from '../assets/home/Statistic.png';
-import copy from '../assets/home/copy.png';
-
 import state0 from '../assets/home/state0.png';
 import state1 from '../assets/home/state1.png';
 import state2 from '../assets/home/state2.png';
 import state3 from '../assets/home/state3.png';
 import state4 from '../assets/home/state4.png';
-
+import Statistic from '../assets/home/Statistic.png';
+import Neuron from '../assets/neuron.svg';
+import Footer from '../components/Footer';
 import './index.css';
+
 export default function index(prop: any) {
-  const usePrincipal = window.localStorage.getItem('usePrincipal')
-  const isLogin: boolean = Boolean(Number((window.localStorage.getItem('isLogin'))))
+  const usePrincipal = window.localStorage.getItem('usePrincipal');
+  const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 
   const contributesAdress = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
-  const [totalContributes, setTotalContributes] = useState(14000 * 100000000)
-  const [currentContributes, setCurrentContributes] = useState(0)
+  const [totalContributes, setTotalContributes] = useState(14000 * 100000000);
+  const [currentContributes, setCurrentContributes] = useState(0);
 
   const getCurrentContributes = async () => {
-    const res = await fetch(
-      `https://dapi.nnsdao.com/api/block/search?recorde_addr=` + contributesAdress
-    ).then(res => res.json())
-    setCurrentContributes(res.data.Balance)
-    changeContributesImg(currentContributes / totalContributes)
-  }
+    const res = await fetch('https://dapi.nnsdao.com/api/block/search?recorde_addr=' + contributesAdress).then(res => res.json());
+    setCurrentContributes(res.data.Balance);
+    changeContributesImg(currentContributes / totalContributes);
+  };
   getCurrentContributes();
 
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
   const [link, setLink] = useState('');
-  const linkList = ['NnsDAO','Story', 'WorkFlow', 'FAQs'];
+  const linkList = ['NnsDAO', 'Story', 'WorkFlow', 'FAQs'];
   const daoList = [
     {
       url: earth1,
@@ -119,55 +112,57 @@ export default function index(prop: any) {
     },
     {
       frequently: 'What is a DAO fund?',
-      questions: 'NnsDAO Fund is a DAO fund launched based on the protocol, it is a kind of investment DAO created through sponsorship, which allows users to have the right to manage, vote, and select DAOs, mainly layout IC ecological products and NnsDAO own ecological DAOs incubation, whenever new DAOs are created, they can be selected and voted to decide whether they are eligible for DAO Fund if they are eligible The project will be supported and the proceeds will be put into DAO fund, which always belongs to all the sponsored users.',
+      questions:
+        'NnsDAO Fund is a DAO fund launched based on the protocol, it is a kind of investment DAO created through sponsorship, which allows users to have the right to manage, vote, and select DAOs, mainly layout IC ecological products and NnsDAO own ecological DAOs incubation, whenever new DAOs are created, they can be selected and voted to decide whether they are eligible for DAO Fund if they are eligible The project will be supported and the proceeds will be put into DAO fund, which always belongs to all the sponsored users.',
     },
     {
       frequently: 'What is Patrick Program?',
-      questions: 'Patrick is an activity initiated by NnsDAO. It is an initiative to set up DAOs through the coordination among users and become the founding members, to let the whole DAOs, DAOn working model get practice through different dApps and applications, and to let those who participate in the program get NDP rewards, so that more users can participate in the ecology through early incentives.',
+      questions:
+        'Patrick is an activity initiated by NnsDAO. It is an initiative to set up DAOs through the coordination among users and become the founding members, to let the whole DAOs, DAOn working model get practice through different dApps and applications, and to let those who participate in the program get NDP rewards, so that more users can participate in the ecology through early incentives.',
     },
     {
       frequently: 'What are the current DAOs?',
-      questions: 'Currently, we have created two independent organizations, Patrick DAOs and Japan Daos Association, and have reached an initial cooperation agreement. More and more DAOs will be built in the future, and when it reaches 10 DAOs or more, NnsDAO Protocol will start the master protocol, which is a model of governance, equity, reputation, etc. Eventually, it will completely have DAOs, DAOn within the community for governance and development.',
+      questions:
+        'Currently, we have created two independent organizations, Patrick DAOs and Japan Daos Association, and have reached an initial cooperation agreement. More and more DAOs will be built in the future, and when it reaches 10 DAOs or more, NnsDAO Protocol will start the master protocol, which is a model of governance, equity, reputation, etc. Eventually, it will completely have DAOs, DAOn within the community for governance and development.',
     },
     {
       frequently: 'Why DAOn, DAOs can be split infinitely?',
-      questions: 'The DAO is not single, it is a DAO composed of multiple people collaborating and therefore defined as DAOs, you can learn by reading the NnsDAO whitepaper that each DAOs, DAOn has a cap on the number of people, when a DAOn, DAOs are infinitely scaled and growing, we may need to subdivide the responsibilities of each DAO more and therefore can decide by voting Whether to split this DAO (collection) to further form smaller organizations or called new DAOs.',
+      questions:
+        'The DAO is not single, it is a DAO composed of multiple people collaborating and therefore defined as DAOs, you can learn by reading the NnsDAO whitepaper that each DAOs, DAOn has a cap on the number of people, when a DAOn, DAOs are infinitely scaled and growing, we may need to subdivide the responsibilities of each DAO more and therefore can decide by voting Whether to split this DAO (collection) to further form smaller organizations or called new DAOs.',
     },
   ];
 
-  let history = useHistory();
+  const history = useHistory();
   const goStory = () => {
-    history.push('/story')
-  }
+    history.push('/story');
+  };
   const goProduct = () => {
-    history.push('/product')
-  }
+    history.push('/product');
+  };
   const copyAddress = () => {
     if (isLogin) {
-      navigator.clipboard.writeText(contributesAdress)
-      message.info("The account address has been copied to the clipboard");
+      navigator.clipboard.writeText(contributesAdress);
+      message.info('The account address has been copied to the clipboard');
     } else {
-      history.push('/login')
+      history.push('/login');
     }
-  }
+  };
 
   const [contributesImg, setContributesImg] = useState(state0);
 
   const changeContributesImg = (currentContributes: number) => {
     if (currentContributes >= 1) {
-      setContributesImg(state4)
+      setContributesImg(state4);
     } else if (currentContributes >= 0.75) {
-      setContributesImg(state3)
+      setContributesImg(state3);
     } else if (currentContributes >= 0.5) {
-      setContributesImg(state2)
+      setContributesImg(state2);
     } else if (currentContributes >= 0.25) {
-      setContributesImg(state1)
+      setContributesImg(state1);
     } else {
-      setContributesImg(state0)
-
+      setContributesImg(state0);
     }
-  }
-
+  };
 
   return (
     <>
@@ -176,42 +171,45 @@ export default function index(prop: any) {
           <div className="flex justify-between items-center max-w-1200px m-auto">
             <div className={'flex jsutify-between items-center'}>
               <div className=" flex  space-x-10 jsutify-between items-center ">
-                {linkList.map((item, index) => (
-                  item !== "Story" ?
+                {linkList.map((item, index) =>
+                  item !== 'Story' ? (
                     <a
                       key={item}
                       href={`#${item}`}
                       onClick={() => {
-                        setLink(item)
+                        setLink(item);
                       }}
                       className={`px-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
                       <span key={item} className={''}>
                         {item}
                       </span>
-                    </a> :
-                    <span onClick={() => {
-                      goStory()
-                    }}
-                      key={item} className={`px-3 py-2  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
+                    </a>
+                  ) : (
+                    <span
+                      onClick={() => {
+                        goStory();
+                      }}
+                      key={item}
+                      className={`px-3 py-2  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
                       {item}
                     </span>
-                ))}
+                  )
+                )}
               </div>
             </div>
-            {
-              isLogin ?
-                <Link to="/main">
-                  <div className={'w-500px h-10 leading-10 text-right text-white cursor-pointer'}>{usePrincipal?.slice(0, 20) + '...'}</div>
-                </Link>
-                :
-                <Link to="/login">
-                  <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
-                </Link>
-            }
+            {isLogin ? (
+              <Link to="/main">
+                <div className={'w-500px h-10 leading-10 text-right text-white cursor-pointer'}>{usePrincipal?.slice(0, 20) + '...'}</div>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
+              </Link>
+            )}
           </div>
         </div>
         <div className="w-screen h-screen home-bg px-4">
-          <div className="max-w-1200px flex flex-wrap  m-auto items-center pt-240px">
+          <div className="max-w-1200px m-auto pl-24 pt-240px">
             <div className={'flex flex-col justify-content items-start text-white '}>
               <span className={'text-4xl font-mono mb-4'}> Find Your </span>
               <span className={'text-4xl font-mono mb-4'}> Favourite </span>
@@ -240,30 +238,25 @@ export default function index(prop: any) {
             DAOs Fund (<img src={Neuron} alt="" width={'45px'} height={'45px'} />,<img src={Neuron} alt="" width={'45px'} height={'45px'} /> )
           </div>
           <div className="text-base mt-8">The DAO fund belongs to every user who contributes.</div>
-          <div className=''>
-            <div className='mt-20 mb-10 '>
-              {
-                <img className='' src={contributesImg} alt="" width={'1235px'} height={'300px'} />
-              }
-            </div>
+          <div className="">
+            <div className="mt-20 mb-10 ">{<img className="" src={contributesImg} alt="" width={'1235px'} height={'300px'} />}</div>
             <div>
-              <p className='text-center mb-5 -ml-10'>
-                Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):
-              </p>
-              <div className='daos-address ' onClick={copyAddress}>
+              <p className="text-center mb-5 -ml-10">Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):</p>
+              <div className="daos-address " onClick={copyAddress}>
                 <span className={`mr-4  + ${isLogin ? '' : 'filter'}`}>{contributesAdress}</span>
-                <img className='' src={copy} width={'19px'} height={'19px'} alt="" />
+                <img className="" src={copy} width={'19px'} height={'19px'} alt="" />
               </div>
             </div>
-
           </div>
 
-          <div className='my-10'>
-            <span className='mr-6'>Hotness data per phase</span>
-            <button onClick={() => goProduct()} className='rounded text-white px-5 py-2.5 buttonGradient cursor-pointer'>Contribute Detail</button>
+          <div className="my-10">
+            <span className="mr-6">Hotness data per phase</span>
+            <button onClick={() => goProduct()} className="rounded text-white px-5 py-2.5 buttonGradient cursor-pointer">
+              Contribute Detail
+            </button>
           </div>
           <div> Canvas </div>
-          <p className='mt-6 text-center ' >(6650,9674.804) indicates that 6650 ICPs are currently donated, and the calculated NDP cost price is 0.0009674804 ICP.</p>
+          <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently donated, and the calculated NDP cost price is 0.0009674804 ICP.</p>
         </div>
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
           <div className="text-4xl font-mono mb-4">Every DAOs is unique</div>
