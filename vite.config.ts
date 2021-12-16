@@ -22,7 +22,7 @@ const aliases = Object.entries(dfxJson.canisters).reduce((acc, [name, _value]) =
 
   return {
     ...acc,
-    ['canisters/' + name]: path.join(outputRoot, 'index' + '.js'),
+    ['canisters/' + name]: path.join(outputRoot, 'index.js'),
   };
 }, {});
 
