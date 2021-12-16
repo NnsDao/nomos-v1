@@ -7,7 +7,7 @@ import './nav.css';
 type prop = {
   daoList: Array<{ text?: string; url?: string }>;
   active: string;
-  onClick: (key?: string) => void;
+  onClick: (key: string) => void;
 };
 // let history = useHistory()
 // // console.log(history);
@@ -41,7 +41,7 @@ const Nav = (prop: prop) => {
           <div className={' mt-9  justify-center w-240px h-48px'}>
             {prop.daoList.map((item, index) => (
               <div
-                onClick={() => prop.onClick(item.text)}
+                onClick={() => prop.onClick(item.text as string)}
                 key={index}
                 className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
                 <div className="flex items-center justify-center -ml-24">
