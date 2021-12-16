@@ -60,17 +60,22 @@ export default defineConfig({
     },
     proxy: {
       // This proxies all http requests made to /api to our running dfx instance
-      // "/api": {
+      // '/api': {
       //   target: `http://localhost:${DFX_PORT}`,
       //   changeOrigin: true,
-      //   rewrite: path => path.replace(/^\/api/, "/api"),
+      //   rewrite: path => path.replace(/^\/api/, '/api'),
       // },
-      '^/api': {
-        target: 'https://dapi.nnsdao.com/',
+      '/api/v2': {
+        target: 'https://ic0.app',
         changeOrigin: true,
-        secure: false,
-        rewrite: path => path.replace(/^\/api/, ''),
+        rewrite: path => path.replace(/^api\//, '/api/v2/canister'),
       },
+      // '^/api': {
+      //   target: 'https://dapi.nnsdao.com/',
+      //   changeOrigin: true,
+      //   secure: false,
+      //   rewrite: path => path.replace(/^\/api/, ''),
+      // },
     },
   },
   define: {

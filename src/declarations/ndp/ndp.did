@@ -1,0 +1,169 @@
+type User = 
+ variant {
+   address: AccountIdentifier;
+   "principal": principal;
+ };
+type TransferResult = 
+ variant {
+   Err: TransferError;
+   Ok: BlockIndex;
+ };
+type TransferResponse = 
+ variant {
+   err:
+    variant {
+      CannotNotify: AccountIdentifier;
+      InsufficientBalance;
+      InvalidToken: TokenIdentifier;
+      Other: text;
+      Rejected;
+      Unauthorized: AccountIdentifier;
+    };
+   ok: Balance;
+ };
+type TransferRequest = 
+ record {
+   amount: Balance;
+   from: User;
+   memo: Memo;
+   notify: bool;
+   subaccount: opt SubAccount;
+   to: User;
+   token: TokenIdentifier;
+ };
+type TransferError = 
+ variant {
+   BadFee: record {expected_fee: NDP;};
+   InsufficientFunds: record {balance: NDP;};
+   TxCreatedInFuture;
+   TxDuplicate: record {duplicate_of: BlockIndex;};
+   TxTooOld: record {allowed_window_nanos: nat64;};
+ };
+type Transaction = 
+ record {
+   blockHeight: BlockHeight;
+   caller: AccountIdentifier__1;
+   created_at_time: Timestamp;
+   memo: Memo__1;
+   operation: Operation;
+ };
+type TokenIdentifier = text;
+type Timestamp = record {timestamp_nanos: nat64;};
+type SubAccount = vec nat8;
+type Result_2 = 
+ variant {
+   err: text;
+   ok: bool;
+ };
+type Result_1 = 
+ variant {
+   err: CommonError;
+   ok: Metadata;
+ };
+type Result = 
+ variant {
+   err: CommonError;
+   ok: Balance;
+ };
+type Operation = 
+ variant {
+   Burn: record {
+           amount: record {e8s: nat;};
+           from: AccountIdentifier__1;
+         };
+   Mint: record {
+           amount: record {e8s: nat;};
+           to: AccountIdentifier__1;
+         };
+   Transfer:
+    record {
+      amount: record {e8s: nat;};
+      fee: nat;
+      from: AccountIdentifier__1;
+      to: AccountIdentifier__1;
+    };
+ };
+type NDPTest = 
+ service {
+   TT: (nat64, text) -> (TransferResult);
+   addClaim: (text, nat) -> (Result_2);
+   addOwner: (principal) -> (Result_2) query;
+   allBalances: () -> (vec record {
+                             text;
+                             Balance;
+                           }) query;
+   approve: () -> (NDPInfo);
+   balance: (BalanceRequest) -> (BalanceResponse) query;
+   claim: () -> (Result_2);
+   delOwner: (principal) -> (Result_2);
+   extensions: () -> (vec Extension) query;
+   getAccountId: () -> (text) query;
+   http_request: () -> (HttpResponse) query;
+   metadata: (TokenIdentifier) -> (Result_1) query;
+   mint: (text, Balance) -> (bool);
+   minted: () -> (Balance) query;
+   owner: () -> (vec record {
+                       principal;
+                       nat64;
+                     }) query;
+   supply: (TokenIdentifier) -> (Result) query;
+   transactionRecord: () -> (List) query;
+   transfer: (TransferRequest) -> (TransferResponse);
+ };
+type NDPInfo = 
+ record {
+   balance: nat;
+   claim: nat;
+ };
+type NDP = record {e8s: nat64;};
+type Metadata = 
+ variant {
+   fungible:
+    record {
+      decimals: nat8;
+      metadata: opt blob;
+      name: text;
+      symbol: text;
+    };
+   nonfungible: record {metadata: opt blob;};
+ };
+type Memo__1 = nat64;
+type Memo = blob;
+type List = 
+ opt record {
+       Transaction;
+       List;
+     };
+type HttpResponse = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   status_code: nat16;
+ };
+type HeaderField = 
+ record {
+   text;
+   text;
+ };
+type Extension = text;
+type CommonError = 
+ variant {
+   InvalidToken: TokenIdentifier;
+   Other: text;
+ };
+type BlockIndex = nat64;
+type BlockHeight = nat64;
+type BalanceResponse = 
+ variant {
+   err: CommonError;
+   ok: Balance;
+ };
+type BalanceRequest = 
+ record {
+   token: TokenIdentifier;
+   user: User;
+ };
+type Balance = nat;
+type AccountIdentifier__1 = text;
+type AccountIdentifier = text;
+service : () -> NDPTest
