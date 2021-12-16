@@ -61,6 +61,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .login-item-stoic {
   background: #217b7e;

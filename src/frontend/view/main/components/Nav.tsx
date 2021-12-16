@@ -9,9 +9,7 @@ type prop = {
   active: string;
   onClick: (key: string) => void;
 };
-// let history = useHistory()
-// // console.log(history);
-
+const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 const Nav = (prop: prop) => {
   const history = useHistory();
   const logout = () => {
@@ -21,10 +19,10 @@ const Nav = (prop: prop) => {
   return (
     <>
       <div className=" text-white flex flex-col items-center nav-wrapper  ">
-        <div onClick={() => prop.onClick('Dashboard')} className={`$mt-1  flex items-center justify-center w-240px h-48px cursor-pointer ${prop.active === 'Dashboard' ? 'bg-gradient' : ''}  p-3 `}>
+        <div onClick={() => prop.onClick('DashBoard')} className={`$mt-1  flex items-center justify-center w-240px h-48px cursor-pointer ${prop.active === 'DashBoard' ? 'bg-gradient' : ''}  p-3 `}>
           <div className="flex items-center justify-center -ml-20">
             <img src={dashboard} alt="" />
-            <span className="ml-3 ">Dashboard</span>
+            <span className="ml-3 ">DashBoard</span>
           </div>
         </div>
         <div onClick={() => prop.onClick('Wallet')} className="mt-10 mb-20 justify-center w-240px h-48px">
@@ -61,13 +59,16 @@ const Nav = (prop: prop) => {
           <div className="ml-4">Create DAOn</div>
           <div className="ml-4 mb-6 text-left">Increase your speed with more members</div>
         </div>
-        <div
-          className="logout -ml-24 cursor-pointer"
-          onClick={() => {
-            logout();
-          }}>
-          <span>Logout</span>
-        </div>
+        {
+          isLogin ?        
+          <div className="logout -ml-24 cursor-pointer"
+            onClick={() => {
+             logout();
+            }}>
+            <span>Logout</span>
+          </div>
+          :''
+        }
       </div>
     </>
   );

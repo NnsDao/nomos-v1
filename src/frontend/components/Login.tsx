@@ -20,11 +20,10 @@ const Index = () => {
     await StoicIdentity.load();
     try {
       let identity = await StoicIdentity.connect();
-      console.log(identity);
       if (identity) {
         window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText())
         window.localStorage.setItem('isLogin', '1')
-        window.localStorage.setItem('logonTime', JSON.stringify(new Date().getTime()))
+        window.localStorage.setItem('logonTime', new Date().getTime() + '')
         history.push('/home')
       }
     } catch (error) {
@@ -49,7 +48,6 @@ const Index = () => {
         </div>
         <div className="login-right">
           <div className="login-link-wrapper">
-
             <span onClick={() => routerLink('Story')} className=' cursor-pointer '>Story</span>
             <span onClick={() => routerLink('Product')} className=' cursor-pointer '>Product</span>
             <span onClick={() => routerLink('Home')} className=' cursor-pointer '>Home</span>

@@ -32,8 +32,10 @@ const MainIndex = () => {
         </div>
         <div className="mx-6 min-w-1550px rounded-3xl bg-main-content flex-1 mb-5">
           {active === 'Patrick' ? <Daos /> : ''}
-          {active === 'Japan' ? <DashBoard /> : ''}
+          {active === 'Japan' ? <Daos /> : ''}
+          {active === 'DashBoard' ? <DashBoard /> : ''}
           {active === 'Wallet' ? <Wallet /> : ''}
+          
         </div>
       </div>
       <div className="text-white pb-5 text-sl">@ 2021, NnsDAO Labs</div>
