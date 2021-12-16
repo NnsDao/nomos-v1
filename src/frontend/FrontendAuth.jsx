@@ -7,7 +7,7 @@ class FrontendAuth extends Component {
   render() {
     const { routerConfig, location } = this.props;
     const { pathname } = location;
-    const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+    let isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
     const logonTime = (Number(window.localStorage.getItem('logonTime') ? window.localStorage.getItem('logonTime') : ''))
     const expirationTime = 1000 * 60 * 60
     const resetLocal = () => {
@@ -25,8 +25,9 @@ class FrontendAuth extends Component {
     }
     if (isLogin) {
       resetLocal()
+      isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
       if (!isLogin) {
-        return <Redirect to="/home" />;
+        return <Redirect to="/home" />
       }
       if (pathname === "/login") {
         return <Redirect to="/home" />;

@@ -8,13 +8,16 @@
   background: center / cover url('../assets/home/work-flow.png') no-repeat;
 }
 .architecture {
-  background: center / cover url('../assets/home/architecture.png') no-repeat;
+  background: center / contain url('../assets/home/architecture.png') no-repeat;
 }
-.DAOn {
-  background: center / cover url('../assets/home/Architecture.png') no-repeat;
+.daon {
+  background: center / contain url('../assets/home/daon.png') no-repeat;
 }
 .work {
-  background: center / cover url('../assets/home/Architecture.png') no-repeat;
+  background: center / contain url('../assets/home/work.png') no-repeat;
+}
+.daos {
+  background: center / contain url('../assets/home/daos.png') no-repeat;
 }
 .reputation {
   background: center / cover url('../assets/home/reputation.png') no-repeat;

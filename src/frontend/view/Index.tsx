@@ -128,6 +128,9 @@ export default function index(prop: any) {
     {
       text: 'Work',
     },
+    {
+      text: 'DAOs',
+    },
   ];
   //Collapse
   const { Panel } = Collapse;
@@ -336,7 +339,7 @@ export default function index(prop: any) {
               ))}
             </div>
 
-            <div className={'flex-grow h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'DAOn' : 'work'}`}></div>
+            <div className={'flex-grow w-500px h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'daon' : work === 'Work'? 'work' : 'daos' }`}></div>
           </div>
         </div>
         <div className={'max-w-1200px m-auto mt-200px flex flex-col justify-content items-start  text-white '}>
