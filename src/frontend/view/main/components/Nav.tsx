@@ -1,14 +1,12 @@
 import { Avatar } from 'antd';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import dashboard from '../../../assets/main/Dashboard.png';
 import wallet from '../../../assets/main/Wallet.png';
 import './nav.css';
 type prop = {
   daoList: Array<{ text?: string; url?: string }>;
-  active: string,
-  onClick: Function
-
+  active: string;
+  onClick: Function;
 };
 // let history = useHistory()
 // // console.log(history);
@@ -40,7 +38,10 @@ const Nav = (prop: prop) => {
           <span className={' style-text '}>DAOs</span>
           <div className={' mt-9  justify-center w-240px h-48px'}>
             {prop.daoList.map((item, index) => (
-              <div onClick={() => prop.onClick(item.text)} key={index} className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
+              <div
+                onClick={() => prop.onClick(item.text)}
+                key={index}
+                className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
                 <div className="flex items-center justify-center -ml-24">
                   <Avatar size={28} />
                   {/* <img src={item.url} alt="" /> */}
@@ -58,9 +59,11 @@ const Nav = (prop: prop) => {
           <div className="ml-4">Create DAOn</div>
           <div className="ml-4 mb-6 text-left">Increase your speed with more members</div>
         </div>
-        <div className="logout -ml-24 cursor-pointer" onClick={() => {
-          // logout()
-        }}>
+        <div
+          className="logout -ml-24 cursor-pointer"
+          onClick={() => {
+            // logout()
+          }}>
           <span>Logout</span>
         </div>
       </div>
