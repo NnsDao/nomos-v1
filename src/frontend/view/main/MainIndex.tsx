@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Nav from './components/Nav';
-import Wallet from './wallet/Index';
-import DashBoard from './DashBoard/Index';
 import Daos from './daos/Index';
+import DashBoard from './DashBoard/Index';
+import Wallet from './wallet/Index';
 const MainIndex = () => {
-  let daoList = [
+  const daoList = [
     {
       text: 'Patrick',
       url: '',
@@ -15,16 +15,20 @@ const MainIndex = () => {
       url: '',
     },
   ];
-  const [active, setActive] = useState('Wallet')
+  const [active, setActive] = useState('Wallet');
 
   return (
     <div className={'bg-primary'}>
       <Header />
       <div className={'flex'}>
         <div>
-          <Nav daoList={daoList} active={active} onClick={(val: string) => {
-            setActive(val)
-          }} />
+          <Nav
+            daoList={daoList}
+            active={active}
+            onClick={(val: string) => {
+              setActive(val);
+            }}
+          />
         </div>
         <div className="mx-6 min-w-1550px rounded-3xl bg-main-content flex-1 mb-5">
           {active === 'Das' ? <Daos /> : ''}
