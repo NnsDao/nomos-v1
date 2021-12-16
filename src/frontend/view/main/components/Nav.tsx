@@ -1,21 +1,23 @@
 import { Avatar } from 'antd';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import dashboard from '../../../assets/main/Dashboard.png';
 import wallet from '../../../assets/main/Wallet.png';
 import './nav.css';
 type prop = {
   daoList: Array<{ text?: string; url?: string }>;
   active: string;
-  onClick: Function;
+  onClick: (key?: string) => void;
 };
 // let history = useHistory()
 // // console.log(history);
 
-// const logout = () => {
-//   window.localStorage.setItem('isLogin', '0')
-//   history.replace('/home')
-// }
 const Nav = (prop: prop) => {
+  const history = useHistory();
+  const logout = () => {
+    window.localStorage.setItem('isLogin', '0');
+    history.replace('/home');
+  };
   return (
     <>
       <div className=" text-white flex flex-col items-center nav-wrapper  ">
@@ -62,7 +64,7 @@ const Nav = (prop: prop) => {
         <div
           className="logout -ml-24 cursor-pointer"
           onClick={() => {
-            // logout()
+            logout();
           }}>
           <span>Logout</span>
         </div>
