@@ -1,6 +1,5 @@
 import { StoicIdentity } from 'ic-stoic-identity';
 import React from 'react';
-import { useQuery } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import dfinity from '../assets/login/dfinity.png';
 import plug from '../assets/login/plug.png';
@@ -21,23 +20,24 @@ const Index = () => {
 
   const onStoic = async () => {
     await StoicIdentity.load();
-    try {
-      let identity = await StoicIdentity.connect();
-      if (identity) {
-        window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
-        window.localStorage.setItem('isLogin', '1');
-        window.localStorage.setItem('logonTime', new Date().getTime() + '');
-        const { data: approve1 } = useQuery('data', () => TokenInfo.approve(identity.getPrincipal().toText()));
-        console.log(approve1, 'approve1');
+    let identity = await StoicIdentity.connect();
+    if (identity.getPrincipal().toText()) {
+      window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
+      window.localStorage.setItem('isLogin', '1');
+      window.localStorage.setItem('logonTime', new Date().getTime() + '');
+      console.log('debug');
+      let mintedCount = await TokenInfo.getMinted();
 
-        TokenInfo.getAccountId(identity.getPrincipal().toText());
-        // const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
-        // const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
+      const arrList = await TokenInfo.approve();
+      const arrClaim = await TokenInfo.getClaim();
 
-        history.push('/home');
-      }
-    } catch (error) {
-      window.alert('log in was refused');
+      console.log(mintedCount, 'debug');
+      console.log(arrList, 'debug');
+      console.log(arrClaim, 'debug');
+
+      // const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
+
+      // history.push('/home');
     }
   };
   return (

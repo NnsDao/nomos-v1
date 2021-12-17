@@ -11,13 +11,13 @@ class TokenInfo {
     this.actor = Actor.createActor(idlFactory, { agent: new HttpAgent(), canisterId: this.canisterId });
   }
 
-  approve(pid: string) {
-    return this.actor.approve(pid);
+  approve() {
+    return this.actor.approve();
   }
-  getBalance(BalanceRequest: string) {
-    return this.actor.balance(BalanceRequest);
+  getBalance() {
+    return this.actor.balance();
   }
-  isClaim() {
+  getClaim() {
     return this.actor.claim();
   }
   getAccountId(pid: string) {
@@ -52,8 +52,8 @@ interface ConstructorParams {
   canisterId: string;
 }
 interface ImplementedActorMethods {
-  approve: (pid: string) => Promise<unknown>;
-  balance: (params: unknown) => Promise<unknown>;
+  approve: () => Promise<unknown>;
+  balance: () => Promise<unknown>;
   claim: () => Promise<unknown>;
   getAccountId: (pid: string) => Promise<string>;
   metadata: () => Promise<unknown>;
