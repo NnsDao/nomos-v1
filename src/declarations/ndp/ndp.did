@@ -87,7 +87,7 @@ type NDPTest =
  service {
    TT: (nat64, text) -> (TransferResult);
    addClaim: (text, nat) -> (Result_2);
-   addOwner: (principal) -> (Result_2) query;
+   addOwner: (principal) -> (Result_2);
    allBalances: () -> (vec record {
                              text;
                              Balance;
@@ -112,6 +112,7 @@ type NDPTest =
  };
 type NDPInfo = 
  record {
+   addr: text;
    balance: nat;
    claim: nat;
  };

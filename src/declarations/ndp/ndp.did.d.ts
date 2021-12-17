@@ -29,7 +29,11 @@ export type Metadata = {
   } |
   { 'nonfungible' : { 'metadata' : [] | [Array<number>] } };
 export interface NDP { 'e8s' : bigint }
-export interface NDPInfo { 'balance' : bigint, 'claim' : bigint }
+export interface NDPInfo {
+  'balance' : bigint,
+  'addr' : string,
+  'claim' : bigint,
+}
 export interface NDPTest {
   'TT' : (arg_0: bigint, arg_1: string) => Promise<TransferResult>,
   'addClaim' : (arg_0: string, arg_1: bigint) => Promise<Result_2>,
