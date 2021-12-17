@@ -1,4 +1,5 @@
 import React from 'react';
+import deployIc from '../assets/deploy-ic.png';
 import google from '../assets/home/google.png';
 import IosDownload from '../assets/home/ios_download.png';
 import marketplace from '../assets/home/marketplace.png';
@@ -20,7 +21,10 @@ const footer = () => {
         <span className={inactiveClass}>Partners</span>
       </div>
       <div className="w-full h-px  bg-opacity-10 bg-white"></div>
-      <div className=" mx-auto my-7 text-left text-white pb-5 text-sl opacity-50">@ 2021, NnsDAO Labs</div>
+      <div className="flex ml-20 mx-auto my-7 text-left text-white pb-5 text-sl opacity-50">
+        NnsDAO Labs Limited © 2021. Build on
+        <img src={deployIc} className="w-24 h-full ml-2 mt-2" />
+      </div>
     </>
   );
 };

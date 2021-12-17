@@ -1,7 +1,8 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "[javascriptreact]": {
+  "eslint.enable": false,
+  "": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }
