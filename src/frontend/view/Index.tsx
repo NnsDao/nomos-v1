@@ -1,9 +1,8 @@
-import { Actor, HttpAgent } from '@dfinity/agent';
 import { Collapse, Input, message } from 'antd';
 import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import { Link, useHistory } from 'react-router-dom';
-import { idlFactory } from '../../declarations/ndp';
 import Collaboration from '../assets/home/Collaboration.png';
 import copy from '../assets/home/copy.png';
 import DAOs from '../assets/home/DAO.png';
@@ -22,22 +21,23 @@ import state4 from '../assets/home/state4.png';
 import Statistic from '../assets/home/Statistic.png';
 import Neuron from '../assets/neuron.svg';
 import Footer from '../components/Footer';
+import TokenInfo from '../utils/TokenInfo';
 import './index.css';
-
 export default function index(prop: any) {
-  const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
-
   const [count, setCount] = useState<string>();
 
-  const getData = async () => {
-    const canisterId = 'vgqnj-miaaa-aaaal-qaapa-cai';
-    const nToken = Actor.createActor(idlFactory, { agent: new HttpAgent(), canisterId: canisterId });
-    const okk: any = await nToken.minted();
-
-    console.log(new BigNumber(okk.toString()).div(new BigNumber('100000000')).toString(), 7777);
-  };
-
-  getData();
+  const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
+  console.log('debug', mintedCount);
+  if (mintedCount) {
+    console.log('debug', mintedCount, new BigNumber(mintedCount.toString()).div(new BigNumber('100000000')).toString());
+  }
+  // const getData = async () => {
+  //   let mintedCount = TokenInfo.getMinted();
+  //   let accountId = TokenInfo.getAccountId();
+  //   // @ts-ignore
+  //   [mintedCount, accountId] = await Promise.all([mintedCount, accountId]);
+  //   console.log('debug', accountId, mintedCount, new BigNumber(mintedCount.toString()).div(new BigNumber('100000000')).toString());
+  // };
 
   const usePrincipal = window.localStorage.getItem('usePrincipal');
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
@@ -231,6 +231,7 @@ export default function index(prop: any) {
         <div className="w-screen h-screen home-bg px-4">
           <div className="max-w-1200px m-auto pl-24 pt-240px">
             <div className={'flex flex-col justify-content items-start text-white '}>
+              <span className={'text-4xl font-mono mb-4'}> {mintedCount?.toString()} </span>
               <span className={'text-4xl font-mono mb-4'}> Find Your </span>
               <span className={'text-4xl font-mono mb-4'}> Favourite </span>
               <span className={'text-4xl font-mono mb-4'}> DAOn or DAOs </span>
