@@ -22,22 +22,13 @@ const Index = () => {
     await StoicIdentity.load();
     let identity = await StoicIdentity.connect();
     if (identity.getPrincipal().toText()) {
+      window.localStorage.setItem('principal', identity.getPrincipal());
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      console.log('debug');
-      let mintedCount = await TokenInfo.getMinted();
-
-      const arrList = await TokenInfo.approve();
-      const arrClaim = await TokenInfo.getClaim();
-
-      console.log(mintedCount, 'debug');
-      console.log(arrList, 'debug');
-      console.log(arrClaim, 'debug');
-
-      // const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
-
-      // history.push('/home');
+      await TokenInfo.approve();
+      window.localStorage.setItem('accountId', await TokenInfo.getAccountId());
+      history.push('/home');
     }
   };
   return (

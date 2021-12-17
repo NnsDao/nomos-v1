@@ -16,7 +16,6 @@ const MainIndex = () => {
     },
   ];
   const [active, setActive] = useState('Wallet');
-
   return (
     <div className={'bg-primary'}>
       <Header />
@@ -35,7 +34,6 @@ const MainIndex = () => {
           {active === 'Japan' ? <Daos /> : ''}
           {active === 'DashBoard' ? <DashBoard /> : ''}
           {active === 'Wallet' ? <Wallet /> : ''}
-          
         </div>
       </div>
       <div className="text-white pb-5 text-sl">@ 2021, NnsDAO Labs</div>

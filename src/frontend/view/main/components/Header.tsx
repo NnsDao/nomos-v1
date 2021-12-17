@@ -1,13 +1,12 @@
 import { Avatar, Input } from 'antd';
 import React from 'react';
+import bell from '../../../assets/main/bell.png';
 import logo from '../../../assets/main/logo.png';
 import magnifier from '../../../assets/main/magnifier.png';
-import bell from '../../../assets/main/bell.png';
+
 const Header = () => {
-
-  const usePrincipal = window.localStorage.getItem('usePrincipal')
-  const isLogin: boolean = Boolean(Number((window.localStorage.getItem('isLogin'))))
-
+  const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
+  const isLogin: boolean = Boolean(Number(window.localStorage.getItem('isLogin')));
   return (
     <>
       <div className={'flex justify-between py-6'}>
@@ -27,17 +26,16 @@ const Header = () => {
           <div>
             <img src={bell} className={'w-'} alt="" />
           </div>
-          {
-            isLogin ?
-              <div className={'w-200px h-10 leading-10 text-right text-white cursor-pointer'}>{usePrincipal?.slice(0, 20) + '...'}</div>
-              :
-              <div className='flex justify-center items-center'>
-                <div className="ml-9">
-                  <Avatar size={52} />
-                </div>
-                <div className="text-white m-2">NickName</div>
+          {isLogin ? (
+            <div className={'w-200px h-10 leading-10 text-right text-white cursor-pointer'}>{accountId?.slice(0, 20) + '...'}</div>
+          ) : (
+            <div className="flex justify-center items-center">
+              <div className="ml-9">
+                <Avatar size={52} />
               </div>
-          }
+              <div className="text-white m-2">NickName</div>
+            </div>
+          )}
         </div>
       </div>
     </>

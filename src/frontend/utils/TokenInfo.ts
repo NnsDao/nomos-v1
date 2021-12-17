@@ -14,14 +14,14 @@ class TokenInfo {
   approve() {
     return this.actor.approve();
   }
-  getBalance() {
-    return this.actor.balance();
+  getBalance(arg: any) {
+    return this.actor.balance(arg);
   }
   getClaim() {
     return this.actor.claim();
   }
-  getAccountId(pid: string) {
-    return this.actor.getAccountId(pid);
+  getAccountId() {
+    return this.actor.getAccountId();
   }
   getMetadata() {
     return this.actor.metadata();
@@ -53,9 +53,9 @@ interface ConstructorParams {
 }
 interface ImplementedActorMethods {
   approve: () => Promise<unknown>;
-  balance: () => Promise<unknown>;
-  claim: () => Promise<unknown>;
-  getAccountId: (pid: string) => Promise<string>;
+  balance: (arg: any) => Promise<{ ok: BigInt }>;
+  claim: () => Promise<{ err?: ''; ok?: '' }>;
+  getAccountId: () => Promise<string>;
   metadata: () => Promise<unknown>;
   transfer: () => Promise<unknown>;
   minted: () => Promise<BigInt>;

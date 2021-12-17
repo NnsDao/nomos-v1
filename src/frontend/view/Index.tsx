@@ -1,6 +1,5 @@
 import { Collapse, Input, message } from 'antd';
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
 import { Link, useHistory } from 'react-router-dom';
 import Collaboration from '../assets/home/Collaboration.png';
 import copy from '../assets/home/copy.png';
@@ -20,12 +19,13 @@ import state4 from '../assets/home/state4.png';
 import Statistic from '../assets/home/Statistic.png';
 import Neuron from '../assets/neuron.svg';
 import Footer from '../components/Footer';
-import TokenInfo from '../utils/TokenInfo';
 import './index.css';
 export default function index(prop: any) {
-  const [count, setCount] = useState<string>();
+  const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
 
-  const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
+  // const [count, setCount] = useState<string>();
+
+  // const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
 
   // console.log('debug', mintedCount);
   // if (mintedCount) {
@@ -39,7 +39,7 @@ export default function index(prop: any) {
   //   console.log('debug', accountId, mintedCount, new BigNumber(mintedCount.toString()).div(new BigNumber('100000000')).toString());
   // };
 
-  const usePrincipal = window.localStorage.getItem('usePrincipal');
+  // const usePrincipal = window.localStorage.getItem('usePrincipal');
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 
   const contributesAdress = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
@@ -218,7 +218,7 @@ export default function index(prop: any) {
             </div>
             {isLogin ? (
               <Link to="/main">
-                <div className={'w-500px h-10 leading-10 text-right text-white cursor-pointer'}>{usePrincipal?.slice(0, 20) + '...'}</div>
+                <div className={'w-500px h-10 leading-10 text-right text-white cursor-pointer'}>{accountId?.slice(0, 20) + '...'}</div>
               </Link>
             ) : (
               <Link to="/login">
@@ -263,7 +263,11 @@ export default function index(prop: any) {
             <div>
               <p className="text-center mb-5 -ml-10">Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):</p>
               <div className="daos-address " onClick={copyAddress}>
-                <span className={`mr-4  + ${isLogin ? '' : 'filter'}`}>{contributesAdress}</span>
+                <span
+                  className={`mr-4  + 
+                  ${isLogin ? '' : 'filter'}`}>
+                  {contributesAdress}
+                </span>
                 <img className="" src={copy} width={'19px'} height={'19px'} alt="" />
               </div>
             </div>
