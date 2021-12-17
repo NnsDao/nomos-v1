@@ -59,16 +59,17 @@ const Nav = (prop: prop) => {
           <div className="ml-4">Create DAOn</div>
           <div className="ml-4 mb-6 text-left">Increase your speed with more members</div>
         </div>
-        {
-          isLogin ?        
-          <div className="logout -ml-24 cursor-pointer"
+        {isLogin ? (
+          <div
+            className="logout -ml-24 cursor-pointer"
             onClick={() => {
-             logout();
+              logout();
             }}>
             <span>Logout</span>
           </div>
-          :''
-        }
+        ) : (
+          ''
+        )}
       </div>
     </>
   );

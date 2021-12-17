@@ -1,5 +1,4 @@
 import { Collapse, Input, message } from 'antd';
-import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link, useHistory } from 'react-router-dom';
@@ -27,10 +26,11 @@ export default function index(prop: any) {
   const [count, setCount] = useState<string>();
 
   const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
-  console.log('debug', mintedCount);
-  if (mintedCount) {
-    console.log('debug', mintedCount, new BigNumber(mintedCount.toString()).div(new BigNumber('100000000')).toString());
-  }
+
+  // console.log('debug', mintedCount);
+  // if (mintedCount) {
+  //   console.log('debug', mintedCount, new BigNumber(mintedCount.toString()).div(new BigNumber('100000000')).toString());
+  // }
   // const getData = async () => {
   //   let mintedCount = TokenInfo.getMinted();
   //   let accountId = TokenInfo.getAccountId();
@@ -45,7 +45,6 @@ export default function index(prop: any) {
   const contributesAdress = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
   const [totalContributes, setTotalContributes] = useState(14000 * 100000000);
   const [currentContributes, setCurrentContributes] = useState(0);
-
   const getCurrentContributes = async () => {
     const res = await fetch('https://dapi.nnsdao.com/api/block/search?recorde_addr=' + contributesAdress).then(res => res.json());
     setCurrentContributes(res.data.Balance);
@@ -231,7 +230,7 @@ export default function index(prop: any) {
         <div className="w-screen h-screen home-bg px-4">
           <div className="max-w-1200px m-auto pl-24 pt-240px">
             <div className={'flex flex-col justify-content items-start text-white '}>
-              <span className={'text-4xl font-mono mb-4'}> {mintedCount?.toString()} </span>
+              {/* <span className={'text-4xl font-mono mb-4'}> {mintedCount?.toString()} </span> */}
               <span className={'text-4xl font-mono mb-4'}> Find Your </span>
               <span className={'text-4xl font-mono mb-4'}> Favourite </span>
               <span className={'text-4xl font-mono mb-4'}> DAOn or DAOs </span>

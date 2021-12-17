@@ -10,11 +10,31 @@ class TokenInfo {
     this.canisterId = canisterId;
     this.actor = Actor.createActor(idlFactory, { agent: new HttpAgent(), canisterId: this.canisterId });
   }
+
+  approve(pid: string) {
+    return this.actor.approve(pid);
+  }
+  getBalance(BalanceRequest: string) {
+    return this.actor.balance(BalanceRequest);
+  }
+  isClaim() {
+    return this.actor.claim();
+  }
+  getAccountId(pid: string) {
+    return this.actor.getAccountId(pid);
+  }
+  getMetadata() {
+    return this.actor.metadata();
+  }
+  getTransfer(TransferRequest: string) {
+    return this.actor.transfer();
+  }
   getMinted() {
     return this.actor.minted();
   }
-  getAccountId() {
-    return this.actor.getAccountId();
+
+  getSupply(TokenIdentifier: string) {
+    return this.actor.supply(TokenIdentifier);
   }
 }
 
@@ -32,9 +52,12 @@ interface ConstructorParams {
   canisterId: string;
 }
 interface ImplementedActorMethods {
-  minted: () => Promise<BigInt>;
-  approve: () => Promise<unknown>;
+  approve: (pid: string) => Promise<unknown>;
   balance: (params: unknown) => Promise<unknown>;
   claim: () => Promise<unknown>;
-  getAccountId: () => Promise<string>;
+  getAccountId: (pid: string) => Promise<string>;
+  metadata: () => Promise<unknown>;
+  transfer: () => Promise<unknown>;
+  minted: () => Promise<BigInt>;
+  supply: (TokenIdentifier: string) => Promise<unknown>;
 }
