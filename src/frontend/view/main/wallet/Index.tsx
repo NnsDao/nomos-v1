@@ -1,7 +1,7 @@
 import { Avatar } from 'antd';
 import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
-import TokenInfo from '../../../utils/TokenInfo';
+import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
 import './index.css';
 type tokenItem = {
@@ -45,13 +45,13 @@ const Index = () => {
     user: { address: window.localStorage.getItem('accountId') },
   };
   const getBalance = async () => {
-    const NDP = await TokenInfo.getBalance(getBalanceParams);
+    const NDP = await NdpService.getBalance(getBalanceParams);
     setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
   };
   getBalance();
 
   const claim = async () => {
-    const bool = await TokenInfo.getClaim();
+    const bool = await NdpService.getClaim();
     if (bool.ok) {
       console.log('okkkkkk');
       setWalletList([

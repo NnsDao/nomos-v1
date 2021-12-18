@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import dfinity from '../assets/login/dfinity.png';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
-import TokenInfo from '../utils/TokenInfo';
+import NdpService from '../utils/NdpService';
 import './login.css';
 const Index = () => {
   let history = useHistory();
@@ -29,7 +29,7 @@ const Index = () => {
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      const { addr, balance, claim } = await TokenInfo.approve();
+      const { addr, balance, claim } = await NdpService.approve();
 
       window.localStorage.setItem('accountId', addr);
       message.success({ content: 'Login Success!', key, duration: 2 });
