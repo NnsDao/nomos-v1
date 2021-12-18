@@ -3,9 +3,13 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Collaboration from '../assets/home/Collaboration.png';
 import copy from '../assets/home/copy.png';
+import creation from '../assets/home/creation.png';
 import DAOs from '../assets/home/DAO.png';
+import dividing from '../assets/home/dividing-line.png';
 import Holder from '../assets/home/Holder.png';
+import japandao from '../assets/home/japandao.png';
 import Moon from '../assets/home/Moon.png';
+import nnsdao from '../assets/home/nnsdao.png';
 import earth1 from '../assets/home/patrickearth_1.png';
 import earth2 from '../assets/home/patrickearth_2.png';
 import earth3 from '../assets/home/patrickearth_3.png';
@@ -198,7 +202,7 @@ export default function index(prop: any) {
                       onClick={() => {
                         setLink(item);
                       }}
-                      className={`px-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
+                      className={`pr-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
                       <span key={item} className={''}>
                         {item}
                       </span>
@@ -227,41 +231,44 @@ export default function index(prop: any) {
             )}
           </div>
         </div>
-        <div className="w-screen h-screen home-bg px-4">
-          <div className="max-w-1200px m-auto pl-24 pt-240px">
+        <div className="w-screen h-screen home-bg  relative">
+          <div className="max-w-1200px w-1200px m-auto  pt-240px">
             <div className={'flex flex-col justify-content items-start text-white '}>
-              {/* <span className={'text-4xl font-mono mb-4'}> {mintedCount?.toString()} </span> */}
-              <span className={'text-4xl font-mono mb-4'}> Find Your </span>
-              <span className={'text-4xl font-mono mb-4'}> Favourite </span>
-              <span className={'text-4xl font-mono mb-4'}> DAOn or DAOs </span>
-              <span className={'text-base mb-20'}> The next generation of blockchain consensus is DAO </span>
+              <span className={'find-text-title font-mono mb-4'}> Find Your </span>
+              <span className={'find-text-title font-mono mb-4'}> Favourite </span>
+              <span className={'find-text-title font-mono mb-4'}> DAOn or DAOs </span>
+              <span className={'find-text-info mb-20'}> The next generation of blockchain consensus is DAO </span>
               <div className={'relative'}>
                 <Input
                   style={{
-                    width: '306px',
-                    height: '45px',
+                    width: '500px',
+                    height: '54px',
                     background: 'rgba(225, 225, 225, 0.13)',
                     borderColor: '#3F62E4',
+                    borderRadius: '4px',
                     color: 'white',
                   }}
                   placeholder="Enter your desired dao"
                 />
                 <Link to="/main">
-                  <span className={'absolute bottom-1 right-1 px-4 py-2 rounded text-white  buttonGradient cursor-pointer'}>Let's Go</span>
+                  <span className="find-lets-go">Let's Go</span>
                 </Link>
               </div>
             </div>
           </div>
+          <img src={creation} alt="" width={'100px'} height={'100px'} className="creation" />
+          <img src={nnsdao} alt="" width={'61.8px'} height={'61.8px'} className="nnsdao" />
+          <img src={japandao} alt="" width={'61.8px'} height={'61.8px'} className="japandao" />
         </div>
-        <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
-          <div className="text-4xl font-mono mb-4 flex">
+        <div className="max-w-1200px m-auto mt-200px text-white text-left ">
+          <div className="find-text-title font-mono mb-4 flex">
             DAOs Fund (<img src={Neuron} alt="" width={'45px'} height={'45px'} />,<img src={Neuron} alt="" width={'45px'} height={'45px'} /> )
           </div>
-          <div className="text-base mt-8">The DAO fund belongs to every user who contributes.</div>
+          <div className="find-text-info mt-8">The DAO fund belongs to every user who contributes.</div>
           <div className="">
             <div className="mt-20 mb-10 ">{<img className="" src={contributesImg} alt="" width={'1235px'} height={'300px'} />}</div>
             <div>
-              <p className="text-center mb-5 -ml-10">Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):</p>
+              <p className="find-text-info text-center mb-5 -ml-10">Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):</p>
               <div className="daos-address " onClick={copyAddress}>
                 <span
                   className={`mr-4  + 
@@ -274,7 +281,7 @@ export default function index(prop: any) {
           </div>
 
           <div className="my-10">
-            <span className="mr-6">Hotness data per phase</span>
+            <span className="mr-6 find-text-info">Hotness data per phase</span>
             <button onClick={() => goProduct()} className="rounded text-white px-5 py-2.5 buttonGradient cursor-pointer">
               Contribute Detail
             </button>
@@ -283,48 +290,51 @@ export default function index(prop: any) {
           <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently donated, and the calculated NDP cost price is 0.0009674804 ICP.</p>
         </div>
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
-          <div className="text-4xl font-mono mb-4">Every DAOs is unique</div>
-          <div className="text-base ">Join different DAOn's to brainstorm and collide with your own DAOs</div>
+          <div className="find-text-title font-mono mb-4">Every DAOs is unique</div>
+          <div className="find-text-info">Join different DAOn's to brainstorm and collide with your own DAOs</div>
           <div className="flex justify-between mt-24">
             {daoList.map(item => (
               <div key={item.url} className={'w-1/5 flex flex-col justify-content items-center transform hover:text-pink-400 hover:scale-125 transition duration-500  '}>
                 <div>
-                  <img src={item.url} alt="" width={'224px'} height={'224px'} />
+                  <img src={item.url} alt="" width={'280px'} height={'280px'} />
                 </div>
                 <div className={'mt-12'}>{item.text}</div>
               </div>
             ))}
           </div>
         </div>
-        <div className="max-w-1200px m-auto mt-200px px-4 text-white ">
-          <div className="text-4xl font-mono mb-4">Features</div>
-          <div className="text-base ">DAOs To Earn</div>
-          <div className="flex mt-24 justify-evenly items-stretch flex-wrap">
+        <div className="max-w-1200px m-auto mt-200px px-4 text-white relative ">
+          <div className="find-text-title font-mono mb-4">Features</div>
+          <div className="find-text-info ">DAOs To Earn</div>
+          <div className="flex mt-24 mx-8 justify-between items-stretch flex-wrap relative">
             {featuresList.slice(0, 3).map((item, index) => (
-              <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item mb-6">
+              <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item ">
                 <div className={'flex items-center '}>
                   <img src={item.url} alt="" width={'29px'} height={'29px'} />
                   <span className={'text-xl ml-2'}>{item.title}</span>
                 </div>
-                <div className={'mt-16 text-left'}>{item.text}</div>
+                <div className={'text-left'}>{item.text}</div>
               </div>
             ))}
           </div>
-          <div className="flex mt-24 flex-wrap justify-evenly items-stretch">
+          <img src={dividing} width="1444px" height="16px" alt="" className="absolute left-1 top-39 " />
+
+          <div className="flex mt-24 mx-8 justify-between items-stretch flex-wrap">
             {featuresList.slice(3).map((item, index) => (
-              <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item mb-6">
+              <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item ">
                 <div className={'flex items-center '}>
                   <img src={item.url} alt="" width={'29px'} height={'29px'} />
                   <span className={'text-xl ml-2'}>{item.title}</span>
                 </div>
-                <div className={'mt-16 text-left'}>{item.text}</div>
+                <div className={'text-left'}>{item.text}</div>
               </div>
             ))}
           </div>
+          <img src={dividing} width="1444px" height="16px" alt="" className="absolute left-1 -bottom-3 " />
         </div>
         <div id="WorkFlow" className="max-w-1200px mx-auto mt-200px px-4 text-white ">
-          <div className="text-4xl font-mono mb-4">Work Flow</div>
-          <div className="text-base ">You can be a boss, you just work for yourself. </div>
+          <div className="find-text-title  font-mono mb-4">Work Flow</div>
+          <div className="find-text-info ">You can be a boss, you just work for yourself. </div>
           <div className="h-500px flex flex-row justify-center items-center  my-24 ">
             <div className="flex h-500px flex-col justify-around ">
               {workFlowList.map((item, index) => (
@@ -338,13 +348,13 @@ export default function index(prop: any) {
           </div>
         </div>
         <div className={'max-w-1200px m-auto mt-200px flex flex-col justify-content items-start  text-white '}>
-          <span className={'text-4xl font-mono mb-4'}>Virtual Reputation Governance</span>
+          <span className={'find-text-title font-mono mb-4'}>Virtual Reputation Governance</span>
           <div className={'mx-auto '}>
             <div className={'flex-grow m-auto -ml-4 w-1000px  h-1000px reputation '}></div>
           </div>
         </div>
         <div id="FAQs" className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
-          <span className={'text-4xl font-mono mb-4'}>FAQs</span>
+          <span className={'find-text-title font-mono mb-4'}>FAQs</span>
           <div className={'flex flex-wrap justify-between my-24 text-white w-full'}>
             <Collapse defaultActiveKey={['0']} ghost accordion expandIconPosition={'right'}>
               {faqList.map((item, index) => (

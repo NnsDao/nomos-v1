@@ -1,6 +1,22 @@
 .home-bg {
   background: top 80px left 6rem / cover url('../assets/home/bg-2.png') no-repeat;
 }
+
+.creation {
+  position: absolute;
+  top: 36%;
+  right: 16%;
+}
+.japandao {
+  position: absolute;
+  top: 84%;
+  right: 65%;
+}
+.nnsdao {
+  position: absolute;
+  top: 53%;
+  right: 60%;
+}
 .avtive-work {
   background: center / cover url('../assets/home/active-work.png') no-repeat;
 }
@@ -36,17 +52,35 @@
 hr {
   color: rgba(255, 255, 255, 0.1);
 }
-
+.find-text-info {
+  font-size: 14px;
+}
+.find-text-title {
+  font-size: 28px;
+}
+.find-lets-go {
+  font-size: 20px;
+  line-height: 23px;
+  color: #ffffff;
+  padding: 12px 26px;
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #d130b3 0%, #3a4fe7 100%);
+  border-radius: 8px;
+}
 .featuresList-item {
-  width: 208px;
+  width: 332px;
+  height: 383px;
   min-height: 240px;
-  padding: 34px 22px;
+  padding: 55px 55px 0 30px;
 }
 .daos-address {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1030px;
+  width: 1035px;
   height: 50px;
   line-height: 50px;
   border-radius: 14px;
