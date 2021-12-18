@@ -218,7 +218,7 @@ export default function index(prop: any) {
             </div>
             {isLogin ? (
               <Link to="/main">
-                <div className={'w-500px h-10 leading-10 text-right text-white cursor-pointer'}>{accountId?.slice(0, 20) + '...'}</div>
+                <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Wallet'}</div>
               </Link>
             ) : (
               <Link to="/login">
@@ -280,7 +280,7 @@ export default function index(prop: any) {
             </button>
           </div>
           <div> Canvas </div>
-          <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently donated, and the calculated NDP cost price is 0.0009674804 ICP.</p>
+          <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently contributed, and the calculated NDP cost price is 0.0009674804 ICP.</p>
         </div>
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
           <div className="text-4xl font-mono mb-4">Every DAOs is unique</div>
