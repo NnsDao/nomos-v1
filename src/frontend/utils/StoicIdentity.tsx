@@ -2,6 +2,7 @@ import { HttpAgent, Identity } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
 import { StoicIdentity } from 'ic-stoic-identity';
 import React from 'react';
+import NdpService from './NdpService';
 
 interface StoicState {
   connect: () => Promise<void>;
@@ -55,13 +56,14 @@ export default function StoicProvider({ children }: ContextProviderProps) {
   }, []);
 
   async function initActor(identity: Identity) {
-    const agent = new HttpAgent({
-      identity,
-      host: 'http://localhost:8000',
-    });
+    // const agent = new HttpAgent({
+    //   identity,
+    //   host: 'http://localhost:8000',
+    // });
+    await NdpService.login();
     setIsConnected(true);
     setPrincipal(identity.getPrincipal());
-    setAgent(agent);
+    setAgent(NdpService.agent);
     console.log(identity.getPrincipal().toText(), 90909000);
     window.sessionStorage.setItem('stoicIsConnected', 'true');
     window.sessionStorage.setItem('stoicPrincipal', identity.getPrincipal().toText());

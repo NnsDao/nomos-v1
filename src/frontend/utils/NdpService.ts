@@ -1,14 +1,34 @@
-import { Actor, HttpAgent } from '@dfinity/agent';
+import { Actor, HttpAgent, Identity } from '@dfinity/agent';
+import { StoicIdentity } from 'ic-stoic-identity';
 import { idlFactory } from '../../declarations/ndp/index';
-class TokenInfo {
+
+class NdpService {
+  agent!: HttpAgent;
+  identity!: Identity;
   token: string;
   canisterId: string;
-  actor: ImplementedActorMethods;
+  actor!: ImplementedActorMethods;
   constructor(params: ConstructorParams) {
     const { token, canisterId } = params;
     this.token = token;
     this.canisterId = canisterId;
-    this.actor = Actor.createActor(idlFactory, { agent: new HttpAgent(), canisterId: this.canisterId });
+  }
+  // Call This after new
+  async login() {
+    if (this.agent) return this.agent;
+    debugger;
+    let identity = await StoicIdentity.load();
+
+    if (identity === false) {
+      identity = await StoicIdentity.connect();
+    }
+    this.identity = identity;
+    this.agent = new HttpAgent({
+      identity,
+    });
+    // initActor(identity);
+    this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
+    return this.agent;
   }
 
   approve() {
@@ -40,7 +60,7 @@ class TokenInfo {
 
 const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
 const canisterId = 'vgqnj-miaaa-aaaal-qaapa-cai';
-export default new TokenInfo({
+export default new NdpService({
   token: NDP_TOKEN,
   canisterId: canisterId,
 });

@@ -1,11 +1,10 @@
 import { message } from 'antd';
-import { StoicIdentity } from 'ic-stoic-identity';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import dfinity from '../assets/login/dfinity.png';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
-import TokenInfo from '../utils/TokenInfo';
+import NdpService from '../utils/NdpService';
 import './login.css';
 const Index = () => {
   let history = useHistory();
@@ -21,15 +20,17 @@ const Index = () => {
 
   const onStoic = async () => {
     const key = 'loginLoading';
-    await StoicIdentity.load();
-    let identity = await StoicIdentity.connect();
+    await NdpService.login();
+    console.log(`res`, NdpService);
+
+    let identity = NdpService.identity;
     if (identity.getPrincipal().toText()) {
       message.loading({ content: 'Logging in...', key, duration: 0 });
-      window.localStorage.setItem('principal', identity.getPrincipal());
+      window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      const { addr, balance, claim } = await TokenInfo.approve();
+      const { addr, balance, claim } = await NdpService.approve();
 
       window.localStorage.setItem('accountId', addr);
       message.success({ content: 'Login Success!', key, duration: 2 });
@@ -54,13 +55,13 @@ const Index = () => {
         </div>
         <div className="login-right">
           <div className="login-link-wrapper">
-            <span onClick={() => routerLink('Story')} className=" cursor-pointer ">
+            <span onClick={() => routerLink('Story')} className="cursor-pointer ">
               Story
             </span>
-            <span onClick={() => routerLink('Product')} className=" cursor-pointer ">
+            <span onClick={() => routerLink('Product')} className="cursor-pointer ">
               Product
             </span>
-            <span onClick={() => routerLink('Home')} className=" cursor-pointer ">
+            <span onClick={() => routerLink('Home')} className="cursor-pointer ">
               Home
             </span>
           </div>

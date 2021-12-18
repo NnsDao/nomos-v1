@@ -1,25 +1,16 @@
 {
   "canisters": {
-    "counter": {
-      "main": "src/counter-canister/main.mo",
-      "type": "motoko"
-    },
     "assets": {
-      "dependencies": [
-        "counter"
-      ],
       "frontend": {
         "entrypoint": "dist/index.html"
       },
-      "source": [
-        "dist/"
-      ],
+      "source": ["dist/"],
       "type": "assets"
     }
   },
   "defaults": {
     "build": {
-      "packtool": "vessel sources"
+      "packtool": ""
     }
   },
   "dfx": "0.8.4",
@@ -27,12 +18,6 @@
     "local": {
       "bind": "127.0.0.1:8000",
       "type": "ephemeral"
-    },
-    "ic": {
-      "providers": [
-        "https://mainnet.dfinity.network"
-      ],
-      "type": "persistent"
     }
   },
   "version": 1
