@@ -52,7 +52,7 @@ interface ConstructorParams {
   canisterId: string;
 }
 interface ImplementedActorMethods {
-  approve: () => Promise<unknown>;
+  approve: () => Promise<{ addr: string; balance: bigint; claim: bigint }>;
   balance: (arg: any) => Promise<{ ok: BigInt }>;
   claim: () => Promise<{ err?: ''; ok?: '' }>;
   getAccountId: () => Promise<string>;
