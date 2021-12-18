@@ -3,7 +3,7 @@ import React from 'react';
 import bell from '../../../assets/main/bell.png';
 import logo from '../../../assets/main/logo.png';
 import magnifier from '../../../assets/main/magnifier.png';
-
+import './header.css';
 const Header = () => {
   const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
   const isLogin: boolean = Boolean(Number(window.localStorage.getItem('isLogin')));
@@ -20,7 +20,7 @@ const Header = () => {
             style={{ minWidth: '47%', width: '47vw', height: '48px', background: 'rgba(225, 225, 225, 0.13)', borderColor: '#3F62E4', textIndent: '50px', color: 'white', borderRadius: '26px' }}
             placeholder="Enter your desired dao"
           />
-          <img src={magnifier} className={'absolute bottom-1 left-1 px-4 py-2 rounded  '} alt="" />
+          <img src={magnifier} className={' position-buttom'} alt="" />
         </div>
         <div className="flex items-center mr-11">
           <div>
