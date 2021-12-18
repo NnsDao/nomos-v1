@@ -9,13 +9,13 @@
 }
 .japandao {
   position: absolute;
-  top: 84%;
-  right: 65%;
+  bottom: 18%;
+  right: 67%;
 }
 .nnsdao {
   position: absolute;
-  top: 53%;
-  right: 60%;
+  top: 46%;
+  right: 61%;
 }
 .avtive-work {
   background: center / cover url('../assets/home/active-work.png') no-repeat;
