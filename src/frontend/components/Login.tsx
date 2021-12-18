@@ -1,5 +1,4 @@
 import { message } from 'antd';
-import { StoicIdentity } from 'ic-stoic-identity';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import dfinity from '../assets/login/dfinity.png';
@@ -21,11 +20,13 @@ const Index = () => {
 
   const onStoic = async () => {
     const key = 'loginLoading';
-    await StoicIdentity.load();
-    let identity = await StoicIdentity.connect();
+    await NdpService.login();
+    console.log(`res`, NdpService);
+
+    let identity = NdpService.identity;
     if (identity.getPrincipal().toText()) {
       message.loading({ content: 'Logging in...', key, duration: 0 });
-      window.localStorage.setItem('principal', identity.getPrincipal());
+      window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');

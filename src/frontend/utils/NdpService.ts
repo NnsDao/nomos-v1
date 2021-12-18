@@ -1,9 +1,10 @@
-import { Actor, HttpAgent } from '@dfinity/agent';
+import { Actor, HttpAgent, Identity } from '@dfinity/agent';
 import { StoicIdentity } from 'ic-stoic-identity';
 import { idlFactory } from '../../declarations/ndp/index';
 
 class NdpService {
   agent!: HttpAgent;
+  identity!: Identity;
   token: string;
   canisterId: string;
   actor!: ImplementedActorMethods;
@@ -13,18 +14,23 @@ class NdpService {
     this.canisterId = canisterId;
   }
   // Call This after new
-  async init() {
-    StoicIdentity.load().then(async (identity: any) => {
-      if (identity === false) {
-        identity = await StoicIdentity.connect();
-      }
-      this.agent = new HttpAgent({
-        identity,
-      });
-      // initActor(identity);
-      this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
+  async login() {
+    if (this.agent) return this.agent;
+    debugger;
+    let identity = await StoicIdentity.load();
+
+    if (identity === false) {
+      identity = await StoicIdentity.connect();
+    }
+    this.identity = identity;
+    this.agent = new HttpAgent({
+      identity,
     });
+    // initActor(identity);
+    this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
+    return this.agent;
   }
+
   approve() {
     return this.actor.approve();
   }

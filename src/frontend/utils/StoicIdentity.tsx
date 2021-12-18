@@ -60,7 +60,7 @@ export default function StoicProvider({ children }: ContextProviderProps) {
     //   identity,
     //   host: 'http://localhost:8000',
     // });
-    await NdpService.init();
+    await NdpService.login();
     setIsConnected(true);
     setPrincipal(identity.getPrincipal());
     setAgent(NdpService.agent);
