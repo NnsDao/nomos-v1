@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { StoicIdentity } from 'ic-stoic-identity';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -19,15 +20,19 @@ const Index = () => {
   };
 
   const onStoic = async () => {
+    const key = 'loginLoading';
     await StoicIdentity.load();
     let identity = await StoicIdentity.connect();
     if (identity.getPrincipal().toText()) {
+      message.loading({ content: 'Logging in...', key, duration: 0 });
       window.localStorage.setItem('principal', identity.getPrincipal());
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      await TokenInfo.approve();
-      window.localStorage.setItem('accountId', await TokenInfo.getAccountId());
+      const { addr, balance, claim } = await TokenInfo.approve();
+
+      window.localStorage.setItem('accountId', addr);
+      message.success({ content: 'Login Success!', key, duration: 2 });
       history.push('/home');
     }
   };
