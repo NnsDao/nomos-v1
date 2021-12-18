@@ -36,7 +36,7 @@ const MainIndex = () => {
           {active === 'Wallet' ? <Wallet /> : ''}
         </div>
       </div>
-      <div className="text-white pb-5 text-sl">@ 2021, NnsDAO Labs</div>
+      <div className="text-gray-200	 pb-5 text-sl text-center ">@ 2021, NnsDAO Labs</div>
     </div>
   );
 };
