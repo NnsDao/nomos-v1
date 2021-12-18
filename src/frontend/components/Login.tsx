@@ -54,13 +54,13 @@ const Index = () => {
         </div>
         <div className="login-right">
           <div className="login-link-wrapper">
-            <span onClick={() => routerLink('Story')} className=" cursor-pointer ">
+            <span onClick={() => routerLink('Story')} className="cursor-pointer ">
               Story
             </span>
-            <span onClick={() => routerLink('Product')} className=" cursor-pointer ">
+            <span onClick={() => routerLink('Product')} className="cursor-pointer ">
               Product
             </span>
-            <span onClick={() => routerLink('Home')} className=" cursor-pointer ">
+            <span onClick={() => routerLink('Home')} className="cursor-pointer ">
               Home
             </span>
           </div>
