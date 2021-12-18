@@ -345,7 +345,7 @@ export default function index(prop: any) {
         </div>
         <div id="FAQs" className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
           <span className={'text-4xl font-mono mb-4'}>FAQs</span>
-          <div className={'flex flex-wrap justify-between my-24 text-white '}>
+          <div className={'flex flex-wrap justify-between my-24 text-white w-full'}>
             <Collapse defaultActiveKey={['0']} ghost accordion expandIconPosition={'right'}>
               {faqList.map((item, index) => (
                 <Panel header={item.frequently} key={index.toString()} forceRender={true}>
