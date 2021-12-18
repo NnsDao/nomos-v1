@@ -1,5 +1,5 @@
 {
-  "name": "Dfinity-React-Typescript-tailwind2",
+  "name": "nomos",
   "version": "0.1.0",
   "scripts": {
     "dev": "vite --host",
