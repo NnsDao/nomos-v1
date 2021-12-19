@@ -1,5 +1,5 @@
 import { Collapse, Input, message } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Collaboration from '../assets/home/Collaboration.png';
 import copy from '../assets/home/copy.png';
@@ -24,7 +24,9 @@ import Statistic from '../assets/home/Statistic.png';
 import Neuron from '../assets/neuron.svg';
 import { DonateGraph } from '../components/DonateGraph';
 import Footer from '../components/Footer';
+import { LoginContext } from '../utils/loginContext';
 import './index.css';
+
 export default function index(prop: any) {
   const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
 
@@ -45,7 +47,9 @@ export default function index(prop: any) {
   // };
 
   // const usePrincipal = window.localStorage.getItem('usePrincipal');
-  const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  // const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const loginCtx = useContext(LoginContext);
+  const isLogin = loginCtx.isLogin;
 
   const contributesAdress = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
   const [totalContributes, setTotalContributes] = useState(14000 * 100000000);

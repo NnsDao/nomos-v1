@@ -1,12 +1,15 @@
 import { message } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
+import { LoginContext } from '../utils/loginContext';
 import NdpService from '../utils/NdpService';
 import Loading from './Loading';
 import './login.css';
+
 const Index = () => {
+  const loginCtx = useContext(LoginContext);
   let history = useHistory();
   const routerLink = (hash: string) => {
     if (hash === 'Story') {
@@ -29,7 +32,8 @@ const Index = () => {
       message.loading({ content: 'Logging in...', key, duration: 0 });
       window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
-      window.localStorage.setItem('isLogin', '1');
+      loginCtx.changeLoginState(1);
+      // window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
       const { addr, balance, claim } = await NdpService.approve();
       window.localStorage.setItem('accountId', addr);
