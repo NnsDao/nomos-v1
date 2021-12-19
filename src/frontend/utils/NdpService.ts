@@ -13,20 +13,19 @@ class NdpService {
     this.token = token;
     this.canisterId = canisterId;
   }
-  async initService(identity?: Identity) {
-    if (this.actor) return this.actor;
-    if (!identity) {
-      // Authorized , auto login
-      identity = await StoicIdentity.load();
-    }
-    if (identity) {
-      // @ts-ignore
+  async initService() {
+    if (this.actor) return;
+    let identity = await StoicIdentity.load();
+    if (identity === false) {
+      identity = await StoicIdentity.connect();
+      this.identity = identity;
       this.agent = new HttpAgent({ identity });
       this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
-    } else {
-      // TODO  auth to login
+      return;
     }
-    return this.actor || null;
+    this.identity = identity;
+    this.agent = new HttpAgent({ identity });
+    this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
   }
   // Call This after new
   async login() {
@@ -36,7 +35,6 @@ class NdpService {
       identity = await StoicIdentity.connect();
     }
     this.identity = identity;
-    await this.initService(identity);
   }
 
   async approve() {
