@@ -1,10 +1,11 @@
 import { message } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import dfinity from '../assets/login/dfinity.png';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
 import NdpService from '../utils/NdpService';
+import Loading from './Loading';
 import './login.css';
 const Index = () => {
   let history = useHistory();
@@ -17,9 +18,11 @@ const Index = () => {
       history.push('/home');
     }
   };
+  const [isloading, setIsLoading] = useState(false);
 
   const onStoic = async () => {
     const key = 'loginLoading';
+    setIsLoading(true);
     await NdpService.login();
     console.log(`res`, NdpService);
 
@@ -31,15 +34,20 @@ const Index = () => {
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
       const { addr, balance, claim } = await NdpService.approve();
-
       window.localStorage.setItem('accountId', addr);
       message.success({ content: 'Login Success!', key, duration: 2 });
+      setIsLoading(false);
+
       history.push('/home');
     }
+    setIsLoading(false);
   };
+
   return (
     <>
-      <div className="login-wrapper">
+      <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />
+
+      <div className="login-wrapper ">
         <div className="login-left">
           <div className="login-info">
             <div className="login-title">DAOs To Earn</div>

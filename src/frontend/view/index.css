@@ -9,8 +9,9 @@
 }
 .japandao {
   position: absolute;
-  bottom: 18%;
-  right: 67%;
+  bottom: 20%;
+  right: 54%;
+  transform: rotate(23deg);
 }
 .nnsdao {
   position: absolute;
