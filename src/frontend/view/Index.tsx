@@ -22,6 +22,7 @@ import state3 from '../assets/home/state3.png';
 import state4 from '../assets/home/state4.png';
 import Statistic from '../assets/home/Statistic.png';
 import Neuron from '../assets/neuron.svg';
+import { DonateGraph } from '../components/DonateGraph';
 import Footer from '../components/Footer';
 import './index.css';
 export default function index(prop: any) {
@@ -286,7 +287,8 @@ export default function index(prop: any) {
               Contribute Detail
             </button>
           </div>
-          <div> Canvas </div>
+          {/* <div> Canvas </div> */}
+          <DonateGraph></DonateGraph>
           <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently contributed, and the calculated NDP cost price is 0.0009674804 ICP.</p>
         </div>
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">

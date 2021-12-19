@@ -24,7 +24,6 @@ const Index = () => {
     const key = 'loginLoading';
     setIsLoading(true);
     await NdpService.login();
-    console.log(`res`, NdpService);
 
     let identity = NdpService.identity;
     if (identity.getPrincipal().toText()) {

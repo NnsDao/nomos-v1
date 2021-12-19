@@ -7,8 +7,7 @@
 .login-left {
   width: 65.26%;
   height: 100.1vh;
-  background: url('../assets/login/Bitmap.png') no-repeat;
-  background-size: 100% 100%;
+  background: left/cover url('../assets/login/Bitmap.png') no-repeat;
   position: relative;
 }
 .login-info {
