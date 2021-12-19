@@ -21,7 +21,6 @@ const Index = () => {
   const onStoic = async () => {
     const key = 'loginLoading';
     await NdpService.login();
-    console.log(`res`, NdpService);
 
     let identity = NdpService.identity;
     if (identity.getPrincipal().toText()) {
