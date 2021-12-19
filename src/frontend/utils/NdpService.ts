@@ -84,5 +84,5 @@ interface ImplementedActorMethods {
   transfer: () => Promise<unknown>;
   minted: () => Promise<BigInt>;
   supply: (TokenIdentifier: string) => Promise<unknown>;
-  claimStatus: () => Promise<unknown>;
+  claimStatus: () => Promise<{ ok?: '' }>;
 }
