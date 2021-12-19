@@ -31,7 +31,7 @@ const Index = () => {
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      const { addr, balance, claim } = await NdpService.approve();
+      const { addr } = await NdpService.approve();
       window.localStorage.setItem('accountId', addr);
       message.success({ content: 'Login Success!', key, duration: 2 });
       setIsLoading(false);

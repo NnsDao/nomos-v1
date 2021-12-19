@@ -55,6 +55,10 @@ class NdpService {
   getSupply(TokenIdentifier: string) {
     return this.actor.supply(TokenIdentifier);
   }
+
+  getClaimStatus() {
+    return this.actor.claimStatus();
+  }
 }
 
 const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
@@ -71,7 +75,8 @@ interface ConstructorParams {
   canisterId: string;
 }
 interface ImplementedActorMethods {
-  approve: () => Promise<{ addr: string; balance: bigint; claim: bigint }>;
+  approve: () => Promise<{ addr: string }>;
+  // Promise<{ addr: string; balance: bigint; claim: bigint }>;
   balance: (arg: any) => Promise<{ ok: BigInt }>;
   claim: () => Promise<{ err?: ''; ok?: '' }>;
   getAccountId: () => Promise<string>;
@@ -79,4 +84,5 @@ interface ImplementedActorMethods {
   transfer: () => Promise<unknown>;
   minted: () => Promise<BigInt>;
   supply: (TokenIdentifier: string) => Promise<unknown>;
+  claimStatus: () => Promise<unknown>;
 }

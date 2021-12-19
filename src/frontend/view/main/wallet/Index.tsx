@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import { BigNumber } from 'bignumber.js';
 import React, { useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import NdpService from '../../../utils/NdpService';
@@ -49,7 +49,19 @@ const Index = () => {
     const NDP = await NdpService.getBalance(getBalanceParams);
     setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
   };
-  getBalance();
+
+  const getClaimStatus = async () => {
+    const claimStatus = NdpService.getClaimStatus();
+    console.log(claimStatus, 'claimStatus');
+  };
+  const getAddr = async () => {
+    const { addr } = await NdpService.approve();
+    console.log(addr, 'addr');
+  };
+  getAddr();
+  // getBalance();
+
+  // getClaimStatus();
 
   const claim = async () => {
     const bool = await NdpService.getClaim();
@@ -71,7 +83,7 @@ const Index = () => {
     }
     return;
   };
-  claim();
+  // claim();
 
   const [active, setActive] = useState('Token');
   const [totalbalance, setTotalBalance] = useState(0);

@@ -273,7 +273,7 @@ export default function index(prop: any) {
               <div className="daos-address " onClick={copyAddress}>
                 <span
                   className={`mr-4  + 
-                  ${isLogin ? '' : 'filter'}`}>
+                  ${isLogin ? '' : ' filter '}`}>
                   {contributesAdress}
                 </span>
                 <img className="" src={copy} width={'19px'} height={'19px'} alt="" />
