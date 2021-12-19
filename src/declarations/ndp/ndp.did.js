@@ -13,13 +13,9 @@ export const idlFactory = ({ IDL }) => {
     'Ok' : BlockIndex,
     'Err' : TransferError,
   });
-  const Result_2 = IDL.Variant({ 'ok' : IDL.Bool, 'err' : IDL.Text });
+  const Result_3 = IDL.Variant({ 'ok' : IDL.Bool, 'err' : IDL.Text });
   const Balance = IDL.Nat;
-  const NDPInfo = IDL.Record({
-    'balance' : IDL.Nat,
-    'addr' : IDL.Text,
-    'claim' : IDL.Nat,
-  });
+  const NDPInfo = IDL.Record({ 'addr' : IDL.Text });
   const TokenIdentifier = IDL.Text;
   const AccountIdentifier = IDL.Text;
   const User = IDL.Variant({
@@ -36,6 +32,7 @@ export const idlFactory = ({ IDL }) => {
   });
   const BalanceResponse = IDL.Variant({ 'ok' : Balance, 'err' : CommonError });
   const Extension = IDL.Text;
+  const Result_2 = IDL.Variant({ 'ok' : IDL.Nat64, 'err' : IDL.Text });
   const HeaderField = IDL.Tuple(IDL.Text, IDL.Text);
   const HttpResponse = IDL.Record({
     'body' : IDL.Vec(IDL.Nat8),
@@ -105,8 +102,8 @@ export const idlFactory = ({ IDL }) => {
   });
   const NDPTest = IDL.Service({
     'TT' : IDL.Func([IDL.Nat64, IDL.Text], [TransferResult], []),
-    'addClaim' : IDL.Func([IDL.Text, IDL.Nat], [Result_2], []),
-    'addOwner' : IDL.Func([IDL.Principal], [Result_2], []),
+    'addClaim' : IDL.Func([IDL.Text, IDL.Nat], [Result_3], []),
+    'addOwner' : IDL.Func([IDL.Principal], [Result_3], []),
     'allBalances' : IDL.Func(
         [],
         [IDL.Vec(IDL.Tuple(IDL.Text, Balance))],
@@ -114,10 +111,12 @@ export const idlFactory = ({ IDL }) => {
       ),
     'approve' : IDL.Func([], [NDPInfo], []),
     'balance' : IDL.Func([BalanceRequest], [BalanceResponse], ['query']),
-    'claim' : IDL.Func([], [Result_2], []),
-    'delOwner' : IDL.Func([IDL.Principal], [Result_2], []),
+    'claim' : IDL.Func([], [Result_3], []),
+    'claimStatus' : IDL.Func([], [Result_3], ['query']),
+    'delOwner' : IDL.Func([IDL.Principal], [Result_3], []),
     'extensions' : IDL.Func([], [IDL.Vec(Extension)], ['query']),
     'getAccountId' : IDL.Func([], [IDL.Text], ['query']),
+    'getUserIndex' : IDL.Func([], [Result_2], ['query']),
     'http_request' : IDL.Func([], [HttpResponse], ['query']),
     'metadata' : IDL.Func([TokenIdentifier], [Result_1], ['query']),
     'mint' : IDL.Func([IDL.Text, Balance], [IDL.Bool], []),
@@ -130,6 +129,11 @@ export const idlFactory = ({ IDL }) => {
     'supply' : IDL.Func([TokenIdentifier], [Result], ['query']),
     'transactionRecord' : IDL.Func([], [List], ['query']),
     'transfer' : IDL.Func([TransferRequest], [TransferResponse], []),
+    'userIndexList' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Nat64))],
+        ['query'],
+      ),
   });
   return NDPTest;
 };

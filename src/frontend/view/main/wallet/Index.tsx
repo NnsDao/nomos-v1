@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import { BigNumber } from 'bignumber.js';
 import React, { useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import NdpService from '../../../utils/NdpService';
@@ -24,36 +24,21 @@ const Index = () => {
       icon: nnsdaoLogo,
     },
   ]);
-  // {
-  //   name: 'Abstract Moon',
-  //   tokenName: 'MOON',
-  //   balance: 66,
-  //   price: 77,
-  //   isClaim: true,
-  //   isMint: false,
-  // },
-  // {
-  //   name: 'NnsDAO Protocol',
-  //   tokenName: 'NDP',
-  //   balance: 88,
-  //   price: 99,
-  //   isClaim: true,
-  //   isMint: true,
-  // },
 
   const getBalanceParams = {
     token: 'NDP',
     user: { address: window.localStorage.getItem('accountId') },
   };
+
   const getBalance = async () => {
     const NDP = await NdpService.getBalance(getBalanceParams);
     setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
   };
-  getBalance();
 
-  const claim = async () => {
-    const bool = await NdpService.getClaim();
-    if (bool.ok) {
+  const getClaimStatus = async () => {
+    const claimStatus = await NdpService.getClaimStatus();
+    console.log(claimStatus, 'claimStatus');
+    if (claimStatus.ok) {
       console.log('okkkkkk');
       setWalletList([
         {
@@ -67,11 +52,28 @@ const Index = () => {
         },
       ]);
     } else {
-      return;
+      setWalletList([
+        {
+          name: 'NnsDAO Protocol',
+          tokenName: 'NDP',
+          balance: 0.0,
+          price: 0.15,
+          isClaim: false,
+          isMint: false,
+          icon: nnsdaoLogo,
+        },
+      ]);
     }
     return;
   };
-  claim();
+
+  getBalance();
+  getClaimStatus();
+
+  const claim = async () => {
+    const bool = await NdpService.getClaim();
+    console.log(bool, 'claim');
+  };
 
   const [active, setActive] = useState('Token');
   const [totalbalance, setTotalBalance] = useState(0);
@@ -141,7 +143,17 @@ const Index = () => {
                     <span style={{ color: '#50E3C2' }}> {item.price}</span>
                   </div>
                   <div className="table-action flex  justify-between items-center">
-                    {item.isClaim ? <button className=" table-content-button">Claim</button> : ''}
+                    {item.isClaim ? (
+                      <button
+                        className=" table-content-button"
+                        onClick={() => {
+                          claim();
+                        }}>
+                        Claim
+                      </button>
+                    ) : (
+                      ''
+                    )}
                     {item.isMint ? <button className=" table-content-button">Mint</button> : ''}
                   </div>
                 </div>

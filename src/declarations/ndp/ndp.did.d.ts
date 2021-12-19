@@ -29,22 +29,20 @@ export type Metadata = {
   } |
   { 'nonfungible' : { 'metadata' : [] | [Array<number>] } };
 export interface NDP { 'e8s' : bigint }
-export interface NDPInfo {
-  'balance' : bigint,
-  'addr' : string,
-  'claim' : bigint,
-}
+export interface NDPInfo { 'addr' : string }
 export interface NDPTest {
   'TT' : (arg_0: bigint, arg_1: string) => Promise<TransferResult>,
-  'addClaim' : (arg_0: string, arg_1: bigint) => Promise<Result_2>,
-  'addOwner' : (arg_0: Principal) => Promise<Result_2>,
+  'addClaim' : (arg_0: string, arg_1: bigint) => Promise<Result_3>,
+  'addOwner' : (arg_0: Principal) => Promise<Result_3>,
   'allBalances' : () => Promise<Array<[string, Balance]>>,
   'approve' : () => Promise<NDPInfo>,
   'balance' : (arg_0: BalanceRequest) => Promise<BalanceResponse>,
-  'claim' : () => Promise<Result_2>,
-  'delOwner' : (arg_0: Principal) => Promise<Result_2>,
+  'claim' : () => Promise<Result_3>,
+  'claimStatus' : () => Promise<Result_3>,
+  'delOwner' : (arg_0: Principal) => Promise<Result_3>,
   'extensions' : () => Promise<Array<Extension>>,
   'getAccountId' : () => Promise<string>,
+  'getUserIndex' : () => Promise<Result_2>,
   'http_request' : () => Promise<HttpResponse>,
   'metadata' : (arg_0: TokenIdentifier) => Promise<Result_1>,
   'mint' : (arg_0: string, arg_1: Balance) => Promise<boolean>,
@@ -53,6 +51,7 @@ export interface NDPTest {
   'supply' : (arg_0: TokenIdentifier) => Promise<Result>,
   'transactionRecord' : () => Promise<List>,
   'transfer' : (arg_0: TransferRequest) => Promise<TransferResponse>,
+  'userIndexList' : () => Promise<Array<[string, bigint]>>,
 }
 export type Operation = {
     'Burn' : { 'from' : AccountIdentifier__1, 'amount' : { 'e8s' : bigint } }
@@ -70,7 +69,9 @@ export type Result = { 'ok' : Balance } |
   { 'err' : CommonError };
 export type Result_1 = { 'ok' : Metadata } |
   { 'err' : CommonError };
-export type Result_2 = { 'ok' : boolean } |
+export type Result_2 = { 'ok' : bigint } |
+  { 'err' : string };
+export type Result_3 = { 'ok' : boolean } |
   { 'err' : string };
 export type SubAccount = Array<number>;
 export interface Timestamp { 'timestamp_nanos' : bigint }

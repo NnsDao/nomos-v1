@@ -50,10 +50,15 @@ type Transaction =
 type TokenIdentifier = text;
 type Timestamp = record {timestamp_nanos: nat64;};
 type SubAccount = vec nat8;
-type Result_2 = 
+type Result_3 = 
  variant {
    err: text;
    ok: bool;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: nat64;
  };
 type Result_1 = 
  variant {
@@ -86,18 +91,20 @@ type Operation =
 type NDPTest = 
  service {
    TT: (nat64, text) -> (TransferResult);
-   addClaim: (text, nat) -> (Result_2);
-   addOwner: (principal) -> (Result_2);
+   addClaim: (text, nat) -> (Result_3);
+   addOwner: (principal) -> (Result_3);
    allBalances: () -> (vec record {
                              text;
                              Balance;
                            }) query;
    approve: () -> (NDPInfo);
    balance: (BalanceRequest) -> (BalanceResponse) query;
-   claim: () -> (Result_2);
-   delOwner: (principal) -> (Result_2);
+   claim: () -> (Result_3);
+   claimStatus: () -> (Result_3) query;
+   delOwner: (principal) -> (Result_3);
    extensions: () -> (vec Extension) query;
    getAccountId: () -> (text) query;
+   getUserIndex: () -> (Result_2) query;
    http_request: () -> (HttpResponse) query;
    metadata: (TokenIdentifier) -> (Result_1) query;
    mint: (text, Balance) -> (bool);
@@ -109,13 +116,12 @@ type NDPTest =
    supply: (TokenIdentifier) -> (Result) query;
    transactionRecord: () -> (List) query;
    transfer: (TransferRequest) -> (TransferResponse);
+   userIndexList: () -> (vec record {
+                               text;
+                               nat64;
+                             }) query;
  };
-type NDPInfo = 
- record {
-   addr: text;
-   balance: nat;
-   claim: nat;
- };
+type NDPInfo = record {addr: text;};
 type NDP = record {e8s: nat64;};
 type Metadata = 
  variant {
