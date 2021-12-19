@@ -13,55 +13,68 @@ class NdpService {
     this.token = token;
     this.canisterId = canisterId;
   }
+  async initService(identity?: Identity) {
+    if (this.actor) return this.actor;
+    if (!identity) {
+      // Authorized , auto login
+      identity = await StoicIdentity.load();
+    }
+    if (identity) {
+      // @ts-ignore
+      this.agent = new HttpAgent({ identity });
+      this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
+    } else {
+      // TODO  auth to login
+    }
+    return this.actor || null;
+  }
   // Call This after new
   async login() {
-    if (this.agent) return this.agent;
-    if (window.localStorage.getItem('identity') === 'stoic') {
-      this.agent = new HttpAgent();
-    } else {
-      let identity = await StoicIdentity.load();
-
-      if (identity === false) {
-        identity = await StoicIdentity.connect();
-      }
-      this.identity = identity;
-      window.localStorage.setItem('identity', 'stoic');
-      this.agent = new HttpAgent({
-        identity,
-      });
+    if (this.actor) return this.actor;
+    let identity = await StoicIdentity.load();
+    if (identity === false) {
+      identity = await StoicIdentity.connect();
     }
-    // initActor(identity);
-    this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
-    return this.actor;
+    this.identity = identity;
+    await this.initService(identity);
   }
 
-  approve() {
+  async approve() {
+    await this.initService();
     return this.actor.approve();
   }
-  getBalance(arg: any) {
+  async getBalance(arg: any) {
+    await this.initService();
     return this.actor.balance(arg);
   }
-  getClaim() {
+  async getClaim() {
+    await this.initService();
     return this.actor.claim();
   }
-  getAccountId() {
+  async getAccountId() {
+    await this.initService();
     return this.actor.getAccountId();
   }
-  getMetadata() {
+  async getMetadata() {
+    await this.initService();
     return this.actor.metadata();
   }
-  getTransfer(TransferRequest: string) {
+  async getTransfer(TransferRequest: string) {
+    await this.initService();
     return this.actor.transfer();
   }
-  getMinted() {
+  async getMinted() {
+    await this.initService();
     return this.actor.minted();
   }
 
-  getSupply(TokenIdentifier: string) {
+  async getSupply(TokenIdentifier: string) {
+    await this.initService();
     return this.actor.supply(TokenIdentifier);
   }
 
-  getClaimStatus() {
+  async getClaimStatus() {
+    await this.initService();
     return this.actor.claimStatus();
   }
 }
