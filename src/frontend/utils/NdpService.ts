@@ -16,7 +16,6 @@ class NdpService {
   // Call This after new
   async login() {
     if (this.agent) return this.agent;
-    debugger;
     let identity = await StoicIdentity.load();
 
     if (identity === false) {
