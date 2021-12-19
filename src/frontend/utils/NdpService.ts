@@ -27,7 +27,7 @@ class NdpService {
     });
     // initActor(identity);
     this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
-    return this.agent;
+    return this.actor;
   }
 
   approve() {

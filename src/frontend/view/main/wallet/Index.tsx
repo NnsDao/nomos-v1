@@ -46,6 +46,8 @@ const Index = () => {
     user: { address: window.localStorage.getItem('accountId') },
   };
   const getBalance = async () => {
+    console.log(NdpService, 888888);
+
     const NDP = await NdpService.getBalance(getBalanceParams);
     setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
   };
@@ -54,13 +56,12 @@ const Index = () => {
     const claimStatus = NdpService.getClaimStatus();
     console.log(claimStatus, 'claimStatus');
   };
-  const getAddr = async () => {
-    const { addr } = await NdpService.approve();
-    console.log(addr, 'addr');
-  };
-  getAddr();
-  // getBalance();
-
+  // const getAddr = async () => {
+  //   const { addr } = await NdpService.approve();
+  //   console.log(addr, 'addr');
+  // };
+  // getAddr();
+  getBalance();
   // getClaimStatus();
 
   const claim = async () => {
