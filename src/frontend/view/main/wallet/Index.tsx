@@ -86,24 +86,24 @@ const Index = () => {
       <div className="flex flex-col items-start wrapper ">
         <div className="my-wallet">
           My Wallet
-          <span className="ml-2 font-medium text-sm">({accountId || 0})</span>
+          {/* <span className="ml-2 font-medium text-sm">({accountId || 0})</span> */}
         </div>
         <div className="balance-wrapper">
           <div className="base-balance total ">
             <span className="balance-text">Total balance</span>
-            <span className="balance-number">${totalbalance || 0}</span>
+            <span className="balance-number text-3xl">${totalbalance || 0}</span>
           </div>
           <div className="base-balance balance ">
             <span className="balance-text">Balance ICP</span>
-            <span className="balance-number">{balanceICP || 0}</span>
+            <span className="balance-number text-3xl">{balanceICP || 0}</span>
           </div>
           <div className="base-balance ndp ">
             <span className="balance-text">NDP</span>
-            <span className="balance-number">{ndp || 0}</span>
+            <span className="balance-number text-3xl">{ndp || 0}</span>
           </div>
           <div className="base-balance nft ">
             <span className="balance-text">NFTs</span>
-            <span className="balance-number">{nfts || 0}</span>
+            <span className="balance-number text-3xl">{nfts || 0}</span>
           </div>
         </div>
         <div className={`token-table + ${active === 'NFTs' ? 'token-table-nfts' : ' '}`}>
