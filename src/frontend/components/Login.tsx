@@ -26,7 +26,7 @@ const Index = () => {
 
     let identity = NdpService.identity;
     if (identity.getPrincipal().toText()) {
-      message.loading({ content: 'Logging in...', key, duration: 0 });
+      // message.loading({ content: 'Logging in...', key, duration: 0 });
       window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
