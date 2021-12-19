@@ -16,15 +16,20 @@ class NdpService {
   // Call This after new
   async login() {
     if (this.agent) return this.agent;
-    let identity = await StoicIdentity.load();
+    if (window.localStorage.getItem('identity') === 'stoic') {
+      this.agent = new HttpAgent();
+    } else {
+      let identity = await StoicIdentity.load();
 
-    if (identity === false) {
-      identity = await StoicIdentity.connect();
+      if (identity === false) {
+        identity = await StoicIdentity.connect();
+      }
+      this.identity = identity;
+      window.localStorage.setItem('identity', 'stoic');
+      this.agent = new HttpAgent({
+        identity,
+      });
     }
-    this.identity = identity;
-    this.agent = new HttpAgent({
-      identity,
-    });
     // initActor(identity);
     this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
     return this.agent;
