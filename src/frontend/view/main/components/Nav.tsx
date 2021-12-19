@@ -1,4 +1,3 @@
-import { Avatar } from 'antd';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import dashboard from '../../../assets/main/Dashboard.png';
@@ -43,8 +42,7 @@ const Nav = (prop: prop) => {
                 key={index}
                 className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
                 <div className="flex items-center justify-center -ml-24">
-                  <Avatar size={28} />
-                  {/* <img src={item.url} alt="" /> */}
+                  <img src={item.url} alt="nnsdao nomos" className="w-7 h-7" />
                   <span className="ml-3"> {item.text}</span>
                 </div>
               </div>

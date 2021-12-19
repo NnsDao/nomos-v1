@@ -1,6 +1,6 @@
-import { Avatar } from 'antd';
 import BigNumber from 'bignumber.js';
 import React, { useState } from 'react';
+import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
 import './index.css';
@@ -21,6 +21,7 @@ const Index = () => {
       price: 0.15,
       isClaim: false,
       isMint: false,
+      icon: nnsdaoLogo,
     },
   ]);
   // {
@@ -62,6 +63,7 @@ const Index = () => {
           price: 0.15,
           isClaim: true,
           isMint: false,
+          icon: nnsdaoLogo,
         },
       ]);
     } else {
@@ -76,10 +78,14 @@ const Index = () => {
   const [balanceICP, setBalance] = useState(0);
   const [ndp, setNDP] = useState('0');
   const [nfts, setNFTS] = useState(0);
+  const accountId = window.localStorage.getItem('accountId');
   return (
     <>
       <div className="flex flex-col items-start wrapper ">
-        <div className="my-wallet">My Wallet</div>
+        <div className="my-wallet">
+          My Wallet
+          <span className="ml-2 font-medium text-sm">({accountId || 0})</span>
+        </div>
         <div className="balance-wrapper">
           <div className="base-balance total ">
             <span className="balance-text">Total balance</span>
@@ -121,7 +127,7 @@ const Index = () => {
                 <div className="w-full flex justify-center mt-6" key={i}>
                   <div className="flex justify-start items-center table-token">
                     <div>
-                      <Avatar size={62} />
+                      <img src={item.icon} alt="nnsdao nomos" className="w-20 h-20 rounded-full" />
                     </div>
                     <div className="text-white ml-3  flex flex-col justify-center items-start">
                       <span>{item.name}</span>
@@ -144,7 +150,7 @@ const Index = () => {
           ) : (
             <div className="w-full my-5 ">
               <div className="w-200px">
-                <Card url="11" title={'title'} content={'daos daon dao dao dao '} number={'19899'} />
+                <Card url="11" title={'Patrick Genesis NFT'} content={'Genesis NFT will be distributed to users who have constructive interest in NnsDAO.'} number={'#000'} />
               </div>
             </div>
           )}

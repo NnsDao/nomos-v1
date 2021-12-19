@@ -56,7 +56,7 @@ export default defineConfig({
   },
   server: {
     fs: {
-      allow: ['.'],
+      strict: false,
     },
     proxy: {
       // This proxies all http requests made to /api to our running dfx instance

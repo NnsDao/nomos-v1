@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+import japandaoIcon from '../../assets/home/japandao.png';
+import nnsDaoIcon from '../../assets/home/nnsdao.png';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Daos from './daos/Index';
 import DashBoard from './DashBoard/Index';
 import Wallet from './wallet/Index';
+
 const MainIndex = () => {
   const daoList = [
     {
       text: 'Patrick',
-      url: '',
+      url: nnsDaoIcon,
     },
     {
       text: 'Japan',
-      url: '',
+      url: japandaoIcon,
     },
   ];
   const [active, setActive] = useState('Wallet');
