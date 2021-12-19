@@ -158,10 +158,15 @@ export default function index(prop: any) {
 
   const history = useHistory();
   const goStory = () => {
-    history.push('/story');
+    const wins: any = window.open('/story', '_blank');
+    wins.focus();
   };
   const goProduct = () => {
-    history.push('/product');
+    const wins: any = window.open('/product', '_blank');
+    wins.focus();
+  };
+  const goGuide = () => {
+    window.open('https://docs.nnsdao.org/docs/nomos/join-contributing');
   };
   const copyAddress = () => {
     if (isLogin) {
@@ -238,7 +243,7 @@ export default function index(prop: any) {
               <span className={'find-text-title font-mono mb-4'}> Find Your </span>
               <span className={'find-text-title font-mono mb-4'}> Favourite </span>
               <span className={'find-text-title font-mono mb-4'}> DAOn or DAOs </span>
-              <span className={'find-text-info mb-20'}> The next generation of blockchain consensus is DAO </span>
+              <span className={'find-text-info mb-20'}> The next generation of blockchain consensus is DAOs. </span>
               <div className={'relative'}>
                 <Input
                   style={{
@@ -283,7 +288,7 @@ export default function index(prop: any) {
 
           <div className="my-10">
             <span className="mr-6 find-text-info text-2xl">Hotness data per phase</span>
-            <button onClick={() => goProduct()} className="rounded text-white px-5 py-2.5 buttonGradient cursor-pointer mr-3">
+            <button onClick={() => goGuide()} className="rounded text-white px-5 py-2.5 buttonGradient cursor-pointer mr-3">
               Contribute Guide
             </button>
             <button onClick={() => goProduct()} className="rounded text-white px-5 py-2.5 buttonGradient cursor-pointer ">
