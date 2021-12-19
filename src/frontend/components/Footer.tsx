@@ -14,14 +14,14 @@ const footer = () => {
         <img src={google} width={'135px'} height={'45px'} alt="" />
         <img src={IosDownload} width={'135px'} height={'45px'} alt="" />
       </div>
-      <div className={'w-840px mx-auto mt-200px mb-4 pb-8 flex justify-between items-start  text-white '}>
-        <span className={inactiveClass}>Nomos</span>
-        <span className={inactiveClass}>Story</span>
-        <span className={inactiveClass}>VRG</span>
-        <span className={inactiveClass}>Partners</span>
+      <div className={'w-840px mx-auto mt-58px mb-4 pb-8 flex justify-between items-start  text-white '}>
+        {/* <span className={inactiveClass}>Nomos</span> */}
+        {/* <span className={inactiveClass}>Story</span> */}
+        {/* <span className={inactiveClass}>VRG</span> */}
+        {/* <span className={inactiveClass}>Partners</span> */}
       </div>
       <div className="w-full h-px  bg-opacity-10 bg-white"></div>
-      <div className="flex ml-20 mx-auto my-7 text-left text-white pb-5 text-sl opacity-50">
+      <div className="flex justify-center my-7 text-center text-white pb-5 text-sl opacity-50">
         NnsDAO Labs Limited © 2021. Build on
         <img src={deployIc} className="w-24 h-full ml-2 mt-2" />
       </div>

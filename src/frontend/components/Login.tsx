@@ -10,9 +10,11 @@ const Index = () => {
   let history = useHistory();
   const routerLink = (hash: string) => {
     if (hash === 'Story') {
-      history.push('/story');
+      const wins: any = window.open('/story', '_blank');
+      wins.focus();
     } else if (hash === 'Product') {
-      history.push('/product');
+      const wins: any = window.open('/product', '_blank');
+      wins.focus();
     } else if (hash === 'Home') {
       history.push('/home');
     }
@@ -49,13 +51,13 @@ const Index = () => {
         <div className="login-left">
           <div className="login-info">
             <div className="login-title">DAOs To Earn</div>
-            <span>you can be a</span>
+            <span>You can be a</span>
             <br />
             <span>boss.</span>
             <br />
-            <span>you just work for </span>
+            <span>You just work for </span>
             <br />
-            <span>yourself</span>
+            <span>yourself.</span>
             <br />
           </div>
         </div>
