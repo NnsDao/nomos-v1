@@ -70,7 +70,7 @@ const Index = () => {
                 </p>
               </div>
               <div className="flex flex-col justify-start items-start mb-2 ">
-                <span className="product-subheading">How does it work?</span>
+                <span className="text-subTitleColor font-bold text-2xl my-2">How does it work?</span>
                 <p>
                   IC ecology's first DAO to issue token based on Canister smart contract, NDP determines the final issue price through user contribution, and for the contributing users, we give the
                   following rules:

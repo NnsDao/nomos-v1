@@ -13,7 +13,7 @@ import nnsdao from '../assets/home/nnsdao.png';
 import earth1 from '../assets/home/patrickearth_1.png';
 import earth2 from '../assets/home/patrickearth_2.png';
 import earth3 from '../assets/home/patrickearth_3.png';
-import earth9 from '../assets/home/patrickearth_9.png';
+import earth6 from '../assets/home/patrickearth_6.png';
 import Roadmap from '../assets/home/Roadmap.png';
 import state0 from '../assets/home/state0.png';
 import state1 from '../assets/home/state1.png';
@@ -64,19 +64,19 @@ export default function index(prop: any) {
   const daoList = [
     {
       url: earth1,
-      text: 'Patrick',
+      text: 'Devs',
     },
     {
-      url: earth9,
-      text: 'Japan DaoAssociation',
+      url: earth6,
+      text: 'Arts',
     },
     {
       url: earth3,
-      text: 'BitcoinDao',
+      text: 'Writers',
     },
     {
       url: earth2,
-      text: 'BitcoinDao',
+      text: 'Translators',
     },
   ];
   const featuresList = [
@@ -282,8 +282,11 @@ export default function index(prop: any) {
           </div>
 
           <div className="my-10">
-            <span className="mr-6 find-text-info">Hotness data per phase</span>
-            <button onClick={() => goProduct()} className="rounded text-white px-5 py-2.5 buttonGradient cursor-pointer">
+            <span className="mr-6 find-text-info text-2xl">Hotness data per phase</span>
+            <button onClick={() => goProduct()} className="rounded text-white px-5 py-2.5 buttonGradient cursor-pointer mr-3">
+              Contribute Guide
+            </button>
+            <button onClick={() => goProduct()} className="rounded text-white px-5 py-2.5 buttonGradient cursor-pointer ">
               Contribute Detail
             </button>
           </div>
@@ -292,7 +295,7 @@ export default function index(prop: any) {
           <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently contributed, and the calculated NDP cost price is 0.0009674804 ICP.</p>
         </div>
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
-          <div className="find-text-title font-mono mb-4">Every DAOs is unique</div>
+          <div className="find-text-title font-mono mb-4">Every DAOn is unique</div>
           <div className="find-text-info">Join different DAOn's to brainstorm and collide with your own DAOs</div>
           <div className="flex justify-between mt-24">
             {daoList.map(item => (
@@ -315,7 +318,7 @@ export default function index(prop: any) {
                   <img src={item.url} alt="" width={'29px'} height={'29px'} />
                   <span className={'text-xl ml-2'}>{item.title}</span>
                 </div>
-                <div className={'text-left'}>{item.text}</div>
+                <div className={'text-left pt-14'}>{item.text}</div>
               </div>
             ))}
           </div>
@@ -328,7 +331,7 @@ export default function index(prop: any) {
                   <img src={item.url} alt="" width={'29px'} height={'29px'} />
                   <span className={'text-xl ml-2'}>{item.title}</span>
                 </div>
-                <div className={'text-left'}>{item.text}</div>
+                <div className={'text-left pt-14'}>{item.text}</div>
               </div>
             ))}
           </div>

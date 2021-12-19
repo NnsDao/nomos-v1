@@ -1,7 +1,6 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import dfinity from '../assets/login/dfinity.png';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
 import NdpService from '../utils/NdpService';
@@ -74,17 +73,18 @@ const Index = () => {
           </div>
           <div className="login-function-wrapper">
             <div className="login-item login-item-stoic" onClick={() => onStoic().then()}>
-              <img src={stoic} alt="" />
+              <img src={stoic} alt="stoic" />
               <span>Stoic Identity</span>
             </div>
-            <div className="login-item login-item-internet">
-              <img src={dfinity} alt="" />
+            {/* <div className="login-item login-item-internet">
+              <img src={dfinity} alt="II" />
               <span>Internet Identity</span>
-            </div>
+            </div> */}
             <div className="login-outside">
               <div className="login-item-plug">
-                <img src={plug} alt="" />
+                <img src={plug} alt="plug" />
                 <span>Plug Identity</span>
+                <span className="absolute bottom-0 right-0 p-1 text-xs">Coming</span>
               </div>
             </div>
           </div>

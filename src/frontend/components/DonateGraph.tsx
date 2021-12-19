@@ -31,7 +31,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'NDP Donation Model(Price Zoom in 1000x)',
+      text: 'NDP Contributed Model(Price Zoom in 1000x)',
     },
   },
 };
