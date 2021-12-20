@@ -1,5 +1,5 @@
 import { Collapse, Input, message } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Collaboration from '../assets/home/Collaboration.png';
 import copy from '../assets/home/copy.png';
@@ -55,7 +55,9 @@ export default function index(prop: any) {
     setCurrentContributes(res.data.Balance);
     changeContributesImg(currentContributes / totalContributes);
   };
-  getCurrentContributes();
+  useEffect(() => {
+    getCurrentContributes();
+  }, []);
 
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
