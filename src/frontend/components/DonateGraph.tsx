@@ -20,7 +20,7 @@ const formula = (count: number) => {
   if (count >= 15e3) {
     t = 4;
   }
-  return ((10 * count) / (1.1 * count - 300) - 0.1 * t - 8.9) * 0.0000625 + 0.0009375;
+  return Math.max(((10 * count) / (1.1 * count - 300) - 0.1 * t - 8.9) * 0.0000625 + 0.0009375, 0.0009375);
 };
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -32,19 +32,19 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'NDP Contributed Model(Price Zoom in 1000x)',
+      text: 'NDP Contributed Model(Price Zoom in 10000x)',
     },
   },
 };
 
-const labels = new Array(15).fill(0).map((item, index) => (index + 1) * 1e3);
+const labels = new Array(16).fill(0).map((item, index) => index * 1e3);
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'Price(x1000)',
-      data: new Array(15).fill(0).map((item, index) => formula((index + 1) * 1e3) * 1e3),
+      label: 'Price(x10000)',
+      data: labels.map(item => formula(item) * 1e4),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
