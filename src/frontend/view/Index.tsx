@@ -62,7 +62,7 @@ export default function index(prop: any) {
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
   const [link, setLink] = useState('');
-  const linkList = ['NnsDAO', 'Story', 'WorkFlow', 'FAQs'];
+  const linkList = ['NnsDAO', 'Story', 'Contribute', 'WorkFlow', 'FAQs'];
   const daoList = [
     {
       url: earth1,
@@ -268,7 +268,7 @@ export default function index(prop: any) {
           <img src={nnsdao} alt="" width={'61.8px'} height={'61.8px'} className="nnsdao" />
           <img src={japandao} alt="" width={'61.8px'} height={'61.8px'} className="japandao" />
         </div>
-        <div className="max-w-1200px m-auto mt-200px text-white text-left ">
+        <div id="Contribute" className="max-w-1200px m-auto mt-200px text-white text-left ">
           <div className="find-text-title font-mono mb-4 flex">
             DAOs Fund (<img src={Neuron} alt="" width={'45px'} height={'45px'} />,<img src={Neuron} alt="" width={'45px'} height={'45px'} /> )
           </div>
