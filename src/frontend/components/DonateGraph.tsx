@@ -6,6 +6,7 @@ const formula = (count: number) => {
   let t = 0;
   if (count >= 0 && count < 3e3) {
     t = 0;
+    return 0.001;
   }
   if (count >= 3e3 && count < 8e3) {
     t = 1;
