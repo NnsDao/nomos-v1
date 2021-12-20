@@ -21,7 +21,7 @@ import state2 from '../assets/home/state2.png';
 import state3 from '../assets/home/state3.png';
 import state4 from '../assets/home/state4.png';
 import Statistic from '../assets/home/Statistic.png';
-import Neuron from '../assets/neuron.svg';
+import Neuron from '../assets/neuron.png';
 import { DonateGraph } from '../components/DonateGraph';
 import Footer from '../components/Footer';
 import './index.css';
