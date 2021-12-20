@@ -75,6 +75,9 @@ const Index = () => {
   const claim = async () => {
     const bool = await NdpService.getClaim();
     console.log(bool, 'claim');
+    if (bool.ok) {
+      getBalance();
+    }
   };
 
   const [active, setActive] = useState('Token');
@@ -139,17 +142,17 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="table-balance flex flex-col justify-center items-start">
-                    <span className="text-white">{item.balance}</span>
+                    <span className="text-white">{ndp}</span>
                   </div>
                   <div className="table-price flex flex-col justify-center items-start">
                     <div className="table-price-filter "></div>
                     <span className="table-price-text "> {item.price}</span>
                   </div>
 
-                  <div className="table-action flex  justify-between items-center">
+                  <div className="table-action flex  justify-between items-center ">
                     {item.isClaim ? (
                       <button
-                        className=" table-content-button"
+                        className="z-50 text-white table-content-button"
                         onClick={() => {
                           claim();
                         }}>

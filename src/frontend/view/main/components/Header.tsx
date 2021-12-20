@@ -1,6 +1,6 @@
-import { Avatar } from 'antd';
 import React from 'react';
 import logo from '../../../assets/main/logo.png';
+import nnsAvatar from '../../../assets/nnsdao-logo-200.png';
 import './header.css';
 const Header = () => {
   const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
@@ -28,14 +28,14 @@ const Header = () => {
             // <div className={'w-200px h-10 leading-10 text-right text-white cursor-pointer'}>Address:{accountId?.slice(0, 8) + '...'}</div>
             <div className="flex justify-center items-center">
               <div className="ml-9">
-                <Avatar size={52} />
+                <img className="h-8 w-8" src={nnsAvatar} alt="nnsdao logo" />
               </div>
               <div className="flex-col text-white m-2">{accountId?.slice(0, 8) + '...'}</div>
             </div>
           ) : (
             <div className="flex justify-center items-center">
               <div className="ml-9">
-                <Avatar size={52} />
+                <img className="h-8 w-8" src={nnsAvatar} alt="nnsdao logo" />
               </div>
               <div className="text-white m-2">NickName</div>
             </div>

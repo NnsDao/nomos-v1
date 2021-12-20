@@ -20,9 +20,8 @@ class NdpService {
     if (identity === false) {
       // Has not beed authorized,
       identity = await StoicIdentity.connect();
-    } else {
-      this.agent = new HttpAgent({ identity });
     }
+    this.agent = new HttpAgent({ identity });
     this.identity = identity;
     return (this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId }));
   }

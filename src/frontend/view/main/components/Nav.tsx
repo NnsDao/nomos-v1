@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import dashboard from '../../../assets/main/Dashboard.png';
 import wallet from '../../../assets/main/Wallet.png';
 import './nav.css';
 type prop = {
@@ -17,13 +16,13 @@ const Nav = (prop: prop) => {
   };
   return (
     <>
-      <div className=" text-white flex flex-col items-center nav-wrapper  ">
-        <div onClick={() => prop.onClick('DashBoard')} className={`$mt-1  flex items-center justify-center w-240px h-48px cursor-pointer ${prop.active === 'DashBoard' ? 'bg-gradient' : ''}  p-3 `}>
+      <div className="min-h-screen text-white flex flex-col items-center nav-wrapper  ">
+        {/* <div onClick={() => prop.onClick('DashBoard')} className={`$mt-1  flex items-center justify-center w-240px h-48px cursor-pointer ${prop.active === 'DashBoard' ? 'bg-gradient' : ''}  p-3 `}>
           <div className="flex items-center justify-center -ml-20">
             <img src={dashboard} alt="" />
             <span className="ml-3 ">DashBoard</span>
           </div>
-        </div>
+        </div> */}
         <div onClick={() => prop.onClick('Wallet')} className="mt-10 mb-20 justify-center w-240px h-48px">
           <span className={' style-text '}>ACCOUNT</span>
           <div className={`flex items-center mt-9 justify-center w-240px h-48px cursor-pointer ${prop.active === 'Wallet' ? 'bg-gradient' : ''}`}>
@@ -35,12 +34,12 @@ const Nav = (prop: prop) => {
         </div>
         <div className="mt-10">
           <span className={' style-text '}>DAOs</span>
-          <div className={' mt-9  justify-center w-240px h-48px'}>
+          <div className={' mt-9  justify-center w-240px h-48px '}>
             {prop.daoList.map((item, index) => (
               <div
-                onClick={() => prop.onClick(item.text as string)}
+                // onClick={() => prop.onClick(item.text as string)}
                 key={index}
-                className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
+                className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-not-allowed ${prop.active === item.text ? 'bg-gradient' : ''}`}>
                 <div className="flex items-center justify-center -ml-24">
                   <img src={item.url} alt="nnsdao nomos" className="w-7 h-7" />
                   <span className="ml-3"> {item.text}</span>
