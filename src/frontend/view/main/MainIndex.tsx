@@ -20,7 +20,7 @@ const MainIndex = () => {
   ];
   const [active, setActive] = useState('Wallet');
   return (
-    <div className={'bg-primary'}>
+    <div className={'bg-primary min-h-full'}>
       <Header />
       <div className={'flex'}>
         <div>
@@ -32,7 +32,7 @@ const MainIndex = () => {
             }}
           />
         </div>
-        <div className="mx-6 min-w-1550px rounded-3xl bg-main-content flex-1 mb-5">
+        <div className="mx-6 min-w-1550px min-h-full rounded-3xl bg-main-content flex-1 mb-5">
           {active === 'Patrick' ? <Daos /> : ''}
           {active === 'Japan' ? <Daos /> : ''}
           {active === 'DashBoard' ? <DashBoard /> : ''}
