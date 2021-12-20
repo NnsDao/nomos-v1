@@ -1,5 +1,5 @@
 import { BigNumber } from 'bignumber.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
@@ -67,8 +67,10 @@ const Index = () => {
     return;
   };
 
-  getBalance();
-  getClaimStatus();
+  useEffect(() => {
+    getBalance();
+    getClaimStatus();
+  }, []);
 
   const claim = async () => {
     const bool = await NdpService.getClaim();

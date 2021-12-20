@@ -14,65 +14,49 @@ class NdpService {
     this.canisterId = canisterId;
   }
   async initService() {
-    if (this.actor) return;
+    if (this.actor) return this.actor;
+    // Fetch auth identity,if Not authorized identity will be false, need auth
     let identity = await StoicIdentity.load();
     if (identity === false) {
+      // Has not beed authorized,
       identity = await StoicIdentity.connect();
-      this.identity = identity;
+    } else {
       this.agent = new HttpAgent({ identity });
-      this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
-      return;
     }
     this.identity = identity;
-    this.agent = new HttpAgent({ identity });
-    this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
+    return (this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId }));
   }
-  // Call This after new
   async login() {
-    let identity = await StoicIdentity.load();
-    if (identity === false) {
-      identity = await StoicIdentity.connect();
-    }
-    this.identity = identity;
-  }
-
-  async approve() {
     await this.initService();
-    return this.actor.approve();
+  }
+  async approve() {
+    return (await this.initService()).approve();
   }
   async getBalance(arg: any) {
-    await this.initService();
-    return this.actor.balance(arg);
+    return (await this.initService()).balance(arg);
   }
   async getClaim() {
-    await this.initService();
-    return this.actor.claim();
+    return (await this.initService()).claim();
   }
   async getAccountId() {
-    await this.initService();
-    return this.actor.getAccountId();
+    return (await this.initService()).getAccountId();
   }
   async getMetadata() {
-    await this.initService();
-    return this.actor.metadata();
+    return (await this.initService()).metadata();
   }
   async getTransfer(TransferRequest: string) {
-    await this.initService();
-    return this.actor.transfer();
+    return (await this.initService()).transfer();
   }
   async getMinted() {
-    await this.initService();
-    return this.actor.minted();
+    return (await this.initService()).minted();
   }
 
   async getSupply(TokenIdentifier: string) {
-    await this.initService();
-    return this.actor.supply(TokenIdentifier);
+    return (await this.initService()).supply(TokenIdentifier);
   }
 
   async getClaimStatus() {
-    await this.initService();
-    return this.actor.claimStatus();
+    return (await this.initService()).claimStatus();
   }
 }
 

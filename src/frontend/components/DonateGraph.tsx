@@ -43,14 +43,13 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'Price curve(x1000)',
-      data: new Array(150).fill(0).map((item, index) => formula((index + 1) * 1e3) * 1e3),
+      label: 'Price(x1000)',
+      data: new Array(15).fill(0).map((item, index) => formula((index + 1) * 1e3) * 1e3),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
   ],
 };
-console.log(data);
 
 export function DonateGraph() {
   return <Line options={options} data={data} />;
