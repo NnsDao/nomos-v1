@@ -156,9 +156,9 @@ const Index = () => {
 
                       <tr>
                         <td className="border border-white border-opacity-25 text-left py-3 px-4">[15000,N]</td>
-                        <td className="border border-white border-opacity-25 text-left py-3 px-4">1</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">4</td>
                         <td className="border border-white border-opacity-25 text-left py-3 px-4">s = 16,000,000</td>
-                        <td className="border border-white border-opacity-25 text-left py-3 px-4">p = 0.000</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">p = 0.0009375</td>
                         <td className="border border-white border-opacity-25 text-left py-3 px-4">0.0009375</td>
                       </tr>
                     </tbody>

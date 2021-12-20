@@ -118,15 +118,15 @@ const Index = () => {
             </span>
           </div>
           {active === 'Token' ? (
-            <div className="w-full mb-5 h-240px ">
-              <div className="w-full flex justify-center">
+            <div className="opacity w-full mb-5 h-240px  ">
+              <div className="w-full flex justify-center ">
                 <span className="table-token">Token</span>
                 <span className="table-balance">Balance</span>
                 <span className="table-price">Price</span>
                 <span className="table-action">Action</span>
               </div>
-              <hr />
 
+              <div className="dividing-line"></div>
               {walletList.map((item, i) => (
                 <div className="w-full flex justify-center mt-6" key={i}>
                   <div className="flex justify-start items-center table-token">
@@ -142,8 +142,10 @@ const Index = () => {
                     <span className="text-white">{item.balance}</span>
                   </div>
                   <div className="table-price flex flex-col justify-center items-start">
-                    <span style={{ color: '#50E3C2' }}> {item.price}</span>
+                    <div className="table-price-filter "></div>
+                    <span className="table-price-text "> {item.price}</span>
                   </div>
+
                   <div className="table-action flex  justify-between items-center">
                     {item.isClaim ? (
                       <button
@@ -154,7 +156,7 @@ const Index = () => {
                         Claim
                       </button>
                     ) : (
-                      ''
+                      <button className=" table-content-button cursor-not-allowed ">Claim</button>
                     )}
                     {item.isMint ? <button className=" table-content-button">Mint</button> : ''}
                   </div>
