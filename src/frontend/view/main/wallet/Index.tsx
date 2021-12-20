@@ -1,5 +1,5 @@
 import { BigNumber } from 'bignumber.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
@@ -25,50 +25,51 @@ const Index = () => {
     },
   ]);
 
-  const getBalanceParams = {
-    token: 'NDP',
-    user: { address: window.localStorage.getItem('accountId') },
-  };
+  useEffect(() => {
+    const getBalanceParams = {
+      token: 'NDP',
+      user: { address: window.localStorage.getItem('accountId') },
+    };
 
-  const getBalance = async () => {
-    const NDP = await NdpService.getBalance(getBalanceParams);
-    setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
-  };
+    const getBalance = async () => {
+      const NDP = await NdpService.getBalance(getBalanceParams);
+      setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
+    };
+    getBalance();
 
-  const getClaimStatus = async () => {
-    const claimStatus = await NdpService.getClaimStatus();
-    console.log(claimStatus, 'claimStatus');
-    if (claimStatus.ok) {
-      console.log('okkkkkk');
-      setWalletList([
-        {
-          name: 'NnsDAO Protocol',
-          tokenName: 'NDP',
-          balance: 0.0,
-          price: 0.15,
-          isClaim: true,
-          isMint: false,
-          icon: nnsdaoLogo,
-        },
-      ]);
-    } else {
-      setWalletList([
-        {
-          name: 'NnsDAO Protocol',
-          tokenName: 'NDP',
-          balance: 0.0,
-          price: 0.15,
-          isClaim: false,
-          isMint: false,
-          icon: nnsdaoLogo,
-        },
-      ]);
-    }
-    return;
-  };
-
-  getBalance();
-  getClaimStatus();
+    const getClaimStatus = async () => {
+      const claimStatus = await NdpService.getClaimStatus();
+      console.log(claimStatus, 'claimStatus');
+      if (claimStatus.ok) {
+        console.log('okkkkkk');
+        setWalletList([
+          {
+            name: 'NnsDAO Protocol',
+            tokenName: 'NDP',
+            balance: 0.0,
+            price: 0.15,
+            isClaim: true,
+            isMint: false,
+            icon: nnsdaoLogo,
+          },
+        ]);
+      } else {
+        setWalletList([
+          {
+            name: 'NnsDAO Protocol',
+            tokenName: 'NDP',
+            balance: 0.0,
+            price: 0.15,
+            isClaim: false,
+            isMint: false,
+            icon: nnsdaoLogo,
+          },
+        ]);
+      }
+      return;
+    };
+    getClaimStatus();
+  }, []);
 
   const claim = async () => {
     const bool = await NdpService.getClaim();
