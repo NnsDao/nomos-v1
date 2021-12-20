@@ -246,10 +246,10 @@ export default function index(prop: any) {
               <span className={'find-text-title font-mono mb-4'}> Favourite </span>
               <span className={'find-text-title font-mono mb-4'}> DAOn or DAOs </span>
               <span className={'find-text-info mb-20'}> The next generation of blockchain consensus is DAOs. </span>
-              <div className={'relative'}>
+              <div className={'relative 2xl:mt-12'}>
                 <Input
                   style={{
-                    width: '500px',
+                    width: '470px',
                     height: '54px',
                     background: 'rgba(225, 225, 225, 0.13)',
                     borderColor: '#3F62E4',
