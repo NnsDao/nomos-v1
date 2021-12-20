@@ -9,9 +9,9 @@ const Header = () => {
     <>
       <div className={'flex justify-between py-6'}>
         <div className="ml-11 ">
-          <a href="https://nnsdao.org/" className="cursor-pointer transition duration-300  ">
-            <img className="h-10 w-24" src={logo} alt="nnsdao logo" />
-          </a>
+          {/* <a href="https://nnsdao.org/" className="cursor-pointer transition duration-300  "> */}
+          <img className="h-10 w-24" src={logo} alt="nnsdao logo" />
+          {/* </a> */}
         </div>
         {/* <div className={'relative ml-32'}>
           <Input

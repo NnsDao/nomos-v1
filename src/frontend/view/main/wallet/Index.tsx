@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
@@ -76,7 +77,19 @@ const Index = () => {
     const bool = await NdpService.getClaim();
     console.log(bool, 'claim');
     if (bool.ok) {
+      setWalletList([
+        {
+          name: 'NnsDAO Protocol',
+          tokenName: 'NDP',
+          balance: 0.0,
+          price: 0.15,
+          isClaim: false,
+          isMint: false,
+          icon: nnsdaoLogo,
+        },
+      ]);
       getBalance();
+      message.success({ content: 'claim Success!', duration: 2 });
     }
   };
 
