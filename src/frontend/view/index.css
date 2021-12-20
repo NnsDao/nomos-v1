@@ -91,5 +91,5 @@ hr {
   cursor: pointer;
 }
 .filter {
-  filter: blur(2px);
+  filter: blur(2px) !important;
 }
