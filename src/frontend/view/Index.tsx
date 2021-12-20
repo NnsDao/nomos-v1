@@ -237,7 +237,7 @@ export default function index(prop: any) {
             )}
           </div>
         </div>
-        <div className="w-screen h-screen home-bg  relative">
+        <div className="h-screen home-bg  relative">
           <div className="max-w-1200px w-1200px m-auto  pt-240px">
             <div className={'flex flex-col justify-content items-start text-white '}>
               <span className={'find-text-title font-mono mb-4'}> Find Your </span>
@@ -295,7 +295,6 @@ export default function index(prop: any) {
               Contribute Detail
             </button>
           </div>
-          {/* <div> Canvas </div> */}
           <DonateGraph></DonateGraph>
           <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently contributed, and the calculated NDP cost price is 0.0009674804 ICP.</p>
         </div>

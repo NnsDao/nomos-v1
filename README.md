@@ -48,8 +48,14 @@ npm run dev
 
 Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 8000.
 
-# [Reference]
+### Deploy to IC
 
-+ https://github.com/NnsDao/ICTexas-UI
+```bash
+sudo dfx deploy --no-wallet --network ic
+```
 
-+ https://github.com/metascore/tourney
+### [Reference]
+
+- [https://github.com/NnsDao/ICTexas-UI](https://github.com/NnsDao/ICTexas-UI)
+
+- [https://github.com/metascore/tourney](https://github.com/metascore/tourney)
