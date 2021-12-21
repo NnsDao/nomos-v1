@@ -179,6 +179,11 @@ export default function index(prop: any) {
     }
   };
 
+  const goMain = () => {
+    const wins: any = window.open('/main', '_blank');
+    wins.focus();
+  };
+
   const [contributesImg, setContributesImg] = useState(state0);
 
   const changeContributesImg = (currentContributes: number) => {
@@ -229,9 +234,9 @@ export default function index(prop: any) {
               </div>
             </div>
             {isLogin ? (
-              <Link to="/main">
-                <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Wallet'}</div>
-              </Link>
+              <div onClick={goMain} className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center cursor-pointer'}>
+                {'Wallet'}
+              </div>
             ) : (
               <Link to="/login">
                 <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
