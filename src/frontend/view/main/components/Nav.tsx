@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import wallet from '../../../assets/main/Wallet.png';
+import { LoginContext } from '../../../utils/loginContext';
 import './nav.css';
+
 type prop = {
   daoList: Array<{ text?: string; url?: string }>;
   active: string;
   onClick: (key: string) => void;
 };
-const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+
 const Nav = (prop: prop) => {
+  const { isLogin, changeLoginState } = useContext(LoginContext);
   const history = useHistory();
   const logout = () => {
-    window.localStorage.setItem('isLogin', '0');
+    // window.localStorage.setItem('isLogin', '0');
+    changeLoginState(0);
     history.replace('/home');
   };
   return (

@@ -1,10 +1,13 @@
 import 'antd/dist/antd.css';
-import React, { Component } from "react";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
-import FrontendAuth from "./FrontendAuth";
-import routerMap from "./routerMap";
-function App () {
-    return (
+import React from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import FrontendAuth from './FrontendAuth';
+import routerMap from './routerMap';
+import { LoginContext, loginState } from './utils/loginContext';
+
+function App() {
+  return (
+    <LoginContext.Provider value={loginState}>
       <Router>
         <div>
           <Switch>
@@ -12,7 +15,7 @@ function App () {
           </Switch>
         </div>
       </Router>
-    );
+    </LoginContext.Provider>
+  );
 }
 export default App;
-

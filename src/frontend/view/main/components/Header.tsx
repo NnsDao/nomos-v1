@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../../assets/main/logo.png';
 import nnsAvatar from '../../../assets/nnsdao-logo-200.png';
+import { LoginContext } from '../../../utils/loginContext';
 import './header.css';
+
 const Header = () => {
   const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
-  const isLogin: boolean = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const isLogin = useContext(LoginContext).isLogin;
+
   return (
     <>
       <div className={'flex justify-between py-6'}>
