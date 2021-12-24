@@ -5,6 +5,7 @@ declare module '*.md' {
 }
 interface Window {
   isLogin: boolean;
+  ic?: any;
 }
 declare module '*.md' {
   // "unknown" would be more detailed depends on how you structure frontmatter
@@ -18,10 +19,10 @@ declare module '*.md' {
 
   // When "Mode.React" is requested. VFC could take a generic like React.VFC<{ MyComponent: TypeOfMyComponent }>
   import React from 'react';
+  // When "Mode.Vue" is requested
+  import { Component, ComponentOptions } from 'vue';
   const ReactComponent: React.VFC;
 
-  // When "Mode.Vue" is requested
-  import { ComponentOptions, Component } from 'vue';
   const VueComponent: ComponentOptions;
   const VueComponentWith: (components: Record<string, Component>) => ComponentOptions;
 

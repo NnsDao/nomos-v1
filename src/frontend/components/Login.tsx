@@ -28,7 +28,6 @@ const Index = () => {
 
     let identity = NdpService.identity;
     if (identity.getPrincipal().toText()) {
-      // message.loading({ content: 'Logging in...', key, duration: 0 });
       window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
@@ -42,7 +41,9 @@ const Index = () => {
     }
     setIsLoading(false);
   };
-
+  const onPlug = async () => {
+    onPlug();
+  };
   return (
     <>
       <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />
@@ -83,7 +84,7 @@ const Index = () => {
               <span>Internet Identity</span>
             </div> */}
             <div className="login-outside">
-              <div className="login-item-plug">
+              <div className="login-item-plug" onClick={() => onPlug()}>
                 <img src={plug} alt="plug" />
                 <span>Plug Identity</span>
                 <span className="absolute bottom-0 right-0 p-1 text-xs">Coming</span>
