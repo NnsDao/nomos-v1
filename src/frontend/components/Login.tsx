@@ -49,20 +49,17 @@ const Index = () => {
   return (
     <>
       <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />
-
-      <div className="login-wrapper ">
+      <div className="login-wrapper min-w-1200px m-auto">
         <div className="login-left">
-          <div className="login-info">
-            <div className="login-title">DAOs To Earn</div>
-            <span>You can be a</span>
-            <br />
-            <span>boss.</span>
-            <br />
-            <span>You just work for </span>
-            <br />
-            <span>yourself.</span>
-            <br />
-          </div>
+          <div className="login-title">DAOs To Earn</div>
+          <span>You can be a</span>
+          <br />
+          <span>boss.</span>
+          <br />
+          <span>You just work for </span>
+          <br />
+          <span>yourself.</span>
+          <br />
         </div>
         <div className="login-right">
           <div className="login-link-wrapper">
