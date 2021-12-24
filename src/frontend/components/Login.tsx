@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
 import NdpService from '../utils/NdpService';
-import onPlug from '../utils/PlugIdentity';
 import Loading from './Loading';
 import './login.css';
 
@@ -24,28 +23,38 @@ const Index = () => {
   const [isloading, setIsLoading] = useState(false);
 
   const onStoic = async () => {
-    const key = 'loginLoading';
     setIsLoading(true);
-    await NdpService.login();
+    await NdpService.stoicLogin();
 
     let identity = NdpService.identity;
     if (identity.getPrincipal().toText()) {
       window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', identity.getPrincipal().toText());
       window.localStorage.setItem('isLogin', '1');
+
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
       const { addr } = await NdpService.approve();
       window.localStorage.setItem('accountId', addr);
-      message.success({ content: 'Login Success!', key, duration: 2 });
+      message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
       setIsLoading(false);
 
       history.push('/home');
     }
     setIsLoading(false);
   };
-  // const onPlug = async () => {
-  //   onPlug();
-  // };
+  const onPlug = async () => {
+    // Detect Plug extension
+    if (!window.ic?.plug) {
+      return message.warning('Plug Not installed');
+    }
+    setIsLoading(true);
+    await NdpService.plugLogin();
+    message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
+    window.localStorage.setItem('isLogin', '1');
+    window.localStorage.setItem('logonTime', new Date().getTime() + '');
+    history.push('/home');
+    setIsLoading(false);
+  };
   return (
     <>
       <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />

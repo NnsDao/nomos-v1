@@ -1,33 +1,94 @@
 import { Actor, HttpAgent, Identity } from '@dfinity/agent';
+import { message } from 'antd';
 import { StoicIdentity } from 'ic-stoic-identity';
 import { idlFactory } from '../../declarations/ndp/index';
-
 class NdpService {
   agent!: HttpAgent;
   identity!: Identity;
   token: string;
   canisterId: string;
   actor!: ImplementedActorMethods;
+  loginType: string;
+  pending: Boolean;
   constructor(params: ConstructorParams) {
     const { token, canisterId } = params;
     this.token = token;
     this.canisterId = canisterId;
+    this.loginType = window.localStorage.getItem('loginType') || '';
+    this.pending = false;
   }
-  async initService() {
+  async initService(type?: string) {
+    // Concurrent
+    if (this.pending) return;
     if (!this.actor) {
+      this.pending = true;
       // Fetch auth identity,if Not authorized identity will be false, need auth
-      let identity = await StoicIdentity.load();
-      if (identity === false) {
-        // Has not beed authorized,
-        identity = await StoicIdentity.connect();
+      let identity = null;
+      // Previous Login Type
+      if (!type) {
+        type = this.loginType;
       }
-      this.agent = new HttpAgent({ identity });
-      this.identity = identity;
-      this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
+      switch (type) {
+        case 'stoic':
+          await this.getStoicActor();
+          break;
+        case 'plug':
+          await this.getPlugActor();
+          break;
+        default:
+          await this.getStoicActor();
+          break;
+      }
+
+      type && window.localStorage.setItem('loginType', type);
+      this.pending = false;
+      return;
+    }
+    // IF Plug ,check connect status
+    if (type === 'plug' || this.loginType === 'plug') {
+      const connected = await window.ic.plug.isConnected();
+      if (!connected) {
+        console.log('Plug Disconnected,reconnect');
+        try {
+          await window.ic.plug.requestConnect({
+            whitelist: [this.canisterId],
+            timeout: 1e4, // Ten seconds
+          });
+        } catch (error) {
+          console.error('Plug connect Error', error);
+        }
+      }
     }
   }
-  async login() {
-    await this.initService();
+  async getStoicActor() {
+    let identity = await StoicIdentity.load();
+    if (identity === false) {
+      // Has not beed authorized,
+      identity = await StoicIdentity.connect();
+    }
+    this.identity = identity;
+    this.agent = new HttpAgent({ identity });
+    this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
+  }
+  async getPlugActor() {
+    try {
+      await window.ic.plug.requestConnect({
+        whitelist: [this.canisterId],
+        timeout: 1e4, // Ten seconds
+      });
+      this.actor = await window.ic.plug.createActor({
+        canisterId: this.canisterId,
+        interfaceFactory: idlFactory,
+      });
+    } catch (err) {
+      message.error('Failed authorisation');
+    }
+  }
+  async stoicLogin() {
+    await this.initService('stoic');
+  }
+  async plugLogin() {
+    await this.initService('plug');
   }
   async approve() {
     await this.initService();
