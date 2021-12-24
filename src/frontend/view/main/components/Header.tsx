@@ -2,7 +2,10 @@ import React from 'react';
 import logo from '../../../assets/main/logo.png';
 import nnsAvatar from '../../../assets/nnsdao-logo-200.png';
 import './header.css';
-const Header = () => {
+type Prop = {
+  clickActor: Function;
+};
+const Header = (prop: Prop) => {
   const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
   const isLogin: boolean = Boolean(Number(window.localStorage.getItem('isLogin')));
   return (
@@ -26,7 +29,7 @@ const Header = () => {
           </div> */}
           {isLogin ? (
             // <div className={'w-200px h-10 leading-10 text-right text-white cursor-pointer'}>Address:{accountId?.slice(0, 8) + '...'}</div>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center cursor-pointer " onClick={() => prop.clickActor('Account')}>
               <div className="ml-9">
                 <img className="h-8 w-8" src={nnsAvatar} alt="nnsdao logo" />
               </div>
