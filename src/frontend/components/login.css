@@ -1,19 +1,17 @@
 .login-wrapper {
-  width: 100%;
-  height: 100%;
   color: #000;
   display: flex;
+  background: left top/ 60% auto url('../assets/login/Bitmap.png') no-repeat;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: flex-start;
 }
+
 .login-left {
-  width: 65.26%;
-  height: 100.1vh;
-  background: left/contain url('../assets/login/Bitmap.png') no-repeat;
-  position: relative;
-}
-.login-info {
-  position: absolute;
-  left: 10.41%;
-  top: 35.64%;
+  box-sizing: border-box;
+  padding-left: 10.41%;
+  padding-top: 35.64%;
   color: white;
   text-align: left;
   font-size: 28px;
@@ -32,11 +30,10 @@
   margin-bottom: 83px;
 }
 .login-right {
-  width: 34.74%;
   position: relative;
 }
 .login-link-wrapper {
-  position: absolute;
+  position: relative;
   right: 0;
   top: 0;
   margin-top: 39px;
@@ -48,9 +45,8 @@
 }
 
 .login-function-wrapper {
-  position: absolute;
-  top: 35.64%;
-  left: 33px;
+  position: relative;
+  padding-top: 35.64%;
 }
 .login-item {
   width: 390px;

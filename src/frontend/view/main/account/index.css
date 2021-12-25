@@ -1,0 +1,75 @@
+.account-wrapper {
+  padding: 58px 5% 33px 5%;
+  background: #251f5e;
+  border-radius: 24px;
+  width: 100%;
+  height: auto;
+  font-size: 16px;
+  font-family: ArialMT;
+  color: #ffffff;
+}
+
+.account-header {
+  width: 100%;
+  background: linear-gradient(225deg, #6956e0 0%, rgba(108, 108, 234, 0.37) 100%);
+  border-radius: 14px;
+  padding: 71px 0 69px 68px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.account-header-actor {
+  background: #ffdfc0;
+  width: 106px;
+  height: 106px;
+  border-radius: 50%;
+  margin-right: 25px;
+}
+.account-header-text-wrapper {
+  font-size: 24px;
+  font-family: Arial-BoldMT, Arial;
+  font-weight: normal;
+  color: #ffffff;
+  line-height: 28px;
+}
+.account-header-patrick {
+  padding-bottom: 25px;
+}
+.account-header-info {
+  padding-top: 25px;
+  display: flex;
+  font-size: 16px;
+  line-height: 16px;
+}
+.account-header-info span {
+  margin-right: 10px;
+}
+.account-header-info img {
+}
+
+.account-tab-header {
+  padding: 68px 0 55px 35px;
+}
+.account-tab-button {
+  width: 156px;
+  height: 48px;
+  background: rgba(36, 191, 242, 0.1);
+  border-radius: 24px;
+  border: 1px solid #24bff2;
+  color: #24bff2;
+  font-size: 18px;
+  padding: 14px 43px;
+  margin-right: 80px;
+  cursor: pointer;
+}
+.account-tab-button-active {
+  color: #ffffff;
+  background: linear-gradient(90deg, #006ae9 0%, #129def 100%);
+}
+.account-tab-content {
+  width: 100%;
+  min-height: 500px;
+  background: #5048b2;
+  border-radius: 14px;
+  padding: 42px 47px 12px 47px;
+}

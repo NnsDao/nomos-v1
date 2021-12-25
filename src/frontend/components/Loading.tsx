@@ -10,15 +10,11 @@ type Prop = {
 const loading = (props: Prop) => {
   return (
     <>
-      {props.isLoading ? (
-        <div className={' loading-wrapper'}>
-          <div className=" loading ">
-            <img src={nnsdaoLogo} width={'100px'} height={'100px'} />
-          </div>
+      <div className={props.isLoading ? 'loading-wrapper' : 'hidden'}>
+        <div className="loading">
+          <img src={nnsdaoLogo} />
         </div>
-      ) : (
-        ''
-      )}
+      </div>
     </>
   );
 };
