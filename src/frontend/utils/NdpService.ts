@@ -81,7 +81,7 @@ class NdpService {
         interfaceFactory: idlFactory,
       });
     } catch (err) {
-      message.error('Failed authorisation');
+      message.error('Failed authorization');
     }
   }
   async stoicLogin() {
