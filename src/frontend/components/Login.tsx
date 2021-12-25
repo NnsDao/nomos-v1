@@ -51,6 +51,8 @@ const Index = () => {
     }
     setIsLoading(true);
     await NdpService.plugLogin();
+    const { addr } = await NdpService.approve();
+    window.localStorage.setItem('accountId', addr);
     message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
     window.localStorage.setItem('isLogin', '1');
     window.localStorage.setItem('logonTime', new Date().getTime() + '');
