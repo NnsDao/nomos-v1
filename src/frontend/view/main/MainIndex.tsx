@@ -23,7 +23,7 @@ const MainIndex = () => {
     setActive(val);
   };
   return (
-    <div className={'bg-primary'}>
+    <div className="bg-primary">
       <Header clickActor={clickActor} />
       <div className={'flex'}>
         <div>

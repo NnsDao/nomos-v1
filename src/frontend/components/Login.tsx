@@ -54,8 +54,8 @@ const Index = () => {
     message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
     window.localStorage.setItem('isLogin', '1');
     window.localStorage.setItem('logonTime', new Date().getTime() + '');
-    history.push('/home');
     setIsLoading(false);
+    history.push('/home');
   };
   return (
     <>

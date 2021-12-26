@@ -180,8 +180,9 @@ export default function index(prop: any) {
   };
 
   const goMain = () => {
-    const wins: any = window.open('/main', '_blank');
-    wins.focus();
+    // const wins: any = window.open('/main', '_blank');
+    // wins.focus();
+    history.push('/main')
   };
 
   const [contributesImg, setContributesImg] = useState(state0);

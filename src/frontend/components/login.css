@@ -1,7 +1,7 @@
 .login-wrapper {
   color: #000;
   display: flex;
-  background: left top/ 60% auto url('../assets/login/Bitmap.png') no-repeat;
+  background: left top/auto 100% url('../assets/login/Bitmap.png') no-repeat;
   height: 100vh;
   overflow: hidden;
   justify-content: space-between;

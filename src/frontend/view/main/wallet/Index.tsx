@@ -37,9 +37,15 @@ const Index = () => {
   };
 
   const getClaimStatus = async () => {
-    const claimStatus = await NdpService.getClaimStatus();
-    console.log(claimStatus, 'claimStatus');
-    if (claimStatus.ok) {
+    let claimStatus = null;
+    try {
+      claimStatus = await NdpService.getClaimStatus();
+      console.log('claimStatus', claimStatus);
+    } catch (error) {
+      console.log('claimStatus', claimStatus);
+    }
+
+    if (claimStatus?.ok) {
       console.log('okkkkkk');
       setWalletList([
         {
