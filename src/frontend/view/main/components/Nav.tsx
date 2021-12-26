@@ -1,7 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import wallet from '../../../assets/main/Wallet.png';
+import NdpService from '../../../utils/NdpService';
 import './nav.css';
+
 type prop = {
   daoList: Array<{ text?: string; url?: string }>;
   active: string;
@@ -13,6 +15,7 @@ const Nav = (prop: prop) => {
   const logout = () => {
     window.localStorage.setItem('isLogin', '0');
     history.replace('/home');
+    NdpService.resetService();
   };
   return (
     <>

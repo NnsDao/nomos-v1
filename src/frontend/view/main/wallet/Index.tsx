@@ -14,7 +14,7 @@ type tokenItem = {
   isMint: boolean;
 };
 const Index = () => {
-  const [walletList, setWalletList] = useState([
+  const wallet = [
     {
       name: 'NnsDAO Protocol',
       tokenName: 'NDP',
@@ -24,7 +24,8 @@ const Index = () => {
       isMint: false,
       icon: nnsdaoLogo,
     },
-  ]);
+  ];
+  const [walletList, setWalletList] = useState(wallet);
 
   const getBalanceParams = {
     token: 'NDP',
@@ -32,8 +33,12 @@ const Index = () => {
   };
 
   const getBalance = async () => {
-    const NDP = await NdpService.getBalance(getBalanceParams);
-    setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
+    try {
+      const NDP = await NdpService.getBalance(getBalanceParams);
+      setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
+    } catch (error) {
+      console.error('getBalance', error);
+    }
   };
 
   const getClaimStatus = async () => {

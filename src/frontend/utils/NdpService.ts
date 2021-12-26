@@ -60,6 +60,14 @@ class NdpService {
       }
     }
   }
+  resetService() {
+    // @ts-ignore
+    this.actor = undefined;
+    // @ts-ignore
+    this.agent = undefined;
+    // @ts-ignore
+    this.identity = null;
+  }
   async getStoicActor() {
     let identity = await StoicIdentity.load();
     if (identity === false) {
