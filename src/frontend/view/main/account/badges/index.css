@@ -5,5 +5,11 @@
   font-weight: normal;
   color: #ffffff;
   line-height: 28px;
-  padding-bottom: 48px;
+  padding-bottom: 76px;
+}
+.badges {
+  padding: 0px 13px 20px 13px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

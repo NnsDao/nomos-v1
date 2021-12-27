@@ -1,0 +1,27 @@
+.badges-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.badges-content {
+  min-width: 175px;
+  max-width: 235px;
+  min-height: 175px;
+  max-height: 235px;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #20156b;
+  border-radius: 12px;
+}
+.badges-text {
+  margin-top: 27px;
+  font-size: 14px;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #d0dff5;
+  line-height: 22px;
+  text-align: center;
+}

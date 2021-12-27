@@ -4,3 +4,29 @@
   left: 3px;
   padding: 8px 6px;
 }
+.header-nav-wrapper {
+  position: absolute;
+  top: 35px;
+  left: -60px;
+  width: 194px;
+  background: #403a94;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+}
+.header-nav-item {
+  padding: 17px 0 17px 35px;
+  font-size: 16px;
+  font-family: ArialMT;
+  color: #ffffff;
+  line-height: 18px;
+  border-radius: 7px;
+}
+.header-nav-item:hover {
+  background: #6846d7;
+}
+.header-nav-item-active {
+  background: #6846d7;
+}

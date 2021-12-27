@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import japandaoIcon from '../../assets/home/japandao.png';
 import nnsDaoIcon from '../../assets/home/nnsdao.png';
 import Account from './account/Index';
@@ -7,7 +8,10 @@ import Nav from './components/Nav';
 import Daos from './daos/Index';
 import DashBoard from './DashBoard/Index';
 import Wallet from './wallet/Index';
+
 const MainIndex = () => {
+  const history = useHistory();
+
   const daoList = [
     {
       text: 'Patrick',
@@ -22,9 +26,34 @@ const MainIndex = () => {
   const clickActor = (val: string) => {
     setActive(val);
   };
+  const tabList = ['Activity', 'DAOs', 'DAOn', 'Badges'];
+  const [accountTab, setAccountTab] = useState('Badges');
+  const logout = () => {
+    window.localStorage.setItem('isLogin', '0');
+    history.push('/home');
+  };
+  const handleMenu = (str: string) => {
+    switch (str) {
+      case 'My DAOs':
+        setAccountTab('DAOs');
+        break;
+      case 'My DAOn':
+        setAccountTab('DAOn');
+        break;
+      case 'My Wallet':
+        setActive('Wallet');
+        break;
+      case 'Logout':
+        logout();
+        break;
+      default:
+        setAccountTab('Badges');
+        break;
+    }
+  };
   return (
     <div className="bg-primary">
-      <Header clickActor={clickActor} />
+      <Header clickActor={clickActor} handleMenu={handleMenu} />
       <div className={'flex'}>
         <div>
           <Nav
@@ -40,7 +69,7 @@ const MainIndex = () => {
           {active === 'Japan' ? <Daos /> : ''}
           {active === 'DashBoard' ? <DashBoard /> : ''}
           {active === 'Wallet' ? <Wallet /> : ''}
-          {active === 'Account' ? <Account /> : ''}
+          {active === 'Account' ? <Account tabList={tabList} active={accountTab} setAccountTab={setAccountTab} /> : ''}
         </div>
       </div>
       <div className="text-gray-200	 pb-5 text-sl text-center ">@ 2021, NnsDAO Labs</div>

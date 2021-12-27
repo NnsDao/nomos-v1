@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import approve from '@/assets/main/approve.png';
+import React from 'react';
 import Activity from './activity/Index';
 import Badges from './badges/Index';
 import DAOn from './daon/Index';
 import DAOs from './daos/Index';
 import './index.css';
-const Index = () => {
-  const tabList = ['Activity', 'DAOs', 'DAOn', 'Badges'];
-  const [active, setActive] = useState('Activity');
-
+type Prop = {
+  tabList: Array<string>;
+  active: string;
+  setAccountTab: Function;
+};
+const Index = (prop: Prop) => {
   return (
     <>
       <div className="account-wrapper">
@@ -18,27 +21,27 @@ const Index = () => {
             <div className="account-header-info">
               <span>{'#' + '11111'} </span>
               <span>{'@' + 'nickName'} </span>
-              <img src="" alt="tubiao" />
+              <img src={approve} alt="" width={'44px'} height={'44px'} />
             </div>
           </div>
         </div>
         <div className="account-tab-header">
-          {tabList.map((item, index) => (
+          {prop.tabList.map((item, index) => (
             <span
-              className={`account-tab-button ${active === item ? 'account-tab-button-active' : ''}`}
+              className={`account-tab-button ${prop.active === item ? 'account-tab-button-active' : ''}`}
               key={index}
               onClick={() => {
-                setActive(item);
+                prop.setAccountTab(item);
               }}>
               {item}
             </span>
           ))}
         </div>
         <div className="account-tab-content">
-          {active === 'Activity' ? <Activity /> : ''}
-          {active === 'DAOs' ? <DAOs /> : ''}
-          {active === 'DAOn' ? <DAOn /> : ''}
-          {active === 'Badges' ? <Badges /> : ''}
+          {prop.active === 'Activity' ? <Activity /> : ''}
+          {prop.active === 'DAOs' ? <DAOs /> : ''}
+          {prop.active === 'DAOn' ? <DAOn /> : ''}
+          {prop.active === 'Badges' ? <Badges /> : ''}
         </div>
       </div>
     </>

@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../../../assets/main/logo.png';
 import nnsAvatar from '../../../assets/nnsdao-logo-200.png';
 import './header.css';
 type Prop = {
   clickActor: Function;
+  handleMenu: Function;
 };
+
 const Header = (prop: Prop) => {
   const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
   const isLogin: boolean = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const [isShowMenu, setIsShowMenu] = useState(false);
+  const handleShowMenu = (bool: boolean) => {
+    setIsShowMenu(bool);
+    console.log(bool);
+  };
+  const menuList = ['ProFile', 'My DAOs', 'My DAOn', 'My Wallet', 'Logout'];
   return (
     <>
       <div className={'flex justify-between py-6'}>
@@ -29,9 +37,20 @@ const Header = (prop: Prop) => {
           </div> */}
           {isLogin ? (
             // <div className={'w-200px h-10 leading-10 text-right text-white cursor-pointer'}>Address:{accountId?.slice(0, 8) + '...'}</div>
-            <div className="flex justify-center items-center cursor-pointer " onClick={() => prop.clickActor('Account')}>
-              <div className="ml-9">
-                <img className="h-8 w-8" src={nnsAvatar} alt="nnsdao logo" />
+            <div className="flex justify-center items-center cursor-pointer " onClickCapture={() => prop.clickActor('Account')} onMouseLeave={() => handleShowMenu(false)}>
+              <div className="ml-9 relative">
+                <img className="h-8 w-8" src={nnsAvatar} alt="nnsdao logo" onMouseOver={() => handleShowMenu(true)} />
+                {isShowMenu ? (
+                  <div className="header-nav-wrapper">
+                    {menuList.map(item => (
+                      <div className=" header-nav-item" key={item} onClick={() => prop.handleMenu(item)}>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
               <div className="flex-col text-white m-2">{accountId?.slice(0, 8) + '...'}</div>
             </div>
