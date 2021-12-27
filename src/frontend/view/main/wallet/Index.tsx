@@ -82,6 +82,9 @@ const Index = () => {
 
   useEffect(() => {
     getBalance();
+  }, []);
+
+  useEffect(() => {
     getClaimStatus();
   }, []);
 
