@@ -11,7 +11,7 @@
 .login-left {
   box-sizing: border-box;
   padding-left: 10.41%;
-  padding-top: 35.64%;
+  padding-top: 14.64%;
   color: white;
   text-align: left;
   font-size: 28px;
@@ -46,7 +46,8 @@
 
 .login-function-wrapper {
   position: relative;
-  padding-top: 35.64%;
+  padding-top: 55.64%;
+  right: 100px;
 }
 .login-item {
   width: 390px;
