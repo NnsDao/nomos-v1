@@ -2,6 +2,7 @@ import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
+import Share from '../../../components/ShareTwitter';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
 import './index.css';
@@ -186,6 +187,7 @@ const Index = () => {
                       <button className=" table-content-button cursor-not-allowed ">Claim</button>
                     )}
                     {item.isMint ? <button className=" table-content-button">Mint</button> : ''}
+                    <Share />
                   </div>
                 </div>
               ))}
