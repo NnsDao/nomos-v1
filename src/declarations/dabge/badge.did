@@ -1,0 +1,56 @@
+type Token = text;
+type Result = 
+ variant {
+   err: text;
+   ok: bool;
+ };
+type MintResp = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type MintBadge = 
+ record {
+   addr: Address;
+   token: Token;
+ };
+type HttpResponse = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   status_code: nat16;
+ };
+type HeaderField = 
+ record {
+   text;
+   text;
+ };
+type Badge__1 = 
+ record {
+   data: blob;
+   desc: text;
+   name: text;
+   reputation: nat;
+   token: Token;
+   url: text;
+ };
+type Badge = 
+ service {
+   a: (text) -> ();
+   addBadge: (Badge__1) -> (MintResp);
+   addOwner: (principal) -> (Result);
+   delOwner: (principal) -> (Result);
+   getAllBadgeList: () -> (vec record {
+                                 Token;
+                                 Badge__1;
+                               }) query;
+   getUserBadgeList: () -> (vec opt Badge__1) query;
+   http_request: () -> (HttpResponse) query;
+   mintBadge: (MintBadge) -> (MintResp);
+   owner: () -> (vec record {
+                       principal;
+                       nat64;
+                     }) query;
+ };
+type Address = text;
+service : () -> Badge
