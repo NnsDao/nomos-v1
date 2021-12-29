@@ -1,5 +1,7 @@
 import approve from '@/assets/main/approve.png';
-import React from 'react';
+import React, { useEffect } from 'react';
+import BadgeService from '../../../utils/BadgeService';
+import NdpService from '../../../utils/NdpService';
 import Activity from './activity/Index';
 import Badges from './badges/Index';
 import DAOn from './daon/Index';
@@ -11,6 +13,34 @@ type Prop = {
   setAccountTab: Function;
 };
 const Index = (prop: Prop) => {
+  const getAllBadgeList = async () => {
+    try {
+      const AllBadgeList = await BadgeService.getAllBadgeList();
+      console.log(AllBadgeList, 'getAllBadgeList');
+    } catch (error) {
+      console.error('getAllBadgeList', error);
+    }
+  };
+  let identity = NdpService.identity;
+  console.log(identity.getPrincipal().toUint8Array(), '11111111');
+  const getUserBadgeListParams = [identity.getPrincipal().toUint8Array()];
+  console.log('0000000000');
+  const getUserBadgeList = async () => {
+    try {
+      const UserBadgeList = await BadgeService.getUserBadgeList(getUserBadgeListParams);
+      console.log(UserBadgeList, 'getUserBadgeList');
+    } catch (error) {
+      console.error('getAllBadgeList', error);
+    }
+  };
+
+  useEffect(() => {
+    getUserBadgeList();
+  }, []);
+  useEffect(() => {
+    getAllBadgeList();
+  }, []);
+
   return (
     <>
       <div className="account-wrapper">
@@ -26,10 +56,10 @@ const Index = (prop: Prop) => {
           </div>
         </div>
         <div className="account-tab-header">
-          {prop.tabList.map((item, index) => (
+          {prop.tabList.map(item => (
             <span
               className={`account-tab-button ${prop.active === item ? 'account-tab-button-active' : ''}`}
-              key={index}
+              key={item}
               onClick={() => {
                 prop.setAccountTab(item);
               }}>

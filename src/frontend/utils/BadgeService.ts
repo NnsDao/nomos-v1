@@ -47,13 +47,13 @@ class BadgeService {
     await this.initService();
     return this.actor.getAllBadgeList();
   }
-  async getUserBadgeList() {
+  async getUserBadgeList(arg: any) {
     await this.initService();
-    return this.actor.getUserBadgeList();
+    return this.actor.getUserBadgeList(arg);
   }
 }
 
-const canisterId = 'vgqnj-miaaa-aaaal-qaapa-cai';
+const canisterId = 'rfde3-eyaaa-aaaal-qaaua-cai';
 export default new BadgeService({
   canisterId: canisterId,
 });

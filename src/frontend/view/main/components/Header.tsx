@@ -13,7 +13,6 @@ const Header = (prop: Prop) => {
   const [isShowMenu, setIsShowMenu] = useState(false);
   const handleShowMenu = (bool: boolean) => {
     setIsShowMenu(bool);
-    console.log(bool);
   };
   const menuList = ['ProFile', 'My DAOs', 'My DAOn', 'My Wallet', 'Logout'];
   return (
