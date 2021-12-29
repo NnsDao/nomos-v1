@@ -27,13 +27,11 @@ const Index = () => {
     await NdpService.stoicLogin();
 
     let identity = NdpService.identity;
-    console.log(identity.getPrincipal(), 'identity.getPrincipal');
 
     if (identity.getPrincipal().toText()) {
       window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', JSON.stringify(identity.getPrincipal()));
       window.localStorage.setItem('isLogin', '1');
-
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
       const { addr } = await NdpService.approve();
       window.localStorage.setItem('accountId', addr);

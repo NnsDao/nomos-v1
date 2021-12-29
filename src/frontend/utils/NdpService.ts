@@ -1,19 +1,25 @@
 import { Actor, HttpAgent, Identity } from '@dfinity/agent';
 import { message } from 'antd';
 import { StoicIdentity } from 'ic-stoic-identity';
+import { idlFactory as badgerIdlFactory } from '../../declarations/badge/index';
 import { idlFactory } from '../../declarations/ndp/index';
+
 class NdpService {
   agent!: HttpAgent;
   identity!: Identity;
   token: string;
   canisterId: string;
+  badgeCanisterId: string;
   actor!: ImplementedActorMethods;
+  badgeActor!: ImplementedActorMethods;
+
   loginType: string;
   pending: Boolean;
   constructor(params: ConstructorParams) {
-    const { token, canisterId } = params;
+    const { token, canisterId, badgeCanisterId } = params;
     this.token = token;
     this.canisterId = canisterId;
+    this.badgeCanisterId = badgeCanisterId;
     this.loginType = window.localStorage.getItem('loginType') || '';
     this.pending = false;
   }
@@ -77,6 +83,7 @@ class NdpService {
     this.identity = identity;
     this.agent = new HttpAgent({ identity });
     this.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
+    this.badgeActor = Actor.createActor(badgerIdlFactory, { agent: this.agent, canisterId: this.badgeCanisterId });
   }
   async getPlugActor() {
     try {
@@ -88,6 +95,10 @@ class NdpService {
         canisterId: this.canisterId,
         interfaceFactory: idlFactory,
       });
+      this.badgeActor = await window.ic.plug.createActor({
+        canisterId: this.badgeCanisterId,
+        interfaceFactory: badgerIdlFactory,
+      });
     } catch (err) {
       message.error('Failed authorization');
     }
@@ -98,6 +109,8 @@ class NdpService {
   async plugLogin() {
     await this.initService('plug');
   }
+
+  // NDP conister interface function
   async approve() {
     await this.initService();
     return this.actor.approve();
@@ -136,13 +149,26 @@ class NdpService {
     await this.initService();
     return this.actor.claimStatus();
   }
+
+  // badgeActor conister interface function
+  async getAllBadgeList() {
+    await this.initService();
+    return this.badgeActor.getAllBadgeList();
+  }
+  async getUserBadgeList(arg: any) {
+    await this.initService();
+    return this.badgeActor.getUserBadgeList(arg);
+  }
 }
 
 const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
 const canisterId = 'vgqnj-miaaa-aaaal-qaapa-cai';
+const badgeCanisterId = 'rfde3-eyaaa-aaaal-qaaua-cai';
+
 export default new NdpService({
   token: NDP_TOKEN,
   canisterId: canisterId,
+  badgeCanisterId: badgeCanisterId,
 });
 
 // Type
@@ -150,10 +176,11 @@ export default new NdpService({
 interface ConstructorParams {
   token: string;
   canisterId: string;
+  badgeCanisterId: string;
 }
 interface ImplementedActorMethods {
+  // ndp
   approve: () => Promise<{ addr: string }>;
-  // Promise<{ addr: string; balance: bigint; claim: bigint }>;
   balance: (arg: any) => Promise<{ ok: BigInt }>;
   claim: () => Promise<{ err?: ''; ok?: '' }>;
   getAccountId: () => Promise<string>;
@@ -162,4 +189,8 @@ interface ImplementedActorMethods {
   minted: () => Promise<BigInt>;
   supply: (TokenIdentifier: string) => Promise<unknown>;
   claimStatus: () => Promise<{ ok?: '' }>;
+
+  // badge
+  getAllBadgeList: () => Promise<{}>;
+  getUserBadgeList: (arg: any) => Promise<{ err?: ''; ok?: '' }>;
 }

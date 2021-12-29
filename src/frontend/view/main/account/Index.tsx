@@ -1,6 +1,5 @@
 import approve from '@/assets/main/approve.png';
 import React, { useEffect } from 'react';
-import BadgeService from '../../../utils/BadgeService';
 import NdpService from '../../../utils/NdpService';
 import Activity from './activity/Index';
 import Badges from './badges/Index';
@@ -15,7 +14,7 @@ type Prop = {
 const Index = (prop: Prop) => {
   const getAllBadgeList = async () => {
     try {
-      const AllBadgeList = await BadgeService.getAllBadgeList();
+      const AllBadgeList = await NdpService.getAllBadgeList();
       console.log(AllBadgeList, 'getAllBadgeList');
     } catch (error) {
       console.error('getAllBadgeList', error);
@@ -27,7 +26,7 @@ const Index = (prop: Prop) => {
   console.log('0000000000');
   const getUserBadgeList = async () => {
     try {
-      const UserBadgeList = await BadgeService.getUserBadgeList(getUserBadgeListParams);
+      const UserBadgeList = await NdpService.getUserBadgeList(getUserBadgeListParams);
       console.log(UserBadgeList, 'getUserBadgeList');
     } catch (error) {
       console.error('getAllBadgeList', error);
@@ -56,10 +55,10 @@ const Index = (prop: Prop) => {
           </div>
         </div>
         <div className="account-tab-header">
-          {prop.tabList.map(item => (
+          {prop.tabList.map((item, idx) => (
             <span
               className={`account-tab-button ${prop.active === item ? 'account-tab-button-active' : ''}`}
-              key={item}
+              key={idx}
               onClick={() => {
                 prop.setAccountTab(item);
               }}>
