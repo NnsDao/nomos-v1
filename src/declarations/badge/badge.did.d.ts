@@ -5,6 +5,7 @@ export interface Badge {
   'addOwner' : (arg_0: Principal) => Promise<Result>,
   'availableCycles' : () => Promise<bigint>,
   'delOwner' : (arg_0: Principal) => Promise<Result>,
+  'getAddr' : (arg_0: Principal) => Promise<string>,
   'getAllBadgeList' : () => Promise<Array<[Token, Badge__1]>>,
   'getUserBadgeList' : (arg_0: Principal) => Promise<Array<[] | [Badge__1]>>,
   'http_request' : (arg_0: HttpRequest) => Promise<HttpResponse>,

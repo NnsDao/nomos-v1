@@ -46,6 +46,7 @@ type Badge =
    addOwner: (principal) -> (Result);
    availableCycles: () -> (nat) query;
    delOwner: (principal) -> (Result);
+   getAddr: (principal) -> (text) query;
    getAllBadgeList: () -> (vec record {
                                  Token;
                                  Badge__1;

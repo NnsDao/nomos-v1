@@ -1,19 +1,30 @@
 type UserInfo = 
  record {
+   address: text;
    avatar: text;
    nickname: text;
-   reputation: nat64;
+   "principal": principal;
+   reputation: nat;
    signature: text;
  };
 type UserBaseInfo = 
  record {
+   address: text;
    avatar: text;
    nickname: text;
+   "principal": principal;
    signature: text;
  };
 type User = 
  service {
-   getUserInfo: () -> (UserInfo) query;
+   addOwner: (principal) -> (Result);
+   delOwner: (principal) -> (Result);
+   getUserInfo: () -> (UserInfo);
+   login: () -> (Result);
+   owner: () -> (vec record {
+                       principal;
+                       nat64;
+                     }) query;
    setUserInfo: (UserBaseInfo) -> (Result);
  };
 type Result = 

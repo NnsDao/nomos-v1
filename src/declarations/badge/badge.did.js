@@ -28,6 +28,7 @@ export const idlFactory = ({ IDL }) => {
     'addOwner' : IDL.Func([IDL.Principal], [Result], []),
     'availableCycles' : IDL.Func([], [IDL.Nat], ['query']),
     'delOwner' : IDL.Func([IDL.Principal], [Result], []),
+    'getAddr' : IDL.Func([IDL.Principal], [IDL.Text], ['query']),
     'getAllBadgeList' : IDL.Func(
         [],
         [IDL.Vec(IDL.Tuple(Token, Badge__1))],
