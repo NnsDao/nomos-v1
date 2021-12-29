@@ -1,25 +1,30 @@
 import type { Principal } from '@dfinity/principal';
 export type Address = string;
 export interface Badge {
-  'a' : (arg_0: string) => Promise<undefined>,
   'addBadge' : (arg_0: Badge__1) => Promise<MintResp>,
   'addOwner' : (arg_0: Principal) => Promise<Result>,
+  'availableCycles' : () => Promise<bigint>,
   'delOwner' : (arg_0: Principal) => Promise<Result>,
   'getAllBadgeList' : () => Promise<Array<[Token, Badge__1]>>,
-  'getUserBadgeList' : () => Promise<Array<[] | [Badge__1]>>,
-  'http_request' : () => Promise<HttpResponse>,
+  'getUserBadgeList' : (arg_0: Principal) => Promise<Array<[] | [Badge__1]>>,
+  'http_request' : (arg_0: HttpRequest) => Promise<HttpResponse>,
   'mintBadge' : (arg_0: MintBadge) => Promise<MintResp>,
   'owner' : () => Promise<Array<[Principal, bigint]>>,
 }
 export interface Badge__1 {
   'url' : string,
   'token' : Token,
-  'data' : Array<number>,
+  'data' : string,
   'desc' : string,
   'name' : string,
   'reputation' : bigint,
 }
 export type HeaderField = [string, string];
+export interface HttpRequest {
+  'url' : string,
+  'method' : string,
+  'headers' : Array<HeaderField>,
+}
 export interface HttpResponse {
   'body' : Array<number>,
   'headers' : Array<HeaderField>,

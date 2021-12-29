@@ -1,0 +1,24 @@
+type UserInfo = 
+ record {
+   avatar: text;
+   nickname: text;
+   reputation: nat64;
+   signature: text;
+ };
+type UserBaseInfo = 
+ record {
+   avatar: text;
+   nickname: text;
+   signature: text;
+ };
+type User = 
+ service {
+   getUserInfo: () -> (UserInfo) query;
+   setUserInfo: (UserBaseInfo) -> (Result);
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: bool;
+ };
+service : () -> User

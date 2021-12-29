@@ -20,6 +20,12 @@ type HttpResponse =
    headers: vec HeaderField;
    status_code: nat16;
  };
+type HttpRequest = 
+ record {
+   headers: vec HeaderField;
+   method: text;
+   url: text;
+ };
 type HeaderField = 
  record {
    text;
@@ -27,7 +33,7 @@ type HeaderField =
  };
 type Badge__1 = 
  record {
-   data: blob;
+   data: text;
    desc: text;
    name: text;
    reputation: nat;
@@ -36,16 +42,16 @@ type Badge__1 =
  };
 type Badge = 
  service {
-   a: (text) -> ();
    addBadge: (Badge__1) -> (MintResp);
    addOwner: (principal) -> (Result);
+   availableCycles: () -> (nat) query;
    delOwner: (principal) -> (Result);
    getAllBadgeList: () -> (vec record {
                                  Token;
                                  Badge__1;
                                }) query;
-   getUserBadgeList: () -> (vec opt Badge__1) query;
-   http_request: () -> (HttpResponse) query;
+   getUserBadgeList: (principal) -> (vec opt Badge__1) query;
+   http_request: (HttpRequest) -> (HttpResponse) query;
    mintBadge: (MintBadge) -> (MintResp);
    owner: () -> (vec record {
                        principal;
