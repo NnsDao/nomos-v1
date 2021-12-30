@@ -206,5 +206,5 @@ interface ImplementedActorMethods {
 
   // badge
   getAllBadgeList: () => Promise<{}>;
-  getUserBadgeList: (arg: any) => Promise<{ err?: ''; ok?: '' }>;
+  getUserBadgeList: (arg: any) => Promise<any>;
 }

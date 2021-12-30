@@ -1,5 +1,5 @@
 import approve from '@/assets/main/approve.png';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NdpService from '../../../utils/NdpService';
 import Activity from './activity/Index';
 import Badges from './badges/Index';
@@ -11,33 +11,33 @@ type Prop = {
   active: string;
   setAccountTab: Function;
 };
+
 const Index = (prop: Prop) => {
-  const getAllBadgeList = async () => {
-    try {
-      const AllBadgeList = await NdpService.getAllBadgeList();
-      console.log(AllBadgeList, 'getAllBadgeList');
-    } catch (error) {
-      console.error('getAllBadgeList', error);
-    }
-  };
+  // const getAllBadgeList = async () => {
+  //   try {
+  //     const AllBadgeList = await NdpService.getAllBadgeList();
+  //     console.log(AllBadgeList, 'getAllBadgeList');
+  //   } catch (error) {
+  //     console.error('getAllBadgeList', error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getAllBadgeList();
+  // }, []);
+  const [userBadgeList, setUserBadgeList] = useState([]);
+
   let identity = NdpService.identity;
-  console.log(identity.getPrincipal().toUint8Array(), '11111111');
-  const getUserBadgeListParams = [identity.getPrincipal().toUint8Array()];
-  console.log('0000000000');
   const getUserBadgeList = async () => {
     try {
-      const UserBadgeList = await NdpService.getUserBadgeList(getUserBadgeListParams);
-      console.log(UserBadgeList, 'getUserBadgeList');
+      const list = await NdpService.getUserBadgeList(identity.getPrincipal());
+      setUserBadgeList(list);
     } catch (error) {
-      console.error('getAllBadgeList', error);
+      console.error('getUserBadgeList', error);
     }
   };
 
   useEffect(() => {
     getUserBadgeList();
-  }, []);
-  useEffect(() => {
-    getAllBadgeList();
   }, []);
 
   return (
@@ -70,7 +70,7 @@ const Index = (prop: Prop) => {
           {prop.active === 'Activity' ? <Activity /> : ''}
           {prop.active === 'DAOs' ? <DAOs /> : ''}
           {prop.active === 'DAOn' ? <DAOn /> : ''}
-          {prop.active === 'Badges' ? <Badges /> : ''}
+          {prop.active === 'Badges' ? <Badges badgesList={userBadgeList} /> : ''}
         </div>
       </div>
     </>
