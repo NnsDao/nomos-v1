@@ -2,6 +2,7 @@ type UserInfo =
  record {
    address: text;
    avatar: text;
+   index: nat64;
    nickname: text;
    "principal": principal;
    reputation: nat;
@@ -18,9 +19,10 @@ type UserBaseInfo =
 type User = 
  service {
    addOwner: (principal) -> (Result);
+   availableCycles: () -> (nat) query;
    delOwner: (principal) -> (Result);
+   getAddr: (principal) -> (text);
    getUserInfo: () -> (UserInfo);
-   login: () -> (Result);
    owner: () -> (vec record {
                        principal;
                        nat64;

@@ -6,6 +6,7 @@ export const idlFactory = ({ IDL }) => {
     'nickname' : IDL.Text,
     'reputation' : IDL.Nat,
     'address' : IDL.Text,
+    'index' : IDL.Nat64,
     'avatar' : IDL.Text,
   });
   const UserBaseInfo = IDL.Record({
@@ -17,9 +18,10 @@ export const idlFactory = ({ IDL }) => {
   });
   const User = IDL.Service({
     'addOwner' : IDL.Func([IDL.Principal], [Result], []),
+    'availableCycles' : IDL.Func([], [IDL.Nat], ['query']),
     'delOwner' : IDL.Func([IDL.Principal], [Result], []),
+    'getAddr' : IDL.Func([IDL.Principal], [IDL.Text], []),
     'getUserInfo' : IDL.Func([], [UserInfo], []),
-    'login' : IDL.Func([], [Result], []),
     'owner' : IDL.Func(
         [],
         [IDL.Vec(IDL.Tuple(IDL.Principal, IDL.Nat64))],

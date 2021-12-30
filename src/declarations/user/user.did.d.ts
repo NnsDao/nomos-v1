@@ -3,9 +3,10 @@ export type Result = { 'ok' : boolean } |
   { 'err' : string };
 export interface User {
   'addOwner' : (arg_0: Principal) => Promise<Result>,
+  'availableCycles' : () => Promise<bigint>,
   'delOwner' : (arg_0: Principal) => Promise<Result>,
+  'getAddr' : (arg_0: Principal) => Promise<string>,
   'getUserInfo' : () => Promise<UserInfo>,
-  'login' : () => Promise<Result>,
   'owner' : () => Promise<Array<[Principal, bigint]>>,
   'setUserInfo' : (arg_0: UserBaseInfo) => Promise<Result>,
 }
@@ -22,6 +23,7 @@ export interface UserInfo {
   'nickname' : string,
   'reputation' : bigint,
   'address' : string,
+  'index' : bigint,
   'avatar' : string,
 }
 export interface _SERVICE extends User {}
