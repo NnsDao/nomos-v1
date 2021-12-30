@@ -69,7 +69,13 @@ const Index = (prop: Prop) => {
   useEffect(() => {
     getUserBadgeList();
   }, []);
-
+  const getCurrentDate = () => {
+    const myDate = new Date();
+    const year = myDate.getFullYear();
+    const month = myDate.getMonth();
+    const day = myDate.getDate();
+    return year + '/' + (month + 1) + '/' + (day - 1);
+  };
   return (
     <>
       <div className="account-wrapper">
@@ -99,7 +105,7 @@ const Index = (prop: Prop) => {
             <img src={reputation} alt="" width="399px" height="255px" />
             <div className="reputation-text-wrapper">
               <div className="reputation-text">{new BigNumber(userInfo.reputation.toString()).div(new BigNumber('100000000')).toString() || 0}</div>
-              <div className="reputation-date">2021/12/29</div>
+              <div className="reputation-date">{getCurrentDate()}</div>
             </div>
           </div>
         </div>
