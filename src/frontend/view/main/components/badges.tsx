@@ -19,7 +19,7 @@ const badges = (prop: Prop) => {
         <div className="badges-content">
           <img onClick={() => handleClick(prop.token)} src={`data:image/jpg;base64,${prop.data}`} alt={prop.desc} width={'138px'} height={'175px'} />
         </div>
-        <div className="badges-text">{prop.desc}</div>
+        <div className="badges-text">{prop.name}</div>
       </div>
     </>
   );

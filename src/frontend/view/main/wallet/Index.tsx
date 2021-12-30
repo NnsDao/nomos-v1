@@ -43,6 +43,7 @@ const Index = () => {
   };
 
   const getClaimStatus = async () => {
+    let isUnmount = false;
     let claimStatus = null;
     try {
       claimStatus = await NdpService.getClaimStatus();
@@ -51,8 +52,7 @@ const Index = () => {
       console.log('claimStatus', claimStatus);
     }
 
-    if (claimStatus?.ok) {
-      console.log('okkkkkk');
+    if (claimStatus?.ok && !isUnmount) {
       setWalletList([
         {
           name: 'NnsDAO Protocol',
@@ -77,7 +77,7 @@ const Index = () => {
         },
       ]);
     }
-    return;
+    return () => (isUnmount = true);
   };
 
   useEffect(() => {

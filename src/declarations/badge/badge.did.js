@@ -26,8 +26,10 @@ export const idlFactory = ({ IDL }) => {
   const Badge = IDL.Service({
     'addBadge' : IDL.Func([Badge__1], [MintResp], []),
     'addOwner' : IDL.Func([IDL.Principal], [Result], []),
+    'addOwnerActor' : IDL.Func([IDL.Principal], [Result], []),
     'availableCycles' : IDL.Func([], [IDL.Nat], ['query']),
     'delOwner' : IDL.Func([IDL.Principal], [Result], []),
+    'delOwnerActor' : IDL.Func([IDL.Principal], [Result], []),
     'getAddr' : IDL.Func([IDL.Principal], [IDL.Text], ['query']),
     'getAllBadgeList' : IDL.Func(
         [],
@@ -42,6 +44,11 @@ export const idlFactory = ({ IDL }) => {
     'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
     'mintBadge' : IDL.Func([MintBadge], [MintResp], []),
     'owner' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Tuple(IDL.Principal, IDL.Nat64))],
+        ['query'],
+      ),
+    'ownerActor' : IDL.Func(
         [],
         [IDL.Vec(IDL.Tuple(IDL.Principal, IDL.Nat64))],
         ['query'],

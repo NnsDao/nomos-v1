@@ -3,14 +3,17 @@ export type Address = string;
 export interface Badge {
   'addBadge' : (arg_0: Badge__1) => Promise<MintResp>,
   'addOwner' : (arg_0: Principal) => Promise<Result>,
+  'addOwnerActor' : (arg_0: Principal) => Promise<Result>,
   'availableCycles' : () => Promise<bigint>,
   'delOwner' : (arg_0: Principal) => Promise<Result>,
+  'delOwnerActor' : (arg_0: Principal) => Promise<Result>,
   'getAddr' : (arg_0: Principal) => Promise<string>,
   'getAllBadgeList' : () => Promise<Array<[Token, Badge__1]>>,
   'getUserBadgeList' : (arg_0: Principal) => Promise<Array<[] | [Badge__1]>>,
   'http_request' : (arg_0: HttpRequest) => Promise<HttpResponse>,
   'mintBadge' : (arg_0: MintBadge) => Promise<MintResp>,
   'owner' : () => Promise<Array<[Principal, bigint]>>,
+  'ownerActor' : () => Promise<Array<[Principal, bigint]>>,
 }
 export interface Badge__1 {
   'url' : string,

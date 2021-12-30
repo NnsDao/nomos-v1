@@ -18,11 +18,12 @@ const Index = (prop: Prop) => {
         <span>Badges</span>
       </div>
       <div className="badges">
-        {prop.badgesList.map((item, idx) => (
-          <div className="w-1/5 mr-20" key={idx}>
-            <Badges data={item[0].data} desc={item[0].desc} name={item[0].name} requtation={item[0].requtation} token={item[0].token} />
-          </div>
-        ))}
+        {prop.badgesList.length > 1 &&
+          prop.badgesList.map((item, idx) => (
+            <div className="w-1/5 mr-20" key={idx}>
+              <Badges data={item[0].data} desc={item[0].desc} name={item[0].name} requtation={item[0].requtation} token={item[0].token} />
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -44,8 +44,10 @@ type Badge =
  service {
    addBadge: (Badge__1) -> (MintResp);
    addOwner: (principal) -> (Result);
+   addOwnerActor: (principal) -> (Result);
    availableCycles: () -> (nat) query;
    delOwner: (principal) -> (Result);
+   delOwnerActor: (principal) -> (Result);
    getAddr: (principal) -> (text) query;
    getAllBadgeList: () -> (vec record {
                                  Token;
@@ -58,6 +60,10 @@ type Badge =
                        principal;
                        nat64;
                      }) query;
+   ownerActor: () -> (vec record {
+                            principal;
+                            nat64;
+                          }) query;
  };
 type Address = text;
 service : () -> Badge
