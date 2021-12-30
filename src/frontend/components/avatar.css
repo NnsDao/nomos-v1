@@ -1,0 +1,6 @@
+.avatar-wrapper {
+  cursor: pointer;
+}
+.avatar-wrapper img {
+  border-radius: 50%;
+}

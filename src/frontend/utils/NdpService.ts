@@ -215,5 +215,5 @@ interface ImplementedActorMethods {
   getUserBadgeList: (arg: any) => Promise<any>;
 
   // user
-  getUserInfo: () => Promise<{ acatar: ''; nickName: ''; address: ''; reputation: BigInt; signature: '' }>;
+  getUserInfo: () => Promise<{ acatar: ''; nickName: ''; address: ''; reputation: any; signature: ''; index: any }>;
 }

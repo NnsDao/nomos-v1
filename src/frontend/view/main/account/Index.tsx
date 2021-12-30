@@ -1,7 +1,9 @@
 import approve from '@/assets/main/approve.png';
 import { message } from 'antd';
+import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import copy from '../../../assets/home/copy.png';
+import reputation from '../../../assets/main/reputation.png';
 import NdpService from '../../../utils/NdpService';
 import Activity from './activity/Index';
 import Badges from './badges/Index';
@@ -14,11 +16,7 @@ type Prop = {
   active: string;
   setAccountTab: Function;
 };
-type userInfo = {
-  avtar: string;
-  nickname: string;
-  address: string;
-};
+
 const Index = (prop: Prop) => {
   // const getAllBadgeList = async () => {
   //   try {
@@ -42,6 +40,8 @@ const Index = (prop: Prop) => {
   const getUserBadgeList = async () => {
     try {
       const list = await NdpService.getUserBadgeList(identity.getPrincipal());
+      console.log(list, '11111111111111111111');
+
       setUserBadgeList(list);
     } catch (error) {
       console.error('getUserBadgeList', error);
@@ -51,6 +51,8 @@ const Index = (prop: Prop) => {
     acatar: '',
     nickName: '',
     address: '',
+    reputation: '',
+    index: '',
   });
   const getUserInfo = async () => {
     try {
@@ -72,21 +74,32 @@ const Index = (prop: Prop) => {
     <>
       <div className="account-wrapper">
         <div className="account-header">
-          <div className="account-header-actor"></div>
-          <div className="account-header-text-wrapper">
-            {userInfo.address ? (
-              <div className="flex justify-between items-center account-header-patrick" onClick={copyAddress}>
-                <span className=" cursor-pointer ">{userInfo.address?.slice(0, 10) + '.....'}</span>
-                <img className="-ml-2 cursor-pointer " src={copy} width={'19px'} height={'19px'} alt="" />
-              </div>
-            ) : (
-              <div>address</div>
-            )}
+          {/* <Avatar /> */}
+          <div className="flex">
+            <div className="account-header-actor"></div>
+            <div className="account-header-text-wrapper">
+              {userInfo.address ? (
+                <div className="flex justify-between items-center account-header-patrick" onClick={copyAddress}>
+                  <span className=" cursor-pointer ">{userInfo.address?.slice(0, 20) + '.....'}</span>
+                  <img className="ml-2 cursor-pointer " src={copy} width={'19px'} height={'19px'} alt="" />
+                </div>
+              ) : (
+                <div>address</div>
+              )}
 
-            <div className="account-header-info">
-              <span>{'#' + '11111'} </span>
-              <span>{userInfo.nickName || 'nickName'} </span>
-              <img className="ml-2" src={approve} alt="" width={'40px'} height={'40px'} />
+              <div className="account-header-info">
+                <span>{`#  ${new BigNumber(userInfo.index.toString()).div(new BigNumber('100000000')).toString()} `} </span>
+                <span>{userInfo.nickName || 'nickName'} </span>
+                <img className="ml-6" src={approve} alt="" width={'40px'} height={'40px'} />
+              </div>
+            </div>
+          </div>
+
+          <div className="account-header-reputation">
+            <img src={reputation} alt="" width="399px" height="255px" />
+            <div className="reputation-text-wrapper">
+              <div className="reputation-text">{new BigNumber(userInfo.reputation.toString()).div(new BigNumber('100000000')).toString() || 0}</div>
+              <div className="reputation-date">2021/12/29</div>
             </div>
           </div>
         </div>
