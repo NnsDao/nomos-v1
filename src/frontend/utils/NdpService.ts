@@ -170,6 +170,12 @@ class NdpService {
     await this.initService();
     return this.badgeActor.getUserBadgeList(arg);
   }
+
+  // userActor conister interface function
+  async getUserInfo() {
+    await this.initService();
+    return this.userActor.getUserInfo();
+  }
 }
 
 const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
@@ -207,4 +213,7 @@ interface ImplementedActorMethods {
   // badge
   getAllBadgeList: () => Promise<{}>;
   getUserBadgeList: (arg: any) => Promise<any>;
+
+  // user
+  getUserInfo: () => Promise<{ acatar: ''; nickName: ''; address: ''; reputation: BigInt; signature: '' }>;
 }
