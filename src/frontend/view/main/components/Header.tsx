@@ -37,7 +37,7 @@ const Header = (prop: Prop) => {
           {isLogin ? (
             // <div className={'w-200px h-10 leading-10 text-right text-white cursor-pointer'}>Address:{accountId?.slice(0, 8) + '...'}</div>
             <div className="flex justify-center items-center cursor-pointer " onClickCapture={() => prop.clickActor('Account')} onMouseLeave={() => handleShowMenu(false)}>
-              <div className="ml-9 relative">
+              <div className="ml-9 relative z-50">
                 <img className="h-8 w-8" src={nnsAvatar} alt="nnsdao logo" onMouseOver={() => handleShowMenu(true)} />
                 {isShowMenu ? (
                   <div className="header-nav-wrapper">

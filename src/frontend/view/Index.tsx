@@ -156,6 +156,16 @@ export default function index(prop: any) {
       questions:
         'The DAO is not single, it is a DAO composed of multiple people collaborating and therefore defined as DAOs, you can learn by reading the NnsDAO whitepaper that each DAOs, DAOn has a cap on the number of people, when a DAOn, DAOs are infinitely scaled and growing, we may need to subdivide the responsibilities of each DAO more and therefore can decide by voting Whether to split this DAO (collection) to further form smaller organizations or called new DAOs.',
     },
+    {
+      frequently: 'What is Badge?',
+      questions:
+        'Badges are part of the reputation system and currently, NnsDAO has introduced 5 badges where users who participate in activities and contribute will receive badges and reputation points.',
+    },
+    {
+      frequently: 'About the first and second Sponsor.',
+      questions:
+        'If you are a Genesis sponsor you will receive a ratio of 1:1500, if you are an Eco sponsor you will receive a ratio of 1:1200, and a badge will be given to the first and second-time sponsor participants.',
+    },
   ];
 
   const history = useHistory();
@@ -182,7 +192,7 @@ export default function index(prop: any) {
   const goMain = () => {
     // const wins: any = window.open('/main', '_blank');
     // wins.focus();
-    history.push('/main')
+    history.push('/main');
   };
 
   const [contributesImg, setContributesImg] = useState(state0);

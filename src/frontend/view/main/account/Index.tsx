@@ -37,10 +37,22 @@ const Index = (prop: Prop) => {
   const [userBadgeList, setUserBadgeList] = useState([]);
 
   let identity = NdpService.identity;
+
+  const pid = window.localStorage.getItem('loginType');
+
+  let pids: any = null;
+
+  if (pid == 'plug') {
+    pids = identity;
+  } else {
+    pids = identity.getPrincipal();
+  }
+
+  console.log(pids, 'debug');
+
   const getUserBadgeList = async () => {
     try {
-      const list = await NdpService.getUserBadgeList(identity.getPrincipal());
-      console.log(list, '11111111111111111111');
+      const list = await NdpService.getUserBadgeList(pids);
 
       setUserBadgeList(list);
     } catch (error) {
@@ -86,7 +98,7 @@ const Index = (prop: Prop) => {
             <div className="account-header-text-wrapper">
               {userInfo.address ? (
                 <div className="flex justify-between items-center account-header-patrick" onClick={copyAddress}>
-                  <span className=" cursor-pointer ">{userInfo.address?.slice(0, 20) + '.....'}</span>
+                  <span className=" cursor-pointer ">{userInfo.address?.slice(0, 6) + '....' + userInfo.address?.slice(16, 20)}</span>
                   <img className="ml-2 cursor-pointer " src={copy} width={'19px'} height={'19px'} alt="" />
                 </div>
               ) : (

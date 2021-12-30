@@ -95,7 +95,7 @@ class NdpService {
   async getPlugActor() {
     try {
       await window.ic.plug.requestConnect({
-        whitelist: [this.canisterId],
+        whitelist: [this.canisterId, this.badgeCanisterId, this.userCanisterId],
         timeout: 1e4, // Ten seconds
       });
       this.actor = await window.ic.plug.createActor({
@@ -110,6 +110,7 @@ class NdpService {
         canisterId: this.userCanisterId,
         interfaceFactory: userIdlFactory,
       });
+      this.identity = window.ic.plug.principal;
     } catch (err) {
       message.error('Failed authorization');
     }
