@@ -6,11 +6,16 @@ import earth2 from '../../assets/home/patrickearth_2.png';
 import earth3 from '../../assets/home/patrickearth_3.png';
 import earth6 from '../../assets/home/patrickearth_6.png';
 import earth9 from '../../assets/home/patrickearth_9.png';
+import imgAirdrop from '../../assets/product/airdrop.png';
 import alltasks from '../../assets/product/alltasks.png';
 import contributeModel from '../../assets/product/contribute_model.png';
+import imgContribution from '../../assets/product/contribution.png';
 import design from '../../assets/product/design.png';
 import dev from '../../assets/product/dev.png';
+import imgEcosponsor from '../../assets/product/ecology_sponsor.png';
 import img from '../../assets/product/edit.png';
+import imgGenesisponsor from '../../assets/product/genesis_sponsor.png';
+import imgShare from '../../assets/product/share.png';
 import './index.css';
 
 const ProcessList = [
@@ -170,7 +175,83 @@ const Index = () => {
                 <span className="text-subTitleColor font-bold text-2xl my-2 mb-5">Calculation formula</span>
                 <img src={contributeModel} className=" opacity-70" alt="" width={'100%'} height={'100%'} />
               </div>
+              {/* Achievements */}
+
+              <div className="flex flex-col justify-start items-start mb-2">
+                <span className="text-subTitleColor font-bold text-2xl my-2 mb-2">Achievements Details</span>
+                <div className="shadow  rounded border-b border-gray-600 mt-3 mb-8">
+                  <table className="min-w-full bg-gray-700 table-fixed border-collapse">
+                    <thead className="bg-gray-800 text-white">
+                      <tr>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">Title</th>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">Badge</th>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">Earnable?</th>
+                        <th className="text-left py-3 px-4 uppercase font-semibold text-sm border border-white border-opacity-25">Earned by</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-white">
+                      <tr>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">Genesis Sponsor</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">
+                          <img src={imgGenesisponsor} alt="" width={'36px'} height={'36px'} />
+                        </td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">By sponsoring the initial phase of Icpscan.</td>
+                      </tr>
+
+                      <tr>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">Ecology Sponsor</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">
+                          <img src={imgEcosponsor} alt="" width={'36px'} height={'36px'} />
+                        </td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">By sponsoring the development phase of NnsDAO.</td>
+                      </tr>
+
+                      <tr>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">Contribution</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">
+                          <img src={imgContribution} alt="" width={'36px'} height={'36px'} />
+                        </td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">Obtained by contributing to the distribution.</td>
+                      </tr>
+
+                      <tr>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">Airdrop</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">
+                          <img src={imgAirdrop} alt="" width={'36px'} height={'36px'} />
+                        </td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">❌</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">By participating in the airdrop event.</td>
+                      </tr>
+
+                      <tr>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">Share</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">
+                          <img src={imgShare} alt="" width={'36px'} height={'36px'} />
+                        </td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">❌</td>
+                        <td className="border border-white border-opacity-25 text-left py-3 px-4">Earn by sharing.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
+
             {/* process */}
             <span className="process-title">Product Process</span>
             <div>

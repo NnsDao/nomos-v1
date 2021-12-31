@@ -16,15 +16,15 @@ const footer = () => {
   return (
     <>
       <div className={'w-840px mx-auto flex justify-center mb-5 items-start text-white  '}>
-        <span className="text-xl">We Partners</span>
+        <span className="text-xl opacity-90">We Partners</span>
       </div>
-      <div className={'w-840px mx-auto flex justify-center items-start'}>
-        <img src={jdaLogo} width={'135px'} height={'45px'} alt="" className="mr-14" />
-        <img src={icpswapLogo} width={'135px'} height={'45px'} alt="icpswap" />
+      <div className={'w-840px mx-auto flex justify-center items-start opacity-60'}>
+        <img src={icpswapLogo} width={'220px'} height={'45px'} className="mr-5" alt="icpswap" />
+        <img src={jdaLogo} width={'115px'} height={'45px'} alt="" />
         {/* <img src={google} width={'135px'} height={'45px'} alt="" /> */}
         {/* <img src={IosDownload} width={'135px'} height={'45px'} alt="" /> */}
       </div>
-      <div className={'w-840px mx-auto mt-20 mb-4 pb-8 flex flex-row items-center justify-center'}>
+      <div className={'w-840px mx-auto mt-5 mb-4 pb-8 flex flex-row items-center justify-center'}>
         {/* <span className={inactiveClass}>Nomos</span> */}
         {/* <span
           className={inactiveClass}
