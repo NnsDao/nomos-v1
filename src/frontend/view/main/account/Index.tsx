@@ -4,6 +4,7 @@ import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import copy from '../../../assets/home/copy.png';
 import reputation from '../../../assets/main/reputation.png';
+import Avatar from '../../../components/Avatar';
 import NdpService from '../../../utils/NdpService';
 import Activity from './activity/Index';
 import Badges from './badges/Index';
@@ -92,9 +93,10 @@ const Index = (prop: Prop) => {
     <>
       <div className="account-wrapper">
         <div className="account-header">
-          {/* <Avatar /> */}
           <div className="flex">
-            <div className="account-header-actor"></div>
+            <Avatar />
+
+            {/* <div className="account-header-actor"></div> */}
             <div className="account-header-text-wrapper">
               {userInfo.address ? (
                 <div className="flex justify-between items-center account-header-patrick" onClick={copyAddress}>
@@ -114,7 +116,7 @@ const Index = (prop: Prop) => {
           </div>
 
           <div className="account-header-reputation">
-            <img src={reputation} alt="" width="399px" height="255px" />
+            <img src={reputation} alt="" width="100%" height="" />
             <div className="reputation-text-wrapper">
               <div className="reputation-text">{new BigNumber(userInfo.reputation.toString()).div(new BigNumber('100000000')).toString() || 0}</div>
               <div className="reputation-date">{getCurrentDate()}</div>

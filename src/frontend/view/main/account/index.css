@@ -26,6 +26,7 @@
   margin-right: 25px;
 }
 .account-header-text-wrapper {
+  margin-left: 20px;
   font-size: 24px;
   font-family: Arial-BoldMT, Arial;
   font-weight: normal;
@@ -76,10 +77,15 @@
 }
 .account-header-reputation {
   position: relative;
+  width: 36%;
+  max-width: 399px;
+  min-width: 300px;
+  max-height: 255px;
+  min-height: 180px;
 }
 .reputation-text-wrapper {
   position: absolute;
-  top: 39%;
+  top: 33%;
   left: 11%;
 }
 .reputation-text {
@@ -91,7 +97,7 @@
 }
 
 .reputation-date {
-  margin-top: 26px;
+  margin-top: 15px;
   font-size: 12px;
   font-family: ArialMT;
   color: #9f9f9f;
