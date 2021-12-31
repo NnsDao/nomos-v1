@@ -14,7 +14,8 @@ const Header = (prop: Prop) => {
   const handleShowMenu = (bool: boolean) => {
     setIsShowMenu(bool);
   };
-  const menuList = ['ProFile', 'My DAOs', 'My DAOn', 'My Wallet', 'Logout'];
+  // const menuList = ['Profile', 'My DAOs', 'My DAOn', 'My Wallet', 'Logout'];
+  const menuList = ['Profile', 'My Wallet', 'Logout'];
   return (
     <>
       <div className={'flex justify-between py-6'}>

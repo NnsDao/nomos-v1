@@ -1,6 +1,4 @@
-import approve from '@/assets/main/approve.png';
 import { message } from 'antd';
-import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import copy from '../../../assets/home/copy.png';
 import reputation from '../../../assets/main/reputation.png';
@@ -70,7 +68,6 @@ const Index = (prop: Prop) => {
   const getUserInfo = async () => {
     try {
       const result = await NdpService.getUserInfo();
-      console.log(result, 'getUserInfo');
       setUserInfo(result);
     } catch (error) {
       console.log('getUserInfo', error);
@@ -108,9 +105,9 @@ const Index = (prop: Prop) => {
               )}
 
               <div className="account-header-info">
-                <span>{`#  ${new BigNumber(userInfo.index.toString()).div(new BigNumber('100000000')).toString()} `} </span>
-                <span>{userInfo.nickName || 'nickName'} </span>
-                <img className="ml-6" src={approve} alt="" width={'40px'} height={'40px'} />
+                <span>{`#  ${Math.floor(Number(Number(userInfo.index)))} `} </span>
+                {/* <span>{userInfo.nickName || 'nickName'} </span> */}
+                {/* <img className="ml-6" src={approve} alt="" width={'40px'} height={'40px'} /> */}
               </div>
             </div>
           </div>
@@ -118,7 +115,7 @@ const Index = (prop: Prop) => {
           <div className="account-header-reputation">
             <img src={reputation} alt="" width="100%" height="" />
             <div className="reputation-text-wrapper">
-              <div className="reputation-text">{new BigNumber(userInfo.reputation.toString()).div(new BigNumber('100000000')).toString() || 0}</div>
+              <div className="reputation-text">{Math.floor(Number(Number(userInfo.reputation))) || 0}</div>
               <div className="reputation-date">{getCurrentDate()}</div>
             </div>
           </div>
@@ -128,9 +125,10 @@ const Index = (prop: Prop) => {
             <span
               className={`account-tab-button ${prop.active === item ? 'account-tab-button-active' : ''}`}
               key={idx}
-              onClick={() => {
-                prop.setAccountTab(item);
-              }}>
+              // onClick={() => {
+              //   prop.setAccountTab(item);
+              // }}
+            >
               {item}
             </span>
           ))}
