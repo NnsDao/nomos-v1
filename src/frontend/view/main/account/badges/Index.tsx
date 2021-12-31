@@ -12,13 +12,14 @@ type Prop = {
   badgesList: Array<Array<item>>;
 };
 const Index = (prop: Prop) => {
+  const badgesStatus = Array.prototype.isPrototypeOf(prop.badgesList[0]) && prop.badgesList[0].length === 0;
   return (
     <div>
       <div className="title-text">
         <span>Badges</span>
       </div>
       <div className="badges">
-        {prop.badgesList.length > 1 ? (
+        {!badgesStatus ? (
           prop.badgesList.map((item, idx) => (
             <div className="w-1/5 mr-20" key={idx}>
               <Badges data={item[0].data} desc={item[0].desc} name={item[0].name} requtation={item[0].requtation} token={item[0].token} />

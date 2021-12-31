@@ -1,5 +1,9 @@
 # Nomos Core
 
+## Nomos Live
+
+[Nomos Platform](https://h637e-ziaaa-aaaaj-aaeaa-cai.raw.ic0.app/)
+
 ## Quick Start
 
 To learn more before you start working with icptree, see the following documentation available online:
