@@ -16,7 +16,6 @@ export interface HttpResponse {
   'headers' : Array<HeaderField>,
   'status_code' : number,
 }
-export type List = [] | [[Transaction, List]];
 export type Memo = Array<number>;
 export type Memo__1 = bigint;
 export type Metadata = {
@@ -32,24 +31,27 @@ export interface NDP { 'e8s' : bigint }
 export interface NDPInfo { 'addr' : string }
 export interface NDPTest {
   'TT' : (arg_0: bigint, arg_1: string) => Promise<TransferResult>,
-  'addClaim' : (arg_0: string, arg_1: bigint) => Promise<Result_3>,
-  'addOwner' : (arg_0: Principal) => Promise<Result_3>,
+  'addClaim' : (arg_0: string, arg_1: bigint) => Promise<Result_1>,
+  'addOwner' : (arg_0: Principal) => Promise<Result_1>,
   'allBalances' : () => Promise<Array<[string, Balance]>>,
   'approve' : () => Promise<NDPInfo>,
   'balance' : (arg_0: BalanceRequest) => Promise<BalanceResponse>,
-  'claim' : () => Promise<Result_3>,
-  'claimStatus' : () => Promise<Result_3>,
-  'delOwner' : (arg_0: Principal) => Promise<Result_3>,
+  'claim' : () => Promise<Result_1>,
+  'claimCheck' : (arg_0: string) => Promise<Result_3>,
+  'claimStatus' : () => Promise<Result_1>,
+  'delOwner' : (arg_0: Principal) => Promise<Result_1>,
   'extensions' : () => Promise<Array<Extension>>,
   'getAccountId' : () => Promise<string>,
-  'getUserIndex' : () => Promise<Result_2>,
+  'getRewarded' : () => Promise<Balance>,
+  'getUserIndex' : (arg_0: Principal) => Promise<bigint>,
   'http_request' : () => Promise<HttpResponse>,
-  'metadata' : (arg_0: TokenIdentifier) => Promise<Result_1>,
+  'metadata' : (arg_0: TokenIdentifier) => Promise<Result_2>,
   'mint' : (arg_0: string, arg_1: Balance) => Promise<boolean>,
   'minted' : () => Promise<Balance>,
   'owner' : () => Promise<Array<[Principal, bigint]>>,
+  'reward' : () => Promise<Result_1>,
   'supply' : (arg_0: TokenIdentifier) => Promise<Result>,
-  'transactionRecord' : () => Promise<List>,
+  'transactionRecord' : () => Promise<Array<Transaction>>,
   'transfer' : (arg_0: TransferRequest) => Promise<TransferResponse>,
   'userIndexList' : () => Promise<Array<[string, bigint]>>,
 }
@@ -67,11 +69,11 @@ export type Operation = {
   };
 export type Result = { 'ok' : Balance } |
   { 'err' : CommonError };
-export type Result_1 = { 'ok' : Metadata } |
-  { 'err' : CommonError };
-export type Result_2 = { 'ok' : bigint } |
+export type Result_1 = { 'ok' : boolean } |
   { 'err' : string };
-export type Result_3 = { 'ok' : boolean } |
+export type Result_2 = { 'ok' : Metadata } |
+  { 'err' : CommonError };
+export type Result_3 = { 'ok' : bigint } |
   { 'err' : string };
 export type SubAccount = Array<number>;
 export interface Timestamp { 'timestamp_nanos' : bigint }

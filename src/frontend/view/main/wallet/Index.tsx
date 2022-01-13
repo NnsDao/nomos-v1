@@ -47,7 +47,6 @@ const Index = () => {
     let claimStatus = null;
     try {
       claimStatus = await NdpService.getClaimStatus();
-      console.log('claimStatus', claimStatus);
     } catch (error) {
       console.log('claimStatus', claimStatus);
     }
@@ -177,7 +176,7 @@ const Index = () => {
                     <span className="table-price-text "> {item.price}</span>
                   </div>
 
-                  <div className="table-action flex  justify-between items-center ">
+                  <div className="table-action flex   items-center ">
                     {item.isClaim ? (
                       <button
                         className="z-50 text-white table-content-button"

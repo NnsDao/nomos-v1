@@ -53,17 +53,17 @@ type SubAccount = vec nat8;
 type Result_3 = 
  variant {
    err: text;
-   ok: bool;
+   ok: nat;
  };
 type Result_2 = 
  variant {
-   err: text;
-   ok: nat64;
+   err: CommonError;
+   ok: Metadata;
  };
 type Result_1 = 
  variant {
-   err: CommonError;
-   ok: Metadata;
+   err: text;
+   ok: bool;
  };
 type Result = 
  variant {
@@ -91,30 +91,33 @@ type Operation =
 type NDPTest = 
  service {
    TT: (nat64, text) -> (TransferResult);
-   addClaim: (text, nat) -> (Result_3);
-   addOwner: (principal) -> (Result_3);
+   addClaim: (text, nat) -> (Result_1);
+   addOwner: (principal) -> (Result_1);
    allBalances: () -> (vec record {
                              text;
                              Balance;
                            }) query;
    approve: () -> (NDPInfo);
    balance: (BalanceRequest) -> (BalanceResponse) query;
-   claim: () -> (Result_3);
-   claimStatus: () -> (Result_3) query;
-   delOwner: (principal) -> (Result_3);
+   claim: () -> (Result_1);
+   claimCheck: (text) -> (Result_3) query;
+   claimStatus: () -> (Result_1) query;
+   delOwner: (principal) -> (Result_1);
    extensions: () -> (vec Extension) query;
    getAccountId: () -> (text) query;
-   getUserIndex: () -> (Result_2) query;
+   getRewarded: () -> (Balance) query;
+   getUserIndex: (principal) -> (nat64) query;
    http_request: () -> (HttpResponse) query;
-   metadata: (TokenIdentifier) -> (Result_1) query;
+   metadata: (TokenIdentifier) -> (Result_2) query;
    mint: (text, Balance) -> (bool);
    minted: () -> (Balance) query;
    owner: () -> (vec record {
                        principal;
                        nat64;
                      }) query;
+   reward: () -> (Result_1);
    supply: (TokenIdentifier) -> (Result) query;
-   transactionRecord: () -> (List) query;
+   transactionRecord: () -> (vec Transaction) query;
    transfer: (TransferRequest) -> (TransferResponse);
    userIndexList: () -> (vec record {
                                text;
@@ -136,11 +139,6 @@ type Metadata =
  };
 type Memo__1 = nat64;
 type Memo = blob;
-type List = 
- opt record {
-       Transaction;
-       List;
-     };
 type HttpResponse = 
  record {
    body: blob;

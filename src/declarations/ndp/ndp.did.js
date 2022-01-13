@@ -1,5 +1,4 @@
 export const idlFactory = ({ IDL }) => {
-  const List = IDL.Rec();
   const BlockIndex = IDL.Nat64;
   const NDP = IDL.Record({ 'e8s' : IDL.Nat64 });
   const TransferError = IDL.Variant({
@@ -13,7 +12,7 @@ export const idlFactory = ({ IDL }) => {
     'Ok' : BlockIndex,
     'Err' : TransferError,
   });
-  const Result_3 = IDL.Variant({ 'ok' : IDL.Bool, 'err' : IDL.Text });
+  const Result_1 = IDL.Variant({ 'ok' : IDL.Bool, 'err' : IDL.Text });
   const Balance = IDL.Nat;
   const NDPInfo = IDL.Record({ 'addr' : IDL.Text });
   const TokenIdentifier = IDL.Text;
@@ -31,8 +30,8 @@ export const idlFactory = ({ IDL }) => {
     'Other' : IDL.Text,
   });
   const BalanceResponse = IDL.Variant({ 'ok' : Balance, 'err' : CommonError });
+  const Result_3 = IDL.Variant({ 'ok' : IDL.Nat, 'err' : IDL.Text });
   const Extension = IDL.Text;
-  const Result_2 = IDL.Variant({ 'ok' : IDL.Nat64, 'err' : IDL.Text });
   const HeaderField = IDL.Tuple(IDL.Text, IDL.Text);
   const HttpResponse = IDL.Record({
     'body' : IDL.Vec(IDL.Nat8),
@@ -48,7 +47,7 @@ export const idlFactory = ({ IDL }) => {
     }),
     'nonfungible' : IDL.Record({ 'metadata' : IDL.Opt(IDL.Vec(IDL.Nat8)) }),
   });
-  const Result_1 = IDL.Variant({ 'ok' : Metadata, 'err' : CommonError });
+  const Result_2 = IDL.Variant({ 'ok' : Metadata, 'err' : CommonError });
   const Result = IDL.Variant({ 'ok' : Balance, 'err' : CommonError });
   const Memo__1 = IDL.Nat64;
   const AccountIdentifier__1 = IDL.Text;
@@ -77,7 +76,6 @@ export const idlFactory = ({ IDL }) => {
     'caller' : AccountIdentifier__1,
     'created_at_time' : Timestamp,
   });
-  List.fill(IDL.Opt(IDL.Tuple(Transaction, List)));
   const Memo = IDL.Vec(IDL.Nat8);
   const SubAccount = IDL.Vec(IDL.Nat8);
   const TransferRequest = IDL.Record({
@@ -102,8 +100,8 @@ export const idlFactory = ({ IDL }) => {
   });
   const NDPTest = IDL.Service({
     'TT' : IDL.Func([IDL.Nat64, IDL.Text], [TransferResult], []),
-    'addClaim' : IDL.Func([IDL.Text, IDL.Nat], [Result_3], []),
-    'addOwner' : IDL.Func([IDL.Principal], [Result_3], []),
+    'addClaim' : IDL.Func([IDL.Text, IDL.Nat], [Result_1], []),
+    'addOwner' : IDL.Func([IDL.Principal], [Result_1], []),
     'allBalances' : IDL.Func(
         [],
         [IDL.Vec(IDL.Tuple(IDL.Text, Balance))],
@@ -111,14 +109,16 @@ export const idlFactory = ({ IDL }) => {
       ),
     'approve' : IDL.Func([], [NDPInfo], []),
     'balance' : IDL.Func([BalanceRequest], [BalanceResponse], ['query']),
-    'claim' : IDL.Func([], [Result_3], []),
-    'claimStatus' : IDL.Func([], [Result_3], ['query']),
-    'delOwner' : IDL.Func([IDL.Principal], [Result_3], []),
+    'claim' : IDL.Func([], [Result_1], []),
+    'claimCheck' : IDL.Func([IDL.Text], [Result_3], ['query']),
+    'claimStatus' : IDL.Func([], [Result_1], ['query']),
+    'delOwner' : IDL.Func([IDL.Principal], [Result_1], []),
     'extensions' : IDL.Func([], [IDL.Vec(Extension)], ['query']),
     'getAccountId' : IDL.Func([], [IDL.Text], ['query']),
-    'getUserIndex' : IDL.Func([], [Result_2], ['query']),
+    'getRewarded' : IDL.Func([], [Balance], ['query']),
+    'getUserIndex' : IDL.Func([IDL.Principal], [IDL.Nat64], ['query']),
     'http_request' : IDL.Func([], [HttpResponse], ['query']),
-    'metadata' : IDL.Func([TokenIdentifier], [Result_1], ['query']),
+    'metadata' : IDL.Func([TokenIdentifier], [Result_2], ['query']),
     'mint' : IDL.Func([IDL.Text, Balance], [IDL.Bool], []),
     'minted' : IDL.Func([], [Balance], ['query']),
     'owner' : IDL.Func(
@@ -126,8 +126,9 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(IDL.Tuple(IDL.Principal, IDL.Nat64))],
         ['query'],
       ),
+    'reward' : IDL.Func([], [Result_1], []),
     'supply' : IDL.Func([TokenIdentifier], [Result], ['query']),
-    'transactionRecord' : IDL.Func([], [List], ['query']),
+    'transactionRecord' : IDL.Func([], [IDL.Vec(Transaction)], ['query']),
     'transfer' : IDL.Func([TransferRequest], [TransferResponse], []),
     'userIndexList' : IDL.Func(
         [],

@@ -162,6 +162,11 @@ class NdpService {
     return this.actor.claimStatus();
   }
 
+  async getReward() {
+    await this.initService();
+    return this.actor.reward();
+  }
+
   // badgeActor conister interface function
   async getAllBadgeList() {
     await this.initService();
@@ -210,7 +215,7 @@ interface ImplementedActorMethods {
   minted: () => Promise<BigInt>;
   supply: (TokenIdentifier: string) => Promise<unknown>;
   claimStatus: () => Promise<{ ok?: '' }>;
-
+  reward: () => Promise<{ ok?: ''; err?: '' }>;
   // badge
   getAllBadgeList: () => Promise<{}>;
   getUserBadgeList: (arg: any) => Promise<any>;
