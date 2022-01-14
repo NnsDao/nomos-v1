@@ -2,6 +2,7 @@ import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
+import Loading from '../../../components/Loading';
 import Share from '../../../components/ShareTwitter';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
@@ -147,9 +148,13 @@ const Index = () => {
     try {
       const result = await NdpService.dropExchange(Params);
       console.log(result, '9090909090');
+      setIsLoading(false);
       changeShowAirdrop();
       getBalance();
     } catch (err) {
+      message.warning({ content: 'There is no airdrop authority!!!', duration: 2 });
+      setIsLoading(false);
+      changeShowAirdrop();
       console.log('dropExchange', err);
     }
   };
@@ -157,11 +162,14 @@ const Index = () => {
     const email = emailValue.value;
     const code = codeValue.value;
     if (email && code) {
+      setIsLoading(true);
       dropExchange(email, code);
     } else {
       message.warning({ content: 'input form', duration: 2 });
     }
   };
+  const [isloading, setIsLoading] = useState(false);
+
   return (
     <>
       <div className="flex flex-col items-start wrapper ">
@@ -289,6 +297,7 @@ const Index = () => {
           </div>
         </div>
       ) : null}
+      <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />
     </>
   );
 };
