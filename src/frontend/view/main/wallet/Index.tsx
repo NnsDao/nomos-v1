@@ -139,11 +139,25 @@ const Index = () => {
   };
   let emailValue: any = '';
   let codeValue: any = '';
+  const dropExchange = async (email: string, code: string) => {
+    const Params = {
+      email: email,
+      code: code,
+    };
+    try {
+      const result = await NdpService.dropExchange(Params);
+      console.log(result, '9090909090');
+      changeShowAirdrop();
+      getBalance();
+    } catch (err) {
+      console.log('dropExchange', err);
+    }
+  };
   const submit = () => {
     const email = emailValue.value;
     const code = codeValue.value;
     if (email && code) {
-      console.log(email, code, '898989898');
+      dropExchange(email, code);
     } else {
       message.warning({ content: 'input form', duration: 2 });
     }
