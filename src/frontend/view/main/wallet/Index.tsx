@@ -133,6 +133,21 @@ const Index = () => {
   const [ndp, setNDP] = useState('0');
   const [nfts, setNFTS] = useState(0);
   const accountId = window.localStorage.getItem('accountId');
+  const [isShowAirdrop, setIsShowAirdrop] = useState(false);
+  const changeShowAirdrop = () => {
+    setIsShowAirdrop(!isShowAirdrop);
+  };
+  let emailValue: any = '';
+  let codeValue: any = '';
+  const submit = () => {
+    const email = emailValue.value;
+    const code = codeValue.value;
+    if (email && code) {
+      console.log(email, code, '898989898');
+    } else {
+      message.warning({ content: 'input form', duration: 2 });
+    }
+  };
   return (
     <>
       <div className="flex flex-col items-start wrapper ">
@@ -208,7 +223,9 @@ const Index = () => {
                     ) : (
                       <button className=" table-content-button cursor-not-allowed ">Claim</button>
                     )}
-                    <button className=" table-content-button cursor-pointer ml-5 ">Airdrops</button>
+                    <button className=" table-content-button cursor-pointer ml-5 " onClick={() => changeShowAirdrop()}>
+                      Airdrops
+                    </button>
 
                     {item.isMint ? <button className=" table-content-button">Mint</button> : ''}
                     <Share />
@@ -225,29 +242,39 @@ const Index = () => {
           )}
         </div>
       </div>
-      <div className="airdrops">
-        <div className="airdrops-wrapper">
-          <div className="airdrops-content">
-            <div className="airdrops-ready">Ready to airdrops?</div>
-            <div className="airdrops-content-item airdrops-address">
-              Address
-              <div>{'address'}</div>
+      {isShowAirdrop ? (
+        <div className="airdrops">
+          <div className="airdrops-wrapper">
+            <div className="airdrops-content">
+              <div className="airdrops-ready">Ready to airdrops?</div>
+              <div className="airdrops-content-item airdrops-address">
+                Address
+                <div>{accountId}</div>
+              </div>
+              <div className="airdrops-content-item airdrops-email">
+                Email
+                <div className="mr-8">
+                  <input type="text" ref={input => (emailValue = input)} placeholder="Enter a email..." />
+                </div>
+              </div>
+              <div className="airdrops-content-item airdrops-code">
+                Airdrop redemption code
+                <div className="mr-8">
+                  <input type="text" ref={input => (codeValue = input)} placeholder="Enter a code..." />
+                </div>
+              </div>
             </div>
-            <div className="airdrops-content-item airdrops-email">
-              Email
-              <div className="mr-44">{'Email'}</div>
+            <div className="airdrops-footer">
+              <button className="airdrops-cancel" onClick={() => changeShowAirdrop()}>
+                Cancel
+              </button>
+              <button className="airdrops-claim" onClick={() => submit()}>
+                Claim
+              </button>
             </div>
-            <div className="airdrops-content-item airdrops-code">
-              Airdrop redemption code
-              <div className="mr-44">{'code'}</div>
-            </div>
-          </div>
-          <div className="airdrops-footer">
-            <button className="airdrops-cancel">Cancel</button>
-            <button className="airdrops-claim">Claim</button>
           </div>
         </div>
-      </div>
+      ) : null}
     </>
   );
 };

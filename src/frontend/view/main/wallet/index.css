@@ -154,8 +154,7 @@
   z-index: 9999;
 }
 .airdrops-wrapper {
-  width: 678px;
-  height: 480px;
+  width: 850px;
   border-radius: 14px;
   padding: 50px;
   color: white;
@@ -199,4 +198,13 @@
   background: #fa6800;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.airdrops-wrapper input {
+  border: none;
+  border-radius: 8px;
+  line-height: 50px;
+  width: 300px;
+  background: #251f5e;
+  padding-left: 15px;
 }
