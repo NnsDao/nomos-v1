@@ -1,3 +1,14 @@
+type dropExchangeArgs = 
+ record {
+   code: text;
+   email: text;
+ };
+type addDropListArgs = 
+ record {
+   balance: nat;
+   code: text;
+   email: text;
+ };
 type User = 
  variant {
    address: AccountIdentifier;
@@ -92,6 +103,7 @@ type NDPTest =
  service {
    TT: (nat64, text) -> (TransferResult);
    addClaim: (text, nat) -> (Result_1);
+   addDropList: (addDropListArgs) -> (Result_1);
    addOwner: (principal) -> (Result_1);
    allBalances: () -> (vec record {
                              text;
@@ -103,6 +115,7 @@ type NDPTest =
    claimCheck: (text) -> (Result_3) query;
    claimStatus: () -> (Result_1) query;
    delOwner: (principal) -> (Result_1);
+   dropExchange: (dropExchangeArgs) -> (Result_1);
    extensions: () -> (vec Extension) query;
    getAccountId: () -> (text) query;
    getRewarded: () -> (Balance) query;

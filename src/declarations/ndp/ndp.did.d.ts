@@ -32,6 +32,7 @@ export interface NDPInfo { 'addr' : string }
 export interface NDPTest {
   'TT' : (arg_0: bigint, arg_1: string) => Promise<TransferResult>,
   'addClaim' : (arg_0: string, arg_1: bigint) => Promise<Result_1>,
+  'addDropList' : (arg_0: addDropListArgs) => Promise<Result_1>,
   'addOwner' : (arg_0: Principal) => Promise<Result_1>,
   'allBalances' : () => Promise<Array<[string, Balance]>>,
   'approve' : () => Promise<NDPInfo>,
@@ -40,6 +41,7 @@ export interface NDPTest {
   'claimCheck' : (arg_0: string) => Promise<Result_3>,
   'claimStatus' : () => Promise<Result_1>,
   'delOwner' : (arg_0: Principal) => Promise<Result_1>,
+  'dropExchange' : (arg_0: dropExchangeArgs) => Promise<Result_1>,
   'extensions' : () => Promise<Array<Extension>>,
   'getAccountId' : () => Promise<string>,
   'getRewarded' : () => Promise<Balance>,
@@ -114,4 +116,10 @@ export type TransferResult = { 'Ok' : BlockIndex } |
   { 'Err' : TransferError };
 export type User = { 'principal' : Principal } |
   { 'address' : AccountIdentifier };
+export interface addDropListArgs {
+  'balance' : bigint,
+  'code' : string,
+  'email' : string,
+}
+export interface dropExchangeArgs { 'code' : string, 'email' : string }
 export interface _SERVICE extends NDPTest {}

@@ -13,6 +13,11 @@ export const idlFactory = ({ IDL }) => {
     'Err' : TransferError,
   });
   const Result_1 = IDL.Variant({ 'ok' : IDL.Bool, 'err' : IDL.Text });
+  const addDropListArgs = IDL.Record({
+    'balance' : IDL.Nat,
+    'code' : IDL.Text,
+    'email' : IDL.Text,
+  });
   const Balance = IDL.Nat;
   const NDPInfo = IDL.Record({ 'addr' : IDL.Text });
   const TokenIdentifier = IDL.Text;
@@ -31,6 +36,10 @@ export const idlFactory = ({ IDL }) => {
   });
   const BalanceResponse = IDL.Variant({ 'ok' : Balance, 'err' : CommonError });
   const Result_3 = IDL.Variant({ 'ok' : IDL.Nat, 'err' : IDL.Text });
+  const dropExchangeArgs = IDL.Record({
+    'code' : IDL.Text,
+    'email' : IDL.Text,
+  });
   const Extension = IDL.Text;
   const HeaderField = IDL.Tuple(IDL.Text, IDL.Text);
   const HttpResponse = IDL.Record({
@@ -101,6 +110,7 @@ export const idlFactory = ({ IDL }) => {
   const NDPTest = IDL.Service({
     'TT' : IDL.Func([IDL.Nat64, IDL.Text], [TransferResult], []),
     'addClaim' : IDL.Func([IDL.Text, IDL.Nat], [Result_1], []),
+    'addDropList' : IDL.Func([addDropListArgs], [Result_1], []),
     'addOwner' : IDL.Func([IDL.Principal], [Result_1], []),
     'allBalances' : IDL.Func(
         [],
@@ -113,6 +123,7 @@ export const idlFactory = ({ IDL }) => {
     'claimCheck' : IDL.Func([IDL.Text], [Result_3], ['query']),
     'claimStatus' : IDL.Func([], [Result_1], ['query']),
     'delOwner' : IDL.Func([IDL.Principal], [Result_1], []),
+    'dropExchange' : IDL.Func([dropExchangeArgs], [Result_1], []),
     'extensions' : IDL.Func([], [IDL.Vec(Extension)], ['query']),
     'getAccountId' : IDL.Func([], [IDL.Text], ['query']),
     'getRewarded' : IDL.Func([], [Balance], ['query']),
