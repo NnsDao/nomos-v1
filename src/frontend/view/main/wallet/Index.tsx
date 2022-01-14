@@ -147,25 +147,39 @@ const Index = () => {
     };
     try {
       const result = await NdpService.dropExchange(Params);
-      console.log(result, '9090909090');
       setIsLoading(false);
       changeShowAirdrop();
-      getBalance();
+      if (result.err) {
+        message.error({ content: 'There is no airdrop authority!!!', duration: 3 });
+      } else {
+        getBalance();
+      }
     } catch (err) {
-      message.warning({ content: 'There is no airdrop authority!!!', duration: 2 });
       setIsLoading(false);
       changeShowAirdrop();
       console.log('dropExchange', err);
     }
   };
+  const isEmail = (str: string) => {
+    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    return reg.test(str);
+  };
+  const isCode = (str: string) => {
+    return str.length === 6;
+  };
   const submit = () => {
     const email = emailValue.value;
     const code = codeValue.value;
+
     if (email && code) {
-      setIsLoading(true);
-      dropExchange(email, code);
+      if (isEmail(email) && isCode(code)) {
+        setIsLoading(true);
+        dropExchange(email, code);
+      } else {
+        message.warning({ content: 'Enter the correct email address or code', duration: 2 });
+      }
     } else {
-      message.warning({ content: 'input form', duration: 2 });
+      message.warning({ content: 'Enter form', duration: 2 });
     }
   };
   const [isloading, setIsLoading] = useState(false);

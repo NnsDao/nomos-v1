@@ -219,7 +219,7 @@ interface ImplementedActorMethods {
   supply: (TokenIdentifier: string) => Promise<unknown>;
   claimStatus: () => Promise<{ ok?: '' }>;
   reward: () => Promise<{ ok?: ''; err?: '' }>;
-  dropExchange: (arg: any) => Promise<unknown>;
+  dropExchange: (arg: any) => Promise<{ err?: ''; ok?: '' }>;
   // badge
   getAllBadgeList: () => Promise<{}>;
   getUserBadgeList: (arg: any) => Promise<any>;
