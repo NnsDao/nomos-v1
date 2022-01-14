@@ -27,7 +27,25 @@ const Index = () => {
     },
   ];
   const [walletList, setWalletList] = useState(wallet);
-
+  const getICPBalance = async () => {
+    let address = localStorage.getItem('accountId');
+    const data = {
+      account_identifier: { address },
+      network_identifier: {
+        blockchain: 'Internet Computer',
+        network: '00000000000000020101',
+      },
+    };
+    const res = await fetch('https://rosetta-api.internetcomputer.org/account/balance', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then(res => res.json());
+    const icp = res.balances![0]!.value / 100000000;
+    setBalance(icp);
+  };
   const getBalanceParams = {
     token: 'NDP',
     user: { address: window.localStorage.getItem('accountId') },
@@ -82,7 +100,9 @@ const Index = () => {
   useEffect(() => {
     getBalance();
   }, []);
-
+  useEffect(() => {
+    getICPBalance();
+  }, []);
   useEffect(() => {
     getClaimStatus();
   }, []);
