@@ -208,6 +208,8 @@ const Index = () => {
                     ) : (
                       <button className=" table-content-button cursor-not-allowed ">Claim</button>
                     )}
+                    <button className=" table-content-button cursor-pointer ml-5 ">Airdrops</button>
+
                     {item.isMint ? <button className=" table-content-button">Mint</button> : ''}
                     <Share />
                   </div>
@@ -221,6 +223,29 @@ const Index = () => {
               </div>
             </div>
           )}
+        </div>
+      </div>
+      <div className="airdrops">
+        <div className="airdrops-wrapper">
+          <div className="airdrops-content">
+            <div className="airdrops-ready">Ready to airdrops?</div>
+            <div className="airdrops-content-item airdrops-address">
+              Address
+              <div>{'address'}</div>
+            </div>
+            <div className="airdrops-content-item airdrops-email">
+              Email
+              <div className="mr-44">{'Email'}</div>
+            </div>
+            <div className="airdrops-content-item airdrops-code">
+              Airdrop redemption code
+              <div className="mr-44">{'code'}</div>
+            </div>
+          </div>
+          <div className="airdrops-footer">
+            <button className="airdrops-cancel">Cancel</button>
+            <button className="airdrops-claim">Claim</button>
+          </div>
         </div>
       </div>
     </>
