@@ -20,6 +20,7 @@
 
 .base-balance {
   width: 25%;
+  min-width: 270px;
   min-height: 180px;
   max-height: 230px;
   display: flex;
