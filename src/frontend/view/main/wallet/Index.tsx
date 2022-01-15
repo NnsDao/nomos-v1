@@ -172,7 +172,7 @@ const Index = () => {
     const code = codeValue.value;
 
     if (email && code) {
-      if (isEmail(email) && isCode(code)) {
+      if (isCode(code)) {
         setIsLoading(true);
         dropExchange(email, code);
       } else {

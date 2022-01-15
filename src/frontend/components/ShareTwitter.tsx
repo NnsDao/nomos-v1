@@ -19,8 +19,9 @@ const ShareTwitter = () => {
     }
   };
   const shareUrl = 'https://h637e-ziaaa-aaaaj-aaeaa-cai.raw.ic0.app/';
-  const title = 'ICP Eco is first canister contract-based Token contribution rewards';
-  const hashtags = ['NDP', 'DAOs', 'ICP', 'NnsDAO'];
+  var utc = Date.now() - 4 * 36e5;
+  const title = "I just got the NDP token distributed by NnsDAO. ICP Eco's first canister contract-based Token contribution rewards." + ' Share hash index - ' + utc;
+  const hashtags = ['NDP', 'DAOs', 'ICP', 'NnsDAO', 'Dfinity', 'IC'];
   return (
     <div className="flex justify-content items-content share-twitter ml-5">
       <TwitterShareButton url={shareUrl} title={title} hashtags={hashtags} onShareWindowClose={() => reward()} className="Demo__some-network__share-button">
