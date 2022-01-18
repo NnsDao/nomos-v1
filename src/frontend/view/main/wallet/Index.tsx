@@ -150,8 +150,9 @@ const Index = () => {
       setIsLoading(false);
       changeShowAirdrop();
       if (result.err) {
-        message.error({ content: 'There is no airdrop authority!!!', duration: 3 });
+        message.error({ content: result.err, duration: 3 });
       } else {
+        message.success({ content: 'The redemption is successful.', duration: 3 });
         getBalance();
       }
     } catch (err) {
