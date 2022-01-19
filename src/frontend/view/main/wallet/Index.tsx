@@ -47,6 +47,12 @@ const Index = () => {
     const icp = res.balances![0]!.value / 100000000;
     setBalance(icp);
   };
+  // Price //9e9809e5
+  const fetchPrice = async () => {
+    const data = await fetch(`https://ic.rocks/api/markets`).then(rsp => rsp.json());
+    setTotalBalance(data.ticker.price);
+  };
+
   const getBalanceParams = {
     token: 'NDP',
     user: { address: window.localStorage.getItem('accountId') },
@@ -103,6 +109,7 @@ const Index = () => {
   }, []);
   useEffect(() => {
     getICPBalance();
+    fetchPrice();
   }, []);
   useEffect(() => {
     getClaimStatus();
@@ -195,7 +202,7 @@ const Index = () => {
         <div className="balance-wrapper">
           <div className="base-balance total ">
             <span className="balance-text">Total balance</span>
-            <span className="balance-number text-3xl">${totalbalance || 0}</span>
+            <span className="balance-number text-3xl">${(Math.floor((totalbalance * balanceICP + 0.15 * Number(ndp)) * 10000) / 10000).toFixed(4) || 0}</span>
           </div>
           <div className="base-balance balance ">
             <span className="balance-text">Balance ICP</span>
