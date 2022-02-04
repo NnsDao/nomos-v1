@@ -14,6 +14,7 @@ const Nav = (prop: prop) => {
   const history = useHistory();
   const logout = () => {
     window.localStorage.setItem('isLogin', '0');
+    localStorage.removeItem('loginType');
     history.replace('/home');
     NdpService.resetService();
   };

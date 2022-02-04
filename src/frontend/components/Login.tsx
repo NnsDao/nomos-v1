@@ -23,6 +23,7 @@ const Index = () => {
   const [isloading, setIsLoading] = useState(false);
 
   const onStoic = async () => {
+    window.localStorage.setItem('loginType', 'stoic');
     setIsLoading(true);
     await NdpService.stoicLogin();
 
@@ -43,6 +44,7 @@ const Index = () => {
     setIsLoading(false);
   };
   const onPlug = async () => {
+    window.localStorage.setItem('loginType', 'plug');
     // Detect Plug extension
     if (!window.ic?.plug) {
       return message.warning('Plug Not installed');
@@ -50,6 +52,8 @@ const Index = () => {
     setIsLoading(true);
     await NdpService.plugLogin();
     const { addr } = await NdpService.approve();
+    console.log(addr, 33333);
+
     window.localStorage.setItem('accountId', addr);
     message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
     window.localStorage.setItem('isLogin', '1');
