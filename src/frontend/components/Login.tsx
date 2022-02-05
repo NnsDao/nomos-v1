@@ -50,11 +50,12 @@ const Index = () => {
       return message.warning('Plug Not installed');
     }
     setIsLoading(true);
-    await NdpService.plugLogin();
-    const { addr } = await NdpService.approve();
-    console.log(addr, 33333);
+    (async () => {
+      await NdpService.plugLogin();
+      const { addr } = await NdpService.approve();
+      window.localStorage.setItem('accountId', addr);
+    })();
 
-    window.localStorage.setItem('accountId', addr);
     message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
     window.localStorage.setItem('isLogin', '1');
     window.localStorage.setItem('logonTime', new Date().getTime() + '');

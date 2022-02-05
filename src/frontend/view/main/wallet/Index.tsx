@@ -61,7 +61,6 @@ const Index = () => {
   const getBalance = async () => {
     try {
       const NDP = await NdpService.getBalance(getBalanceParams);
-      console.log(4444);
       setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
     } catch (error) {
       console.error('getBalance', error);
@@ -106,10 +105,8 @@ const Index = () => {
   };
 
   useEffect(() => {
-    console.log(10101);
-    console.log(window.ic.plug.agent, 2222);
+    NdpService.getPlugActor();
     getBalance();
-    console.log(window.ic.plug.agent, 555555);
   }, []);
 
   useEffect(() => {

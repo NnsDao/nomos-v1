@@ -24,6 +24,7 @@ import Statistic from '../assets/home/Statistic.png';
 import Neuron from '../assets/neuron.png';
 import { DonateGraph } from '../components/DonateGraph';
 import Footer from '../components/Footer';
+import NdpService from '../utils/NdpService';
 import './index.css';
 export default function index(prop: any) {
   const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
@@ -55,7 +56,9 @@ export default function index(prop: any) {
     setCurrentContributes(res.data.Balance);
     changeContributesImg(currentContributes / totalContributes);
   };
+  //
   useEffect(() => {
+    NdpService.getPlugActor();
     getCurrentContributes();
   }, []);
 

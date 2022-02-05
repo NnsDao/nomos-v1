@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import japandaoIcon from '../../assets/home/japandao.png';
 import nnsDaoIcon from '../../assets/home/nnsdao.png';
+import NdpService from '../../utils/NdpService';
 import Account from './account/Index';
 import Header from './components/Header';
 import Nav from './components/Nav';
@@ -30,6 +31,8 @@ const MainIndex = () => {
   const [accountTab, setAccountTab] = useState('Badges');
   const logout = () => {
     window.localStorage.setItem('isLogin', '0');
+    window.localStorage.setItem('loginType', 'ooooooo');
+    NdpService.resetService();
     history.push('/home');
   };
   const handleMenu = (str: string) => {
@@ -51,6 +54,11 @@ const MainIndex = () => {
         break;
     }
   };
+
+  // getPlugActor
+  useEffect(() => {
+    NdpService.getPlugActor();
+  }, []);
   return (
     <div className="bg-primary">
       <Header clickActor={clickActor} handleMenu={handleMenu} />
