@@ -16,6 +16,8 @@ type tokenItem = {
   isMint: boolean;
 };
 const Index = () => {
+  let address = localStorage.getItem('accountId');
+
   const wallet = [
     {
       name: 'NnsDAO Protocol',
@@ -113,12 +115,9 @@ const Index = () => {
   };
 
   const getUserNfts = async () => {
-    let address = localStorage.getItem('accountId');
     try {
       const result = await NdpService.getUserNfts(address);
-
       console.log(result, 898989);
-
       setNFTS(result && result.ok.length);
       setUserCollection(result.ok);
     } catch (error) {
@@ -139,7 +138,7 @@ const Index = () => {
   useEffect(() => {
     getClaimStatus();
     getUserNfts();
-  }, []);
+  }, [address]);
 
   const claim = async () => {
     const bool = await NdpService.getClaim();

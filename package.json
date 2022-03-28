@@ -11,7 +11,7 @@
     "@dfinity/agent": "0.10.0",
     "@dfinity/auth-client": "0.10.0",
     "@dfinity/authentication": "0.10.0",
-    "@dfinity/candid": "0.10.0",
+    "@dfinity/candid": "^0.10.0",
     "@dfinity/identity": "0.10.0",
     "@dfinity/principal": "0.10.0",
     "antd": "^4.17.2",

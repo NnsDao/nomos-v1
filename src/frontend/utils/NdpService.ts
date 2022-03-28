@@ -98,7 +98,7 @@ class NdpService {
         if (connected) {
           if (!window.ic.plug.agent) {
             await window.ic.plug.createAgent({
-              whitelist: [this.canisterId, this.badgeCanisterId, this.userCanisterId],
+              whitelist: [this.canisterId, this.badgeCanisterId, this.userCanisterId, this.nftCanisterId],
             });
 
             this.identity = await window.ic.plug.agent._identity;
@@ -125,7 +125,7 @@ class NdpService {
           // console.log(this.actor, 1111111);
         } else {
           const result = await window.ic.plug.requestConnect({
-            whitelist: [this.canisterId, this.badgeCanisterId, this.userCanisterId],
+            whitelist: [this.canisterId, this.badgeCanisterId, this.userCanisterId, this.nftCanisterId],
             timeout: 1e4, // Ten seconds
           });
 
@@ -227,6 +227,9 @@ class NdpService {
     const agent = new HttpAgent({});
     const nftActor = Actor.createActor(nftIdlFactory, { agent: agent, canisterId: this.nftCanisterId });
     // nftIdlFactory
+    console.log(nftActor, 'nftActor');
+    console.log(arg, 'arg');
+
     return nftActor.mTokensExt(arg);
   }
 
@@ -249,7 +252,7 @@ const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37
 const canisterId = 'vgqnj-miaaa-aaaal-qaapa-cai';
 const badgeCanisterId = 'rfde3-eyaaa-aaaal-qaaua-cai';
 const userCanisterId = 'o27sk-yiaaa-aaaag-qabbq-cai';
-const nftCanisterId = 'vcpye-qyaaa-aaaak-qafjq-cai';
+const nftCanisterId = 'fscul-yqaaa-aaaak-aalga-cai';
 const xdrCanisterId = 'rkp4c-7iaaa-aaaaa-aaaca-cai';
 
 export default new NdpService({
