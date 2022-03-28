@@ -2,7 +2,9 @@ import { Actor, HttpAgent, Identity } from '@dfinity/agent';
 import { StoicIdentity } from 'ic-stoic-identity';
 import { idlFactory as badgeIdlFactory } from '../../declarations/badge/index';
 import { idlFactory } from '../../declarations/ndp/index';
+import { idlFactory as nftIdlFactory } from '../../declarations/starfish/index';
 import { idlFactory as userIdlFactory } from '../../declarations/user/index';
+import { idlFactory as xdrIdlFactory } from '../../declarations/xdr/index';
 
 class NdpService {
   agent!: HttpAgent;
@@ -12,19 +14,28 @@ class NdpService {
   canisterId: string;
   badgeCanisterId: string;
   userCanisterId: string;
+  nftCanisterId: string;
+  xdrCanisterId: string;
+  lastUpdate: number;
 
   actor!: ImplementedActorMethods;
   badgeActor!: ImplementedActorMethods;
   userActor!: ImplementedActorMethods;
+  nftActor!: ImplementedActorMethods;
+  xdrActor!: ImplementedActorMethods;
 
   // loginType: string;
   pending: Boolean;
   constructor(params: ConstructorParams) {
-    const { token, canisterId, badgeCanisterId, userCanisterId } = params;
+    const { token, canisterId, badgeCanisterId, userCanisterId, nftCanisterId, xdrCanisterId, lastUpdate } = params;
     this.token = token;
     this.canisterId = canisterId;
     this.badgeCanisterId = badgeCanisterId;
     this.userCanisterId = userCanisterId;
+    this.nftCanisterId = nftCanisterId;
+    this.xdrCanisterId = xdrCanisterId;
+    this.lastUpdate = lastUpdate;
+
     // this.loginType = window.localStorage.getItem('loginType')!;
     this.pending = false;
   }
@@ -211,18 +222,44 @@ class NdpService {
     await this.initService();
     return this.userActor.getUserInfo();
   }
+  // get nft list
+  async getUserNfts(arg: any) {
+    const agent = new HttpAgent({});
+    const nftActor = Actor.createActor(nftIdlFactory, { agent: agent, canisterId: this.nftCanisterId });
+    // nftIdlFactory
+    return nftActor.mTokensExt(arg);
+  }
+
+  async icpUpdateUSD() {
+    let _rate = 0;
+
+    if (!this.lastUpdate || Date.now() - this.lastUpdate > 10 * 60 * 1000) {
+      this.lastUpdate = Date.now();
+      const agent = new HttpAgent({});
+      const nftActor = Actor.createActor(xdrIdlFactory, { agent: agent, canisterId: this.xdrCanisterId });
+      const b = await nftActor.get_icp_xdr_conversion_rate();
+      var b2 = await fetch('https://free.currconv.com/api/v7/convert?q=XDR_USD&compact=ultra&apiKey=df6440fc0578491bb13eb2088c4f60c7').then(r => r.json());
+      _rate = Number(b.data.xdr_permyriad_per_icp / 10000n) * (b2.hasOwnProperty('XDR_USD') ? b2.XDR_USD : 1.4023);
+    }
+    return _rate;
+  }
 }
 
 const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
 const canisterId = 'vgqnj-miaaa-aaaal-qaapa-cai';
 const badgeCanisterId = 'rfde3-eyaaa-aaaal-qaaua-cai';
 const userCanisterId = 'o27sk-yiaaa-aaaag-qabbq-cai';
+const nftCanisterId = 'vcpye-qyaaa-aaaak-qafjq-cai';
+const xdrCanisterId = 'rkp4c-7iaaa-aaaaa-aaaca-cai';
 
 export default new NdpService({
   token: NDP_TOKEN,
   canisterId: canisterId,
   badgeCanisterId: badgeCanisterId,
   userCanisterId: userCanisterId,
+  nftCanisterId: nftCanisterId,
+  xdrCanisterId: xdrCanisterId,
+  lastUpdate: 0,
 });
 
 // Type
@@ -232,6 +269,9 @@ interface ConstructorParams {
   canisterId: string;
   badgeCanisterId: string;
   userCanisterId: string;
+  nftCanisterId: string;
+  xdrCanisterId: string;
+  lastUpdate: number;
 }
 interface ImplementedActorMethods {
   // ndp
@@ -252,4 +292,6 @@ interface ImplementedActorMethods {
 
   // user
   getUserInfo: () => Promise<{ acatar: ''; nickName: ''; address: ''; reputation: any; signature: ''; index: any }>;
+  // nft
+  mTokensExt: (arg: any) => Promise<any>;
 }

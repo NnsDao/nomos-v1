@@ -1,11 +1,11 @@
 import React from 'react';
-import patrick3 from '../../../assets/main/patrick3.png';
 import './card.css';
 type Prop = {
   url: string;
   title?: string;
   content: string;
   number?: string;
+  index?: number;
   isEnshrine?: boolean;
   isCreate?: boolean;
   isActivity?: {
@@ -15,9 +15,7 @@ type Prop = {
 };
 
 const Card = (prop: Prop) => (
-  // <div className={`card-wrapper`} style={{ width: '21%' }} >
-
-  <div className={`card-wrapper `}>
+  <div className={`card-wrapper `} key={prop.index}>
     <div className="card">
       <div className=" w-full flex justify-center items-center ">
         <div className=" flex justify-center items-center rounded-full  overflow-hidden relative z-1">
@@ -26,7 +24,7 @@ const Card = (prop: Prop) => (
           ) : (
             <div className="w-130px h-130px  mx-auto flex justify-center items-center  ">
               <div className="w-130px h-130px ">
-                <img src={patrick3} alt="" width={'130px'} height={'130px'} />
+                <img src={prop.url} alt="" width={'130px'} height={'130px'} />
               </div>
             </div>
           )}

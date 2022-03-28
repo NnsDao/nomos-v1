@@ -28,6 +28,8 @@ const Index = () => {
     },
   ];
   const [walletList, setWalletList] = useState(wallet);
+  const [listCollection, setUserCollection] = useState([]);
+
   const getICPBalance = async () => {
     let address = localStorage.getItem('accountId');
     const data = {
@@ -47,10 +49,16 @@ const Index = () => {
     const icp = res.balances![0]!.value / 100000000;
     setBalance(icp);
   };
-  // Price //9e9809e5
-  const fetchPrice = async () => {
-    const data = await fetch(`https://ic.rocks/api/markets`).then(rsp => rsp.json());
-    setTotalBalance(data.ticker.price);
+
+  // price  icpUpdateUSD
+  const getIcpPrice = async () => {
+    try {
+      const prices = await NdpService.icpUpdateUSD();
+      console.log(prices, 909090);
+      setTotalBalance(prices);
+    } catch (error) {
+      console.error('getPrice', error);
+    }
   };
 
   const getBalanceParams = {
@@ -104,17 +112,33 @@ const Index = () => {
     return () => (isUnmount = true);
   };
 
+  const getUserNfts = async () => {
+    let address = localStorage.getItem('accountId');
+    try {
+      const result = await NdpService.getUserNfts(address);
+
+      console.log(result, 898989);
+
+      setNFTS(result && result.ok.length);
+      setUserCollection(result.ok);
+    } catch (error) {
+      console.log('getUserNft', error);
+    }
+  };
+
   useEffect(() => {
     NdpService.getPlugActor();
     getBalance();
+    getIcpPrice();
   }, []);
 
   useEffect(() => {
     getICPBalance();
-    fetchPrice();
+    // fetchPrice();
   }, []);
   useEffect(() => {
     getClaimStatus();
+    getUserNfts();
   }, []);
 
   const claim = async () => {
@@ -281,8 +305,16 @@ const Index = () => {
             </div>
           ) : (
             <div className="w-full my-5 ">
-              <div className="w-200px">
-                <Card url="11" title={'Patrick Genesis NFT'} content={'Genesis NFT will be distributed to users who have constructive interest in NnsDAO.'} number={'#000'} />
+              <div className="flex flex-row w-200px">
+                {listCollection.map((item, index) => (
+                  <Card
+                    url={`https://vcpye-qyaaa-aaaak-qafjq-cai.raw.ic0.app/?cc=0&type=thumbnail&tokenindex=${item[0]}`}
+                    title={'Starfish'}
+                    index={index}
+                    content={'The first NFTs of the NnsDAO ecosystem.'}
+                    number={'#' + item[0]}
+                  />
+                ))}
               </div>
             </div>
           )}

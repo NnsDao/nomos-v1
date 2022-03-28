@@ -1,0 +1,505 @@
+type User = 
+ variant {
+   address: AccountIdentifier;
+   "principal": principal;
+ };
+type TransferResponse = 
+ variant {
+   err:
+    variant {
+      CannotNotify: AccountIdentifier;
+      InsufficientBalance;
+      InvalidToken: TokenIdentifier;
+      Other: text;
+      Rejected;
+      Unauthorized: AccountIdentifier;
+    };
+   ok: Balance;
+ };
+type TransferRequest = 
+ record {
+   amount: Balance;
+   from: User;
+   memo: Memo;
+   notify: bool;
+   subaccount: opt SubAccount;
+   to: User;
+   token: TokenIdentifier;
+ };
+type Transaction__1 = 
+ record {
+   bytes: vec nat8;
+   closed: opt Time;
+   from: AccountIdentifier;
+   id: nat;
+   initiated: Time;
+   memo: opt blob;
+   price: nat64;
+   seller: principal;
+   to: AccountIdentifier;
+   token: TokenIdentifier;
+ };
+type Transaction = 
+ record {
+   bytes: vec nat8;
+   closed: opt Time;
+   from: AccountIdentifier;
+   id: nat;
+   initiated: Time;
+   memo: opt blob;
+   price: Price;
+   seller: principal;
+   to: AccountIdentifier;
+   token: TokenIdentifier;
+ };
+type TokenIndex = nat32;
+type TokenIdentifier = text;
+type Token = 
+ record {
+   createdAt: int;
+   owner: AccountIdentifier;
+   txId: text;
+ };
+type Time = int;
+type Tag = text;
+type SubAccount__2 = blob;
+type SubAccount__1 = blob;
+type SubAccount = vec nat8;
+type StreamingStrategy = variant {
+                           Callback:
+                            record {
+                              callback: StreamingCallback;
+                              token: StreamingCallbackToken;
+                            };};
+type StreamingCallbackToken = 
+ record {
+   content_encoding: text;
+   index: nat;
+   key: text;
+ };
+type StreamingCallbackResponse = 
+ record {
+   body: blob;
+   token: opt StreamingCallbackToken;
+ };
+type StreamingCallback = func (StreamingCallbackToken) ->
+                          (StreamingCallbackResponse) query;
+type StatsResponse = 
+ record {
+   Stats;
+   Stats;
+ };
+type Stats = 
+ record {
+   nat64;
+   nat64;
+   nat64;
+   nat64;
+   nat;
+   nat;
+   nat;
+ };
+type StarfishNFT = 
+ service {
+   addAdmin: (principal) -> ();
+   addClaim: (AccountIdentifier, nat64) -> (nat64);
+   address: () -> (principal, text);
+   adminKillHeartbeat: () -> ();
+   adminStartHeartbeat: () -> ();
+   allowance: (Request__1) -> (Response__1);
+   approve: (ApproveRequest) -> ();
+   balance: () -> (ICP);
+   bearer: (TokenIdentifier) -> (BearerResponse) query;
+   claim: () -> (ClaimResult);
+   claimBackup: () -> (Backup__2);
+   claimRestore: (Backup__2) -> ();
+   details: (TokenIdentifier) -> (DetailsResponse) query;
+   disbursementsList: () -> (vec Disbursement__1);
+   entrepotBackup: () -> (Backup__1) query;
+   entrepotRestore: (Backup__1) -> ();
+   getAdmins: () -> (vec principal) query;
+   getClaims: () -> (nat64);
+   getTokens: () -> (vec record {
+                           TokenIndex;
+                           Metadata__1;
+                         }) query;
+   http_request: (Request) -> (Response) query;
+   init: () -> (Result);
+   isAdmin: (principal) -> (bool) query;
+   list: (ListRequest__1) -> (ListResponse__1);
+   listings: () -> (ListingsResponse__1) query;
+   lock: (TokenIdentifier, nat64, AccountIdentifier, vec nat8) ->
+    (LockResponse__1);
+   mList: (ListRequest) -> (ListResponse);
+   mListings: () -> (ListingsResponse) query;
+   mLock: (TokenIdentifier, Price, AccountIdentifier, vec nat8) ->
+    (LockResponse);
+   mRunCron: () -> (Result_6);
+   mSettle: (TokenIdentifier) -> (Result_3);
+   mStats: () -> (StatsResponse) query;
+   mTokensExt: (AccountIdentifier) -> (Result_5) query;
+   marketBackup: () -> (Backup) query;
+   marketRestore: (Backup) -> ();
+   metadata: (TokenIdentifier) -> (MetadataResponse) query;
+   mint: (User) -> (Result_4);
+   mintNFT: (MintRequest) -> (MintResponse);
+   ndpBalance: (text) -> (BalanceResponse);
+   payments: () -> (opt vec SubAccount) query;
+   purgeAssets: (text, opt text) -> (Result);
+   readLedger: () -> (vec opt Token);
+   removeAdmin: (principal) -> ();
+   settle: (TokenIdentifier) -> (Result_3);
+   stats: () -> (nat64, nat64, nat64, nat64, nat, nat, nat) query;
+   tokenId: (TokenIndex) -> (TokenIdentifier) query;
+   tokens: (AccountIdentifier) -> (Result_2) query;
+   tokensBackup: () -> (LocalStableState) query;
+   tokensRestore: (LocalStableState) -> () oneway;
+   tokens_ext: (AccountIdentifier) -> (Result_1) query;
+   transactions: () -> (vec EntrepotTransaction) query;
+   transfer: (TransferRequest) -> (TransferResponse);
+   updateAssetThumb: (text, FilePath, Meta) -> (Result);
+   upload: (vec blob) -> ();
+   uploadClear: () -> ();
+   uploadFinalize: (text, FilePath, Meta) -> (Result);
+ };
+type Result_6 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result_5 = 
+ variant {
+   err: CommonError;
+   ok: vec record {
+             TokenIndex;
+             opt Listing__1;
+             opt vec nat8;
+           };
+ };
+type Result_4 = 
+ variant {
+   err: text;
+   ok: nat32;
+ };
+type Result_3 = 
+ variant {
+   err: CommonError;
+   ok;
+ };
+type Result_2 = 
+ variant {
+   err: CommonError;
+   ok: vec TokenIndex;
+ };
+type Result_1 = 
+ variant {
+   err: CommonError;
+   ok: vec record {
+             TokenIndex;
+             opt Listing;
+             opt vec nat8;
+           };
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type Response__1 = 
+ variant {
+   err: CommonError;
+   ok: Balance;
+ };
+type Response = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   status_code: nat16;
+   streaming_strategy: opt StreamingStrategy;
+ };
+type Request__1 = 
+ record {
+   owner: User;
+   spender: principal;
+   token: TokenIdentifier;
+ };
+type Request = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   method: text;
+   url: text;
+ };
+type Price = 
+ variant {
+   ICP: nat64;
+   NDP: nat64;
+ };
+type MintResponse = 
+ variant {
+   err: CommonError;
+   ok: TokenIndex;
+ };
+type MintRequest = 
+ record {
+   metadata: opt blob;
+   to: User;
+ };
+type Metadata__3 = 
+ variant {
+   fungible:
+    record {
+      decimals: nat8;
+      metadata: opt blob;
+      name: text;
+      symbol: text;
+    };
+   nonfungible: record {metadata: opt blob;};
+ };
+type Metadata__2 = 
+ variant {
+   fungible:
+    record {
+      decimals: nat8;
+      metadata: opt blob;
+      name: text;
+      symbol: text;
+    };
+   nonfungible: record {metadata: opt blob;};
+ };
+type Metadata__1 = 
+ variant {
+   fungible:
+    record {
+      decimals: nat8;
+      metadata: opt blob;
+      name: text;
+      symbol: text;
+    };
+   nonfungible: record {metadata: opt blob;};
+ };
+type MetadataResponse = 
+ variant {
+   err: CommonError;
+   ok: Metadata__1;
+ };
+type Metadata = 
+ record {
+   back: text;
+   border: text;
+   ink: text;
+ };
+type Meta = 
+ record {
+   description: text;
+   name: text;
+   tags: vec Tag;
+ };
+type Memo = blob;
+type LockResponse__1 = 
+ variant {
+   err: CommonError;
+   ok: AccountIdentifier;
+ };
+type LockResponse = 
+ variant {
+   err: CommonError;
+   ok: AccountIdentifier;
+ };
+type LocalStableState = 
+ record {
+   metadata: vec Metadata;
+   tokens: vec opt Token;
+ };
+type ListingsResponse__1 = 
+ vec record {
+       TokenIndex;
+       ExtListing__1;
+       Metadata__3;
+     };
+type ListingsResponse = 
+ vec record {
+       TokenIndex;
+       ExtListing;
+       Metadata__2;
+     };
+type Listing__1 = 
+ record {
+   locked: opt Time;
+   price: Price;
+   seller: principal;
+   subaccount: opt SubAccount;
+ };
+type Listing = 
+ record {
+   locked: opt Time;
+   price: nat64;
+   seller: principal;
+   subaccount: opt SubAccount;
+ };
+type ListResponse__1 = 
+ variant {
+   err: CommonError;
+   ok;
+ };
+type ListResponse = 
+ variant {
+   err: CommonError;
+   ok;
+ };
+type ListRequest__1 = 
+ record {
+   from_subaccount: opt SubAccount;
+   price: opt nat64;
+   token: TokenIdentifier;
+ };
+type ListRequest = 
+ record {
+   from_subaccount: opt SubAccount;
+   price: opt Price;
+   token: TokenIdentifier;
+ };
+type ICP = record {e8s: nat64;};
+type HeaderField = 
+ record {
+   text;
+   text;
+ };
+type FilePath = text;
+type ExtListing__1 = 
+ record {
+   locked: opt Time;
+   price: nat64;
+   seller: principal;
+ };
+type ExtListing = 
+ record {
+   locked: opt Time;
+   price: Price;
+   seller: principal;
+ };
+type EntrepotTransaction = 
+ record {
+   buyer: AccountIdentifier;
+   price: nat64;
+   seller: principal;
+   time: Time;
+   token: TokenIdentifier;
+ };
+type Disbursement__1 = 
+ record {
+   amount: nat64;
+   from_subaccount: SubAccount__2;
+   to: AccountIdentifier;
+   token: TokenIndex;
+ };
+type Disbursement = 
+ record {
+   amount: Amount;
+   from_subaccount: SubAccount__1;
+   to: AccountIdentifier;
+   token: TokenIndex;
+   try_num: nat8;
+ };
+type DetailsResponse = 
+ variant {
+   err: CommonError;
+   ok: record {
+         AccountIdentifier;
+         opt Listing;
+       };
+ };
+type CommonError = 
+ variant {
+   InvalidToken: TokenIdentifier;
+   Other: text;
+ };
+type ClaimResult = 
+ variant {
+   Err: text;
+   Ok: nat64;
+ };
+type BearerResponse = 
+ variant {
+   err: CommonError;
+   ok: AccountIdentifier;
+ };
+type BalanceResponse = 
+ variant {
+   err: CommonError;
+   ok: Balance;
+ };
+type Balance = nat;
+type Backup__2 = record {claims: vec record {
+                                       text;
+                                       nat64;
+                                     };};
+type Backup__1 = 
+ record {
+   _nextSubAccount: nat;
+   disbursementsQueue: vec Disbursement__1;
+   highestPriceSale: nat64;
+   listings: vec record {
+                   TokenIndex;
+                   Listing;
+                 };
+   lowestPriceSale: nat64;
+   pendingTransactions: vec record {
+                              TokenIndex;
+                              Transaction__1;
+                            };
+   totalVolume: nat64;
+   transactions: vec record {
+                       nat;
+                       Transaction__1;
+                     };
+ };
+type Backup = 
+ record {
+   _nextSubAccount: nat;
+   disbursementsQueue: vec Disbursement;
+   highestPriceSale: record {
+                       nat64;
+                       nat64;
+                     };
+   listings: vec record {
+                   TokenIndex;
+                   Listing__1;
+                 };
+   lowestPriceSale: record {
+                      nat64;
+                      nat64;
+                    };
+   pendingTransactions: vec record {
+                              TokenIndex;
+                              Transaction;
+                            };
+   totalVolume: record {
+                  nat64;
+                  nat64;
+                };
+   transactions: vec record {
+                       nat;
+                       Transaction;
+                     };
+ };
+type ApproveRequest = 
+ record {
+   allowance: Balance;
+   spender: principal;
+   subaccount: opt SubAccount;
+   token: TokenIdentifier;
+ };
+type Amount = 
+ variant {
+   ICP: nat64;
+   NDP: nat64;
+ };
+type AccountIdentifier = text;
+service : (principal, opt text, record {
+                                  artists: vec text;
+                                  description: text;
+                                  flavour: text;
+                                  name: text;
+                                  supply: nat16;
+                                }) -> StarfishNFT
