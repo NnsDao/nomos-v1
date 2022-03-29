@@ -90,12 +90,12 @@ const Index = () => {
                 <p>The total number of NDPs issued is 100 million, and the maximum contribution activity is 16% of the total.</p>
               </div>
 
-              <div className="flex flex-col justify-start items-start mb-2">
+              <div className="flex flex-col justify-start items-start mb-2" data-aos="fade-up">
                 <span className="text-subTitleColor font-bold text-2xl my-2">What is the contract address of NDP?</span>
                 <p>Canister address, which can be viewed through icpscan.</p>
               </div>
 
-              <div className="flex flex-col justify-start items-start mb-2">
+              <div className="flex flex-col justify-start items-start mb-2" data-aos="fade-up">
                 <span className="text-subTitleColor font-bold text-2xl my-2">How is the issue price defined?</span>
                 <p>For the price, you can refer to the formula below, where we give the detailed calculation formula.</p>
               </div>
@@ -111,11 +111,11 @@ const Index = () => {
               {/* table */}
               <div className="flex flex-col justify-start items-start mb-2">
                 <span className="text-subTitleColor font-bold text-2xl my-2 mb-2">Table Details</span>
-                <p>
+                <p data-aos="fade-up">
                   NnsDAO Labs defines this contribution model as a three-stage (multi-stage) inverse step curve, the more total ICP contributed, the more NDPs will be received and the cheaper NDPs
                   will be bought.
                 </p>
-                <div className="shadow  rounded border-b border-gray-600 mt-3 mb-8">
+                <div className="shadow  rounded border-b border-gray-600 mt-3 mb-8" data-aos="zoom-in">
                   <table className="min-w-full bg-gray-700 table-fixed border-collapse">
                     <thead className="bg-gray-800 text-white">
                       <tr>
@@ -256,7 +256,7 @@ const Index = () => {
             <span className="process-title">Product Process</span>
             <div>
               {ProcessList.map((item, index) => (
-                <div className="product-item" key={index}>
+                <div className="product-item" key={index} data-aos="zoom-in">
                   <div>
                     <img src={item.imgs} className="opacity-50" alt="product-nnsdao" width={'224px'} height={'224px'} />
                   </div>

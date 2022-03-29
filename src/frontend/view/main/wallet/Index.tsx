@@ -118,11 +118,8 @@ const Index = () => {
 
   const getUserNfts = async () => {
     try {
-      const result = await NdpService.getUserNfts(address);
-      console.log(result, 898989);
+      const result: any = await NdpService.getUserNfts(address);
       setNFTS(result && result.ok.length);
-      console.log(result.ok, 'result.ok');
-
       setUserCollection(result.ok);
     } catch (error) {
       console.log('getUserNft', error);
@@ -318,10 +315,10 @@ const Index = () => {
             </div>
           ) : (
             <div className="w-full my-5 ">
-              <div className="flex flex-row w-200px">
+              <div className="flex flex-row flex-wrap w-full mx-10">
                 {listCollection.map((item, index) => (
                   <Card
-                    url={`https://fscul-yqaaa-aaaak-aalga-cai.raw.ic0.app/?cc=0&type=thumbnail&tokenid=${tokenIdentifier('fscul-yqaaa-aaaak-aalga-cai', item[0])}`}
+                    url={`https://vcpye-qyaaa-aaaak-qafjq-cai.raw.ic0.app/?cc=0&type=thumbnail&tokenid=${tokenIdentifier('vcpye-qyaaa-aaaak-qafjq-cai', item[0])}`}
                     title={'Starfish'}
                     index={index}
                     content={'The first NFTs of the NnsDAO ecosystem.'}

@@ -40,7 +40,7 @@ const footer = () => {
       </div>
       <div className="w-full h-px  bg-opacity-10 bg-white"></div>
       <div className="flex justify-center my-7 text-center text-white pb-5 text-sl opacity-50">
-        NnsDAO Labs Limited © 2021. Build on
+        NnsDAO Labs Limited © 2022. Build on
         <img src={deployIc} className="w-24 h-full ml-2 mt-2" />
       </div>
     </>

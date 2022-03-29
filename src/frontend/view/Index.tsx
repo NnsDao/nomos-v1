@@ -320,7 +320,7 @@ export default function index(prop: any) {
           <DonateGraph></DonateGraph>
           <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently contributed, and the calculated NDP cost price is 0.0009674804 ICP.</p>
         </div>
-        <div className="max-w-1200px m-auto mt-200px text-white text-left px-4">
+        <div className="max-w-1200px m-auto mt-200px text-white text-left px-4" data-aos="fade-up">
           <div className="find-text-title font-mono mb-4">Every DAOn is unique</div>
           <div className="find-text-info">Join different DAOn's to brainstorm and collide with your own DAOs</div>
           <div className="flex justify-between mt-24">
@@ -337,7 +337,7 @@ export default function index(prop: any) {
         <div className="max-w-1200px m-auto mt-200px px-4 text-white relative ">
           <div className="find-text-title font-mono mb-4">Features</div>
           <div className="find-text-info ">DAOs To Earn</div>
-          <div className="flex mt-24 mx-8 justify-between items-stretch flex-wrap relative">
+          <div className="flex mt-24 mx-8 justify-between items-stretch flex-wrap relative" data-aos="fade-up">
             {featuresList.slice(0, 3).map((item, index) => (
               <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item ">
                 <div className={'flex items-center '}>
@@ -350,7 +350,7 @@ export default function index(prop: any) {
           </div>
           <img src={dividing} width="1444px" height="16px" alt="" className="absolute left-1 top-39 " />
 
-          <div className="flex mt-24 mx-8 justify-between items-stretch flex-wrap">
+          <div className="flex mt-24 mx-8 justify-between items-stretch flex-wrap" data-aos="fade-up">
             {featuresList.slice(3).map((item, index) => (
               <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item ">
                 <div className={'flex items-center '}>
@@ -367,7 +367,7 @@ export default function index(prop: any) {
           <div className="find-text-title  font-mono mb-4">Work Flow</div>
           <div className="find-text-info ">You can be a boss, you just work for yourself. </div>
           <div className="h-500px flex flex-row justify-center items-center  my-24 ">
-            <div className="flex h-500px flex-col justify-around ">
+            <div className="flex h-500px flex-col justify-around cursor-pointer ">
               {workFlowList.map((item, index) => (
                 <div key={index} className={'ml-2 flex w-150px h-91px justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`} onClick={() => setWork(item.text)}>
                   <div className={'text-3xl '}>{item.text}</div>
@@ -384,7 +384,7 @@ export default function index(prop: any) {
             <div className={'flex-grow m-auto -ml-4 w-1000px  h-1000px reputation '}></div>
           </div>
         </div>
-        <div id="FAQs" className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
+        <div id="FAQs" data-aos="fade-up" className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
           <span className={'find-text-title font-mono mb-4'}>FAQs</span>
           <div className={'flex flex-wrap justify-between my-24 text-white w-full'}>
             <Collapse defaultActiveKey={['0']} ghost accordion expandIconPosition={'right'}>

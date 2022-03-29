@@ -80,7 +80,7 @@ const MainIndex = () => {
           {active === 'Account' ? <Account tabList={tabList} active={accountTab} setAccountTab={setAccountTab} /> : ''}
         </div>
       </div>
-      <div className="text-gray-200	 pb-5 text-sl text-center ">@ 2021, NnsDAO Labs</div>
+      <div className="text-gray-200	 pb-5 text-sl text-center ">@ 2022, NnsDAO Labs</div>
     </div>
   );
 };

@@ -227,9 +227,6 @@ class NdpService {
     const agent = new HttpAgent({});
     const nftActor = Actor.createActor(nftIdlFactory, { agent: agent, canisterId: this.nftCanisterId });
     // nftIdlFactory
-    console.log(nftActor, 'nftActor');
-    console.log(arg, 'arg');
-
     return nftActor.mTokensExt(arg);
   }
 
@@ -240,9 +237,9 @@ class NdpService {
       this.lastUpdate = Date.now();
       const agent = new HttpAgent({});
       const nftActor = Actor.createActor(xdrIdlFactory, { agent: agent, canisterId: this.xdrCanisterId });
-      const b = await nftActor.get_icp_xdr_conversion_rate();
-      var b2 = await fetch('https://free.currconv.com/api/v7/convert?q=XDR_USD&compact=ultra&apiKey=df6440fc0578491bb13eb2088c4f60c7').then(r => r.json());
-      _rate = Number(b.data.xdr_permyriad_per_icp / 10000n) * (b2.hasOwnProperty('XDR_USD') ? b2.XDR_USD : 1.4023);
+      const b: any = await nftActor.get_icp_xdr_conversion_rate();
+      var b2 = await fetch('https://free.currconv.com/api/v7/convert?q=XDR_USD&compact=ultra&apiKey=fc7d261fade031a3212e').then(r => r.json());
+      _rate = Number(b.data.xdr_permyriad_per_icp / BigInt(10000)) * (b2.hasOwnProperty('XDR_USD') ? b2.XDR_USD : 1.4023);
     }
     return _rate;
   }
@@ -252,7 +249,7 @@ const NDP_TOKEN = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37
 const canisterId = 'vgqnj-miaaa-aaaal-qaapa-cai';
 const badgeCanisterId = 'rfde3-eyaaa-aaaal-qaaua-cai';
 const userCanisterId = 'o27sk-yiaaa-aaaag-qabbq-cai';
-const nftCanisterId = 'fscul-yqaaa-aaaak-aalga-cai';
+const nftCanisterId = 'vcpye-qyaaa-aaaak-qafjq-cai';
 const xdrCanisterId = 'rkp4c-7iaaa-aaaaa-aaaca-cai';
 
 export default new NdpService({
