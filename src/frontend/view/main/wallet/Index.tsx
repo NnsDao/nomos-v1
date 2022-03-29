@@ -1,3 +1,4 @@
+import { Principal } from '@dfinity/principal';
 import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
@@ -7,6 +8,7 @@ import Share from '../../../components/ShareTwitter';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
 import './index.css';
+
 type tokenItem = {
   name: string;
   tokenName: string;
@@ -119,6 +121,8 @@ const Index = () => {
       const result = await NdpService.getUserNfts(address);
       console.log(result, 898989);
       setNFTS(result && result.ok.length);
+      console.log(result.ok, 'result.ok');
+
       setUserCollection(result.ok);
     } catch (error) {
       console.log('getUserNft', error);
@@ -216,7 +220,17 @@ const Index = () => {
     }
   };
   const [isloading, setIsLoading] = useState(false);
-
+  const to32bits = (num: any) => {
+    const b = new ArrayBuffer(4);
+    new DataView(b).setUint32(0, num);
+    return Array.from(new Uint8Array(b));
+  };
+  const tokenIdentifier = (principal: string, index: any) => {
+    //@ts-ignore
+    const padding = Buffer.from('\x0Atid');
+    const array = new Uint8Array([...padding, ...Principal.fromText(principal).toUint8Array(), ...to32bits(index)]);
+    return Principal.fromUint8Array(array).toText();
+  };
   return (
     <>
       <div className="flex flex-col items-start wrapper ">
@@ -307,7 +321,7 @@ const Index = () => {
               <div className="flex flex-row w-200px">
                 {listCollection.map((item, index) => (
                   <Card
-                    url={`https://vcpye-qyaaa-aaaak-qafjq-cai.raw.ic0.app/?cc=0&type=thumbnail&tokenindex=${item[0]}`}
+                    url={`https://fscul-yqaaa-aaaak-aalga-cai.raw.ic0.app/?cc=0&type=thumbnail&tokenid=${tokenIdentifier('fscul-yqaaa-aaaak-aalga-cai', item[0])}`}
                     title={'Starfish'}
                     index={index}
                     content={'The first NFTs of the NnsDAO ecosystem.'}

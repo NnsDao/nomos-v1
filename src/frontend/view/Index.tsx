@@ -26,6 +26,7 @@ import { DonateGraph } from '../components/DonateGraph';
 import Footer from '../components/Footer';
 import NdpService from '../utils/NdpService';
 import './index.css';
+
 export default function index(prop: any) {
   const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
 

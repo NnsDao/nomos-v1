@@ -2,124 +2,127 @@ import type { Principal } from '@dfinity/principal';
 export type AccountIdentifier = string;
 export type AccountIdentifier__1 = string;
 export type Balance = bigint;
-export interface BalanceRequest { 'token' : TokenIdentifier, 'user' : User }
-export type BalanceResponse = { 'ok' : Balance } |
-  { 'err' : CommonError };
+export interface BalanceRequest {
+  token: TokenIdentifier;
+  user: User;
+}
+export type BalanceResponse = { ok: Balance } | { err: CommonError };
 export type BlockHeight = bigint;
 export type BlockIndex = bigint;
-export type CommonError = { 'InvalidToken' : TokenIdentifier } |
-  { 'Other' : string };
+export type CommonError = { InvalidToken: TokenIdentifier } | { Other: string };
 export type Extension = string;
 export type HeaderField = [string, string];
 export interface HttpResponse {
-  'body' : Array<number>,
-  'headers' : Array<HeaderField>,
-  'status_code' : number,
+  body: Array<number>;
+  headers: Array<HeaderField>;
+  status_code: number;
 }
 export type Memo = Array<number>;
 export type Memo__1 = bigint;
-export type Metadata = {
-    'fungible' : {
-      'decimals' : number,
-      'metadata' : [] | [Array<number>],
-      'name' : string,
-      'symbol' : string,
+export type Metadata =
+  | {
+      fungible: {
+        decimals: number;
+        metadata: [] | [Array<number>];
+        name: string;
+        symbol: string;
+      };
     }
-  } |
-  { 'nonfungible' : { 'metadata' : [] | [Array<number>] } };
-export interface NDP { 'e8s' : bigint }
-export interface NDPInfo { 'addr' : string }
-export interface NDPTest {
-  'TT' : (arg_0: bigint, arg_1: string) => Promise<TransferResult>,
-  'addClaim' : (arg_0: string, arg_1: bigint) => Promise<Result_1>,
-  'addDropList' : (arg_0: addDropListArgs) => Promise<Result_1>,
-  'addOwner' : (arg_0: Principal) => Promise<Result_1>,
-  'allBalances' : () => Promise<Array<[string, Balance]>>,
-  'approve' : () => Promise<NDPInfo>,
-  'balance' : (arg_0: BalanceRequest) => Promise<BalanceResponse>,
-  'claim' : () => Promise<Result_1>,
-  'claimCheck' : (arg_0: string) => Promise<Result_3>,
-  'claimStatus' : () => Promise<Result_1>,
-  'delOwner' : (arg_0: Principal) => Promise<Result_1>,
-  'dropExchange' : (arg_0: dropExchangeArgs) => Promise<Result_1>,
-  'extensions' : () => Promise<Array<Extension>>,
-  'getAccountId' : () => Promise<string>,
-  'getRewarded' : () => Promise<Balance>,
-  'getUserIndex' : (arg_0: Principal) => Promise<bigint>,
-  'http_request' : () => Promise<HttpResponse>,
-  'metadata' : (arg_0: TokenIdentifier) => Promise<Result_2>,
-  'mint' : (arg_0: string, arg_1: Balance) => Promise<boolean>,
-  'minted' : () => Promise<Balance>,
-  'owner' : () => Promise<Array<[Principal, bigint]>>,
-  'reward' : () => Promise<Result_1>,
-  'supply' : (arg_0: TokenIdentifier) => Promise<Result>,
-  'transactionRecord' : () => Promise<Array<Transaction>>,
-  'transfer' : (arg_0: TransferRequest) => Promise<TransferResponse>,
-  'userIndexList' : () => Promise<Array<[string, bigint]>>,
+  | { nonfungible: { metadata: [] | [Array<number>] } };
+export interface NDP {
+  e8s: bigint;
 }
-export type Operation = {
-    'Burn' : { 'from' : AccountIdentifier__1, 'amount' : { 'e8s' : bigint } }
-  } |
-  { 'Mint' : { 'to' : AccountIdentifier__1, 'amount' : { 'e8s' : bigint } } } |
-  {
-    'Transfer' : {
-      'to' : AccountIdentifier__1,
-      'fee' : bigint,
-      'from' : AccountIdentifier__1,
-      'amount' : { 'e8s' : bigint },
+export interface NDPInfo {
+  addr: string;
+}
+export interface NDPTest {
+  TT: (arg_0: bigint, arg_1: string) => Promise<TransferResult>;
+  addClaim: (arg_0: string, arg_1: bigint) => Promise<Result_1>;
+  addDropList: (arg_0: addDropListArgs) => Promise<Result_1>;
+  addOwner: (arg_0: Principal) => Promise<Result_1>;
+  allBalances: () => Promise<Array<[string, Balance]>>;
+  approve: () => Promise<NDPInfo>;
+  balance: (arg_0: BalanceRequest) => Promise<BalanceResponse>;
+  claim: () => Promise<Result_1>;
+  claimCheck: (arg_0: string) => Promise<Result_3>;
+  claimStatus: () => Promise<Result_1>;
+  delOwner: (arg_0: Principal) => Promise<Result_1>;
+  dropExchange: (arg_0: dropExchangeArgs) => Promise<Result_1>;
+  extensions: () => Promise<Array<Extension>>;
+  getAccountId: () => Promise<string>;
+  getRewarded: () => Promise<Balance>;
+  getUserIndex: (arg_0: Principal) => Promise<bigint>;
+  http_request: () => Promise<HttpResponse>;
+  metadata: (arg_0: TokenIdentifier) => Promise<Result_2>;
+  mint: (arg_0: string, arg_1: Balance) => Promise<boolean>;
+  minted: () => Promise<Balance>;
+  owner: () => Promise<Array<[Principal, bigint]>>;
+  reward: () => Promise<Result_1>;
+  supply: (arg_0: TokenIdentifier) => Promise<Result>;
+  transactionRecord: () => Promise<Array<Transaction>>;
+  transfer: (arg_0: TransferRequest) => Promise<TransferResponse>;
+  userIndexList: () => Promise<Array<[string, bigint]>>;
+}
+export type Operation =
+  | {
+      Burn: { from: AccountIdentifier__1; amount: { e8s: bigint } };
     }
-  };
-export type Result = { 'ok' : Balance } |
-  { 'err' : CommonError };
-export type Result_1 = { 'ok' : boolean } |
-  { 'err' : string };
-export type Result_2 = { 'ok' : Metadata } |
-  { 'err' : CommonError };
-export type Result_3 = { 'ok' : bigint } |
-  { 'err' : string };
+  | { Mint: { to: AccountIdentifier__1; amount: { e8s: bigint } } }
+  | {
+      Transfer: {
+        to: AccountIdentifier__1;
+        fee: bigint;
+        from: AccountIdentifier__1;
+        amount: { e8s: bigint };
+      };
+    };
+export type Result = { ok: Balance } | { err: CommonError };
+export type Result_1 = { ok: boolean } | { err: string };
+export type Result_2 = { ok: Metadata } | { err: CommonError };
+export type Result_3 = { ok: bigint } | { err: string };
 export type SubAccount = Array<number>;
-export interface Timestamp { 'timestamp_nanos' : bigint }
+export interface Timestamp {
+  timestamp_nanos: bigint;
+}
 export type TokenIdentifier = string;
 export interface Transaction {
-  'memo' : Memo__1,
-  'operation' : Operation,
-  'blockHeight' : BlockHeight,
-  'caller' : AccountIdentifier__1,
-  'created_at_time' : Timestamp,
+  memo: Memo__1;
+  operation: Operation;
+  blockHeight: BlockHeight;
+  caller: AccountIdentifier__1;
+  created_at_time: Timestamp;
 }
-export type TransferError = {
-    'TxTooOld' : { 'allowed_window_nanos' : bigint }
-  } |
-  { 'BadFee' : { 'expected_fee' : NDP } } |
-  { 'TxDuplicate' : { 'duplicate_of' : BlockIndex } } |
-  { 'TxCreatedInFuture' : null } |
-  { 'InsufficientFunds' : { 'balance' : NDP } };
+export type TransferError =
+  | {
+      TxTooOld: { allowed_window_nanos: bigint };
+    }
+  | { BadFee: { expected_fee: NDP } }
+  | { TxDuplicate: { duplicate_of: BlockIndex } }
+  | { TxCreatedInFuture: null }
+  | { InsufficientFunds: { balance: NDP } };
 export interface TransferRequest {
-  'to' : User,
-  'token' : TokenIdentifier,
-  'notify' : boolean,
-  'from' : User,
-  'memo' : Memo,
-  'subaccount' : [] | [SubAccount],
-  'amount' : Balance,
+  to: User;
+  token: TokenIdentifier;
+  notify: boolean;
+  from: User;
+  memo: Memo;
+  subaccount: [] | [SubAccount];
+  amount: Balance;
 }
-export type TransferResponse = { 'ok' : Balance } |
-  {
-    'err' : { 'CannotNotify' : AccountIdentifier } |
-      { 'InsufficientBalance' : null } |
-      { 'InvalidToken' : TokenIdentifier } |
-      { 'Rejected' : null } |
-      { 'Unauthorized' : AccountIdentifier } |
-      { 'Other' : string }
-  };
-export type TransferResult = { 'Ok' : BlockIndex } |
-  { 'Err' : TransferError };
-export type User = { 'principal' : Principal } |
-  { 'address' : AccountIdentifier };
+export type TransferResponse =
+  | { ok: Balance }
+  | {
+      err: { CannotNotify: AccountIdentifier } | { InsufficientBalance: null } | { InvalidToken: TokenIdentifier } | { Rejected: null } | { Unauthorized: AccountIdentifier } | { Other: string };
+    };
+export type TransferResult = { Ok: BlockIndex } | { Err: TransferError };
+export type User = { principal: Principal } | { address: AccountIdentifier };
 export interface addDropListArgs {
-  'balance' : bigint,
-  'code' : string,
-  'email' : string,
+  balance: bigint;
+  code: string;
+  email: string;
 }
-export interface dropExchangeArgs { 'code' : string, 'email' : string }
+export interface dropExchangeArgs {
+  code: string;
+  email: string;
+}
 export interface _SERVICE extends NDPTest {}
