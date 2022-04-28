@@ -292,7 +292,7 @@ const Index = () => {
                   </div>
 
                   <div className="table-action flex   items-center ">
-                    {item.isClaim ? (
+                    {/* {item.isClaim ? (
                       <button
                         className="z-50 text-white table-content-button"
                         onClick={() => {
@@ -305,7 +305,7 @@ const Index = () => {
                     )}
                     <button className=" table-content-button cursor-pointer ml-5 " onClick={() => changeShowAirdrop()}>
                       Airdrops
-                    </button>
+                    </button> */}
 
                     {item.isMint ? <button className=" table-content-button">Mint</button> : ''}
                     <Share />

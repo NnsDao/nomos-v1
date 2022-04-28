@@ -2,7 +2,6 @@ import { Collapse, Input, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Collaboration from '../assets/home/Collaboration.png';
-import copy from '../assets/home/copy.png';
 import creation from '../assets/home/creation.png';
 import DAOs from '../assets/home/DAO.png';
 import dividing from '../assets/home/dividing-line.png';
@@ -21,8 +20,6 @@ import state2 from '../assets/home/state2.png';
 import state3 from '../assets/home/state3.png';
 import state4 from '../assets/home/state4.png';
 import Statistic from '../assets/home/Statistic.png';
-import Neuron from '../assets/neuron.png';
-import { DonateGraph } from '../components/DonateGraph';
 import Footer from '../components/Footer';
 import NdpService from '../utils/NdpService';
 import './index.css';
@@ -66,7 +63,8 @@ export default function index(prop: any) {
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
   const [link, setLink] = useState('');
-  const linkList = ['NnsDAO', 'Story', 'Contribute', 'WorkFlow', 'FAQs'];
+  // const linkList = ['NnsDAO', 'Story', 'Contribute', 'WorkFlow', 'FAQs'];
+  const linkList = ['NnsDAO', 'Story', 'WorkFlow', 'FAQs'];
   const daoList = [
     {
       url: earth1,
@@ -169,6 +167,20 @@ export default function index(prop: any) {
       frequently: 'About the first and second Sponsor.',
       questions:
         'If you are a Genesis sponsor you will receive a ratio of 1:1500, if you are an Eco sponsor you will receive a ratio of 1:1200, and a badge will be given to the first and second-time sponsor participants.',
+    },
+
+    {
+      frequently: 'What is starfish NFTs?',
+      questions: 'Starfish NFTs of the first NnsDAO ecosystem.',
+    },
+    {
+      frequently: 'What is starfish culture?',
+      questions:
+        'This is a starfish culture, NnsDAO creates a non-hierarchical structure of DAOn from the organizational model, and the touchstone figure who initiates DAOs leads the trend and brings together members of DAOs who share common values and beliefs, and communicate and improve themselves within DAOs, each for themselves, and DAOs are advancing new ideas as executors and passionate defenders of new ideas. We hope that by providing some basic DAO tools, more people will join and redefine the organizational model.',
+    },
+    {
+      frequently: 'Building a Future Together Starfish Culture?',
+      questions: 'Market Profile Picture, Fee Reduction Activities, Reputation Bonus, Starfish Staking Bonus, Airdrop, Starfish Arena, Starfish Raise Project.',
     },
   ];
 
@@ -288,7 +300,7 @@ export default function index(prop: any) {
           <img src={nnsdao} alt="" width={'61.8px'} height={'61.8px'} className="nnsdao" />
           <img src={japandao} alt="" width={'61.8px'} height={'61.8px'} className="japandao" />
         </div>
-        <div id="Contribute" className="max-w-1200px m-auto mt-200px text-white text-left ">
+        {/* <div id="Contribute" className="max-w-1200px m-auto mt-200px text-white text-left ">
           <div className="find-text-title font-mono mb-4 flex">
             DAOs Fund (<img src={Neuron} alt="" width={'45px'} height={'45px'} />,<img src={Neuron} alt="" width={'45px'} height={'45px'} /> )
           </div>
@@ -319,7 +331,7 @@ export default function index(prop: any) {
           </div>
           <DonateGraph></DonateGraph>
           <p className="mt-6 text-center ">(6650,9674.804) indicates that 6650 ICPs are currently contributed, and the calculated NDP cost price is 0.0009674804 ICP.</p>
-        </div>
+        </div> */}
         <div className="max-w-1200px m-auto mt-200px text-white text-left px-4" data-aos="fade-up">
           <div className="find-text-title font-mono mb-4">Every DAOn is unique</div>
           <div className="find-text-info">Join different DAOn's to brainstorm and collide with your own DAOs</div>
@@ -365,7 +377,13 @@ export default function index(prop: any) {
         </div>
         <div id="WorkFlow" className="max-w-1200px mx-auto mt-200px px-4 text-white ">
           <div className="find-text-title  font-mono mb-4">Work Flow</div>
-          <div className="find-text-info ">You can be a boss, you just work for yourself. </div>
+          <div className="find-text-info ">
+            You can be a boss, you just work for yourself.{' '}
+            <a href="https://github.com/NnsDao/nnsdao-org/tree/main/static/comics" className="text-blue-500 cursor-pointer">
+              {' '}
+              👀 DAOs Comics
+            </a>
+          </div>
           <div className="h-500px flex flex-row justify-center items-center  my-24 ">
             <div className="flex h-500px flex-col justify-around cursor-pointer ">
               {workFlowList.map((item, index) => (
