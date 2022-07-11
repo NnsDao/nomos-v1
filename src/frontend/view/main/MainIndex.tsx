@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import japandaoIcon from '../../assets/home/japandao.png';
 import nnsDaoIcon from '../../assets/home/nnsdao.png';
 import NdpService from '../../utils/NdpService';
 import Account from './account/Index';
@@ -18,10 +17,10 @@ const MainIndex = () => {
       text: 'Patrick',
       url: nnsDaoIcon,
     },
-    {
-      text: 'Japan',
-      url: japandaoIcon,
-    },
+    // {
+    //   text: 'Japan',
+    //   url: japandaoIcon,
+    // },
   ];
   const [active, setActive] = useState('Wallet');
   const clickActor = (val: string) => {
@@ -36,6 +35,8 @@ const MainIndex = () => {
     history.push('/home');
   };
   const handleMenu = (str: string) => {
+    console.log(str, 'str');
+
     switch (str) {
       case 'My DAOs':
         setAccountTab('DAOs');
@@ -68,6 +69,8 @@ const MainIndex = () => {
             daoList={daoList}
             active={active}
             onClick={(val: string) => {
+              console.log(val, 'val');
+
               setActive(val);
             }}
           />

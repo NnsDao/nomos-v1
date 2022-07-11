@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
+import { getDistributeActor } from '../service';
 import NdpService from '../utils/NdpService';
 import Loading from './Loading';
 import './login.css';
@@ -26,9 +27,7 @@ const Index = () => {
     window.localStorage.setItem('loginType', 'stoic');
     setIsLoading(true);
     await NdpService.stoicLogin();
-
     let identity = NdpService.identity;
-
     if (identity.getPrincipal().toText()) {
       window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', JSON.stringify(identity.getPrincipal()));
@@ -36,12 +35,8 @@ const Index = () => {
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
       const { addr } = await NdpService.approve();
       window.localStorage.setItem('accountId', addr);
-      message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
-      setIsLoading(false);
-
-      history.push('/home');
+      successLogin();
     }
-    setIsLoading(false);
   };
   const onPlug = async () => {
     window.localStorage.setItem('loginType', 'plug');
@@ -55,13 +50,24 @@ const Index = () => {
       const { addr } = await NdpService.approve();
       window.localStorage.setItem('accountId', addr);
     })();
-
-    message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
     window.localStorage.setItem('isLogin', '1');
     window.localStorage.setItem('logonTime', new Date().getTime() + '');
+    successLogin();
+  };
+
+  const successLogin = () => {
+    getExChange();
     setIsLoading(false);
     history.push('/home');
+    message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
   };
+  const getExChange = async () => {
+    const distributeActor = await getDistributeActor({ needAuth: true });
+    console.log(distributeActor, 'distributeActor');
+    const res = await distributeActor.try_exchange();
+    console.log(res, 'getExChange');
+  };
+
   return (
     <>
       <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />

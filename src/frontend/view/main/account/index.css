@@ -62,7 +62,7 @@
   font-size: 18px;
   padding: 14px 43px;
   margin-right: 80px;
-  cursor: pointer;
+  cursor: not-allowed;
 }
 .account-tab-button-active {
   color: #ffffff;
