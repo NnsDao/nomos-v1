@@ -1,3 +1,4 @@
+import storage from '@nnsdao/nnsdao-kit/src/helper/storage';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import wallet from '../../../assets/main/Wallet.png';
@@ -15,6 +16,7 @@ const Nav = (prop: prop) => {
   const logout = () => {
     window.localStorage.setItem('isLogin', '0');
     window.localStorage.setItem('loginType', 'ooooooo');
+    storage.set('loginType', '');
     history.replace('/home');
     NdpService.resetService();
   };

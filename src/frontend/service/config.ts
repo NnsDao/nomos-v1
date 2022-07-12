@@ -1,4 +1,4 @@
-import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index.js';
+import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index';
 export { distributeIDL };
 const canister = {
   distribute: {

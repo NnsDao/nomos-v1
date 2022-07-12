@@ -1,3 +1,4 @@
+import storage from '@nnsdao/nnsdao-kit/src/helper/storage';
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -25,6 +26,7 @@ const Index = () => {
 
   const onStoic = async () => {
     window.localStorage.setItem('loginType', 'stoic');
+    storage.get('loginType', 'stoic');
     setIsLoading(true);
     await NdpService.stoicLogin();
     let identity = NdpService.identity;
@@ -40,6 +42,7 @@ const Index = () => {
   };
   const onPlug = async () => {
     window.localStorage.setItem('loginType', 'plug');
+    storage.set('loginType', 'plug');
     // Detect Plug extension
     if (!window.ic?.plug) {
       return message.warning('Plug Not installed');
