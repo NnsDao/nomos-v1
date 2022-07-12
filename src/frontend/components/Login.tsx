@@ -26,7 +26,7 @@ const Index = () => {
 
   const onStoic = async () => {
     window.localStorage.setItem('loginType', 'stoic');
-    storage.get('loginType', 'stoic');
+    storage.set('loginType', 'stoic');
     setIsLoading(true);
     await NdpService.stoicLogin();
     let identity = NdpService.identity;

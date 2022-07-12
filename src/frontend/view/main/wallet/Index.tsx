@@ -81,7 +81,7 @@ const Index = () => {
 
   const getClaimStatus = async () => {
     let isUnmount = false;
-    let claimStatus = null;
+    let claimStatus = null as any;
     try {
       claimStatus = await NdpService.getClaimStatus();
     } catch (error) {

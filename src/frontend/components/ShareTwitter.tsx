@@ -3,7 +3,7 @@ import { TwitterIcon, TwitterShareButton } from 'react-share';
 import NdpService from '../utils/NdpService';
 const ShareTwitter = () => {
   const reward = async () => {
-    let result = null;
+    let result = null as any;
     try {
       result = await NdpService.getReward();
       console.log(result);
