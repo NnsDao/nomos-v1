@@ -1,4 +1,4 @@
-import storage from '@nnsdao/nnsdao-kit/src/helper/storage';
+import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import wallet from '../../../assets/main/Wallet.png';

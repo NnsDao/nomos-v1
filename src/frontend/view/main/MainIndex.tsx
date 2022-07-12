@@ -1,4 +1,4 @@
-import storage from '@nnsdao/nnsdao-kit/src/helper/storage';
+import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import nnsDaoIcon from '../../assets/home/nnsdao.png';

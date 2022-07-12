@@ -1,4 +1,4 @@
-import storage from '@nnsdao/nnsdao-kit/src/helper/storage';
+import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
