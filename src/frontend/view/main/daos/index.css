@@ -12,6 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .daos-button-selected {
   background: linear-gradient(90deg, #006ae9 0%, #129def 100%);

@@ -41,9 +41,9 @@ const Nav = (prop: prop) => {
           <div className={' mt-9  justify-center w-240px h-48px '}>
             {prop.daoList.map((item, index) => (
               <div
-                // onClick={() => prop.onClick(item.text as string)}
+                onClick={() => prop.onClick(item.text as string)}
                 key={index}
-                className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-not-allowed ${prop.active === item.text ? 'bg-gradient' : ''}`}>
+                className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
                 <div className="flex items-center justify-center -ml-24">
                   <img src={item.url} alt="nnsdao nomos" className="w-7 h-7" />
                   <span className="ml-3"> {item.text}</span>
