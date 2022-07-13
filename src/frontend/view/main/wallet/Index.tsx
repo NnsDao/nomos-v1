@@ -3,12 +3,11 @@ import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
-import Loading from '../../../components/Loading';
 import Share from '../../../components/ShareTwitter';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
 import './index.css';
-
+import Transfer from './transfer';
 type tokenItem = {
   name: string;
   tokenName: string;
@@ -19,7 +18,8 @@ type tokenItem = {
 };
 const Index = () => {
   let address = localStorage.getItem('accountId');
-
+  let principal = localStorage.getItem('principal');
+  const [isOpen, setOpen] = useState(false);
   const wallet = [
     {
       name: 'NnsDAO Protocol',
@@ -35,7 +35,6 @@ const Index = () => {
   const [listCollection, setUserCollection] = useState([]);
 
   const getICPBalance = async () => {
-    let address = localStorage.getItem('accountId');
     const data = {
       account_identifier: { address },
       network_identifier: {
@@ -65,12 +64,11 @@ const Index = () => {
     }
   };
 
-  const getBalanceParams = {
-    token: 'NDP',
-    user: { address: window.localStorage.getItem('accountId') },
-  };
-
   const getBalance = async () => {
+    const getBalanceParams = {
+      token: 'NDP',
+      user: { address: window.localStorage.getItem('accountId') },
+    };
     try {
       const NDP = await NdpService.getBalance(getBalanceParams);
       setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
@@ -167,56 +165,7 @@ const Index = () => {
   const [ndp, setNDP] = useState('0');
   const [nfts, setNFTS] = useState(0);
   const accountId = window.localStorage.getItem('accountId');
-  const [isShowAirdrop, setIsShowAirdrop] = useState(false);
-  const changeShowAirdrop = () => {
-    setIsShowAirdrop(!isShowAirdrop);
-  };
-  let emailValue: any = '';
-  let codeValue: any = '';
-  const dropExchange = async (email: string, code: string) => {
-    const Params = {
-      email: email,
-      code: code,
-    };
-    try {
-      const result = await NdpService.dropExchange(Params);
-      setIsLoading(false);
-      changeShowAirdrop();
-      if (result.err) {
-        message.error({ content: result.err, duration: 3 });
-      } else {
-        message.success({ content: 'The redemption is successful.', duration: 3 });
-        getBalance();
-      }
-    } catch (err) {
-      setIsLoading(false);
-      changeShowAirdrop();
-      console.log('dropExchange', err);
-    }
-  };
-  const isEmail = (str: string) => {
-    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-    return reg.test(str);
-  };
-  const isCode = (str: string) => {
-    return str.length === 6;
-  };
-  const submit = () => {
-    const email = emailValue.value;
-    const code = codeValue.value;
 
-    if (email && code) {
-      if (isCode(code)) {
-        setIsLoading(true);
-        dropExchange(email, code);
-      } else {
-        message.warning({ content: 'Enter the correct email address or code', duration: 2 });
-      }
-    } else {
-      message.warning({ content: 'Enter form', duration: 2 });
-    }
-  };
-  const [isloading, setIsLoading] = useState(false);
   const to32bits = (num: any) => {
     const b = new ArrayBuffer(4);
     new DataView(b).setUint32(0, num);
@@ -228,6 +177,7 @@ const Index = () => {
     const array = new Uint8Array([...padding, ...Principal.fromText(principal).toUint8Array(), ...to32bits(index)]);
     return Principal.fromUint8Array(array).toText();
   };
+
   return (
     <>
       <div className="flex flex-col items-start wrapper ">
@@ -292,6 +242,9 @@ const Index = () => {
                   </div>
 
                   <div className="table-action flex   items-center ">
+                    <button className="z-50 text-white table-content-button" onClick={() => setOpen(true)}>
+                      Transfer
+                    </button>
                     {/* {item.isClaim ? (
                       <button
                         className="z-50 text-white table-content-button"
@@ -330,40 +283,9 @@ const Index = () => {
           )}
         </div>
       </div>
-      {isShowAirdrop ? (
-        <div className="airdrops">
-          <div className="airdrops-wrapper">
-            <div className="airdrops-content">
-              <div className="airdrops-ready">Ready to airdrops?</div>
-              <div className="airdrops-content-item airdrops-address">
-                Address
-                <div>{accountId}</div>
-              </div>
-              <div className="airdrops-content-item airdrops-email">
-                Email
-                <div className="mr-8">
-                  <input type="text" ref={input => (emailValue = input)} placeholder="Enter a email..." />
-                </div>
-              </div>
-              <div className="airdrops-content-item airdrops-code">
-                Airdrop redemption code
-                <div className="mr-8">
-                  <input type="text" ref={input => (codeValue = input)} placeholder="Enter a code..." />
-                </div>
-              </div>
-            </div>
-            <div className="airdrops-footer">
-              <button className="airdrops-cancel" onClick={() => changeShowAirdrop()}>
-                Cancel
-              </button>
-              <button className="airdrops-claim" onClick={() => submit()}>
-                Claim
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
-      <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />
+      {isOpen ? <Transfer cancel={() => setOpen(false)} /> : null}
+      {/* <Airdrop /> */}
+      {/* {isShowAirdrop ? <Airdrop /> : null} */}
     </>
   );
 };
