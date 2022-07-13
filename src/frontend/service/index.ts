@@ -1,5 +1,5 @@
+import nicpActor from '@nnsdao/nnsdao-kit/dip20/types';
 import { _SERVICE as DistributeActor } from '@nnsdao/nnsdao-kit/distribute/types';
-import { _SERVICE as nicpActor } from '@nnsdao/nnsdao-kit/nicpActor/types';
 // import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index.js';
 import { getActor } from '@nnsdao/nnsdao-kit/helper/agent';
 import canister from './config';
