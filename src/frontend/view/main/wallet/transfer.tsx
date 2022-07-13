@@ -6,8 +6,8 @@ import { getNICPActor } from '../../../service/index';
 const Transfer = (props: any) => {
   const accountId = window.localStorage.getItem('accountId');
   const principal = window.localStorage.getItem('principal') as string;
-  let transferPrincipalValue: any = '';
-  let transferNICPValue: any = '';
+  let transferPrincipalValue: HTMLInputElement;
+  let transferNICPValue: HTMLInputElement;
   const [isloading, setIsLoading] = useState(false);
   // const [transferNICP, setTransferNICP] = useState(0);
   // const [transferPrincipal, setTransferPrincipal] = useState('');
@@ -24,7 +24,11 @@ const Transfer = (props: any) => {
 
   const transferNICPTest = async () => {
     const NICPActor = await getNICPActor({ needAuth: true });
-    const res = await NICPActor.transfer(Principal.fromText(transferPrincipalValue.value), BigInt(transferNICPValue.value * 1e8)).then(r => {
+    const transferPrincipal = transferPrincipalValue.value as string;
+    console.log(transferPrincipal, 'transferPrincipal');
+
+    const res = await NICPActor.transfer(Principal.fromText(transferPrincipal), BigInt(Number(transferNICPValue?.value!) * 1e8)).then(r => {
+      console.log(r);
       return r;
     });
     console.log(res, 'transferNICPTest');
@@ -34,25 +38,24 @@ const Transfer = (props: any) => {
   const transfer = async () => {
     setIsLoading(true);
     const transferPrincipal = transferPrincipalValue.value;
-
-    console.log(transferNICPValue.value);
-    console.log(transferNICPValue.value, transferNICPValue.value > 0);
-    console.log(transferPrincipal, 'transferPrincipal');
-
-    if (transferNICPValue.value > 0 && transferPrincipal) {
+    const transferNICP = Number(transferNICPValue.value!);
+    if (transferNICP > 0 && transferPrincipal) {
       const balanceNICP = await getBalanceNicp();
-      console.log(balanceNICP >= transferNICPValue.value, 'balanceNICP >= transferNICPValue.value');
+      console.log(balanceNICP >= Number(transferNICP), 'balanceNICP >= transferNICPValue.value');
 
-      if (balanceNICP >= transferNICPValue.value) {
+      if (balanceNICP >= Number(transferNICP)) {
         const res = await transferNICPTest();
         //@ts-ignore
         if (res.Ok > 0) {
+          setIsLoading(false);
           message.success({ content: 'Transfer success', duration: 3 });
         } else {
+          setIsLoading(false);
           message.error({ content: 'Transfer error', duration: 3 });
         }
       }
     } else {
+      setIsLoading(false);
       message.error({ content: 'Enter NICP or Principal', duration: 3 });
     }
   };
@@ -69,13 +72,31 @@ const Transfer = (props: any) => {
           <div className="airdrops-content-item airdrops-email">
             Prinical
             <div className="mr-8">
-              <input type="text" ref={input => (transferPrincipalValue = input)} placeholder="Enter a Principal..." />
+              <input
+                type="text"
+                ref={input => {
+                  if (input) {
+                    transferPrincipalValue = input;
+                  }
+                }}
+                defaultValue=""
+                placeholder="Enter a Principal..."
+              />
             </div>
           </div>
           <div className="airdrops-content-item airdrops-code">
             NICP
             <div className="mr-8">
-              <input type="text" ref={input => (transferNICPValue = input)} placeholder="Enter a NICP..." />
+              <input
+                type="Number"
+                ref={input => {
+                  if (input) {
+                    transferNICPValue = input;
+                  }
+                }}
+                defaultValue=""
+                placeholder="Enter a NICP..."
+              />
             </div>
           </div>
         </div>

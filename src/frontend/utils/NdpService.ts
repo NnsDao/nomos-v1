@@ -1,4 +1,5 @@
 import { Actor, HttpAgent, Identity } from '@dfinity/agent';
+import { agent } from '@nnsdao/nnsdao-kit/helper/agent';
 import { StoicIdentity } from 'ic-stoic-identity';
 import { idlFactory as badgeIdlFactory } from '../../declarations/badge/index';
 import { idlFactory } from '../../declarations/ndp/index';
@@ -83,6 +84,8 @@ class NdpService {
       identity = await StoicIdentity.connect();
     }
     that.identity = identity;
+    agent.replaceIdentity(identity);
+
     that.agent = new HttpAgent({ identity });
     that.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
     that.badgeActor = Actor.createActor(badgeIdlFactory, { agent: this.agent, canisterId: this.badgeCanisterId });

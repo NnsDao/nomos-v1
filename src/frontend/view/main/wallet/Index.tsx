@@ -4,8 +4,10 @@ import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import Share from '../../../components/ShareTwitter';
+import { getNICPActor } from '../../../service/index';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
+
 import './index.css';
 import Transfer from './transfer';
 type tokenItem = {
@@ -18,7 +20,7 @@ type tokenItem = {
 };
 const Index = () => {
   let address = localStorage.getItem('accountId');
-  let principal = localStorage.getItem('principal');
+  let principal = localStorage.getItem('principal')!;
   const [isOpen, setOpen] = useState(false);
   const wallet = [
     {
@@ -33,7 +35,14 @@ const Index = () => {
   ];
   const [walletList, setWalletList] = useState(wallet);
   const [listCollection, setUserCollection] = useState([]);
-
+  const getBalanceNicp = async () => {
+    const NICPActor = await getNICPActor({ needAuth: true });
+    const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
+      return r;
+    });
+    console.log(balanceNICP, 'balanceNICP');
+    setNDP((Number(balanceNICP) / 1e8).toString());
+  };
   const getICPBalance = async () => {
     const data = {
       account_identifier: { address },
@@ -127,6 +136,7 @@ const Index = () => {
   useEffect(() => {
     NdpService.getPlugActor();
     getBalance();
+    // getBalanceNicp();
     getIcpPrice();
   }, []);
 
@@ -135,7 +145,7 @@ const Index = () => {
     // fetchPrice();
   }, []);
   useEffect(() => {
-    getClaimStatus();
+    // getClaimStatus();
     getUserNfts();
   }, [address]);
 
