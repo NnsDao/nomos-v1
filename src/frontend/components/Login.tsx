@@ -1,3 +1,4 @@
+import { agent } from '@nnsdao/nnsdao-kit/helper/agent';
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import { message } from 'antd';
 import React, { useState } from 'react';
@@ -30,6 +31,11 @@ const Index = () => {
     setIsLoading(true);
     await NdpService.stoicLogin();
     let identity = NdpService.identity;
+    console.log(identity, 'identity');
+
+    agent.replaceIdentity(identity);
+    console.log(agent, 'agent');
+
     if (identity.getPrincipal().toText()) {
       window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', JSON.stringify(identity.getPrincipal()));

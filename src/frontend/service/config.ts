@@ -1,3 +1,4 @@
+import { idlFactory as nicpIDL } from '@nnsdao/nnsdao-kit/dip20/index';
 import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index';
 export { distributeIDL };
 const canister = {
@@ -7,7 +8,7 @@ const canister = {
   },
   nicp: {
     cid: '75phv-6aaaa-aaaap-aae5a-cai',
-    idl: distributeIDL, //TODO need update idl
+    idl: nicpIDL, //TODO need update idl
   },
 };
 export default canister;
