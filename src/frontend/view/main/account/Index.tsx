@@ -106,7 +106,7 @@ const Index = (prop: Prop) => {
               )}
 
               <div className="account-header-info">
-                <span>{`#  ${Math.floor(Number(Number(userInfo.index)))} `} </span>
+                {/* <span>{`#  ${Math.floor(Number(Number(userInfo.index)))} `} </span> */}
                 {/* <span>{userInfo.nickName || 'nickName'} </span> */}
                 {/* <img className="ml-6" src={approve} alt="" width={'40px'} height={'40px'} /> */}
               </div>

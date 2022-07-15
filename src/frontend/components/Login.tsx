@@ -41,8 +41,8 @@ const Index = () => {
       window.localStorage.setItem('usePrincipal', JSON.stringify(identity.getPrincipal()));
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      const { addr } = await NdpService.approve();
-      window.localStorage.setItem('accountId', addr);
+      // const { addr } = await NdpService.approve();
+      // window.localStorage.setItem('accountId', addr);
       successLogin();
     }
   };
@@ -55,8 +55,8 @@ const Index = () => {
     }
     setIsLoading(true);
     await NdpService.plugLogin();
-    const { addr } = await NdpService.approve();
-    window.localStorage.setItem('accountId', addr);
+    // const { addr } = await NdpService.approve();
+    // window.localStorage.setItem('accountId', addr);
     window.localStorage.setItem('isLogin', '1');
     window.localStorage.setItem('logonTime', new Date().getTime() + '');
     successLogin();

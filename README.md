@@ -58,8 +58,8 @@ Which will start a server at `http://localhost:8080`, proxying API requests to t
 sudo dfx deploy --no-wallet --network ic
 ```
 
-### [Reference]
+### canister id
 
-- [https://github.com/NnsDao/ICTexas-UI](https://github.com/NnsDao/ICTexas-UI)
+dev `ohydk-giaaa-aaaal-qbahq-cai`
 
-- [https://github.com/metascore/tourney](https://github.com/metascore/tourney)
+prod `h637e-ziaaa-aaaaj-aaeaa-cai`

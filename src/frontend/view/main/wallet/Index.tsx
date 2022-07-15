@@ -3,7 +3,6 @@ import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useRef, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
-import Share from '../../../components/ShareTwitter';
 import { getNICPActor } from '../../../service/index';
 import NdpService from '../../../utils/NdpService';
 import Card from '../components/Card';
@@ -288,8 +287,8 @@ const Index = () => {
                       Airdrops
                     </button> */}
 
-                    {item.isMint ? <button className=" table-content-button">Mint</button> : ''}
-                    <Share />
+                    {/* {item.isMint ? <button className=" table-content-button">Mint</button> : ''} */}
+                    {/* <Share /> */}
                   </div>
                 </div>
               ))}
