@@ -67,15 +67,24 @@ const Index = () => {
   };
 
   // price  icpUpdateUSD
-  const getIcpPrice = async () => {
-    try {
-      const prices = await NdpService.icpUpdateUSD();
-      console.log(prices, 909090);
-      setTotalBalance(prices);
-    } catch (error) {
-      console.error('getPrice', error);
-    }
-  };
+  // const getIcpPrice = async () => {
+  //   const res = await fetch('https://icscan.io/ic/home/generalInfo', {
+  //     method: 'GET/HEAD',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({}),
+  //   }).then(res => res.json());
+  //   // const icp = res.balances![0]!.value / 100000000;
+  //   // setBalance(icp);
+  //   // try {
+  //   //   const prices = await NdpService.icpUpdateUSD();
+  //   //   console.log(prices, 909090);
+  //   //   setTotalBalance(prices);
+  //   // } catch (error) {
+  //   //   console.error('getPrice', error);
+  //   // }
+  // };
 
   const getBalance = async () => {
     const getBalanceParams = {
@@ -149,7 +158,7 @@ const Index = () => {
     NdpService.getPlugActor();
     // getBalance();
     getBalanceNicp();
-    getIcpPrice();
+    // getIcpPrice();
   }, []);
 
   useEffect(() => {
@@ -211,7 +220,7 @@ const Index = () => {
         <div className="balance-wrapper">
           <div className="base-balance total ">
             <span className="balance-text">Total balance</span>
-            <span className="balance-number text-3xl">${(Math.floor((totalbalance * balanceICP + 0.15 * Number(ndp)) * 10000) / 10000).toFixed(4) || 0}</span>
+            <span className="balance-number text-3xl">${Math.floor(balanceICP + Number(ndp) / 200).toFixed(4) || 0} ICP</span>
           </div>
           <div className="base-balance balance ">
             <span className="balance-text">Balance ICP</span>
