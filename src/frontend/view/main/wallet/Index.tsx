@@ -135,8 +135,8 @@ const Index = () => {
 
   useEffect(() => {
     NdpService.getPlugActor();
-    getBalance();
-    // getBalanceNicp();
+    // getBalance();
+    getBalanceNicp();
     getIcpPrice();
   }, []);
 
