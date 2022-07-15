@@ -106,10 +106,14 @@ class NdpService {
 
           this.identity = await window.ic.plug.agent._identity;
           console.log('Plug Disconnected,reconnect');
+          const addr = await window.ic?.plug?.sessionManager.sessionData.accountId;
+          console.log(addr, 'addr');
+          window.localStorage.setItem('accountId', addr);
         }
         const principal = await window.ic.plug.getPrincipal().then(r => {
           return r.toText();
         });
+
         console.log(principal, 'principal');
         window.localStorage.setItem('principal', principal);
         // const { addr } = await this.actor.approve();
