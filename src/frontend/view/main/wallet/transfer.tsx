@@ -95,7 +95,7 @@ const Transfer = (props: any) => {
           </button>
         </div>
       </div>
-      {isConfirm ? <Confirm principalText={principalText} number={number} cancelConfirm={() => setConfirm(false)} cancelFrom={() => props.cancel()}></Confirm> : null}
+      {isConfirm ? <Confirm principalText={principalText} number={number} setNDP={val => props.setNDP(val)} cancelConfirm={() => setConfirm(false)} cancelFrom={() => props.cancel()}></Confirm> : null}
     </div>
   );
 };

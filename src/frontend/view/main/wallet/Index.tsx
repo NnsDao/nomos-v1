@@ -310,7 +310,7 @@ const Index = () => {
           )}
         </div>
       </div>
-      {isOpen ? <Transfer cancel={() => setOpen(false)} /> : null}
+      {isOpen ? <Transfer cancel={() => setOpen(false)} setNDP={(val) => setNDP(val)} /> : null}
       {/* <Airdrop /> */}
       {/* {isShowAirdrop ? <Airdrop /> : null} */}
     </>

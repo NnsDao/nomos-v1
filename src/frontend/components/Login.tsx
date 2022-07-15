@@ -55,7 +55,8 @@ const Index = () => {
       return message.warning('Plug Not installed');
     }
     setIsLoading(true);
-    const addr = principalToAccountIdentifier(window.ic?.plug.principalId, 0);
+    await NdpService.plugLogin();
+    const addr = window.ic?.plug.accountId;
     window.localStorage.setItem('accountId', addr);
     window.localStorage.setItem('isLogin', '1');
     window.localStorage.setItem('logonTime', new Date().getTime() + '');

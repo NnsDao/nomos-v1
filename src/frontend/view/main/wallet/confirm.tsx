@@ -10,12 +10,24 @@ type Prop = {
   number: any;
   cancelConfirm: Function;
   cancelFrom: Function;
+  setNDP: Function;
 };
 
 const confirm = (props: Prop) => {
   const [isloading, setIsLoading] = useState(false);
   const [isTransferLoading, setTransferLoading] = useState(false);
   const [transferText, setTransferText] = useState('Transfer');
+  const principal = window.localStorage.getItem('principal')!;
+  const getBalanceNicp = async () => {
+    const NICPActor = await getNICPActor({ needAuth: true });
+    console.log(NICPActor, 'NICPActor');
+    const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
+      return r;
+    });
+    console.log(balanceNICP, 'balanceNICP');
+    props.setNDP((Number(balanceNICP) / 1e8).toString());
+  };
+
   const transfer = async () => {
     setTransferLoading(true);
     setTransferText('In Sync Block... ');
