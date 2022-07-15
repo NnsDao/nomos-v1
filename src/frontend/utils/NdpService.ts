@@ -79,19 +79,12 @@ class NdpService {
   async getStoicActor() {
     let that = this;
     let identity = await StoicIdentity.load();
-    console.log(6666666666);
-
     agent.replaceIdentity(identity);
-
     if (identity === false) {
       // Has not beed authorized,
       identity = await StoicIdentity.connect();
-      console.log(11111111111111);
-
       agent.replaceIdentity(identity);
     }
-    console.log(2222222222222);
-
     that.identity = identity;
     that.agent = new HttpAgent({ identity });
     that.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
