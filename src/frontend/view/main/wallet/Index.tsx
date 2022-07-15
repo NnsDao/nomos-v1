@@ -1,7 +1,7 @@
 import { Principal } from '@dfinity/principal';
 import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import Share from '../../../components/ShareTwitter';
 import { getNICPActor } from '../../../service/index';
@@ -133,6 +133,14 @@ const Index = () => {
     }
   };
 
+  const interval: any = useRef(undefined);
+  const syncData = () => {
+    interval.current && clearTimeout(interval.current);
+    interval.current = setTimeout(async () => {
+      await getBalanceNicp();
+      syncData();
+    }, 1e3);
+  };
   useEffect(() => {
     NdpService.getPlugActor();
     // getBalance();
@@ -143,6 +151,7 @@ const Index = () => {
   useEffect(() => {
     getICPBalance();
     // fetchPrice();
+    return () => clearInterval(interval.current);
   }, []);
   useEffect(() => {
     // getClaimStatus();

@@ -199,6 +199,9 @@
   background: #fa6800;
   border-radius: 8px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .airdrops-wrapper input {

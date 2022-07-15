@@ -1,6 +1,7 @@
 import { Principal } from '@dfinity/principal';
 import { message } from 'antd';
 import React, { useState } from 'react';
+import { RingLoader } from 'react-spinners';
 import Loading from '../../../components/Loading';
 import { getNICPActor } from '../../../service/index';
 
@@ -13,8 +14,11 @@ type Prop = {
 
 const confirm = (props: Prop) => {
   const [isloading, setIsLoading] = useState(false);
+  const [isTransferLoading, setTransferLoading] = useState(false);
+  const [transferText, setTransferText] = useState('Transfer');
   const transfer = async () => {
-    setIsLoading(true);
+    setTransferLoading(true);
+    setTransferText('In Sync Block... ');
     const NICPActor = await getNICPActor({ needAuth: true });
     const res = await NICPActor.transfer(Principal.fromText(props.principalText), BigInt(Number(props.number) * 1e8)).then(r => {
       console.log(r);
@@ -22,12 +26,14 @@ const confirm = (props: Prop) => {
     });
     //@ts-ignore
     if (res.Ok > 0) {
-      setIsLoading(false);
+      setTransferLoading(false);
+      setTransferText('Transfer');
       props.cancelConfirm();
       props.cancelFrom();
       message.success({ content: 'Transfer success', duration: 3 });
     } else {
-      setIsLoading(false);
+      setTransferLoading(false);
+      setTransferText('Transfer');
       props.cancelConfirm();
       message.error({ content: 'Transfer error', duration: 3 });
     }
@@ -52,7 +58,8 @@ const confirm = (props: Prop) => {
             Cancel
           </button>
           <button className="airdrops-claim" onClick={() => transfer()}>
-            Transfer
+            <div className="mr-4">{transferText} </div>
+            <RingLoader color={'#0c0633'} loading={isTransferLoading} size={18} />
           </button>
         </div>
       </div>

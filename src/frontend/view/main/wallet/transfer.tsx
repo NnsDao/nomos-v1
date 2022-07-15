@@ -1,9 +1,13 @@
 import { Principal } from '@dfinity/principal';
 import { message } from 'antd';
 import React, { useState } from 'react';
+import { RingLoader } from 'react-spinners';
+
 import { getNICPActor } from '../../../service/index';
 import Confirm from './confirm';
 const Transfer = (props: any) => {
+  const [isConfirmLoading, setConfirmLoading] = useState(false);
+
   const accountId = window.localStorage.getItem('accountId');
   const principal = window.localStorage.getItem('principal') as string;
   let transferPrincipalValue: any = '';
@@ -23,12 +27,15 @@ const Transfer = (props: any) => {
   const checkBalance = async () => {
     const transferPrincipal = transferPrincipalValue.value;
     const transferNICP = Number(transferNICPValue.value!);
+
     if (transferNICP > 0 && transferPrincipal) {
+      setConfirmLoading(true);
       const balanceNICP = await getBalanceNicp();
-      console.log(balanceNICP >= Number(transferNICP), 'balanceNICP >= transferNICPValue.value');
+      setConfirmLoading(false);
       if (balanceNICP >= Number(transferNICP)) {
         setConfirm(true);
       } else {
+        setConfirmLoading(false);
         message.error({ content: 'Insufficient balance.', duration: 3 });
       }
     } else {
@@ -83,7 +90,8 @@ const Transfer = (props: any) => {
             Cancel
           </button>
           <button className="airdrops-claim" onClick={() => checkBalance()}>
-            Confirm
+            <div className="mr-4">Confirm </div>
+            <RingLoader color={'#0c0633'} loading={isConfirmLoading} size={18} />
           </button>
         </div>
       </div>
