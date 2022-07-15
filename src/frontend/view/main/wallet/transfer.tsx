@@ -28,6 +28,8 @@ const Transfer = (props: any) => {
       console.log(balanceNICP >= Number(transferNICP), 'balanceNICP >= transferNICPValue.value');
       if (balanceNICP >= Number(transferNICP)) {
         setConfirm(true);
+      } else {
+        message.error({ content: 'Insufficient balance.', duration: 3 });
       }
     } else {
       message.error({ content: 'Enter NICP or Principal', duration: 3 });
@@ -81,7 +83,7 @@ const Transfer = (props: any) => {
             Cancel
           </button>
           <button className="airdrops-claim" onClick={() => checkBalance()}>
-            Transfer
+            Confirm
           </button>
         </div>
       </div>
