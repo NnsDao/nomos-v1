@@ -72,7 +72,6 @@ const MainIndex = () => {
             active={active}
             onClick={(val: string) => {
               console.log(val, 'val');
-
               setActive(val);
             }}
           />

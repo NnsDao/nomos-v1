@@ -1,3 +1,4 @@
+import { Principal } from '@dfinity/principal';
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import copy from '../../../assets/home/copy.png';
@@ -38,11 +39,11 @@ const Index = (prop: Prop) => {
   let identity = NdpService.identity;
 
   const pid = window.localStorage.getItem('loginType');
-
+  const principal = window.localStorage.getItem('principal')!;
   let pids: any = null;
 
   if (pid == 'plug') {
-    pids = identity;
+    pids = Principal.fromText(principal);
   } else {
     pids = identity.getPrincipal();
   }
