@@ -54,11 +54,9 @@ const Index = () => {
       return message.warning('Plug Not installed');
     }
     setIsLoading(true);
-    (async () => {
-      await NdpService.plugLogin();
-      const { addr } = await NdpService.approve();
-      window.localStorage.setItem('accountId', addr);
-    })();
+    await NdpService.plugLogin();
+    const { addr } = await NdpService.approve();
+    window.localStorage.setItem('accountId', addr);
     window.localStorage.setItem('isLogin', '1');
     window.localStorage.setItem('logonTime', new Date().getTime() + '');
     successLogin();
@@ -72,7 +70,7 @@ const Index = () => {
   };
   const getExChange = async () => {
     const distributeActor = await getDistributeActor({ needAuth: true });
-    console.log(distributeActor, 'distributeActor');
+    console.log(distributeActor, 'distributeActor', distributeActor[Symbol.for('ic-agent-metadata')]);
     const res = await distributeActor.try_exchange();
     console.log(res, 'getExChange');
   };

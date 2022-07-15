@@ -6,7 +6,7 @@ import { idlFactory } from '../../declarations/ndp/index';
 import { idlFactory as nftIdlFactory } from '../../declarations/starfish/index';
 import { idlFactory as userIdlFactory } from '../../declarations/user/index';
 import { idlFactory as xdrIdlFactory } from '../../declarations/xdr/index';
-
+import { canisterIdList } from '../service/config';
 class NdpService {
   agent!: HttpAgent;
   identity!: Identity;
@@ -79,13 +79,20 @@ class NdpService {
   async getStoicActor() {
     let that = this;
     let identity = await StoicIdentity.load();
+    console.log(6666666666);
+
+    agent.replaceIdentity(identity);
+
     if (identity === false) {
       // Has not beed authorized,
       identity = await StoicIdentity.connect();
-    }
-    that.identity = identity;
-    agent.replaceIdentity(identity);
+      console.log(11111111111111);
 
+      agent.replaceIdentity(identity);
+    }
+    console.log(2222222222222);
+
+    that.identity = identity;
     that.agent = new HttpAgent({ identity });
     that.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
     that.badgeActor = Actor.createActor(badgeIdlFactory, { agent: this.agent, canisterId: this.badgeCanisterId });
@@ -93,67 +100,75 @@ class NdpService {
   }
   async getPlugActor() {
     // let that = this;
-    let loginType = window.localStorage.getItem('loginType')!;
-    if (loginType == 'plug') {
-      (async () => {
-        const connected = await window.ic.plug.isConnected();
+    console.log('plug');
 
-        if (connected) {
-          if (!window.ic.plug.agent) {
-            await window.ic.plug.createAgent({
-              whitelist: [this.canisterId, this.badgeCanisterId, this.userCanisterId, this.nftCanisterId],
-            });
+    // let loginType = window.localStorage.getItem('loginType')!;
+    // if (loginType == 'plug') {
 
-            this.identity = await window.ic.plug.agent._identity;
-            console.log('Plug Disconnected,reconnect');
-          }
-          // this.actor = await window.ic.plug.createActor({
-          //   canisterId: this.canisterId,
-          //   interfaceFactory: idlFactory,
-          // });
-
-          // this.badgeActor = await window.ic.plug.createActor({
-          //   canisterId: this.badgeCanisterId,
-          //   interfaceFactory: badgeIdlFactory,
-          // });
-          // this.userActor = await window.ic.plug.createActor({
-          //   canisterId: this.userCanisterId,
-          //   interfaceFactory: userIdlFactory,
-          // });
-          // const { addr } = await this.actor.approve();
-
-          // console.log(addr, 3131313131313);
-          // window.localStorage.setItem('accountId', addr);
-
-          // console.log(this.actor, 1111111);
-        } else {
-          const result = await window.ic.plug.requestConnect({
-            whitelist: [this.canisterId, this.badgeCanisterId, this.userCanisterId, this.nftCanisterId],
-            timeout: 1e4, // Ten seconds
-          });
-
-          if (result) {
-            this.identity = await window.ic.plug.agent._identity;
-          } else {
-            throw new Error('Failed to connect to your wallet');
-          }
-        }
-        this.actor = await window.ic.plug.createActor({
-          canisterId: this.canisterId,
-          interfaceFactory: idlFactory,
+    const connected = await window.ic.plug.isConnected();
+    if (connected) {
+      if (!window.ic.plug.agent) {
+        await window.ic.plug.createAgent({
+          whitelist: canisterIdList,
         });
-        this.badgeActor = await window.ic.plug.createActor({
-          canisterId: this.badgeCanisterId,
-          interfaceFactory: badgeIdlFactory,
-        });
-        this.userActor = await window.ic.plug.createActor({
-          canisterId: this.userCanisterId,
-          interfaceFactory: userIdlFactory,
-        });
-        const { addr } = await this.actor.approve();
-        window.localStorage.setItem('accountId', addr);
-      })();
+
+        this.identity = await window.ic.plug.agent._identity;
+        console.log('Plug Disconnected,reconnect');
+      }
+      const principal = await window.ic.plug.getPrincipal().then(r => {
+        return r.toText();
+      });
+      console.log(principal, 'principal');
+
+      window.localStorage.setItem('principal', principal);
+      // const { addr } = await this.actor.approve();
+      // window.localStorage.setItem('accountId', addr);
+
+      // this.actor = await window.ic.plug.createActor({
+      //   canisterId: this.canisterId,
+      //   interfaceFactory: idlFactory,
+      // });
+
+      // this.badgeActor = await window.ic.plug.createActor({
+      //   canisterId: this.badgeCanisterId,
+      //   interfaceFactory: badgeIdlFactory,
+      // });
+      // this.userActor = await window.ic.plug.createActor({
+      //   canisterId: this.userCanisterId,
+      //   interfaceFactory: userIdlFactory,
+      // });
+      // const { addr } = await this.actor.approve();
+
+      // console.log(addr, 3131313131313);
+      // window.localStorage.setItem('accountId', addr);
+
+      // console.log(this.actor, 1111111);
+    } else {
+      const result = await window.ic.plug.requestConnect({
+        whitelist: canisterIdList,
+        timeout: 1e4, // Ten seconds
+      });
+
+      if (result) {
+        this.identity = await window.ic.plug.agent._identity;
+      } else {
+        throw new Error('Failed to connect to your wallet');
+      }
     }
+    this.actor = await window.ic.plug.createActor({
+      canisterId: this.canisterId,
+      interfaceFactory: idlFactory,
+    });
+    this.badgeActor = await window.ic.plug.createActor({
+      canisterId: this.badgeCanisterId,
+      interfaceFactory: badgeIdlFactory,
+    });
+    this.userActor = await window.ic.plug.createActor({
+      canisterId: this.userCanisterId,
+      interfaceFactory: userIdlFactory,
+    });
+
+    // }
   }
   async stoicLogin() {
     await this.initService('stoic');

@@ -37,6 +37,10 @@ const Index = () => {
   const [listCollection, setUserCollection] = useState([]);
   const getBalanceNicp = async () => {
     const NICPActor = await getNICPActor({ needAuth: true });
+    console.log(NICPActor, 'NICPActor');
+
+    console.log(Principal.fromText(principal), 'Principal.fromText(principal)');
+
     const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
       return r;
     });
@@ -152,7 +156,7 @@ const Index = () => {
     getICPBalance();
     // fetchPrice();
     return () => clearInterval(interval.current);
-  }, []);
+  }, [address]);
   useEffect(() => {
     // getClaimStatus();
     getUserNfts();
