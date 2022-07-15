@@ -38,9 +38,6 @@ const Index = () => {
   const getBalanceNicp = async () => {
     const NICPActor = await getNICPActor({ needAuth: true });
     console.log(NICPActor, 'NICPActor');
-
-    console.log(Principal.fromText(principal), 'Principal.fromText(principal)');
-
     const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
       return r;
     });
@@ -152,8 +149,11 @@ const Index = () => {
     interval.current = setTimeout(async () => {
       await getBalanceNicp();
       syncData();
-    }, 1e3);
+    }, 1e4);
   };
+  useEffect(() => {
+    syncData();
+  });
   useEffect(() => {
     NdpService.getPlugActor();
     // getBalance();
@@ -220,7 +220,7 @@ const Index = () => {
         <div className="balance-wrapper">
           <div className="base-balance total ">
             <span className="balance-text">Total balance</span>
-            <span className="balance-number text-3xl">${Math.floor(balanceICP + Number(ndp) / 200).toFixed(4) || 0} ICP</span>
+            <span className="balance-number text-3xl">${(balanceICP + Number(ndp) / 200).toFixed(4) || 0} ICP</span>
           </div>
           <div className="base-balance balance ">
             <span className="balance-text">Balance ICP</span>
