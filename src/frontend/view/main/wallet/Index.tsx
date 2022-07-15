@@ -153,21 +153,17 @@ const Index = () => {
   };
   useEffect(() => {
     syncData();
+    return () => clearInterval(interval.current);
   });
   useEffect(() => {
     NdpService.getPlugActor();
-    // getBalance();
     getBalanceNicp();
-    // getIcpPrice();
   }, []);
 
   useEffect(() => {
     getICPBalance();
-    // fetchPrice();
-    return () => clearInterval(interval.current);
   }, [address]);
   useEffect(() => {
-    // getClaimStatus();
     getUserNfts();
   }, [address]);
 
