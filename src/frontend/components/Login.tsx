@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
 import { getDistributeActor } from '../service';
+import { principalToAccountIdentifier } from '../utils/account';
 import NdpService from '../utils/NdpService';
 import Loading from './Loading';
 import './login.css';
@@ -41,7 +42,7 @@ const Index = () => {
       window.localStorage.setItem('usePrincipal', JSON.stringify(identity.getPrincipal()));
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      const { addr } = await NdpService.approve();
+      const addr = principalToAccountIdentifier(identity.getPrincipal().toText(), 0);
       window.localStorage.setItem('accountId', addr);
       successLogin();
     }
@@ -54,8 +55,7 @@ const Index = () => {
       return message.warning('Plug Not installed');
     }
     setIsLoading(true);
-    await NdpService.plugLogin();
-    const { addr } = await NdpService.approve();
+    const addr = principalToAccountIdentifier(window.ic?.plug.principalId, 0);
     window.localStorage.setItem('accountId', addr);
     window.localStorage.setItem('isLogin', '1');
     window.localStorage.setItem('logonTime', new Date().getTime() + '');

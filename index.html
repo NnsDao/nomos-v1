@@ -14,8 +14,11 @@
        * @dfinity/agent requires this. Can be removed once it's fixed
        */
       import { Buffer } from 'buffer';
-      window.global = window;
+      import process from 'process';
+      import EventEmitter from 'events';
       window.Buffer = Buffer;
+      window.EventEmitter = EventEmitter;
+      window.global = window;
     </script>
   </head>
   <body>
