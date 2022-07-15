@@ -45,7 +45,7 @@ const Index = (prop: Prop) => {
   if (pid == 'plug') {
     pids = Principal.fromText(principal);
   } else {
-    pids = identity.getPrincipal();
+    pids = identity?.getPrincipal();
   }
 
   console.log(pids, 'debug');

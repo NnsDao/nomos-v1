@@ -95,73 +95,70 @@ class NdpService {
     // let that = this;
     console.log('plug');
 
-    // let loginType = window.localStorage.getItem('loginType')!;
-    // if (loginType == 'plug') {
+    let loginType = window.localStorage.getItem('loginType')!;
+    if (loginType == 'plug') {
+      const connected = await window.ic.plug.isConnected();
+      if (connected) {
+        if (!window.ic.plug.agent) {
+          await window.ic.plug.createAgent({
+            whitelist: canisterIdList,
+          });
 
-    const connected = await window.ic.plug.isConnected();
-    if (connected) {
-      if (!window.ic.plug.agent) {
-        await window.ic.plug.createAgent({
+          this.identity = await window.ic.plug.agent._identity;
+          console.log('Plug Disconnected,reconnect');
+        }
+        const principal = await window.ic.plug.getPrincipal().then(r => {
+          return r.toText();
+        });
+        console.log(principal, 'principal');
+        window.localStorage.setItem('principal', principal);
+        // const { addr } = await this.actor.approve();
+        // window.localStorage.setItem('accountId', addr);
+
+        // this.actor = await window.ic.plug.createActor({
+        //   canisterId: this.canisterId,
+        //   interfaceFactory: idlFactory,
+        // });
+
+        // this.badgeActor = await window.ic.plug.createActor({
+        //   canisterId: this.badgeCanisterId,
+        //   interfaceFactory: badgeIdlFactory,
+        // });
+        // this.userActor = await window.ic.plug.createActor({
+        //   canisterId: this.userCanisterId,
+        //   interfaceFactory: userIdlFactory,
+        // });
+        // const { addr } = await this.actor.approve();
+
+        // console.log(addr, 3131313131313);
+        // window.localStorage.setItem('accountId', addr);
+
+        // console.log(this.actor, 1111111);
+      } else {
+        const result = await window.ic.plug.requestConnect({
           whitelist: canisterIdList,
+          timeout: 1e4, // Ten seconds
         });
 
-        this.identity = await window.ic.plug.agent._identity;
-        console.log('Plug Disconnected,reconnect');
+        if (result) {
+          this.identity = await window.ic.plug.agent._identity;
+        } else {
+          throw new Error('Failed to connect to your wallet');
+        }
       }
-      const principal = await window.ic.plug.getPrincipal().then(r => {
-        return r.toText();
+      this.actor = await window.ic.plug.createActor({
+        canisterId: this.canisterId,
+        interfaceFactory: idlFactory,
       });
-      console.log(principal, 'principal');
-
-      window.localStorage.setItem('principal', principal);
-      // const { addr } = await this.actor.approve();
-      // window.localStorage.setItem('accountId', addr);
-
-      // this.actor = await window.ic.plug.createActor({
-      //   canisterId: this.canisterId,
-      //   interfaceFactory: idlFactory,
-      // });
-
-      // this.badgeActor = await window.ic.plug.createActor({
-      //   canisterId: this.badgeCanisterId,
-      //   interfaceFactory: badgeIdlFactory,
-      // });
-      // this.userActor = await window.ic.plug.createActor({
-      //   canisterId: this.userCanisterId,
-      //   interfaceFactory: userIdlFactory,
-      // });
-      // const { addr } = await this.actor.approve();
-
-      // console.log(addr, 3131313131313);
-      // window.localStorage.setItem('accountId', addr);
-
-      // console.log(this.actor, 1111111);
-    } else {
-      const result = await window.ic.plug.requestConnect({
-        whitelist: canisterIdList,
-        timeout: 1e4, // Ten seconds
+      this.badgeActor = await window.ic.plug.createActor({
+        canisterId: this.badgeCanisterId,
+        interfaceFactory: badgeIdlFactory,
       });
-
-      if (result) {
-        this.identity = await window.ic.plug.agent._identity;
-      } else {
-        throw new Error('Failed to connect to your wallet');
-      }
+      this.userActor = await window.ic.plug.createActor({
+        canisterId: this.userCanisterId,
+        interfaceFactory: userIdlFactory,
+      });
     }
-    this.actor = await window.ic.plug.createActor({
-      canisterId: this.canisterId,
-      interfaceFactory: idlFactory,
-    });
-    this.badgeActor = await window.ic.plug.createActor({
-      canisterId: this.badgeCanisterId,
-      interfaceFactory: badgeIdlFactory,
-    });
-    this.userActor = await window.ic.plug.createActor({
-      canisterId: this.userCanisterId,
-      interfaceFactory: userIdlFactory,
-    });
-
-    // }
   }
   async stoicLogin() {
     await this.initService('stoic');

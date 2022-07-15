@@ -7,10 +7,11 @@ const canister = {
     idl: distributeIDL,
   },
   nicp: {
-    cid: '75phv-6aaaa-aaaap-aae5a-cai',
+    cid: 'vgqnj-miaaa-aaaal-qaapa-cai',
     idl: nicpIDL, //TODO need update idl
   },
 };
+// ndp prod = 'vgqnj-miaaa-aaaal-qaapa-cai'
 // const canisterId = 'vgqnj-miaaa-aaaal-qaapa-cai';
 // const badgeCanisterId = 'rfde3-eyaaa-aaaal-qaaua-cai';
 // const userCanisterId = 'o27sk-yiaaa-aaaag-qabbq-cai';
