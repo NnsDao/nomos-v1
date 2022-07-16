@@ -1,9 +1,9 @@
 import { HttpAgent, Identity } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
+import { agent as agentCopy } from '@nnsdao/nnsdao-kit/helper/agent';
 import { StoicIdentity } from 'ic-stoic-identity';
 import React from 'react';
 import NdpService from './NdpService';
-
 interface StoicState {
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
@@ -27,11 +27,15 @@ export const useStoic = () => React.useContext(stoicContext);
 
 export default function StoicProvider({ children }: ContextProviderProps) {
   async function connect() {
+    console.log(33333333333);
     StoicIdentity.load().then(async (identity: any) => {
       if (identity === false) {
         identity = await StoicIdentity.connect();
+        agentCopy?.replaceIdentity(identity);
+        console.log(888888888888);
       }
       initActor(identity);
+      agentCopy?.replaceIdentity(identity);
     });
   }
 
@@ -51,6 +55,8 @@ export default function StoicProvider({ children }: ContextProviderProps) {
     if (sessionIsConnected) {
       StoicIdentity.load().then(async (identity: any) => {
         identity && initActor(identity);
+        agentCopy?.replaceIdentity(identity);
+        console.log(444444444444);
       });
     }
   }, []);
@@ -60,8 +66,11 @@ export default function StoicProvider({ children }: ContextProviderProps) {
     //   identity,
     //   host: 'http://localhost:8000',
     // });
+
     await NdpService.stoicLogin();
     setIsConnected(true);
+    agentCopy?.replaceIdentity(identity);
+    console.log(5555555555555);
     setPrincipal(identity.getPrincipal());
     setAgent(NdpService.agent);
     console.log(identity.getPrincipal().toText(), 90909000);

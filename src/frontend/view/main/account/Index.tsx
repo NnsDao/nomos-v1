@@ -1,3 +1,4 @@
+import { Principal } from '@dfinity/principal';
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import copy from '../../../assets/home/copy.png';
@@ -38,13 +39,14 @@ const Index = (prop: Prop) => {
   let identity = NdpService.identity;
 
   const pid = window.localStorage.getItem('loginType');
-
+  const principal = window.localStorage.getItem('principal')!;
   let pids: any = null;
+  const accountId = window.localStorage.getItem('accountId');
 
   if (pid == 'plug') {
-    pids = identity;
+    pids = Principal.fromText(principal);
   } else {
-    pids = identity.getPrincipal();
+    pids = identity?.getPrincipal();
   }
 
   console.log(pids, 'debug');
@@ -68,6 +70,7 @@ const Index = (prop: Prop) => {
   const getUserInfo = async () => {
     try {
       const result = await NdpService.getUserInfo();
+
       setUserInfo(result);
     } catch (error) {
       console.log('getUserInfo', error);
@@ -95,9 +98,9 @@ const Index = (prop: Prop) => {
 
             {/* <div className="account-header-actor"></div> */}
             <div className="account-header-text-wrapper">
-              {userInfo.address ? (
+              {accountId ? (
                 <div className="flex justify-between items-center account-header-patrick" onClick={copyAddress}>
-                  <span className=" cursor-pointer ">{userInfo.address?.slice(0, 6) + '....' + userInfo.address?.slice(16, 20)}</span>
+                  <span className=" cursor-pointer ">{accountId?.slice(0, 6) + '....' + accountId?.slice(16, 20)}</span>
                   <img className="ml-2 cursor-pointer " src={copy} width={'19px'} height={'19px'} alt="" />
                 </div>
               ) : (
@@ -105,7 +108,7 @@ const Index = (prop: Prop) => {
               )}
 
               <div className="account-header-info">
-                <span>{`#  ${Math.floor(Number(Number(userInfo.index)))} `} </span>
+                {/* <span>{`#  ${Math.floor(Number(Number(userInfo.index)))} `} </span> */}
                 {/* <span>{userInfo.nickName || 'nickName'} </span> */}
                 {/* <img className="ml-6" src={approve} alt="" width={'40px'} height={'40px'} /> */}
               </div>

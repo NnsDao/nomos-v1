@@ -1,9 +1,12 @@
+import { agent } from '@nnsdao/nnsdao-kit/helper/agent';
+import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
 import { getDistributeActor } from '../service';
+import { principalToAccountIdentifier } from '../utils/account';
 import NdpService from '../utils/NdpService';
 import Loading from './Loading';
 import './login.css';
@@ -25,34 +28,44 @@ const Index = () => {
 
   const onStoic = async () => {
     window.localStorage.setItem('loginType', 'stoic');
+    storage.set('loginType', 'stoic');
     setIsLoading(true);
     await NdpService.stoicLogin();
     let identity = NdpService.identity;
+    console.log(identity, 'identity');
+
+    agent.replaceIdentity(identity);
+    console.log(agent, 'agent');
+
     if (identity.getPrincipal().toText()) {
       window.localStorage.setItem('principal', identity.getPrincipal().toText());
       window.localStorage.setItem('usePrincipal', JSON.stringify(identity.getPrincipal()));
       window.localStorage.setItem('isLogin', '1');
       window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      const { addr } = await NdpService.approve();
+      const addr = principalToAccountIdentifier(identity.getPrincipal().toText(), 0);
       window.localStorage.setItem('accountId', addr);
       successLogin();
     }
   };
   const onPlug = async () => {
     window.localStorage.setItem('loginType', 'plug');
+    storage.set('loginType', 'plug');
     // Detect Plug extension
     if (!window.ic?.plug) {
       return message.warning('Plug Not installed');
     }
     setIsLoading(true);
-    (async () => {
-      await NdpService.plugLogin();
-      const { addr } = await NdpService.approve();
-      window.localStorage.setItem('accountId', addr);
-    })();
-    window.localStorage.setItem('isLogin', '1');
-    window.localStorage.setItem('logonTime', new Date().getTime() + '');
-    successLogin();
+    await NdpService.plugLogin();
+    //address
+    const id = await window.ic.plug.agent._identity;
+
+    if (id) {
+      const ads = principalToAccountIdentifier(id.getPrincipal().toText(), 0);
+      window.localStorage.setItem('accountId', ads);
+      window.localStorage.setItem('isLogin', '1');
+      window.localStorage.setItem('logonTime', new Date().getTime() + '');
+      successLogin();
+    }
   };
 
   const successLogin = () => {
@@ -63,7 +76,7 @@ const Index = () => {
   };
   const getExChange = async () => {
     const distributeActor = await getDistributeActor({ needAuth: true });
-    console.log(distributeActor, 'distributeActor');
+    console.log(distributeActor, 'distributeActor', distributeActor[Symbol.for('ic-agent-metadata')]);
     const res = await distributeActor.try_exchange();
     console.log(res, 'getExChange');
   };

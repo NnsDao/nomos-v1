@@ -1,3 +1,4 @@
+import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import nnsDaoIcon from '../../assets/home/nnsdao.png';
@@ -31,6 +32,9 @@ const MainIndex = () => {
   const logout = () => {
     window.localStorage.setItem('isLogin', '0');
     window.localStorage.setItem('loginType', 'ooooooo');
+    window.localStorage.setItem('principal', '');
+    window.localStorage.clear();
+    storage.set('loginType', '');
     NdpService.resetService();
     history.push('/home');
   };
@@ -70,7 +74,6 @@ const MainIndex = () => {
             active={active}
             onClick={(val: string) => {
               console.log(val, 'val');
-
               setActive(val);
             }}
           />

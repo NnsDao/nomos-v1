@@ -8,6 +8,7 @@ interface Window {
   ic?: any;
   badgeActor: any;
   userActor: any;
+  Buffer: any;
 }
 declare module '*.md' {
   // "unknown" would be more detailed depends on how you structure frontmatter
@@ -33,3 +34,5 @@ declare module '*.md' {
 }
 
 declare module 'ic-stoic-identity';
+
+declare const Buffer: any;
