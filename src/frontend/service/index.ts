@@ -45,7 +45,7 @@ export const $anonymousAgent: HttpAgent = new HttpAgent();
 //   return r;
 // });
 export const getDistributeActor = async (props: ActorProps = {}) => getActor({ ...props, ...canister.distribute, needAuth: false }) as unknown as Promise<DistributeActor>;
-
+export const getNnsdaoActor = async (props: ActorProps = {}) => getActor({ ...props, ...canister.nnsdao, needAuth: true }) as unknown as Promise<DistributeActor>;
 // Type
 type getActorProps = {
   cid: string; // canisterId
