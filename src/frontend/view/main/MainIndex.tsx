@@ -23,7 +23,7 @@ const MainIndex = () => {
     //   url: japandaoIcon,
     // },
   ];
-  const [active, setActive] = useState('Wallet');
+  const [active, setActive] = useState('Patrick');
   const clickActor = (val: string) => {
     setActive(val);
   };
@@ -69,14 +69,7 @@ const MainIndex = () => {
       <Header clickActor={clickActor} handleMenu={handleMenu} />
       <div className={'flex'}>
         <div>
-          <Nav
-            daoList={daoList}
-            active={active}
-            onClick={(val: string) => {
-              console.log(val, 'val');
-              setActive(val);
-            }}
-          />
+          <Nav daoList={daoList} active={active} onClick={clickActor} />
         </div>
         <div className="mx-6 min-w-1550px rounded-3xl bg-main-content flex-1 mb-5">
           {active === 'Patrick' ? <Daos /> : ''}

@@ -1,5 +1,5 @@
 import { idlFactory as nicpIDL } from '@nnsdao/nnsdao-kit/dip20/index';
-import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index.js';
+import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index';
 import { idlFactory as nnsdaoIDL } from '@nnsdao/nnsdao-kit/nnsdao/index';
 export { distributeIDL };
 export { nnsdaoIDL };

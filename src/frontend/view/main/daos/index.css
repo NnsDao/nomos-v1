@@ -43,7 +43,7 @@
   width: 100%;
   background: #5048b2;
   border-radius: 14px;
-  opacity: 0.66;
+  /* opacity: 0.66; */
 }
 .daos-members-wrapper {
   margin-bottom: 20px;
