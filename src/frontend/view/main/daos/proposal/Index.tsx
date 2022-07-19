@@ -6,7 +6,7 @@ const Proposal = props => {
 
   const getProposalList = async () => {
     const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
-    const res = await nnsdaoActor.proposal_list();
+    const res = await nnsdaoActor.get_proposal_list();
     console.log(res);
     //@ts-ignore
     if (res.Ok) {

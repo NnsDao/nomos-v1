@@ -7,17 +7,17 @@ const CreateProposal = props => {
   const principal = window.localStorage.getItem('principal')!;
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const getPayAddress = async () => {
-    const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
-    const res = await nnsdaoActor.get_pay_address();
-    console.log(res);
-  };
+  // const getPayAddress = async () => {
+  //   const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
+  //   const res = await nnsdaoActor.get_pay_address();
+  //   console.log(res);
+  // };
   const getBalance = async () => {
     const NICPActor = await getNICPActor({ needAuth: true });
-    console.log(NICPActor, 'NICPActor');
     const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
       return r;
     });
+    console.log(balanceNICP, 'NICPActor');
     return balanceNICP;
   };
   const transfer = async principal => {
@@ -42,13 +42,19 @@ const CreateProposal = props => {
       message.error({ content: ' error', duration: 3 });
     }
   };
-  const checkBalance = async () => {
-    const balanceNICP = await getBalance();
-    const undefinedNdp = 100;
-    if (balanceNICP > undefinedNdp) {
-      const payAddress = await getPayAddress();
-      transfer(payAddress);
-    }
+  const createProposal = async () => {
+    // const balanceNICP = await getBalance();
+    // const baseNdpCount = 100;
+    // if (balanceNICP < baseNdpCount) return;
+
+    // 1. authorize
+    const proposalCost = 1;
+    const NICPActor = await getNICPActor({ needAuth: true });
+    const approve = await NICPActor.approve(Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'), BigInt(Number(proposalCost) * 1e8));
+    console.log(`approve`, approve);
+    // 2. initiate_proposal
+    const res = await getNnsdaoActor({ needAuth: true }).then(actor => actor.initiate_proposal({ title: 'title', content: 'content', end_time: 1658134285404000000n }));
+    console.log(res);
   };
 
   return (
@@ -87,7 +93,7 @@ const CreateProposal = props => {
           placeholder="Enter your content"
         />
       </div>
-      <div onClick={checkBalance} className="daos-content-join w-56 h-50 px-1 bg-sign rounded text-#fff whitespace-nowrap cursor-pointer">
+      <div onClick={createProposal} className="daos-content-join w-56 h-50 px-1 bg-sign rounded text-#fff whitespace-nowrap cursor-pointer">
         Create Proposal
       </div>
     </div>
