@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { getNnsdaoActor } from '../../../service/index';
 import CreateProposal from './createProposal/Index';
@@ -10,21 +11,43 @@ const Index = () => {
   const [active, setActive] = useState('Rule');
   const navList = ['Rule', 'Members', 'Proposal', 'CreateProposal', 'SetProfile'];
   const accountId = window.localStorage.getItem('accountId')!;
+  const [status_code, setStatusCode] = useState(0);
   const join = async () => {
     const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
     const res = await nnsdaoActor.join(joinParams);
     console.log(res);
+    //@ts-ignore
+    if (res.Ok) {
+      setStatusCode(1);
+      message.success({ content: 'Join success', duration: 3 });
+    } else {
+      message.error({ content: 'Join error', duration: 3 });
+    }
   };
   const quit = async () => {
     const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
     const res = await nnsdaoActor.quit();
     console.log(res);
+    //@ts-ignore
+    if (res.Ok) {
+      setStatusCode(1);
+      message.success({ content: 'Quit success', duration: 3 });
+    } else {
+      message.error({ content: 'Quit error', duration: 3 });
+    }
   };
   const getUserInfo = async () => {
     const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
     const res = await nnsdaoActor.user_info();
     console.log(res);
+
+    //@ts-ignore
+    if (res.Ok) {
+      //@ts-ignore
+      const { status_code } = res.Ok;
+      setStatusCode(status_code);
+    }
   };
 
   useEffect(() => {
@@ -49,12 +72,16 @@ const Index = () => {
         <div className="flex-1">
           <div className="flex justify-between">
             <div className="daos-content-text">{active}</div>
-            <div className="daos-content-join" onClick={join}>
-              JOIN
-            </div>
-            <div className="daos-content-join" onClick={quit}>
-              Quit
-            </div>
+            {status_code === -1 ? (
+              <div className="daos-content-join" onClick={quit}>
+                Quit
+              </div>
+            ) : null}
+            {status_code === 1 ? (
+              <div className="daos-content-join" onClick={join}>
+                JOIN
+              </div>
+            ) : null}
           </div>
           <div className="daos-content">
             {active === 'Rule' ? <Rule></Rule> : ''}
