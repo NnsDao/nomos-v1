@@ -53,7 +53,7 @@ const CreateProposal = props => {
     const approve = await NICPActor.approve(Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'), BigInt(Number(proposalCost) * 1e8));
     console.log(`approve`, approve);
     // 2. initiate_proposal
-    const res = await getNnsdaoActor({ needAuth: true }).then(actor => actor.initiate_proposal({ title: 'title', content: 'content', end_time: 1658134285404000000n }));
+    const res = await getNnsdaoActor({ needAuth: true }).then(actor => actor.propose({ title: new Date().toLocaleString(), content: 'xxx', end_time: BigInt((Date.now() + 3e5) * 1e3) }));
     console.log(res);
   };
 
