@@ -1,6 +1,7 @@
 import { Result_1 } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
 import React, { useEffect, useState } from 'react';
 import { getNnsdaoActor } from '../../../../service/index';
+import ProposalItem from './ProposalItem';
 
 const Proposal = props => {
   const [proposalList, setProposalList] = useState<[] | Result_1>([]);
@@ -26,15 +27,7 @@ const Proposal = props => {
         //@ts-ignore
         proposalList.length > 0 &&
           //@ts-ignore
-          proposalList.map(item => (
-            <div className="border mb-5">
-              <div> id: {item[1].id ? Number(item[1].id) : null}</div>
-              <div> title: {item[1].title ? item[1].title : null}</div>
-              <div> content : {item[1].content ? item[1].content : null}</div>
-              <div> proposal_state:</div>
-              <div> timestamp: {item[1].timestamp ? Number(item[1].timestamp) : null}</div>
-            </div>
-          ))
+          proposalList.map(item => <ProposalItem data={item} key={item[0]}></ProposalItem>)
       }
     </div>
   );
