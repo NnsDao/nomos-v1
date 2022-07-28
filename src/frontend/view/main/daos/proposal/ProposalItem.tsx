@@ -10,7 +10,7 @@ const ProposalItem = props => {
     console.log('vote start');
     let balance = 0;
     const principal = window.localStorage.getItem('principal')!;
-    type === 'Yes' ? (balance = 15) : (balance = 10);
+    type === 'Yes' ? (balance = 1) : (balance = 1);
     const NICPActor = await getNICPActor({ needAuth: true });
     const approve = await NICPActor.approve(Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'), BigInt(Number(balance) * 1e8));
     console.log(`approve`, approve);
@@ -33,7 +33,7 @@ const ProposalItem = props => {
       <div className="flex justify-between">
         <div className="flex justify-start">
           <div className="font-bold text-xl text-blue-500 pr-10">{props.data[1].title ? props.data[1].title : null}</div>
-          <div className="text-gray-200"> (ID: {props.data[1].id ? Number(props.data[1].id) : null})</div>
+          <div className="text-gray-200"> (ID: {Number(props.data[1].id + 1)})</div>
         </div>
         <div> proposal_state:</div>
       </div>

@@ -47,6 +47,8 @@ const Index = () => {
       //@ts-ignore
       const { status_code } = res.Ok;
       setStatusCode(status_code);
+    } else {
+      setStatusCode(0);
     }
   };
 
@@ -72,16 +74,15 @@ const Index = () => {
         <div className="flex-1">
           <div className="flex justify-between">
             <div className="daos-content-text">{active}</div>
-            {status_code === -1 ? (
+            {status_code === 1 ? (
               <div className="daos-content-join" onClick={quit}>
                 Quit
               </div>
-            ) : null}
-            {status_code === 1 ? (
+            ) : (
               <div className="daos-content-join" onClick={join}>
                 JOIN
               </div>
-            ) : null}
+            )}
           </div>
           <div className="daos-content">
             {active === 'Rule' ? <Rule></Rule> : ''}
