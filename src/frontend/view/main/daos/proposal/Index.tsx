@@ -20,7 +20,7 @@ const Proposal = props => {
   };
   useEffect(() => {
     getProposalList();
-  });
+  }, []);
   return (
     <div className="w-full pb-5">
       {
