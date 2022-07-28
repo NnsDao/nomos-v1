@@ -33,7 +33,7 @@ const ProposalItem = props => {
       <div className="flex justify-between">
         <div className="flex justify-start">
           <div className="font-bold text-xl text-blue-500 pr-10">{props.data[1].title ? props.data[1].title : null}</div>
-          <div className="text-gray-200"> (ID: {Number(props.data[1].id + 1)})</div>
+          <div className="text-gray-200"> (ID: {Number(props.data[1].id )+ 1})</div>
         </div>
         <div> proposal_state:</div>
       </div>
