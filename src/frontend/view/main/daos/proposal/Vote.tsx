@@ -8,7 +8,7 @@ const Vote = props => {
   // first fetch balance
   // 1-100 ndp
 
-  const vote = async () => {
+  const voteFN = async () => {
     const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
     const params: UserVoteArgs = {
       id: BigInt(0),
@@ -30,7 +30,7 @@ const Vote = props => {
           <input type="Number" />
         </div>
         <div>Cancel</div>
-        <div onClick={vote}>Confirm</div>
+        <div onClick={voteFN}>Confirm</div>
       </div>
     </Modal>
   );

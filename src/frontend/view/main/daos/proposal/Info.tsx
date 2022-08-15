@@ -1,6 +1,6 @@
 import { Modal } from '@mui/material';
 import React, { useState } from 'react';
-import Vote from './vote';
+import Vote from './Vote';
 
 const Info = props => {
   const onClose = () => {
