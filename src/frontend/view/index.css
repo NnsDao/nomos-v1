@@ -93,3 +93,6 @@ hr {
 .filter {
   filter: blur(2px) !important;
 }
+.mainBorder {
+  border: 1px solid #282828;
+}

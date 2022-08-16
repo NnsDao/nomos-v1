@@ -158,6 +158,8 @@ module.exports = {
         'main-content': '#251F5E',
         creatCard: '#35296b',
         subTitleColor: '#7aa9ff',
+        linkBorder: '#818994',
+        mainBorder: '#282828',
       }),
       backgroundImage: {},
     },
