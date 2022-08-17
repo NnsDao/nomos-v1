@@ -13,7 +13,7 @@ const Index = () => {
   const accountId = window.localStorage.getItem('accountId')!;
   const [status_code, setStatusCode] = useState(0);
   const join = async () => {
-    const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
+    const nnsdaoActor = await getNnsdaoActor(true);
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
     const res = await nnsdaoActor.join(joinParams);
     console.log(res);
@@ -26,7 +26,7 @@ const Index = () => {
     }
   };
   const quit = async () => {
-    const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
+    const nnsdaoActor = await getNnsdaoActor(true);
     const res = await nnsdaoActor.quit();
     console.log(res);
     //@ts-ignore
@@ -38,7 +38,7 @@ const Index = () => {
     }
   };
   const getUserInfo = async () => {
-    const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
+    const nnsdaoActor = await getNnsdaoActor(true);
     const res = await nnsdaoActor.user_info();
     console.log(res);
 

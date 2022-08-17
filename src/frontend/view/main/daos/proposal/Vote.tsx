@@ -9,7 +9,7 @@ const Vote = props => {
   // 1-100 ndp
 
   const voteFN = async () => {
-    const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
+    const nnsdaoActor = await getNnsdaoActor(true);
     const params: UserVoteArgs = {
       id: BigInt(0),
       principal: [Principal.fromText('1')],

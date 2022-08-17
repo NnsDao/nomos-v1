@@ -6,7 +6,7 @@ const Members = props => {
   const [memberList, setmemberList] = useState<Array<MemberItems>>([]);
 
   const getMemberList = async () => {
-    const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
+    const nnsdaoActor = await getNnsdaoActor(true);
     const res = await nnsdaoActor.member_list();
     console.log(res, 'member_list');
 

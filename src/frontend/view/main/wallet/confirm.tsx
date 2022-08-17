@@ -19,7 +19,7 @@ const confirm = (props: Prop) => {
   const [transferText, setTransferText] = useState('Transfer');
   const principal = window.localStorage.getItem('principal')!;
   const getBalanceNicp = async () => {
-    const NICPActor = await getNICPActor({ needAuth: true });
+    const NICPActor = await getNICPActor(true);
     console.log(NICPActor, 'NICPActor');
     const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
       return r;
@@ -31,7 +31,7 @@ const confirm = (props: Prop) => {
   const transfer = async () => {
     setTransferLoading(true);
     setTransferText('In Sync Block... ');
-    const NICPActor = await getNICPActor({ needAuth: true });
+    const NICPActor = await getNICPActor(true);
     const res = await NICPActor.transfer(Principal.fromText(props.principalText), BigInt(Number(props.number) * 1e8)).then(r => {
       console.log(r);
       return r;

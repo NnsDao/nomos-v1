@@ -35,7 +35,7 @@ const Index = () => {
   const [walletList, setWalletList] = useState(wallet);
   const [listCollection, setUserCollection] = useState([]);
   const getBalanceNicp = async () => {
-    const NICPActor = await getNICPActor({ needAuth: true });
+    const NICPActor = await getNICPActor(true);
     console.log(NICPActor, 'NICPActor');
     const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
       return r;

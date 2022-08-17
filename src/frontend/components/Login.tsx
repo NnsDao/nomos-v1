@@ -75,7 +75,7 @@ const Index = () => {
     message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
   };
   const getExChange = async () => {
-    const distributeActor = await getDistributeActor({ needAuth: true });
+    const distributeActor = await getDistributeActor(true);
     console.log(distributeActor, 'distributeActor', distributeActor[Symbol.for('ic-agent-metadata')]);
     const res = await distributeActor.try_exchange();
     console.log(res, 'getExChange');

@@ -8,12 +8,12 @@ const CreateProposal = props => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   // const getPayAddress = async () => {
-  //   const nnsdaoActor = await getNnsdaoActor({ needAuth: true });
+  //   const nnsdaoActor = await getNnsdaoActor(true);
   //   const res = await nnsdaoActor.get_pay_address();
   //   console.log(res);
   // };
   const getBalance = async () => {
-    const NICPActor = await getNICPActor({ needAuth: true });
+    const NICPActor = await getNICPActor(true);
     const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
       return r;
     });
@@ -23,7 +23,7 @@ const CreateProposal = props => {
   const transfer = async principal => {
     // setTransferLoading(true);
     // setTransferText('In Sync Block... ');
-    const NICPActor = await getNICPActor({ needAuth: true });
+    const NICPActor = await getNICPActor(true);
     const res = await NICPActor.transfer(Principal.fromText(principal), BigInt(Number(props.number) * 1e8)).then(r => {
       console.log(r);
       return r;
@@ -49,11 +49,11 @@ const CreateProposal = props => {
 
     // 1. authorize
     const proposalCost = 1;
-    const NICPActor = await getNICPActor({ needAuth: true });
+    const NICPActor = await getNICPActor(true);
     const approve = await NICPActor.approve(Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'), BigInt(Number(proposalCost) * 1e8));
     console.log(`approve`, approve);
     // 2. initiate_proposal
-    const res = await getNnsdaoActor({ needAuth: true }).then(actor => actor.propose({ title: new Date().toLocaleString(), content: 'xxx', end_time: BigInt((Date.now() + 3e5) * 1e6) }));
+    const res = await getNnsdaoActor(true).then(actor => actor.propose({ title: new Date().toLocaleString(), content: 'xxx', end_time: BigInt((Date.now() + 3e5) * 1e6) }));
     console.log(res);
   };
 

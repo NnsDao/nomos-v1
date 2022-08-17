@@ -1,3 +1,4 @@
+import { idlFactory as dao_manager_IDL } from '@nnsdao/nnsdao-kit/dao_manager/index';
 import { idlFactory as nicpIDL } from '@nnsdao/nnsdao-kit/dip20/index';
 import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index';
 import { idlFactory as nnsdaoIDL } from '@nnsdao/nnsdao-kit/nnsdao/index';
@@ -14,7 +15,11 @@ const canister = {
   },
   nicp: {
     cid: 'vgqnj-miaaa-aaaal-qaapa-cai',
-    idl: nicpIDL, //TODO need update idl
+    idl: nicpIDL,
+  },
+  dao_manager: {
+    cid: 'w3p32-waaaa-aaaah-aboyq-cai',
+    idl: dao_manager_IDL,
   },
 };
 // ndp prod = 'vgqnj-miaaa-aaaal-qaapa-cai'

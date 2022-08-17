@@ -16,7 +16,7 @@ const Transfer = (props: any) => {
   const [number, setNumber] = useState(BigInt(0));
   const [isConfirm, setConfirm] = useState(false);
   const getBalanceNicp = async () => {
-    const NICPActor = await getNICPActor({ needAuth: true });
+    const NICPActor = await getNICPActor(true);
     const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
       return r;
     });
