@@ -1,14 +1,20 @@
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import WidgetsIcon from '@mui/icons-material/Widgets';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Backdrop, Button, CircularProgress, Menu, MenuItem, Paper } from '@mui/material';
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
+import { useQuery } from '@tanstack/react-query';
 import * as React from 'react';
+import { totalDaoList } from '../../../api/dao_manager';
+import { DaoManagerKeys } from '../../../api/dao_manager/queries';
 import Info from './info/Index';
 import DaoInput from './search/Index';
 const DaoHome = () => {
   // const top100Films = [{ label: '1' }, { label: '2' }, { label: '3' }, { label: '4' }];
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const totalList = useQuery(DaoManagerKeys.lists(), totalDaoList);
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -55,6 +61,27 @@ const DaoHome = () => {
       join: '1',
     },
   ];
+
+  const List = () => {
+    if (totalList.isLoading) {
+      // return <Skeleton variant="rectangular" />;
+      return (
+        <Backdrop sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }} open={true}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      );
+    }
+    if (totalList.error || !totalList.data?.length) {
+      return (
+        <Paper elevation={0} sx={{ textAlign: 'center', margin: '0 auto' }}>
+          <HelpOutlineOutlinedIcon fontSize="large"></HelpOutlineOutlinedIcon>
+          <div className="px-16">NO DATA</div>
+        </Paper>
+      );
+    }
+
+    return Data.map(item => <Info data={item} key={item.name}></Info>);
+  };
   return (
     <Box className="w-full m-auto bg-primary  text-white  ">
       <Box className="w-full flex flex-row justify-between items-center pb-24">
@@ -101,9 +128,8 @@ const DaoHome = () => {
         <Box className="mr-10 text-20 font-bold">{'sum'} Daos</Box>
       </Box>
       <Box className="flex justify-start flex-wrap">
-        {Data.map(item => (
-          <Info data={item} key={item.name}></Info>
-        ))}
+        {/* @ts-ignore */}
+        <List></List>
       </Box>
 
       {/* <Box
