@@ -1,15 +1,15 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App';
 import './index.css';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
-      staleTime: 30 * 1000,
-      cacheTime: 60 * 1000,
-      retry: false,
+      staleTime: 3e3,
+      refetchOnWindowFocus: import.meta.env.PROD,
     },
   },
 });
@@ -21,6 +21,7 @@ ReactDOM.render(
     <React.StrictMode>
       <App />
     </React.StrictMode>
+    <ReactQueryDevtools></ReactQueryDevtools>
   </QueryClientProvider>,
   document.getElementById('root')
 );
