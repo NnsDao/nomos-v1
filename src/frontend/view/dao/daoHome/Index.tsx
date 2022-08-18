@@ -4,16 +4,14 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import { Backdrop, Button, CircularProgress, Menu, MenuItem, Paper } from '@mui/material';
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
-import { useQuery } from '@tanstack/react-query';
 import * as React from 'react';
-import { totalDaoList } from '../../../api/dao_manager';
-import { DaoManagerKeys } from '../../../api/dao_manager/queries';
+import { useTotalDaoLists } from '../../../api/dao_manager';
 import Info from './info/Index';
 import DaoInput from './search/Index';
 const DaoHome = () => {
   // const top100Films = [{ label: '1' }, { label: '2' }, { label: '3' }, { label: '4' }];
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const totalList = useQuery(DaoManagerKeys.lists(), totalDaoList);
+  const totalList = useTotalDaoLists();
 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
