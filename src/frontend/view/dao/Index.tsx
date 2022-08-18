@@ -4,14 +4,15 @@ import { Box, Tooltip } from '@mui/material';
 import Zoom from '@mui/material/Zoom';
 import React, { useState } from 'react';
 import DaoCreate from './daoCreate/Index';
-import DaoHome from './daoHome/Index';
+import Team from './team/Index';
 
 const Dao = () => {
   const [active, setActive] = useState('Home');
   const activeList = [
     {
       name: 'Home',
-      node: <DaoHome />,
+      // node: <DaoHome />,
+      node: <Team />,
       tooltip: 'Go Dao Home!',
       icon: <HomeIcon className=" cursor-pointer " sx={{ color: '#fff', fontSize: 28 }} />,
     },
@@ -29,7 +30,7 @@ const Dao = () => {
   ];
 
   return (
-    <div className="w-full m-auto bg-primary h-1200px text-white flex flex-row pt-72">
+    <div className="w-full m-auto bg-primary  text-white flex flex-row pt-72">
       <Box component="div" sx={{ height: 1200, borderRight: '1px solid #282828' }}>
         {activeList.map(item => (
           <div key={item.name} onClick={() => setActive(item.name)} className=" mx-20 my-24">

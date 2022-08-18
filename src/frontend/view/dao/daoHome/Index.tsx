@@ -6,6 +6,7 @@ import Fade from '@mui/material/Fade';
 import * as React from 'react';
 import Info from './info/Index';
 import DaoInput from './search/Index';
+
 const DaoHome = () => {
   // const top100Films = [{ label: '1' }, { label: '2' }, { label: '3' }, { label: '4' }];
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
