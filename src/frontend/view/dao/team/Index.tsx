@@ -1,13 +1,13 @@
-import { Box } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 import React, { useState } from 'react';
-import ProposalInfo from './proposalInfo/Index';
+import Proposal from './proposal/Index';
 
 const Team = () => {
   const tabList = ['proposal', 'new proposal', 'about', 'treasury', 'set up'];
   const [activeTab, setActiveTab] = useState('proposal');
   return (
     <Box className="w-900px   ">
-      {/* <Box
+      <Box
         sx={{
           width: 230,
           height: 500,
@@ -57,8 +57,8 @@ const Team = () => {
       </Box>
       <Box className=" max-w-700 ml-265px">
         <Proposal></Proposal>
-      </Box> */}
-      <ProposalInfo></ProposalInfo>
+      </Box>
+      {/* <ProposalInfo></ProposalInfo> */}
     </Box>
   );
 };

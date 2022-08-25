@@ -253,7 +253,7 @@ const Index = () => {
                 <div className="w-full flex justify-center mt-6" key={i}>
                   <div className="flex justify-start items-center table-token">
                     <div>
-                      <img src={item.icon} alt="nnsdao nomos" className="w-20 h-20 rounded-full" />
+                      <img src={item.icon} alt="nnsdao nomos" className="w-70 h-70 rounded-full" />
                     </div>
                     <div className="text-white ml-3  flex flex-col justify-center items-start">
                       <span>{item.name}</span>

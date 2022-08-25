@@ -31,26 +31,26 @@ const Nav = (prop: prop) => {
             <span className="ml-3 ">DashBoard</span>
           </div>
         </div> */}
-        <div onClick={() => prop.onClick('Wallet')} className="mt-10 mb-20 justify-center w-240px h-48px">
+        <div onClick={() => prop.onClick('Wallet')} className="mt-40 mb-80 justify-center w-240px h-48px">
           <span className={' style-text '}>ACCOUNT</span>
-          <div className={`flex items-center mt-9 justify-center w-240px h-48px cursor-pointer ${prop.active === 'Wallet' ? 'bg-gradient' : ''}`}>
-            <div className="flex items-center justify-center -ml-28">
+          <div className={`flex items-center mt-40 justify-center w-240px h-48px cursor-pointer ${prop.active === 'Wallet' ? 'bg-gradient' : ''}`}>
+            <div className="flex items-center justify-center -ml-112">
               <img src={wallet} alt="" />
-              <span className="ml-3">Wallet</span>
+              <span className="ml-10">Wallet</span>
             </div>
           </div>
         </div>
-        <div className="mt-10">
+        <div className="mt-40">
           <span className={' style-text '}>DAOs</span>
-          <div className={' mt-9  justify-center w-240px h-48px '}>
+          <div className={' mt-40  justify-center w-240px h-48px '}>
             {prop.daoList.map((item, index) => (
               <div
                 onClick={() => prop.onClick(item.text as string)}
                 key={index}
-                className={`flex items-center -ml-1.5 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
-                <div className="flex items-center justify-center -ml-24">
-                  <img src={item.url} alt="nnsdao nomos" className="w-7 h-7" />
-                  <span className="ml-3"> {item.text}</span>
+                className={`flex items-center -ml-8 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
+                <div className="flex items-center justify-center -ml-96">
+                  <img src={item.url} alt="nnsdao nomos" className="w-24 h-24" />
+                  <span className="ml-10"> {item.text}</span>
                 </div>
               </div>
             ))}

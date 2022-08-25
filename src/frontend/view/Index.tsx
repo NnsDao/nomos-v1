@@ -211,6 +211,10 @@ export default function index(prop: any) {
     history.push('/main');
   };
 
+  const goDaos = () => {
+    history.push('/daos');
+  };
+
   const [contributesImg, setContributesImg] = useState(state0);
 
   const changeContributesImg = (currentContributes: number) => {
@@ -230,7 +234,7 @@ export default function index(prop: any) {
   return (
     <>
       <div className="w-full m-auto bg-primary ">
-        <div className="p-4 sticky top-0 bg-primary z-10">
+        <div className="p-16 sticky top-0 bg-primary z-10">
           <div className="flex justify-between items-center max-w-1200px m-auto">
             <div className={'flex jsutify-between items-center'}>
               <div className=" flex  space-x-10 jsutify-between items-center ">
@@ -240,9 +244,13 @@ export default function index(prop: any) {
                       key={item}
                       href={`#${item}`}
                       onClick={() => {
-                        setLink(item);
+                        if (item === 'Daos') {
+                          goDaos();
+                        } else {
+                          setLink(item);
+                        }
                       }}
-                      className={`pr-3 py-2 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
+                      className={`pr-12 py-8 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-12' : ''}`}>
                       <span key={item} className={''}>
                         {item}
                       </span>
@@ -253,7 +261,7 @@ export default function index(prop: any) {
                         goStory();
                       }}
                       key={item}
-                      className={`px-3 py-2  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-4' : ''}`}>
+                      className={`pr-12 py-8  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-12' : ''}`}>
                       {item}
                     </span>
                   )
@@ -261,12 +269,12 @@ export default function index(prop: any) {
               </div>
             </div>
             {isLogin ? (
-              <div onClick={goMain} className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center cursor-pointer'}>
+              <div onClick={goMain} className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center cursor-pointer'}>
                 {'Wallet'}
               </div>
             ) : (
               <Link to="/login">
-                <div className={'w-32 h-12 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
+                <div className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
               </Link>
             )}
           </div>

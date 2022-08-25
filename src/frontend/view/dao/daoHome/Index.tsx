@@ -124,7 +124,7 @@ const DaoHome = () => {
             renderInput={params => <TextField sx={{ background: '#0C0633' }} {...params} label="Daos" />}
           /> */}
         </Box>
-        <Box className="mr-10 text-20 font-bold">{'sum'} Daos</Box>
+        <Box className="mr-10 text-20 font-bold">{totalList.data?.length || 0} Daos</Box>
       </Box>
       <Box className="flex justify-start flex-wrap">
         {/* @ts-ignore */}
