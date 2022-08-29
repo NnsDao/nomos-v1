@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getNnsdaoActor } from '../../service';
-import { DaoManagerKeys } from './queries';
+import { nnsdaoKeys } from './queries';
 
 export const get_handled_proposal = async ({ queryKey }) => {
   const { module, scope } = queryKey[0];
@@ -99,6 +99,6 @@ export const vote = async ({ queryKey }) => {
   }
 };
 
-export const useTotalDaoLists = () => {
-  return useQuery(DaoManagerKeys.lists(), totalDaoList);
+export const useGetUserInfo = () => {
+  return useQuery(nnsdaoKeys.userInfo(), user_info);
 };
