@@ -1,0 +1,22 @@
+.stepIcon {
+  border: 1px solid #2d2d2d;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.stepIconDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #384aff;
+  position: absolute;
+  flex-shrink: 0;
+}
+.stepIcon_active {
+  border: 1px solid #384aff;
+}
