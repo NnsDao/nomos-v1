@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { getNnsdaoActor } from '../../service';
 import { nnsdaoKeys } from './queries';
 
@@ -76,11 +76,17 @@ export const quit = async ({ queryKey }) => {
 };
 export const user_info = async ({ queryKey }) => {
   const { module, scope } = queryKey[0];
-  const actor = await getNnsdaoActor(false);
+  const actor = await getNnsdaoActor(true);
   try {
     const res = await actor.user_info();
     console.log('user_info', res);
-    return res;
+    //@ts-ignore
+    if (res.Ok) {
+      //@ts-ignore
+      return res.Ok;
+    } else {
+      return Promise.reject(null);
+    }
   } catch (error) {
     console.log('user_info', error);
     return Promise.reject(null);
@@ -101,4 +107,25 @@ export const vote = async ({ queryKey }) => {
 
 export const useGetUserInfo = () => {
   return useQuery(nnsdaoKeys.userInfo(), user_info);
+};
+export const useVote = () => {
+  return useQuery(nnsdaoKeys.vote(), vote);
+};
+export const useQuit = () => {
+  return useQuery(nnsdaoKeys.quit(), quit);
+};
+export const usePropose = () => {
+  return useQuery(nnsdaoKeys.propose(), propose);
+};
+export const useMemberList = () => {
+  return useQuery(nnsdaoKeys.member_list(), member_list);
+};
+export const useJoin = params => {
+  return useMutation(params => nnsdaoKeys.join(params));
+};
+export const useGetProposal = () => {
+  return useQuery(nnsdaoKeys.get_proposal(), get_proposal);
+};
+export const useGetHandledProposal = () => {
+  return useQuery(nnsdaoKeys.get_handled_proposal(), get_handled_proposal);
 };

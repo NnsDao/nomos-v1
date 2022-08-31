@@ -37,5 +37,7 @@ export const canisterIdList = [
   'rkp4c-7iaaa-aaaaa-aaaca-cai',
   'pdvmy-7iaaa-aaaal-qbabq-cai',
   '75phv-6aaaa-aaaap-aae5a-cai',
+  '67bzx-5iaaa-aaaam-aah5a-cai',
+  'w3p32-waaaa-aaaah-aboyq-cai',
 ];
 export default canister;
