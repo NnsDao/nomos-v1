@@ -1,4 +1,3 @@
-import UpdateIcon from '@mui/icons-material/Update';
 import { Avatar, Box, CircularProgress } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
@@ -16,38 +15,33 @@ const Team = () => {
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
   const queryClient = useQueryClient();
 
-  const join = () => {
+  const join = async () => {
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
-    joinAction.mutate(joinParams);
+    await joinAction.mutateAsync(joinParams);
     queryClient.invalidateQueries(nnsdaoKeys.userInfo());
-
-    // refetch
-    // useInfo.refetch();
   };
-  const quit = () => {
+  const quit = async () => {
     //
-    quitAction.mutate();
+    await quitAction.mutateAsync();
     queryClient.invalidateQueries(nnsdaoKeys.userInfo());
   };
   const GetUserInfo = () => {
-    if (useInfo.isFetching) {
+    if (useInfo.isFetching || joinAction.isLoading || quitAction.isLoading) {
       return (
         <Box className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
           <CircularProgress size={24} />
         </Box>
       );
     }
-    if (useInfo.error) {
-      return (
-        <Box onClick={() => useInfo.refetch()}>
-          <UpdateIcon />
-        </Box>
-      );
-    }
-
-    // return <Box>{/* {getJoinStatus.data.Ok.status_code} */}1</Box>;
+    // if (useInfo.error) {
+    //   return (
+    //     <Box onClick={() => useInfo.refetch()}>
+    //       <UpdateIcon />
+    //     </Box>
+    //   );
+    // }
     return (
-      <Box>{useInfo.data.status_code === 1 ? <div onClick={quit}>Quit</div> : <div onClick={join}>JOIN</div>}</Box>
+      <Box>{useInfo.data?.status_code === 1 ? <div onClick={quit}>Quit</div> : <div onClick={join}>JOIN</div>}</Box>
     );
   };
   return (
