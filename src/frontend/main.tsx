@@ -11,6 +11,7 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 3e3,
       refetchOnWindowFocus: import.meta.env.PROD,
+      retry: false,
     },
   },
 });

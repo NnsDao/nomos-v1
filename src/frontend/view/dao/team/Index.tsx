@@ -1,46 +1,33 @@
 import UpdateIcon from '@mui/icons-material/Update';
 import { Avatar, Box, CircularProgress } from '@mui/material';
-import { message } from 'antd';
+import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { useGetUserInfo } from '../../../api/nnsdao/index';
-import { getNnsdaoActor } from '../../../service/index';
+import { useGetUserInfo, useJoin, useQuit } from '../../../api/nnsdao/index';
+import { nnsdaoKeys } from '../../../api/nnsdao/queries';
 import Proposal from './proposal/Index';
 const Team = () => {
   const accountId = window.localStorage.getItem('accountId')!;
   const tabList = ['proposal', 'new proposal', 'about', 'treasury', 'set up'];
   const [activeTab, setActiveTab] = useState('proposal');
   const useInfo = useGetUserInfo();
-  const join = useGetUserInfo();
-
+  const joinAction = useJoin();
+  const quitAction = useQuit();
   const [status_code, setStatusCode] = useState(0);
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const queryClient = useQueryClient();
 
-  const join = async () => {
-    if (isLogin) return;
-    const nnsdaoActor = await getNnsdaoActor(true);
+  const join = () => {
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
-    const res = await nnsdaoActor.join(joinParams);
-    console.log(res);
-    //@ts-ignore
-    if (res.Ok) {
-      setStatusCode(1);
-      message.success({ content: 'Join success', duration: 3 });
-    } else {
-      message.error({ content: 'Join error', duration: 3 });
-    }
+    joinAction.mutate(joinParams);
+    queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+
+    // refetch
+    // useInfo.refetch();
   };
-  const quit = async () => {
-    if (isLogin) return;
-    const nnsdaoActor = await getNnsdaoActor(true);
-    const res = await nnsdaoActor.quit();
-    console.log(res);
-    //@ts-ignore
-    if (res.Ok) {
-      setStatusCode(1);
-      message.success({ content: 'Quit success', duration: 3 });
-    } else {
-      message.error({ content: 'Quit error', duration: 3 });
-    }
+  const quit = () => {
+    //
+    quitAction.mutate();
+    queryClient.invalidateQueries(nnsdaoKeys.userInfo());
   };
   const GetUserInfo = () => {
     if (useInfo.isFetching) {
@@ -50,7 +37,7 @@ const Team = () => {
         </Box>
       );
     }
-    if (useInfo.error || !useInfo) {
+    if (useInfo.error) {
       return (
         <Box onClick={() => useInfo.refetch()}>
           <UpdateIcon />
@@ -59,7 +46,9 @@ const Team = () => {
     }
 
     // return <Box>{/* {getJoinStatus.data.Ok.status_code} */}1</Box>;
-    return <Box>{useInfo.data.status_code === 1 ? <div onClick={quit}>Quit</div> : <div onClick={join}>JOIN</div>}</Box>;
+    return (
+      <Box>{useInfo.data.status_code === 1 ? <div onClick={quit}>Quit</div> : <div onClick={join}>JOIN</div>}</Box>
+    );
   };
   return (
     <Box className="w-900px   ">
@@ -116,7 +105,14 @@ const Team = () => {
             <Box
               onClick={() => setActiveTab(item)}
               key={item}
-              sx={{ width: 230, paddingY: '8px', paddingLeft: '26px', cursor: 'pointer', transition: '150ms', fontWeight: '500' }}
+              sx={{
+                width: 230,
+                paddingY: '8px',
+                paddingLeft: '26px',
+                cursor: 'pointer',
+                transition: '150ms',
+                fontWeight: '500',
+              }}
               className={activeTab === item ? 'border-solid border-l-2 border-light-blue-500' : ''}>
               {item}
             </Box>

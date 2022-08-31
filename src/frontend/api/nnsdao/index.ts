@@ -1,3 +1,4 @@
+import type { JoinDaoParams } from '@nnsdao/nnsdao-kit/nnsdao/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getNnsdaoActor } from '../../service';
 import { nnsdaoKeys } from './queries';
@@ -26,11 +27,10 @@ export const get_proposal = async ({ queryKey }) => {
     return Promise.reject(null);
   }
 };
-export const join = async ({ queryKey }) => {
-  const { module, scope } = queryKey[0];
-  const actor = await getNnsdaoActor(false);
+export const join = async (params: JoinDaoParams) => {
+  const actor = await getNnsdaoActor(true);
   try {
-    const res = await actor.join();
+    const res = await actor.join(params);
     console.log('join', res);
     return res;
   } catch (error) {
@@ -62,8 +62,7 @@ export const propose = async ({ queryKey }) => {
     return Promise.reject(null);
   }
 };
-export const quit = async ({ queryKey }) => {
-  const { module, scope } = queryKey[0];
+export const quit = async () => {
   const actor = await getNnsdaoActor(false);
   try {
     const res = await actor.quit();
@@ -89,7 +88,7 @@ export const user_info = async ({ queryKey }) => {
     }
   } catch (error) {
     console.log('user_info', error);
-    return Promise.reject(null);
+    return '';
   }
 };
 export const vote = async ({ queryKey }) => {
@@ -112,7 +111,7 @@ export const useVote = () => {
   return useQuery(nnsdaoKeys.vote(), vote);
 };
 export const useQuit = () => {
-  return useQuery(nnsdaoKeys.quit(), quit);
+  return useMutation(quit);
 };
 export const usePropose = () => {
   return useQuery(nnsdaoKeys.propose(), propose);
@@ -120,9 +119,10 @@ export const usePropose = () => {
 export const useMemberList = () => {
   return useQuery(nnsdaoKeys.member_list(), member_list);
 };
-export const useJoin = params => {
-  return useMutation(params => nnsdaoKeys.join(params));
+export const useJoin = () => {
+  return useMutation(join);
 };
+
 export const useGetProposal = () => {
   return useQuery(nnsdaoKeys.get_proposal(), get_proposal);
 };
