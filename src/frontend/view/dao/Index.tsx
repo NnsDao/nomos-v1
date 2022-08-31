@@ -51,8 +51,8 @@ const Dao = () => {
     history.push('/main');
   };
   return (
-    <Box>
-      <Box className="bg-primary w-full flex justify-between items-center px-100px " sx={{ borderBottom: '1px solid #282828' }}>
+    <div className="bg-primary relative text-white" style={{ minHeight: '100vh' }}>
+      <Box className="bg-primary w-full flex justify-between items-center px-100px sticky top-0 z-50 h-72" sx={{ borderBottom: '1px solid #282828' }}>
         <div className=" py-15 ">
           <a href="/home" className="cursor-pointer transition duration-300  ">
             <img className="h-40 w-96" src={logo} alt="nnsdao logo" />
@@ -68,30 +68,27 @@ const Dao = () => {
           </Link>
         )}
       </Box>
-
-      <div className="w-full m-auto bg-primary  text-white flex flex-row ">
-        <Box component="div" sx={{ minHeight: 1200, borderRight: '1px solid #282828' }}>
-          {activeList.map(item => (
-            <div key={item.name} onClick={() => setActive(item.name)} className=" mx-20 my-24">
-              <Tooltip title={item.tooltip} TransitionComponent={Zoom} placement="right" TransitionProps={{ timeout: 200 }}>
-                <Box className="flex justify-center items-center w-40 h-40" sx={{ border: '1px solid #282828', borderRadius: 20, '&:hover': { border: '1px solid #818994' } }}>
-                  {item.icon}
-                </Box>
-              </Tooltip>
-            </div>
-          ))}
-        </Box>
-        <div className="flex-1 flex justify-center ">
-          <Box width={970} marginY={'25px'}>
-            {
-              activeList.filter(item => {
-                return item.name === active;
-              })[0].node
-            }
-          </Box>
-        </div>
+      <div className="fixed" style={{ height: 'calc(100vh - 72px)', borderRight: '1px solid #282828' }}>
+        {activeList.map(item => (
+          <div key={item.name} onClick={() => setActive(item.name)} className=" mx-20 my-24">
+            <Tooltip title={item.tooltip} TransitionComponent={Zoom} placement="right" TransitionProps={{ timeout: 200 }}>
+              <Box className="flex justify-center items-center w-40 h-40" sx={{ border: '1px solid #282828', borderRadius: 20, '&:hover': { border: '1px solid #818994' } }}>
+                {item.icon}
+              </Box>
+            </Tooltip>
+          </div>
+        ))}
       </div>
-    </Box>
+      <div className="flex-1 flex justify-center ">
+        <Box width={970} marginY={'25px'}>
+          {
+            activeList.filter(item => {
+              return item.name === active;
+            })[0].node
+          }
+        </Box>
+      </div>
+    </div>
   );
 };
 export default Dao;
