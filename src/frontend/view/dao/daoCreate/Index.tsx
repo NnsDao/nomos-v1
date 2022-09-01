@@ -1,10 +1,12 @@
 import { Alert, Box, Button, Chip, Divider, Snackbar, Stack, TextField, Typography } from '@mui/material';
+import { CreateDaoInfo } from '@nnsdao/nnsdao-kit/src/dao_manager/types';
+import { useMutation } from '@tanstack/react-query';
 import React, { useReducer, useRef, useState } from 'react';
+import { createDao } from '../../../api/dao_manager';
 import RichText from '../../../components/RichText';
 import style from './style.module.css';
 
 const DaoCreate = () => {
-  const [snackBarStr, setSnackBarStr] = useState('');
   const steps = [
     {
       label: 'Before You Create',
@@ -45,6 +47,12 @@ const DaoCreate = () => {
     );
   };
   const ActiveContent = () => {
+    const [snackBarStr, setSnackBarStr] = useState('');
+    const createAction = useMutation(createDao, {
+      onSuccess: (data, variable, ctx) => {
+        console.log('createAction', data, variable, ctx);
+      },
+    });
     const initialValue = [
       {
         type: 'paragraph',
@@ -101,19 +109,26 @@ const DaoCreate = () => {
     const confirm = () => {
       // validate
       const { name, poster, avatar, tag } = form;
-      const params = {
+      const params: CreateDaoInfo = {
         name,
         poster,
         avatar,
-        tag,
-        intro: editorRef.current,
+        tags: tag,
+        intro: JSON.stringify(editorRef.current),
+        option: [],
       };
       for (const key of Object.keys(params)) {
+        if (key === 'option') {
+          continue;
+        }
         if (!checkField(key, params[key])) {
           return;
         }
       }
       console.log('confirm', params);
+
+      //
+      createAction.mutate(params);
     };
     function checkField(key, value) {
       if (!value || !value?.length) {
@@ -123,7 +138,8 @@ const DaoCreate = () => {
       return true;
     }
     const deleteLabel = tag => {
-      setFormField({ key: 'tag', value: form.state.tag.filter(item => item !== tag) });
+      console.log('delete tag', tag);
+      setFormField({ key: 'tag', value: form.tag.filter(item => item !== tag) });
     };
 
     if (activeStep == 0) {
@@ -200,12 +216,14 @@ const DaoCreate = () => {
               label="Tag"
               placeholder="Metaverse web3 xxx"
               onKeyDown={e => onEnterTag(e)}
-              onBlur={e => onTagChange(e)}
+              // onBlur={e => onTagChange(e)}
             />
           </Stack>
           <Stack direction="row" spacing={1} justifyContent="flex-start" flexWrap="wrap">
             {form.tag.map((tag, index) => {
-              return <Chip color="primary" label={tag} key={tag} onDelete={() => deleteLabel(tag)}></Chip>;
+              return (
+                <Chip color="primary" label={tag} key={`${index}-${tag}`} onDelete={() => deleteLabel(tag)}></Chip>
+              );
             })}
           </Stack>
           <Divider>Intro</Divider>
@@ -220,6 +238,16 @@ const DaoCreate = () => {
         <Button sx={{ margin: '16px 0' }} size="large" fullWidth variant="contained" onClick={confirm}>
           Confirm
         </Button>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={!!snackBarStr}
+          autoHideDuration={6000}
+          onClose={() => setSnackBarStr('')}
+          message={snackBarStr}>
+          <Alert severity="warning" onClose={() => setSnackBarStr('')}>
+            {snackBarStr}
+          </Alert>
+        </Snackbar>
       </Box>
     );
   };
@@ -240,16 +268,6 @@ const DaoCreate = () => {
       <div className="pl-48 flex-grow-0" style={{ width: '600px' }}>
         <ActiveContent key="steps"></ActiveContent>
       </div>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={!!snackBarStr}
-        autoHideDuration={6000}
-        onClose={() => setSnackBarStr('')}
-        message={snackBarStr}>
-        <Alert severity="warning" onClose={() => setSnackBarStr('')}>
-          {snackBarStr}
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
