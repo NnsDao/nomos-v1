@@ -43,9 +43,7 @@ export const member_list = async () => {
   try {
     const res = await actor.member_list();
     console.log('member_list', res);
-    // @ts-ignore
-    if (res.Ok) {
-      //@ts-ignore
+    if ('Ok' in res) {
       return res.Ok;
     } else {
       return [];
@@ -84,9 +82,7 @@ export const user_info = async ({ queryKey }) => {
   try {
     const res = await actor.user_info();
     console.log('user_info', res);
-    //@ts-ignore
-    if (res.Ok) {
-      //@ts-ignore
+    if ('Ok' in res) {
       return res.Ok;
     } else {
       return Promise.reject(null);
@@ -114,9 +110,7 @@ export const getProposalList = async () => {
   const res = await actor.get_proposal_list();
   console.log(res, 'get_proposal_list');
   try {
-    //@ts-ignore
-    if (res.Ok) {
-      //@ts-ignore
+    if ('Ok' in res) {
       return res.Ok;
     } else {
       return Promise.reject(null);
