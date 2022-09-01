@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import ProposalItem from './proposalItem/Index';
 
 const Proposal = () => {
-  const MenuItemConfig = ['all', 'active', 'to be started', 'closed', 'core'];
+  const MenuItemConfig = ['All', 'Open', 'Rejected', 'Accepted'];
   const [MenuActive, setMenuActive] = useState('all');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -45,7 +45,12 @@ const Proposal = () => {
             onClick={handleClick}>
             {MenuActive}
           </Button>
-          <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={() => handleClose(MenuActive)} TransitionComponent={Fade}>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={() => handleClose(MenuActive)}
+            TransitionComponent={Fade}>
             {MenuItemConfig.map(item => (
               <MenuItem onClick={() => handleClose(item)} key={item} sx={{ width: 122 }}>
                 <Box sx={{ fontWeight: '500' }}>{item}</Box>
@@ -54,7 +59,7 @@ const Proposal = () => {
           </Menu>
         </Box>
       </Box>
-      <ProposalItem data={data}></ProposalItem>
+      <ProposalItem></ProposalItem>
     </Box>
   );
 };

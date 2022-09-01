@@ -1,9 +1,12 @@
-import { Avatar, Box, CircularProgress } from '@mui/material';
+import UpdateIcon from '@mui/icons-material/Update';
+import { Alert, AlertColor, Avatar, Box, CircularProgress, Snackbar } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { useGetUserInfo, useJoin, useQuit } from '../../../api/nnsdao/index';
+import { Link } from 'react-router-dom';
+import { useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
 import { nnsdaoKeys } from '../../../api/nnsdao/queries';
 import Proposal from './proposal/Index';
+
 const Team = () => {
   const accountId = window.localStorage.getItem('accountId')!;
   const tabList = ['proposal', 'new proposal', 'about', 'treasury', 'set up'];
@@ -11,21 +14,75 @@ const Team = () => {
   const useInfo = useGetUserInfo();
   const joinAction = useJoin();
   const quitAction = useQuit();
-  const [status_code, setStatusCode] = useState(0);
-  const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const memberList = useMemberList();
   const queryClient = useQueryClient();
-
+  const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const [state, setState] = useState({
+    open: false,
+    message: '',
+    type: 'success',
+  });
+  const { open, message, type } = state;
+  const handleClick = newState => () => {
+    console.log(1);
+    setState({ ...newState });
+    console.log(2);
+  };
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
   const join = async () => {
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
     await joinAction.mutateAsync(joinParams);
+    handleClick({
+      open: true,
+      type: 'success',
+      message: 'Join success!',
+    });
     queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+    handleClick({
+      open: true,
+      type: 'success',
+      message: 'Sync success!',
+    });
   };
   const quit = async () => {
     //
     await quitAction.mutateAsync();
+    handleClick({
+      open: true,
+      type: 'success',
+      message: 'Quit success!',
+    });
     queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+    handleClick({
+      open: true,
+      type: 'success',
+      message: 'Sync success!',
+    });
   };
-  const GetUserInfo = () => {
+  const MemberNumber = () => {
+    if (memberList.isFetching || memberList.isLoading || memberList.isLoading) {
+      return (
+        <Box className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
+          <CircularProgress size={16} />
+        </Box>
+      );
+    }
+    if (memberList.error) {
+      return (
+        <Box onClick={() => memberList.refetch()}>
+          <UpdateIcon />
+        </Box>
+      );
+    }
+    return <Box>{memberList.data?.length} MEMBER</Box>;
+  };
+  const IsGroup = () => {
+    if (!isLogin) {
+      return <Link to="/login">JOIN</Link>;
+    }
+
     if (useInfo.isFetching || joinAction.isLoading || quitAction.isLoading) {
       return (
         <Box className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
@@ -44,6 +101,7 @@ const Team = () => {
       <Box>{useInfo.data?.status_code === 1 ? <div onClick={quit}>Quit</div> : <div onClick={join}>JOIN</div>}</Box>
     );
   };
+
   return (
     <Box className="w-900px   ">
       <Box
@@ -68,7 +126,9 @@ const Team = () => {
           <Avatar sx={{ width: 82, height: 82 }} src={'avatar'}></Avatar>
         </Box>
         <Box className="text-22 pt-11">{'name'}1</Box>
-        <Box sx={{ paddingY: '12px', color: 'gray' }}>{'member'}MEMBER</Box>
+        <Box sx={{ paddingY: '12px', color: 'gray' }}>
+          <MemberNumber></MemberNumber>
+        </Box>
         <Box
           sx={{
             paddingX: '40px',
@@ -81,7 +141,7 @@ const Team = () => {
             fontWeight: '500',
             '&:hover': { background: '#2e54d1' },
           }}>
-          <GetUserInfo></GetUserInfo>
+          <IsGroup></IsGroup>
           {/* status_code */}
           {/* {1 === 1 ? 'JOIN' : 'Quit'} */}
           {/* {status_code === 1 ? (
@@ -115,8 +175,17 @@ const Team = () => {
       </Box>
       <Box className=" max-w-700 ml-265px">
         <Proposal></Proposal>
+        {/* <ProposalInfo></ProposalInfo> */}
       </Box>
-      {/* <ProposalInfo></ProposalInfo> */}
+      <Snackbar
+        anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={2000}>
+        <Alert onClose={handleClose} severity={type as AlertColor} sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

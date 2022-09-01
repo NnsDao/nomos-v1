@@ -38,16 +38,21 @@ export const join = async (params: JoinDaoParams) => {
     return Promise.reject(null);
   }
 };
-export const member_list = async ({ queryKey }) => {
-  const { module, scope } = queryKey[0];
+export const member_list = async () => {
   const actor = await getNnsdaoActor(false);
   try {
     const res = await actor.member_list();
     console.log('member_list', res);
-    return res;
+    // @ts-ignore
+    if (res.Ok) {
+      //@ts-ignore
+      return res.Ok;
+    } else {
+      return [];
+    }
   } catch (error) {
     console.log('member_list', error);
-    return Promise.reject(null);
+    return [];
   }
 };
 export const propose = async ({ queryKey }) => {
@@ -102,6 +107,27 @@ export const vote = async ({ queryKey }) => {
     console.log('vote', error);
     return Promise.reject(null);
   }
+};
+
+export const getProposalList = async () => {
+  const actor = await getNnsdaoActor(false);
+  const res = await actor.get_proposal_list();
+  console.log(res, 'get_proposal_list');
+  try {
+    //@ts-ignore
+    if (res.Ok) {
+      //@ts-ignore
+      return res.Ok;
+    } else {
+      return Promise.reject(null);
+    }
+  } catch (error) {
+    console.log('get_proposal_list', error);
+    return [];
+  }
+};
+export const useGetProposalList = () => {
+  return useQuery(nnsdaoKeys.getProposalList(), getProposalList);
 };
 
 export const useGetUserInfo = () => {

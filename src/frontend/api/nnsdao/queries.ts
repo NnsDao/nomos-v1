@@ -16,4 +16,7 @@ export const nnsdaoKeys = {
   get_proposals: () => [{ ...nnsdaoKeys.get_proposals() }] as const,
   get_handled_proposal: () => [{ ...nnsdaoKeys.all, scope: 'get_handled_proposal' }] as const,
   get_handled_proposals: () => [{ ...nnsdaoKeys.get_handled_proposals() }] as const,
+
+  getProposalList: () => [{ ...nnsdaoKeys.all, scope: 'get_proposal_list' }] as const,
+  getProposalLists: () => [{ ...nnsdaoKeys.getProposalLists() }] as const,
 };
