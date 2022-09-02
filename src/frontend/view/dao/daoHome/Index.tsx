@@ -1,3 +1,4 @@
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import { Backdrop, Button, CircularProgress, Menu, MenuItem } from '@mui/material';
@@ -71,10 +72,10 @@ const DaoHome = () => {
     }
     if (totalList.error || !totalList.data?.length) {
       return (
-        <div elevation={0} sx={{ textAlign: 'center', margin: '0 auto' }}>
+        <Box sx={{ textAlign: 'center', margin: '0 auto' }}>
           <HelpOutlineOutlinedIcon fontSize="large"></HelpOutlineOutlinedIcon>
           <div className="px-16">NO DATA</div>
-        </div>
+        </Box>
       );
     }
 
