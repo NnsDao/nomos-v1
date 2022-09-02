@@ -4,10 +4,10 @@ import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 import { StoicIdentity } from 'ic-stoic-identity';
 import React, { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import FrontendAuth from './FrontendAuth';
-import routerMap from './routerMap';
+import { BrowserRouter } from 'react-router-dom';
+import { RouterConfig } from './Router';
 AOS.init();
+
 function App() {
   useEffect(() => {
     (async () => {
@@ -35,11 +35,9 @@ function App() {
     })();
   }, []);
   return (
-    <Routes>
-      <Route>
-        <FrontendAuth routerConfig={routerMap} />
-      </Route>
-    </Routes>
+    <BrowserRouter>
+      <RouterConfig></RouterConfig>
+    </BrowserRouter>
   );
 }
 export default App;

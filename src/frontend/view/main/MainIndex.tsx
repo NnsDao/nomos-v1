@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import nnsDaoIcon from '../../assets/home/nnsdao.png';
 import NdpService from '../../utils/NdpService';
+import { useAuth } from '../../utils/useAuth';
 import Account from './account/Index';
 import Header from './components/Header';
 import Nav from './components/Nav';
@@ -11,6 +12,7 @@ import DashBoard from './DashBoard/Index';
 import Wallet from './wallet/Index';
 
 const MainIndex = () => {
+  useAuth();
   const navigate = useNavigate();
 
   const daoList = [
