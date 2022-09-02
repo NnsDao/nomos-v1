@@ -7,12 +7,12 @@ import React, { useState } from 'react';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import logo from '../../assets/main/logo.png';
 import NdpService from '../../utils/NdpService';
-import { useAuth } from '../../utils/useAuth';
 import DaoCreate from './daoCreate/Index';
 import DaoHome from './daoHome/Index';
 
 const Dao = () => {
-  useAuth();
+  // useAuth();
+
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 
   const [active, setActive] = useState('home');

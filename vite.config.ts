@@ -46,7 +46,12 @@ export default defineConfig({
   resolve: {
     alias: {
       // Here we tell Vite the "fake" modules that we want to define
-      '@': path.resolve(__dirname, 'src/frontend'),
+      '@utils': path.resolve(__dirname, 'src/frontend/utils'),
+      '@service': path.resolve(__dirname, 'src/frontend/service'),
+      '@api': path.resolve(__dirname, 'src/frontend/api'),
+      '@assets': path.resolve(__dirname, 'src/frontend/assets'),
+      '@components': path.resolve(__dirname, 'src/frontend/components'),
+      '@view': path.resolve(__dirname, 'src/frontend/view'),
     },
   },
   build: {
