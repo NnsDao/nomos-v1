@@ -8,9 +8,7 @@ import BigNumber from 'bignumber.js';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getNICPActor, getNnsdaoActor } from '../../../../service';
-// import NdpService from '../../../../utils/NdpService';
-//
-// import { getNICPActor,  } from '../../../../service';
+
 import ProposalActive from '../../component/proposalActive/Index';
 
 const ProposalInfo = () => {
