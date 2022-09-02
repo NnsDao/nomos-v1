@@ -1,13 +1,16 @@
-import NdpService from '@/frontend/utils/NdpService';
 import { Principal } from '@dfinity/principal';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Avatar, Box, Button, Dialog, DialogActions, Divider, InputBase, LinearProgress } from '@mui/material';
 import Input from '@mui/material/Input';
 import { UserVoteArgs } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
+import NdpService from '@utils/NdpService';
 import BigNumber from 'bignumber.js';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getNICPActor, getNnsdaoActor } from '../../../../service';
+// import NdpService from '../../../../utils/NdpService';
+//
+// import { getNICPActor,  } from '../../../../service';
 import ProposalActive from '../../component/proposalActive/Index';
 
 const ProposalInfo = () => {
