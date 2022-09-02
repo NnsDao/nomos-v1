@@ -252,7 +252,7 @@ const DaoCreate = () => {
     );
   };
   return (
-    <div className="m-auto flex justify-start mt-36">
+    <div className="m-auto flex justify-center mt-36">
       <div className="flex flex-col items-start justify-start flex-shrink-0">
         {steps.map((item, index) => {
           return (
