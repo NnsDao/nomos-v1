@@ -1,7 +1,6 @@
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import WidgetsIcon from '@mui/icons-material/Widgets';
-import { Backdrop, Button, CircularProgress, Menu, MenuItem, Paper } from '@mui/material';
+import { Backdrop, Button, CircularProgress, Menu, MenuItem } from '@mui/material';
 import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
 import * as React from 'react';
@@ -70,19 +69,18 @@ const DaoHome = () => {
         </Backdrop>
       );
     }
-    if (totalList.error || !totalList.data?.length) {
-      return (
-        <Paper elevation={0} sx={{ textAlign: 'center', margin: '0 auto' }}>
-          <HelpOutlineOutlinedIcon fontSize="large"></HelpOutlineOutlinedIcon>
-          <div className="px-16">NO DATA</div>
-        </Paper>
-      );
-    }
-
+    // if (totalList.error || !totalList.data?.length) {
+    //   return (
+    //     <Paper elevation={0} sx={{ textAlign: 'center', margin: '0 auto' }}>
+    //       <HelpOutlineOutlinedIcon fontSize="large"></HelpOutlineOutlinedIcon>
+    //       <div className="px-16">NO DATA</div>
+    //     </Paper>
+    //   );
+    // }
     return Data.map(item => <Info data={item} key={item.name}></Info>);
   };
   return (
-    <Box className="w-full m-auto bg-primary  text-white  ">
+    <Box className="  w-970px my-26 m-auto bg-primary  text-white  ">
       <Box className="w-full flex flex-row justify-between items-center pb-24">
         <Box className="flex items-center ">
           <DaoInput></DaoInput>

@@ -4,29 +4,28 @@ import { Box, Tooltip } from '@mui/material';
 import Zoom from '@mui/material/Zoom';
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import logo from '../../assets/main/logo.png';
 import NdpService from '../../utils/NdpService';
 import { useAuth } from '../../utils/useAuth';
 import DaoCreate from './daoCreate/Index';
-import Team from './team/Index';
-import ProposalInfo from './team/proposalInfo/Index';
+import DaoHome from './daoHome/Index';
 
 const Dao = () => {
   useAuth();
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 
-  const [active, setActive] = useState('Home');
+  const [active, setActive] = useState('home');
   const activeList = [
     {
-      name: 'Home',
-      // node: <DaoHome />,
-      node: <Team />,
+      name: 'daoHome',
+      node: <DaoHome />,
+      // node: <Team />,
       tooltip: 'Go Dao Home!',
       icon: <HomeIcon className=" cursor-pointer " sx={{ color: '#fff', fontSize: 28 }} />,
     },
     {
-      name: 'Create',
+      name: 'daoCreate',
       node: (
         <Box>
           <DaoCreate />
@@ -49,10 +48,10 @@ const Dao = () => {
     NdpService.resetService();
   };
   const goMain = () => {
-    // const wins: any = window.open('/main', '_blank');
-    // wins.focus();
-
     navigate('/main');
+  };
+  const link = str => {
+    navigate(`/daos/${str}`);
   };
   return (
     <div className="bg-primary relative text-white" style={{ minHeight: '100vh' }}>
@@ -66,7 +65,7 @@ const Dao = () => {
         </div>
         {isLogin ? (
           <div
-            onClick={goMain}
+            onClick={() => navigate('/main')}
             className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center cursor-pointer'}>
             {'Wallet'}
           </div>
@@ -80,7 +79,7 @@ const Dao = () => {
       </Box>
       <div className="fixed" style={{ height: 'calc(100vh - 72px)', borderRight: '1px solid #282828' }}>
         {activeList.map(item => (
-          <div key={item.name} onClick={() => setActive(item.name)} className=" mx-20 my-24">
+          <div key={item.name} onClick={() => navigate(`/daos/${item.name}`)} className=" mx-20 my-24">
             <Tooltip
               title={item.tooltip}
               TransitionComponent={Zoom}
@@ -95,7 +94,8 @@ const Dao = () => {
           </div>
         ))}
       </div>
-      <div className="flex-1 flex justify-center ">
+
+      <div className="flex-1 flex justify-center">
         {/* <Box width={970} marginY={'25px'}>
           {
             activeList.filter(item => {
@@ -103,7 +103,12 @@ const Dao = () => {
             })[0].node
           }
         </Box> */}
-        <ProposalInfo></ProposalInfo>
+        {/* <ProposalInfo></ProposalInfo> */}
+
+        <Routes>
+          <Route path="/daoHome" element={<DaoHome />} />
+          <Route path="/daoCreate" element={<DaoCreate />} />
+        </Routes>
       </div>
     </div>
   );
