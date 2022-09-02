@@ -2,58 +2,31 @@ import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
 import { Box, Tooltip } from '@mui/material';
 import Zoom from '@mui/material/Zoom';
-import storage from '@nnsdao/nnsdao-kit/helper/storage';
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../assets/main/logo.png';
-import NdpService from '../../utils/NdpService';
-import DaoCreate from './daoCreate/Index';
-import Team from './team/Index';
-import ProposalInfo from './team/proposalInfo/Index';
 
 const Dao = () => {
   // useAuth();
 
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 
-  const [active, setActive] = useState('Home');
   const activeList = [
     {
       name: 'Home',
-      // node: <DaoHome />,
-      node: <Team />,
+      router: 'home',
       tooltip: 'Go Dao Home!',
       icon: <HomeIcon className=" cursor-pointer " sx={{ color: '#fff', fontSize: 28 }} />,
     },
     {
       name: 'Create',
-      node: (
-        <Box>
-          <DaoCreate />
-        </Box>
-      ),
+      router: 'createdao',
       tooltip: 'Create Dao!',
       icon: <AddIcon className=" cursor-pointer  " sx={{ color: '#fff', fontSize: 28 }} />,
     },
-    //Add other configuration here
   ];
   const navigate = useNavigate();
 
-  const logout = () => {
-    window.localStorage.setItem('isLogin', '0');
-    window.localStorage.setItem('loginType', 'ooooooo');
-    window.localStorage.setItem('principal', '');
-    window.localStorage.clear();
-    storage.set('loginType', '');
-    navigate('/home', { replace: true });
-    NdpService.resetService();
-  };
-  const goMain = () => {
-    // const wins: any = window.open('/main', '_blank');
-    // wins.focus();
-
-    navigate('/main');
-  };
   return (
     <div className="bg-primary relative text-white" style={{ minHeight: '100vh' }}>
       <Box
@@ -66,21 +39,21 @@ const Dao = () => {
         </div>
         {isLogin ? (
           <div
-            onClick={goMain}
+            onClick={() => navigate('/main')}
             className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center cursor-pointer'}>
-            {'Wallet'}
+            'Wallet'
           </div>
         ) : (
           <Link to="/login">
             <div className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center'}>
-              {'Sign up'}
+              'Sign up'
             </div>
           </Link>
         )}
       </Box>
-      <div className="fixed" style={{ height: 'calc(100vh - 72px)', borderRight: '1px solid #282828' }}>
+      <div className="fixed" style={{ height: 'calc(100vh - 72px)', width: '80px', borderRight: '1px solid #282828' }}>
         {activeList.map(item => (
-          <div key={item.name} onClick={() => setActive(item.name)} className=" mx-20 my-24">
+          <div key={item.name} onClick={() => navigate(item.router)} className=" mx-20 my-24">
             <Tooltip
               title={item.tooltip}
               TransitionComponent={Zoom}
@@ -95,15 +68,8 @@ const Dao = () => {
           </div>
         ))}
       </div>
-      <div className="flex-1 flex justify-center ">
-        {/* <Box width={970} marginY={'25px'}>
-          {
-            activeList.filter(item => {
-              return item.name === active;
-            })[0].node
-          }
-        </Box> */}
-        <ProposalInfo></ProposalInfo>
+      <div className="ml-80" style={{ minHeight: 'calc(100vh - 72px)' }}>
+        <Outlet />
       </div>
     </div>
   );
