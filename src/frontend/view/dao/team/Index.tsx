@@ -32,6 +32,8 @@ const Team = () => {
     setState({ ...state, open: false });
   };
   const join = async () => {
+    if (isLogin) return;
+
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
     await joinAction.mutateAsync(joinParams);
     handleClick({
@@ -48,6 +50,7 @@ const Team = () => {
   };
   const quit = async () => {
     //
+    if (isLogin) return;
     await quitAction.mutateAsync();
     handleClick({
       open: true,
@@ -175,7 +178,6 @@ const Team = () => {
       </Box>
       <Box className=" max-w-700 ml-265px">
         <Proposal></Proposal>
-        {/* <ProposalInfo></ProposalInfo> */}
       </Box>
       <Snackbar
         anchorOrigin={{ horizontal: 'center', vertical: 'top' }}

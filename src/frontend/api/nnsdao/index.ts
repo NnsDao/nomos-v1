@@ -92,11 +92,10 @@ export const user_info = async ({ queryKey }) => {
     return '';
   }
 };
-export const vote = async ({ queryKey }) => {
-  const { module, scope } = queryKey[0];
-  const actor = await getNnsdaoActor(false);
+export const vote = async params => {
+  const actor = await getNnsdaoActor(true);
   try {
-    const res = await actor.vote();
+    const res = await actor.vote(params);
     console.log('vote', res);
     return res;
   } catch (error) {

@@ -1,6 +1,6 @@
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import wallet from '../../../assets/main/Wallet.png';
 import NdpService from '../../../utils/NdpService';
 import './nav.css';
@@ -12,14 +12,14 @@ type prop = {
 };
 const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 const Nav = (prop: prop) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const logout = () => {
     window.localStorage.setItem('isLogin', '0');
     window.localStorage.setItem('loginType', 'ooooooo');
     window.localStorage.setItem('principal', '');
     window.localStorage.clear();
     storage.set('loginType', '');
-    history.replace('/home');
+    navigate('/home');
     NdpService.resetService();
   };
   return (
@@ -33,7 +33,10 @@ const Nav = (prop: prop) => {
         </div> */}
         <div onClick={() => prop.onClick('Wallet')} className="mt-40 mb-80 justify-center w-240px h-48px">
           <span className={' style-text '}>ACCOUNT</span>
-          <div className={`flex items-center mt-40 justify-center w-240px h-48px cursor-pointer ${prop.active === 'Wallet' ? 'bg-gradient' : ''}`}>
+          <div
+            className={`flex items-center mt-40 justify-center w-240px h-48px cursor-pointer ${
+              prop.active === 'Wallet' ? 'bg-gradient' : ''
+            }`}>
             <div className="flex items-center justify-center -ml-112">
               <img src={wallet} alt="" />
               <span className="ml-10">Wallet</span>
@@ -47,7 +50,9 @@ const Nav = (prop: prop) => {
               <div
                 onClick={() => prop.onClick(item.text as string)}
                 key={index}
-                className={`flex items-center -ml-8 mb-8 justify-center w-240px h-48px cursor-pointer ${prop.active === item.text ? 'bg-gradient' : ''}`}>
+                className={`flex items-center -ml-8 mb-8 justify-center w-240px h-48px cursor-pointer ${
+                  prop.active === item.text ? 'bg-gradient' : ''
+                }`}>
                 <div className="flex items-center justify-center -ml-96">
                   <img src={item.url} alt="nnsdao nomos" className="w-24 h-24" />
                   <span className="ml-10"> {item.text}</span>

@@ -1,6 +1,6 @@
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import nnsDaoIcon from '../../assets/home/nnsdao.png';
 import NdpService from '../../utils/NdpService';
 import Account from './account/Index';
@@ -11,7 +11,7 @@ import DashBoard from './DashBoard/Index';
 import Wallet from './wallet/Index';
 
 const MainIndex = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const daoList = [
     {
@@ -36,7 +36,7 @@ const MainIndex = () => {
     window.localStorage.clear();
     storage.set('loginType', '');
     NdpService.resetService();
-    history.push('/home');
+    navigate('/home');
   };
   const handleMenu = (str: string) => {
     console.log(str, 'str');

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect, Route } from 'react-router-dom';
 class FrontendAuth extends Component {
   constructor(props) {
     super(props);
@@ -26,22 +25,22 @@ class FrontendAuth extends Component {
       resetLocal();
       isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
       if (!isLogin) {
-        return <Redirect to="/home" />;
+        return <Route to="/home" />;
       }
       if (pathname === '/login') {
-        return <Redirect to="/home" />;
+        return <Route to="/home" />;
       } else {
         if (targetRouterConfig) {
           return <Route path={pathname} component={targetRouterConfig.component} />;
         } else {
-          return <Redirect to="/home" />;
+          return <Route to="/home" />;
         }
       }
     } else {
       if (targetRouterConfig && targetRouterConfig.auth) {
-        return <Redirect to="/login" />;
+        return <Route to="/login" />;
       } else {
-        return <Redirect to="/home" />;
+        return <Route to="/home" />;
       }
     }
   }

@@ -1,10 +1,68 @@
+import { getNnsdaoActor } from '@/frontend/service';
+import NdpService from '@/frontend/utils/NdpService';
+import { Principal } from '@dfinity/principal';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Avatar, Box, Divider, LinearProgress } from '@mui/material';
-import React from 'react';
+import { Avatar, Box, Button, Dialog, DialogActions, Divider, LinearProgress } from '@mui/material';
+import { UserVoteArgs } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
+import BigNumber from 'bignumber.js';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProposalActive from '../../component/proposalActive/Index';
 
 const ProposalInfo = () => {
   const StructureList = ['1', '2', '3'];
+  const [open, setOpen] = React.useState(false);
+  const [voteType, setVoteType] = React.useState('');
+  const [NDP, setNDP] = React.useState('');
+  const [inputValue, setInput] = React.useState(0);
+  const handleClickOpen = string => {
+    setVoteType(string);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setVoteType('');
+    setOpen(false);
+  };
+  const navigate = useNavigate();
+
+  const goExplor = () => {
+    navigate('/MarketPlace', { replace: true });
+  };
+  // first fetch balance
+  // 1-100 ndp
+  const getBalance = async () => {
+    const getBalanceParams = {
+      token: 'NDP',
+      user: { address: window.localStorage.getItem('accountId') },
+    };
+    try {
+      const NDP = await NdpService.getBalance(getBalanceParams);
+      setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
+    } catch (error) {
+      console.error('getBalance', error);
+    }
+  };
+  let principal = localStorage.getItem('principal')!;
+
+  const voteFN = async () => {
+    const nnsdaoActor = await getNnsdaoActor(true);
+    const params: UserVoteArgs = {
+      id: BigInt(0),
+      principal: [Principal.fromText(principal)],
+      vote: { Yes: BigInt(inputValue) } || { No: BigInt(inputValue) },
+    };
+
+    // 2. approve
+
+    // 3. vote
+    const res = await nnsdaoActor.vote(params);
+    console.log(res);
+    //@ts-ignore
+  };
+  useEffect(() => {
+    getBalance();
+  }, []);
   return (
     <Box>
       <Box className="flex justify-between pt-10 pb-20 w-1000px">
@@ -14,7 +72,9 @@ const ProposalInfo = () => {
             return
           </Box>
           <Box className="">
-            <Box sx={{ paddingY: '15px', fontSize: '26px', wordWrap: 'break-word' }}>title111111111111111111111111111111111111111111111</Box>
+            <Box sx={{ paddingY: '15px', fontSize: '26px', wordWrap: 'break-word' }}>
+              title111111111111111111111111111111111111111111111
+            </Box>
             <Box className="flex justify-between py-20 ">
               <Box className="flex items-center">
                 <ProposalActive state={'active'}></ProposalActive>
@@ -33,7 +93,7 @@ const ProposalInfo = () => {
             <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>cast your vote</Box>
             <Divider sx={{ height: '1px', width: '618px', background: '#282828' }} orientation="vertical" />
             <Box sx={{ padding: '24px' }}>
-              <Box
+              <Button
                 sx={{
                   paddingY: '9px',
                   textAlign: 'center',
@@ -42,13 +102,30 @@ const ProposalInfo = () => {
                   border: '1px solid #282828',
                   marginBottom: '20px',
                   borderRadius: '22px',
+                  color: '#fff',
+                  width: '100%',
                   '&:hover': { border: '1px solid #818994' },
-                }}>
+                }}
+                onClick={() => handleClickOpen('yes')}>
                 FOR Structure
-              </Box>
-              <Box sx={{ paddingY: '9px', textAlign: 'center', fontWeight: '600', cursor: 'pointer', border: '1px solid #282828', borderRadius: '22px', '&:hover': { border: '1px solid #818994' } }}>
+              </Button>
+
+              <Button
+                sx={{
+                  paddingY: '9px',
+                  textAlign: 'center',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  border: '1px solid #282828',
+                  marginBottom: '20px',
+                  borderRadius: '22px',
+                  color: '#fff',
+                  width: '100%',
+                  '&:hover': { border: '1px solid #818994' },
+                }}
+                onClick={() => handleClickOpen('no')}>
                 AGAINST Structure
-              </Box>
+              </Button>
             </Box>
           </Box>
           <Box sx={{ marginTop: '90px', border: '1px solid #282828', borderRadius: '10px' }}>
@@ -58,7 +135,9 @@ const ProposalInfo = () => {
                 <Divider sx={{ height: '1px', width: '618px', background: '#282828' }} orientation="vertical" />
                 <Box className="flex justify-between items-center p-14" sx={{ fontWeight: '600' }}>
                   <Box className="flex items-center">
-                    <Avatar sx={{ width: 18, height: 18, marginRight: '10px', cursor: 'pointer' }} src={'avatar'}></Avatar>
+                    <Avatar
+                      sx={{ width: 18, height: 18, marginRight: '10px', cursor: 'pointer' }}
+                      src={'avatar'}></Avatar>
                     <Box sx={{ cursor: 'pointer' }}>name</Box>
                   </Box>
                   <Box>FOR Structure/AGAINST Structure</Box>
@@ -102,15 +181,48 @@ const ProposalInfo = () => {
               <Box sx={{ fontWeight: '700' }}>
                 FOR Structure {0}K NDP {100}%
               </Box>
-              <LinearProgress sx={{ border: '5px', marginY: '10px' }} variant="determinate" value={80} color={'primary'}></LinearProgress>
+              <LinearProgress
+                sx={{ border: '5px', marginY: '10px' }}
+                variant="determinate"
+                value={80}
+                color={'primary'}></LinearProgress>
               <Box sx={{ fontWeight: '700', marginY: '10px' }}>
                 AGAINST Structure {0}K NDP {0}%
               </Box>
-              <LinearProgress sx={{ border: '5px', marginY: '10px' }} variant="determinate" value={80} color={'primary'}></LinearProgress>
+              <LinearProgress
+                sx={{ border: '5px', marginY: '10px' }}
+                variant="determinate"
+                value={80}
+                color={'primary'}></LinearProgress>
             </Box>
           </Box>
         </Box>
       </Box>
+      <Dialog open={open} onClose={handleClose}>
+        <Box sx={{ width: '450px', padding: '20px', margin: '0 auto', background: '#0C0633' }}>
+          <Box sx={{ paddingY: '10px', textAlign: 'center' }}>Polling overview</Box>
+          <Box>
+            <Box className="flex justify-between items-center">
+              <Box>options: </Box>
+              <Box>{voteType === 'yes' ? 'FOR' : 'AGAINST'} </Box>
+            </Box>
+            <Box className="flex justify-between items-center">
+              <Box>your right to vote: </Box>
+              <Box>{NDP} </Box>
+            </Box>
+            <Box>
+              <input type="text" />
+            </Box>
+          </Box>
+
+          <DialogActions>
+            <Button onClick={handleClose}>Confirm</Button>
+            <Button onClick={handleClose} autoFocus>
+              Close
+            </Button>
+          </DialogActions>
+        </Box>
+      </Dialog>
     </Box>
   );
 };

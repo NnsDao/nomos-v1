@@ -232,10 +232,14 @@ const Index = () => {
         </div>
         <div className={`token-table + ${active === 'NFTs' ? 'token-table-nfts' : ' '}`}>
           <div className="mb-5">
-            <span className={`table-button + ${active === 'Token' ? '' : 'table-button2'}`} onClick={() => setActive('Token')}>
+            <span
+              className={`table-button + ${active === 'Token' ? '' : 'table-button2'}`}
+              onClick={() => setActive('Token')}>
               Token
             </span>
-            <span className={`table-button + ${active === 'NFTs' ? '' : 'table-button2'}`} onClick={() => setActive('NFTs')}>
+            <span
+              className={`table-button + ${active === 'NFTs' ? '' : 'table-button2'}`}
+              onClick={() => setActive('NFTs')}>
               NFTs
             </span>
           </div>
@@ -298,7 +302,10 @@ const Index = () => {
               <div className="flex flex-row flex-wrap w-full mx-10">
                 {listCollection.map((item, index) => (
                   <Card
-                    url={`https://vcpye-qyaaa-aaaak-qafjq-cai.raw.ic0.app/?cc=0&type=thumbnail&tokenid=${tokenIdentifier('vcpye-qyaaa-aaaak-qafjq-cai', item[0])}`}
+                    url={`https://vcpye-qyaaa-aaaak-qafjq-cai.raw.ic0.app/?cc=0&type=thumbnail&tokenid=${tokenIdentifier(
+                      'vcpye-qyaaa-aaaak-qafjq-cai',
+                      item[0]
+                    )}`}
                     title={'Starfish'}
                     index={index}
                     content={'The first NFTs of the NnsDAO ecosystem.'}

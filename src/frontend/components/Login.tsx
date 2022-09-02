@@ -2,7 +2,7 @@ import { agent } from '@nnsdao/nnsdao-kit/helper/agent';
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import { message } from 'antd';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
 import { getDistributeActor } from '../service';
@@ -12,7 +12,7 @@ import Loading from './Loading';
 import './login.css';
 
 const Index = () => {
-  let history = useHistory();
+  let navigate = useNavigate();
   const routerLink = (hash: string) => {
     if (hash === 'Story') {
       const wins: any = window.open('/story', '_blank');
@@ -21,7 +21,7 @@ const Index = () => {
       const wins: any = window.open('/product', '_blank');
       wins.focus();
     } else if (hash === 'Home') {
-      history.push('/home');
+      navigate('/home');
     }
   };
   const [isloading, setIsLoading] = useState(false);
@@ -71,7 +71,7 @@ const Index = () => {
   const successLogin = () => {
     getExChange();
     setIsLoading(false);
-    history.push('/home');
+    navigate('/home');
     message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
   };
   const getExChange = async () => {

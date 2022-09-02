@@ -1,6 +1,6 @@
 import { Collapse, Input, message } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Collaboration from '../assets/home/Collaboration.png';
 import creation from '../assets/home/creation.png';
 import DAOs from '../assets/home/DAO.png';
@@ -25,7 +25,9 @@ import NdpService from '../utils/NdpService';
 import './index.css';
 
 export default function index(prop: any) {
-  const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
+  const accountId: string = window.localStorage.getItem('accountId')
+    ? window.localStorage.getItem('accountId') + ''
+    : '';
 
   // const [count, setCount] = useState<string>();
 
@@ -50,7 +52,9 @@ export default function index(prop: any) {
   const [totalContributes, setTotalContributes] = useState(14000 * 100000000);
   const [currentContributes, setCurrentContributes] = useState(0);
   const getCurrentContributes = async () => {
-    const res = await fetch('https://dapi.nnsdao.com/api/block/search?recorde_addr=' + contributesAdress).then(res => res.json());
+    const res = await fetch('https://dapi.nnsdao.com/api/block/search?recorde_addr=' + contributesAdress).then(res =>
+      res.json()
+    );
     setCurrentContributes(res.data.Balance);
     changeContributesImg(currentContributes / totalContributes);
   };
@@ -136,7 +140,8 @@ export default function index(prop: any) {
   const faqList = [
     {
       frequently: 'What is NnsDAO Protocol?',
-      questions: 'NnsDAO is a boundaryless autonomous organization, which provides some basic modular programmable services for building the world of DAOn.',
+      questions:
+        'NnsDAO is a boundaryless autonomous organization, which provides some basic modular programmable services for building the world of DAOn.',
     },
     {
       frequently: 'What is a DAO fund?',
@@ -180,11 +185,12 @@ export default function index(prop: any) {
     },
     {
       frequently: 'Building a Future Together Starfish Culture?',
-      questions: 'Market Profile Picture, Fee Reduction Activities, Reputation Bonus, Starfish Staking Bonus, Airdrop, Starfish Arena, Starfish Raise Project.',
+      questions:
+        'Market Profile Picture, Fee Reduction Activities, Reputation Bonus, Starfish Staking Bonus, Airdrop, Starfish Arena, Starfish Raise Project.',
     },
   ];
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const goStory = () => {
     const wins: any = window.open('/story', '_blank');
     wins.focus();
@@ -201,18 +207,18 @@ export default function index(prop: any) {
       navigator.clipboard.writeText(contributesAdress);
       message.info('The account address has been copied to the clipboard');
     } else {
-      history.push('/login');
+      navigate('/login');
     }
   };
 
   const goMain = () => {
     // const wins: any = window.open('/main', '_blank');
     // wins.focus();
-    history.push('/main');
+    navigate('/main');
   };
 
   const goDaos = () => {
-    history.push('/daos');
+    navigate('/daos');
   };
 
   const [contributesImg, setContributesImg] = useState(state0);
@@ -250,7 +256,9 @@ export default function index(prop: any) {
                           setLink(item);
                         }
                       }}
-                      className={`pr-12 py-8 rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-12' : ''}`}>
+                      className={`pr-12 py-8 rounded-md text-sm font-medium ${
+                        link === item ? activeClass : inactiveClass
+                      } ${index > 4 ? 'ml-12' : ''}`}>
                       <span key={item} className={''}>
                         {item}
                       </span>
@@ -261,7 +269,9 @@ export default function index(prop: any) {
                         goStory();
                       }}
                       key={item}
-                      className={`pr-12 py-8  rounded-md text-sm font-medium ${link === item ? activeClass : inactiveClass} ${index > 4 ? 'ml-12' : ''}`}>
+                      className={`pr-12 py-8  rounded-md text-sm font-medium ${
+                        link === item ? activeClass : inactiveClass
+                      } ${index > 4 ? 'ml-12' : ''}`}>
                       {item}
                     </span>
                   )
@@ -269,12 +279,16 @@ export default function index(prop: any) {
               </div>
             </div>
             {isLogin ? (
-              <div onClick={goMain} className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center cursor-pointer'}>
+              <div
+                onClick={goMain}
+                className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center cursor-pointer'}>
                 {'Wallet'}
               </div>
             ) : (
               <Link to="/login">
-                <div className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center'}>{'Sign up'}</div>
+                <div className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center'}>
+                  {'Sign up'}
+                </div>
               </Link>
             )}
           </div>
@@ -346,7 +360,11 @@ export default function index(prop: any) {
           <div className="find-text-info">Join different DAOn's to brainstorm and collide with your own DAOs</div>
           <div className="flex justify-between mt-24">
             {daoList.map(item => (
-              <div key={item.url} className={'w-1/5 flex flex-col justify-content items-center transform hover:text-pink-400 hover:scale-125 transition duration-500  '}>
+              <div
+                key={item.url}
+                className={
+                  'w-1/5 flex flex-col justify-content items-center transform hover:text-pink-400 hover:scale-125 transition duration-500  '
+                }>
                 <div>
                   <img src={item.url} alt="" width={'280px'} height={'280px'} />
                 </div>
@@ -360,7 +378,10 @@ export default function index(prop: any) {
           <div className="find-text-info ">DAOs To Earn</div>
           <div className="flex mt-24 mx-8 justify-between items-stretch flex-wrap relative" data-aos="fade-up">
             {featuresList.slice(0, 3).map((item, index) => (
-              <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item ">
+              <div
+                key={index}
+                style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }}
+                className="featuresList-item ">
                 <div className={'flex items-center '}>
                   <img src={item.url} alt="" width={'29px'} height={'29px'} />
                   <span className={'text-xl ml-2'}>{item.title}</span>
@@ -373,7 +394,10 @@ export default function index(prop: any) {
 
           <div className="flex mt-24 mx-8 justify-between items-stretch flex-wrap" data-aos="fade-up">
             {featuresList.slice(3).map((item, index) => (
-              <div key={index} style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }} className="featuresList-item ">
+              <div
+                key={index}
+                style={{ background: 'linear-gradient(180deg, #3A4FE7, #C931B5)' }}
+                className="featuresList-item ">
                 <div className={'flex items-center '}>
                   <img src={item.url} alt="" width={'29px'} height={'29px'} />
                   <span className={'text-xl ml-2'}>{item.title}</span>
@@ -388,7 +412,9 @@ export default function index(prop: any) {
           <div className="find-text-title  font-mono mb-4">Work Flow</div>
           <div className="find-text-info ">
             You can be a boss, you just work for yourself.{' '}
-            <a href="https://github.com/NnsDao/nnsdao-org/tree/main/static/comics" className="text-blue-500 cursor-pointer">
+            <a
+              href="https://github.com/NnsDao/nnsdao-org/tree/main/static/comics"
+              className="text-blue-500 cursor-pointer">
               {' '}
               👀 DAOs Comics
             </a>
@@ -396,13 +422,31 @@ export default function index(prop: any) {
           <div className="h-500px flex flex-row justify-center items-center  my-24 ">
             <div className="flex h-500px flex-col justify-around cursor-pointer ">
               {workFlowList.map((item, index) => (
-                <div key={index} className={'ml-2 flex w-150px h-91px justify-center items-center  ' + `${work === item.text ? 'avtive-work' : 'work-flow'}`} onClick={() => setWork(item.text)}>
+                <div
+                  key={index}
+                  className={
+                    'ml-2 flex w-150px h-91px justify-center items-center  ' +
+                    `${work === item.text ? 'avtive-work' : 'work-flow'}`
+                  }
+                  onClick={() => setWork(item.text)}>
                   <div className={'text-3xl '}>{item.text}</div>
                 </div>
               ))}
             </div>
 
-            <div className={'flex-grow w-500px h-500px -ml-4 ' + `${work === 'Architecture' ? 'architecture' : work === 'DAOn' ? 'daon' : work === 'Work' ? 'work' : 'daos'}`}></div>
+            <div
+              className={
+                'flex-grow w-500px h-500px -ml-4 ' +
+                `${
+                  work === 'Architecture'
+                    ? 'architecture'
+                    : work === 'DAOn'
+                    ? 'daon'
+                    : work === 'Work'
+                    ? 'work'
+                    : 'daos'
+                }`
+              }></div>
           </div>
         </div>
         <div className={'max-w-1200px m-auto mt-200px flex flex-col justify-content items-start  text-white '}>
@@ -411,7 +455,10 @@ export default function index(prop: any) {
             <div className={'flex-grow m-auto -ml-4 w-1000px  h-1000px reputation '}></div>
           </div>
         </div>
-        <div id="FAQs" data-aos="fade-up" className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
+        <div
+          id="FAQs"
+          data-aos="fade-up"
+          className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
           <span className={'find-text-title font-mono mb-4'}>FAQs</span>
           <div className={'flex flex-wrap justify-between my-24 text-white w-full'}>
             <Collapse defaultActiveKey={['0']} ghost accordion expandIconPosition={'right'}>

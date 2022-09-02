@@ -62,7 +62,7 @@ const ProposalItem = () => {
       <Box>
         {Proposal.data.map(item => (
           <Box
-            key={item}
+            key={item[0]}
             className=" cursor-pointer "
             onClick={() => {
               goProposalInfo();
