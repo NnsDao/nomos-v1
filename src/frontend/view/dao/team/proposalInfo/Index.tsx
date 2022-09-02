@@ -1,8 +1,9 @@
-import { getNnsdaoActor } from '@/frontend/service';
+import { getNICPActor, getNnsdaoActor } from '@/frontend/service';
 import NdpService from '@/frontend/utils/NdpService';
 import { Principal } from '@dfinity/principal';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Avatar, Box, Button, Dialog, DialogActions, Divider, LinearProgress } from '@mui/material';
+import { Avatar, Box, Button, Dialog, DialogActions, Divider, InputBase, LinearProgress } from '@mui/material';
+import Input from '@mui/material/Input';
 import { UserVoteArgs } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
 import BigNumber from 'bignumber.js';
 import React, { useEffect } from 'react';
@@ -13,8 +14,10 @@ const ProposalInfo = () => {
   const StructureList = ['1', '2', '3'];
   const [open, setOpen] = React.useState(false);
   const [voteType, setVoteType] = React.useState('');
-  const [NDP, setNDP] = React.useState('');
-  const [inputValue, setInput] = React.useState(0);
+  const [NDP, setNDP] = React.useState(0);
+  const [inputValue, setInput] = React.useState('');
+  let isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+
   const handleClickOpen = string => {
     setVoteType(string);
     setOpen(true);
@@ -26,11 +29,10 @@ const ProposalInfo = () => {
   };
   const navigate = useNavigate();
 
-  const goExplor = () => {
-    navigate('/MarketPlace', { replace: true });
+  const goLogin = () => {
+    navigate('/login', { replace: true });
   };
-  // first fetch balance
-  // 1-100 ndp
+
   const getBalance = async () => {
     const getBalanceParams = {
       token: 'NDP',
@@ -50,7 +52,7 @@ const ProposalInfo = () => {
     const params: UserVoteArgs = {
       id: BigInt(0),
       principal: [Principal.fromText(principal)],
-      vote: { Yes: BigInt(inputValue) } || { No: BigInt(inputValue) },
+      vote: voteType == 'yes' ? { Yes: BigInt(inputValue) } : { No: BigInt(inputValue) },
     };
 
     // 2. approve
@@ -59,6 +61,28 @@ const ProposalInfo = () => {
     const res = await nnsdaoActor.vote(params);
     console.log(res);
     //@ts-ignore
+  };
+  const approve = async () => {
+    const NICPActor = await getNICPActor(true);
+    const approve = await NICPActor.approve(
+      Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'),
+      BigInt(Number(inputValue) * 1e8)
+    );
+  };
+  const confirm = async () => {
+    // step
+    // 1 isLogin
+    // 2 check Balance
+    // 2 approve
+    // 3 vote
+    if (!isLogin) {
+      goLogin();
+    }
+    if (inputValue > Number(NDP) / 1e8) {
+      return;
+    }
+    await approve;
+    voteFN();
   };
   useEffect(() => {
     getBalance();
@@ -211,12 +235,18 @@ const ProposalInfo = () => {
               <Box>{NDP} </Box>
             </Box>
             <Box>
-              <input type="text" />
+              <Input type="number"></Input>
+              <InputBase
+                onChange={e => setInput(e.target.value)}
+                sx={{ ml: 1, flex: 1, color: '#fff', marginLeft: '0px' }}
+                placeholder="Search for dao of interest"
+                inputProps={{ 'aria-label': 'search google maps' }}
+              />
             </Box>
           </Box>
 
           <DialogActions>
-            <Button onClick={handleClose}>Confirm</Button>
+            <Button onClick={confirm}>Confirm</Button>
             <Button onClick={handleClose} autoFocus>
               Close
             </Button>
