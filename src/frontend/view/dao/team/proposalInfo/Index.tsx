@@ -1,4 +1,3 @@
-import { getNICPActor, getNnsdaoActor } from '@/frontend/service';
 import NdpService from '@/frontend/utils/NdpService';
 import { Principal } from '@dfinity/principal';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -8,6 +7,7 @@ import { UserVoteArgs } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
 import BigNumber from 'bignumber.js';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getNICPActor, getNnsdaoActor } from '../../../../service';
 import ProposalActive from '../../component/proposalActive/Index';
 
 const ProposalInfo = () => {
@@ -40,7 +40,7 @@ const ProposalInfo = () => {
     };
     try {
       const NDP = await NdpService.getBalance(getBalanceParams);
-      setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
+      setNDP(Number(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString()));
     } catch (error) {
       console.error('getBalance', error);
     }
@@ -78,7 +78,7 @@ const ProposalInfo = () => {
     if (!isLogin) {
       goLogin();
     }
-    if (inputValue > Number(NDP) / 1e8) {
+    if (Number(inputValue) > Number(NDP) / 1e8) {
       return;
     }
     await approve;

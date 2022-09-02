@@ -7,11 +7,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/main/logo.png';
 import NdpService from '../../utils/NdpService';
+import { useAuth } from '../../utils/useAuth';
 import DaoCreate from './daoCreate/Index';
 import Team from './team/Index';
 import ProposalInfo from './team/proposalInfo/Index';
 
 const Dao = () => {
+  useAuth();
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 
   const [active, setActive] = useState('Home');
@@ -43,7 +45,7 @@ const Dao = () => {
     window.localStorage.setItem('principal', '');
     window.localStorage.clear();
     storage.set('loginType', '');
-    history.replace('/home');
+    navigate('/home', { replace: true });
     NdpService.resetService();
   };
   const goMain = () => {

@@ -3,6 +3,7 @@ import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
 import { getDistributeActor } from '../service';
