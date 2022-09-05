@@ -1,4 +1,3 @@
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import { Backdrop, Button, CircularProgress, Menu, MenuItem } from '@mui/material';
@@ -70,13 +69,16 @@ const DaoHome = () => {
         </Backdrop>
       );
     }
-    if (totalList.error || !totalList.data?.length) {
-      return (
-        <Box sx={{ textAlign: 'center', margin: '0 auto' }}>
-          <HelpOutlineOutlinedIcon fontSize="large"></HelpOutlineOutlinedIcon>
-          <div className="px-16">NO DATA</div>
-        </Box>
-      );
+    // if (totalList.error || !totalList.data?.length) {
+    //   return (
+    //     <Box sx={{ textAlign: 'center', margin: '0 auto' }}>
+    //       <HelpOutlineOutlinedIcon fontSize="large"></HelpOutlineOutlinedIcon>
+    //       <div className="px-16">NO DATA</div>
+    //     </Box>
+    //   );
+    // }
+    if (totalList.data?.length === 0) {
+      return Data.map(item => <Info data={item} key={item.name}></Info>);
     }
 
     return Data.map(item => <Info data={item} key={item.name}></Info>);

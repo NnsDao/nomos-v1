@@ -41,13 +41,11 @@ const Dao = () => {
           <div
             onClick={() => navigate('/main')}
             className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center cursor-pointer'}>
-            'Wallet'
+            Wallet
           </div>
         ) : (
           <Link to="/login">
-            <div className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center'}>
-              'Sign up'
-            </div>
+            <div className={'w-128 h-48 rounded-3xl bg-sign text-white flex justify-center items-center'}>Sign up</div>
           </Link>
         )}
       </Box>
@@ -68,7 +66,7 @@ const Dao = () => {
           </div>
         ))}
       </div>
-      <div className="ml-80" style={{ minHeight: 'calc(100vh - 72px)' }}>
+      <div className="ml-80" style={{ minHeight: 'calc(100vh - 72px)', width: '970px', margin: '25px auto' }}>
         <Outlet />
       </div>
     </div>

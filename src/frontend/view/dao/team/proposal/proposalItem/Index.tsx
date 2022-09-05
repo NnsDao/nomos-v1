@@ -5,13 +5,15 @@ import { principalToAccountIdentifier } from '../../../../../utils/account';
 
 import { Principal } from '@dfinity/principal';
 import { Votes } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
+import { useNavigate } from 'react-router-dom';
 import { useGetProposalList } from '../../../../../api/nnsdao';
 import ProposalActive from '../../../component/proposalActive/Index';
 const ProposalItem = () => {
   const Proposal = useGetProposalList();
+  const navigate = useNavigate();
 
   const goProposalInfo = () => {
-    console.log('goProposalInfo');
+    navigate('/daos/proposalInfo');
   };
 
   const tempAdd = (principal: Principal) => {
@@ -62,7 +64,7 @@ const ProposalItem = () => {
       <Box>
         {Proposal.data.map(item => (
           <Box
-            key={item[0]}
+            key={Number(item[0])}
             className=" cursor-pointer "
             onClick={() => {
               goProposalInfo();

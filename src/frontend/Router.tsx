@@ -1,3 +1,6 @@
+import NewProposal from '@view/dao/newProposal/Index';
+import ProposalInfo from '@view/dao/proposalInfo/Index';
+import Team from '@view/dao/team/Index';
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import Login from './components/Login';
@@ -22,6 +25,9 @@ const routerConfig = [
         element: <DaoHome />,
       },
       { path: 'createdao', element: <CreateDao /> },
+      { path: 'team', element: <Team /> },
+      { path: 'proposalInfo', element: <ProposalInfo /> },
+      { path: 'newProposal', element: <NewProposal /> },
     ],
   },
   { path: '/product', element: <Product /> },

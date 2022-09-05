@@ -218,7 +218,7 @@ export default function index(prop: any) {
   };
 
   const goDaos = () => {
-    navigate('/daos');
+    navigate('/daos/home');
   };
 
   const [contributesImg, setContributesImg] = useState(state0);

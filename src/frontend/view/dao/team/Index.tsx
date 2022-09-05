@@ -2,10 +2,13 @@ import UpdateIcon from '@mui/icons-material/Update';
 import { Alert, AlertColor, Avatar, Box, CircularProgress, Snackbar } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
 import { nnsdaoKeys } from '../../../api/nnsdao/queries';
+import About from '../newProposal/Index';
 import Proposal from './proposal/Index';
+import SetUp from './setUp/Index';
+import Treasury from './treasury/Index';
 
 const Team = () => {
   const accountId = window.localStorage.getItem('accountId')!;
@@ -22,6 +25,8 @@ const Team = () => {
     message: '',
     type: 'success',
   });
+  const navigate = useNavigate();
+
   const { open, message, type } = state;
   const handleClick = newState => () => {
     console.log(1);
@@ -32,8 +37,7 @@ const Team = () => {
     setState({ ...state, open: false });
   };
   const join = async () => {
-    if (isLogin) return;
-
+    if (!isLogin) return;
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
     await joinAction.mutateAsync(joinParams);
     handleClick({
@@ -50,7 +54,7 @@ const Team = () => {
   };
   const quit = async () => {
     //
-    if (isLogin) return;
+    if (!isLogin) return;
     await quitAction.mutateAsync();
     handleClick({
       open: true,
@@ -160,7 +164,13 @@ const Team = () => {
         <Box sx={{ marginY: '20px' }}>
           {tabList.map(item => (
             <Box
-              onClick={() => setActiveTab(item)}
+              onClick={() => {
+                if (item === 'new proposal') {
+                  navigate('/daos/newProposal');
+                } else {
+                  setActiveTab(item);
+                }
+              }}
               key={item}
               sx={{
                 width: 230,
@@ -177,7 +187,10 @@ const Team = () => {
         </Box>
       </Box>
       <Box className=" max-w-700 ml-265px">
-        <Proposal></Proposal>
+        {activeTab === 'proposal' ? <Proposal></Proposal> : null}
+        {activeTab === 'about' ? <About /> : null}
+        {activeTab === 'treasury' ? <Treasury /> : null}
+        {activeTab === 'set up' ? <SetUp /> : null}
       </Box>
       <Snackbar
         anchorOrigin={{ horizontal: 'center', vertical: 'top' }}

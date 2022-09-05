@@ -7,16 +7,18 @@ import NdpService from '@utils/NdpService';
 import BigNumber from 'bignumber.js';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getNICPActor, getNnsdaoActor } from '../../../../service';
+import { getNICPActor, getNnsdaoActor } from '../../../service';
 
-import ProposalActive from '../../component/proposalActive/Index';
+import ProposalActive from '../component/proposalActive/Index';
 
 const ProposalInfo = () => {
+  const navigate = useNavigate();
   const StructureList = ['1', '2', '3'];
   const [open, setOpen] = React.useState(false);
   const [voteType, setVoteType] = React.useState('');
   const [NDP, setNDP] = React.useState(0);
   const [inputValue, setInput] = React.useState('');
+
   let isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
 
   const handleClickOpen = string => {
@@ -28,7 +30,6 @@ const ProposalInfo = () => {
     setVoteType('');
     setOpen(false);
   };
-  const navigate = useNavigate();
 
   const goLogin = () => {
     navigate('/login', { replace: true });
@@ -70,6 +71,7 @@ const ProposalInfo = () => {
       BigInt(Number(inputValue) * 1e8)
     );
   };
+
   const confirm = async () => {
     // step
     // 1 isLogin
@@ -85,6 +87,9 @@ const ProposalInfo = () => {
     await approve;
     voteFN();
   };
+  const goBack = () => {
+    navigate(-1);
+  };
   useEffect(() => {
     getBalance();
   }, []);
@@ -92,7 +97,7 @@ const ProposalInfo = () => {
     <Box>
       <Box className="flex justify-between pt-10 pb-20 w-1000px">
         <Box sx={{ width: '620px', marginRight: '20px' }}>
-          <Box sx={{ color: '#8b949e', cursor: 'pointer' }}>
+          <Box sx={{ color: '#8b949e', cursor: 'pointer' }} onClick={goBack}>
             <KeyboardBackspaceIcon sx={{ width: '20px', height: '20px', marginRight: '6px' }}></KeyboardBackspaceIcon>
             return
           </Box>
