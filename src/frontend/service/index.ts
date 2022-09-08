@@ -9,7 +9,11 @@ import canister from './config';
 export const LOGINTYPE = localStorage.getItem('loginType');
 export const PLUGLOGIN = LOGINTYPE === 'plug';
 
-export const getDistributeActor = async (needAuth?: boolean) => getActor<DistributeActor>({ needAuth, ...canister.distribute });
-export const getNnsdaoActor = async (needAuth?: boolean) => getActor<nnsdaoActor>({ needAuth, ...canister.nnsdao });
+export const getDistributeActor = async (needAuth?: boolean) =>
+  getActor<DistributeActor>({ needAuth, ...canister.distribute });
 export const getNICPActor = async (needAuth?: boolean) => getActor<nicpActor>({ needAuth, ...canister.nicp });
-export const getDaoManagerActor = async (needAuth?: boolean) => getActor<DaoManagerActor>({ needAuth, ...canister.dao_manager });
+export const getDaoManagerActor = async (needAuth?: boolean) =>
+  getActor<DaoManagerActor>({ needAuth, ...canister.dao_manager });
+
+export const getNnsdaoActor = async (cid: string, needAuth?: boolean) =>
+  getActor<nnsdaoActor>({ needAuth, ...canister.nnsdao, cid });

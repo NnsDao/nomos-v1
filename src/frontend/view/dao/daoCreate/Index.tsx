@@ -1,11 +1,10 @@
 import { Alert, Box, Button, Chip, Divider, Snackbar, Stack, TextField, Typography } from '@mui/material';
+import { payWithICP } from '@nnsdao/nnsdao-kit/helper/pay';
 import { CreateDaoInfo } from '@nnsdao/nnsdao-kit/src/dao_manager/types';
-import { useMutation } from '@tanstack/react-query';
 import React, { useReducer, useRef, useState } from 'react';
-import { createDao } from '../../../api/dao_manager';
+import { getPayInfo, useCreateAction } from '../../../api/dao_manager';
 import RichText from '../../../components/RichText';
 import style from './style.module.css';
-
 const DaoCreate = () => {
   const steps = [
     {
@@ -48,11 +47,7 @@ const DaoCreate = () => {
   };
   const ActiveContent = () => {
     const [snackBarStr, setSnackBarStr] = useState('');
-    const createAction = useMutation(createDao, {
-      onSuccess: (data, variable, ctx) => {
-        console.log('createAction', data, variable, ctx);
-      },
-    });
+    const createAction = useCreateAction();
     const initialValue = [
       {
         type: 'paragraph',
@@ -106,8 +101,9 @@ const DaoCreate = () => {
       } as const
     );
 
-    const confirm = () => {
+    const confirm = async () => {
       // validate
+
       const { name, poster, avatar, tag } = form;
       const params: CreateDaoInfo = {
         name,
@@ -116,9 +112,11 @@ const DaoCreate = () => {
         tags: tag,
         intro: JSON.stringify(editorRef.current),
         option: [],
+        memo: 0n,
+        block_height: 0n,
       };
       for (const key of Object.keys(params)) {
-        if (key === 'option') {
+        if (['option', 'memo', 'block_height'].includes(key)) {
           continue;
         }
         if (!checkField(key, params[key])) {
@@ -127,8 +125,27 @@ const DaoCreate = () => {
       }
       console.log('confirm', params);
 
-      //
-      createAction.mutate(params);
+      const payInfo = await getPayInfo().catch(() => null);
+      if (!payInfo) {
+        setSnackBarStr(`Failed getPayInfo`);
+        return;
+      }
+      params.memo = payInfo.memo;
+
+      // transfer
+      const blockHeight = await payWithICP(payInfo.amount, payInfo.to, payInfo.memo);
+      console.log('blockHeight', blockHeight);
+      params.block_height = BigInt(blockHeight);
+      // create
+      const dao = createAction.mutate(params, {
+        onSuccess(data, variable) {
+          // console.log('createAction onSuccess', data, variable);
+          //
+        },
+        onError(err, variable) {
+          console.log('createAction onError', err, variable);
+        },
+      });
     };
     function checkField(key, value) {
       if (!value || !value?.length) {

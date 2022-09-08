@@ -1,22 +1,15 @@
-export const nnsdaoKeys = {
-  all: [{ module: 'nnsdao' }] as const,
-  userInfo: () => [{ ...nnsdaoKeys.all, scope: 'userInfo' }] as const,
-  userInfos: () => [{ ...nnsdaoKeys.userInfos() }] as const,
-  vote: () => [{ ...nnsdaoKeys.all, scope: 'vote' }] as const,
-  votes: () => [{ ...nnsdaoKeys.votes() }] as const,
-  quit: () => [{ ...nnsdaoKeys.all, scope: 'quit' }] as const,
-  quits: () => [{ ...nnsdaoKeys.quits() }] as const,
-  propose: () => [{ ...nnsdaoKeys.all, scope: 'propose' }] as const,
-  proposes: () => [{ ...nnsdaoKeys.proposes() }] as const,
-  member_list: () => [{ ...nnsdaoKeys.all, scope: 'member_list' }] as const,
-  member_lists: () => [{ ...nnsdaoKeys.member_lists() }] as const,
-  join: () => [{ ...nnsdaoKeys.all, scope: 'join' }] as const,
-  joins: () => [{ ...nnsdaoKeys.joins() }] as const,
-  get_proposal: () => [{ ...nnsdaoKeys.all, scope: 'get_proposal' }] as const,
-  get_proposals: () => [{ ...nnsdaoKeys.get_proposals() }] as const,
-  get_handled_proposal: () => [{ ...nnsdaoKeys.all, scope: 'get_handled_proposal' }] as const,
-  get_handled_proposals: () => [{ ...nnsdaoKeys.get_handled_proposals() }] as const,
+import { composeQueryKeys } from '../../utils/helpers';
 
-  getProposalList: () => [{ ...nnsdaoKeys.all, scope: 'get_proposal_list' }] as const,
-  getProposalLists: () => [{ ...nnsdaoKeys.getProposalLists() }] as const,
+const module = 'nnsdao';
+
+export const nnsdaoKeys = {
+  all: composeQueryKeys([{ module }]),
+  userInfos: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'userInfo' }),
+  userInfo: (principalText: string) => composeQueryKeys(nnsdaoKeys.userInfos(), { principalText }),
+  votes: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'vote' }),
+  vote: (id: string) => composeQueryKeys(nnsdaoKeys.votes(), { id }),
+  member_lists: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'member_lists' }),
+  member_list: (cid: string) => composeQueryKeys(nnsdaoKeys.member_lists(), { cid }),
+  proposal_lists: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'proposal_lists' }),
+  proposal: id => composeQueryKeys(nnsdaoKeys.proposal_lists(), { id }),
 };

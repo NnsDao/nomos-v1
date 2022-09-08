@@ -11,7 +11,7 @@ export default function info(props) {
   const joinAction = useJoin();
   const quitAction = useQuit();
   const queryClient = useQueryClient();
-  const useInfo = useGetUserInfo();
+  const useInfo = useGetUserInfo('agent.getPrincipal()');
   const navigate = useNavigate();
 
   const join = async () => {
@@ -88,9 +88,14 @@ export default function info(props) {
       </Box>
     );
   };
+  const jumpToDao = () => {
+    const cid = props.data.canister_id.toText();
+    console.log('cid', props);
+    navigate(`/daos/team/${cid}`);
+  };
   return (
     <Box
-      onClick={() => navigate('/daos/team')}
+      onClick={jumpToDao}
       sx={{
         width: 220,
         height: 280,

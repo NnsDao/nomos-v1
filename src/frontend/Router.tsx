@@ -25,7 +25,7 @@ const routerConfig = [
         element: <DaoHome />,
       },
       { path: 'createdao', element: <CreateDao /> },
-      { path: 'team', element: <Team /> },
+      { path: 'team/:cid', element: <Team /> },
       { path: 'proposalInfo', element: <ProposalInfo /> },
       { path: 'newProposal', element: <NewProposal /> },
     ],

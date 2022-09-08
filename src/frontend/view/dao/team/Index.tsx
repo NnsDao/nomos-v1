@@ -2,7 +2,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import { Alert, AlertColor, Avatar, Box, CircularProgress, Snackbar } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
 import { nnsdaoKeys } from '../../../api/nnsdao/queries';
 import About from '../newProposal/Index';
@@ -11,13 +11,14 @@ import SetUp from './setUp/Index';
 import Treasury from './treasury/Index';
 
 const Team = () => {
+  const { cid = '' } = useParams();
   const accountId = window.localStorage.getItem('accountId')!;
   const tabList = ['proposal', 'new proposal', 'about', 'treasury', 'set up'];
   const [activeTab, setActiveTab] = useState('proposal');
-  const useInfo = useGetUserInfo();
+  const useInfo = useGetUserInfo(cid);
   const joinAction = useJoin();
   const quitAction = useQuit();
-  const memberList = useMemberList();
+  const memberList = useMemberList(cid);
   const queryClient = useQueryClient();
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
   const [state, setState] = useState({
