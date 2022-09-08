@@ -1,5 +1,5 @@
 import React from 'react';
-import Badges from '../../components/badges';
+import Badges from '../../../main/components/badges';
 import './index.css';
 type item = {
   data: string;
@@ -22,7 +22,13 @@ const Index = (prop: Prop) => {
         {!badgesStatus ? (
           prop.badgesList.map((item, idx) => (
             <div className="w-1/5 mr-8 mb-5" key={idx}>
-              <Badges data={item[0].data} desc={item[0].desc} name={item[0].name} requtation={item[0].requtation} token={item[0].token} />
+              <Badges
+                data={item[0].data}
+                desc={item[0].desc}
+                name={item[0].name}
+                requtation={item[0].requtation}
+                token={item[0].token}
+              />
             </div>
           ))
         ) : (

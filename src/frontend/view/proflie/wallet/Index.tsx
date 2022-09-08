@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import { getNICPActor } from '../../../service/index';
 import NdpService from '../../../utils/NdpService';
-import Card from '../components/Card';
+import Card from '../../main/components/Card';
 
 import './index.css';
 import Transfer from './transfer';
@@ -17,7 +17,7 @@ type tokenItem = {
   isClaim: boolean;
   isMint: boolean;
 };
-const Index = () => {
+const Wallet = () => {
   let address = localStorage.getItem('accountId');
   let principal = localStorage.getItem('principal')!;
   const [isOpen, setOpen] = useState(false);
@@ -215,19 +215,19 @@ const Index = () => {
         <div className="balance-wrapper">
           <div className="base-balance total ">
             <span className="balance-text">Total balance</span>
-            <span className="balance-number text-3xl">${(balanceICP + Number(ndp) / 200).toFixed(4) || 0} ICP</span>
+            <span className="balance-number ">${(balanceICP + Number(ndp) / 200).toFixed(4) || 0} ICP</span>
           </div>
           <div className="base-balance balance ">
             <span className="balance-text">Balance ICP</span>
-            <span className="balance-number text-3xl">{balanceICP || 0}</span>
+            <span className="balance-number ">{balanceICP.toFixed(4) || 0}</span>
           </div>
           <div className="base-balance ndp ">
             <span className="balance-text">NDP</span>
-            <span className="balance-number text-3xl">{ndp || 0}</span>
+            <span className="balance-number ">{Number(ndp).toFixed(4) || 0}</span>
           </div>
           <div className="base-balance nft ">
             <span className="balance-text">NFTs</span>
-            <span className="balance-number text-3xl">{nfts || 0}</span>
+            <span className="balance-number ">{nfts || 0}</span>
           </div>
         </div>
         <div className={`token-table + ${active === 'NFTs' ? 'token-table-nfts' : ' '}`}>
@@ -323,4 +323,4 @@ const Index = () => {
     </>
   );
 };
-export default Index;
+export default Wallet;

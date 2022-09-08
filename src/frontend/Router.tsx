@@ -1,6 +1,7 @@
 import NewProposal from '@view/dao/newProposal/Index';
 import ProposalInfo from '@view/dao/proposalInfo/Index';
 import Team from '@view/dao/team/Index';
+import Profile from '@view/proflie/Index';
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import Login from './components/Login';
@@ -33,6 +34,7 @@ const routerConfig = [
   { path: '/product', element: <Product /> },
   { path: '/main', element: <Main /> },
   { path: '/home', element: <Index /> },
+  { path: '/profile', element: <Profile /> },
 ];
 
 export function RouterConfig() {
