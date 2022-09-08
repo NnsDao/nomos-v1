@@ -4,8 +4,8 @@ import { getNnsdaoActor } from '../../service';
 import { nnsdaoKeys } from './queries';
 
 export const get_handled_proposal = async ({ queryKey }) => {
-  const { module, scope } = queryKey[0];
-  const actor = await getNnsdaoActor(false);
+  const { cid, module, scope } = queryKey[0];
+  const actor = await getNnsdaoActor(cid, false);
   try {
     const res = await actor.get_handled_proposal();
     console.log('get_handled_proposal', res);
@@ -15,11 +15,12 @@ export const get_handled_proposal = async ({ queryKey }) => {
     return Promise.reject(null);
   }
 };
+
 export const get_proposal = async ({ queryKey }) => {
-  const { module, scope } = queryKey[0];
-  const actor = await getNnsdaoActor(false);
+  const { module, cid, id, scope } = queryKey[0];
+  const actor = await getNnsdaoActor(cid, false);
   try {
-    const res = await actor.get_proposal();
+    const res = await actor.get_proposal(id);
     console.log('get_proposal', res);
     return res;
   } catch (error) {
@@ -38,8 +39,9 @@ export const join = async (params: JoinDaoParams) => {
     return Promise.reject(null);
   }
 };
-export const member_list = async () => {
-  const actor = await getNnsdaoActor(false);
+export const member_list = async ({ queryKey }) => {
+  const { cid } = queryKey[0];
+  const actor = await getNnsdaoActor(cid, false);
   try {
     const res = await actor.member_list();
     console.log('member_list', res);
@@ -76,21 +78,16 @@ export const quit = async () => {
     return Promise.reject(null);
   }
 };
-export const user_info = async ({ queryKey }) => {
-  const { module, scope } = queryKey[0];
+export const user_info = async (...args) => {
+  console.log('args', args);
+  // const { module, scope } = queryKey[0];
   const actor = await getNnsdaoActor(true);
-  try {
-    const res = await actor.user_info();
-    console.log('user_info', res);
-    if ('Ok' in res) {
-      return res.Ok;
-    } else {
-      return Promise.reject(null);
-    }
-  } catch (error) {
-    console.log('user_info', error);
-    return '';
+  const res = await actor.user_info();
+  console.log('user_info', res);
+  if ('Ok' in res) {
+    return res.Ok;
   }
+  return Promise.reject(null);
 };
 export const vote = async params => {
   const actor = await getNnsdaoActor(true);
@@ -119,12 +116,18 @@ export const getProposalList = async () => {
     return [];
   }
 };
+
+/**
+ *
+ *  Hooks
+ */
+
 export const useGetProposalList = () => {
-  return useQuery(nnsdaoKeys.getProposalList(), getProposalList);
+  return useQuery(nnsdaoKeys.proposal_lists(), getProposalList);
 };
 
-export const useGetUserInfo = () => {
-  return useQuery(nnsdaoKeys.userInfo(), user_info);
+export const useGetUserInfo = (principalText: string) => {
+  return useQuery(nnsdaoKeys.userInfo(principalText), user_info);
 };
 export const useVote = () => {
   return useQuery(nnsdaoKeys.vote(), vote);
@@ -135,15 +138,15 @@ export const useQuit = () => {
 export const usePropose = () => {
   return useQuery(nnsdaoKeys.propose(), propose);
 };
-export const useMemberList = () => {
-  return useQuery(nnsdaoKeys.member_list(), member_list);
+export const useMemberList = (cid: string) => {
+  return useQuery(nnsdaoKeys.member_list(cid), member_list);
 };
 export const useJoin = () => {
   return useMutation(join);
 };
 
 export const useGetProposal = () => {
-  return useQuery(nnsdaoKeys.get_proposal(), get_proposal);
+  return useQuery(nnsdaoKeys.proposal(id), get_proposal);
 };
 export const useGetHandledProposal = () => {
   return useQuery(nnsdaoKeys.get_handled_proposal(), get_handled_proposal);

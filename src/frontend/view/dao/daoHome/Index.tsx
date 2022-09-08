@@ -77,11 +77,11 @@ const DaoHome = () => {
     //     </Box>
     //   );
     // }
-    if (totalList.data?.length === 0) {
+    if (!totalList.data?.length) {
       return Data.map(item => <Info data={item} key={item.name}></Info>);
     }
 
-    return Data.map(item => <Info data={item} key={item.name}></Info>);
+    return totalList.data.map(item => <Info data={item} key={item.id}></Info>);
   };
   return (
     <div className="flex justify-center">
