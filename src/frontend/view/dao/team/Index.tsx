@@ -2,7 +2,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import { Alert, AlertColor, Avatar, Box, CircularProgress, Snackbar } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
 import { nnsdaoKeys } from '../../../api/nnsdao/queries';
 import About from '../newProposal/Index';
@@ -205,4 +205,13 @@ const Team = () => {
     </Box>
   );
 };
-export default Team;
+
+export default function DaoTeam() {
+  return (
+    <>
+      <Outlet />
+    </>
+  );
+}
+
+export { Team };

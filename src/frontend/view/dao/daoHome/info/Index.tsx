@@ -6,12 +6,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function info(props) {
+  let { id, canister_id } = props.data;
+  const cid = canister_id.toText();
   const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
   const accountId = window.localStorage.getItem('accountId')!;
   const joinAction = useJoin();
   const quitAction = useQuit();
   const queryClient = useQueryClient();
-  const useInfo = useGetUserInfo('agent.getPrincipal()');
+  const useInfo = useGetUserInfo(cid);
   const navigate = useNavigate();
 
   const join = async () => {

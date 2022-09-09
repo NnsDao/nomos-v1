@@ -10,6 +10,6 @@ export const nnsdaoKeys = {
   vote: (id: string) => composeQueryKeys(nnsdaoKeys.votes(), { id }),
   member_lists: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'member_lists' }),
   member_list: (cid: string) => composeQueryKeys(nnsdaoKeys.member_lists(), { cid }),
-  proposal_lists: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'proposal_lists' }),
-  proposal: id => composeQueryKeys(nnsdaoKeys.proposal_lists(), { id }),
+  proposal_lists: cid => composeQueryKeys(nnsdaoKeys.all, { scope: 'proposal_lists', cid }),
+  proposal: (cid, id) => composeQueryKeys(nnsdaoKeys.proposal_lists(cid), { id }),
 };
