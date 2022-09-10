@@ -155,7 +155,6 @@ const Wallet = () => {
     return () => clearInterval(interval.current);
   });
   useEffect(() => {
-    NdpService.getPlugActor();
     getBalanceNicp();
   }, []);
 

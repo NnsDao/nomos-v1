@@ -4,11 +4,13 @@ import { Avatar, Box, CircularProgress } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../../../hooks/userStore';
 
 export default function info(props) {
   let { id, canister_id } = props.data;
   const cid = canister_id.toText();
-  const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const userStore = useUserStore();
+  const isLogin = userStore.isLogin;
   const accountId = window.localStorage.getItem('accountId')!;
   const joinAction = useJoin();
   const quitAction = useQuit();

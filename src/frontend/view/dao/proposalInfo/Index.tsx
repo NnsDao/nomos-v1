@@ -7,6 +7,7 @@ import NdpService from '@utils/NdpService';
 import BigNumber from 'bignumber.js';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../../hooks/userStore';
 import { getNICPActor, getNnsdaoActor } from '../../../service';
 
 import ProposalActive from '../component/proposalActive/Index';
@@ -19,7 +20,8 @@ const ProposalInfo = () => {
   const [NDP, setNDP] = React.useState(0);
   const [inputValue, setInput] = React.useState('');
 
-  let isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const userStore = useUserStore();
+  const isLogin = userStore.isLogin;
 
   const handleClickOpen = string => {
     setVoteType(string);

@@ -1,8 +1,7 @@
-import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import wallet from '../../../assets/main/Wallet.png';
-import NdpService from '../../../utils/NdpService';
+import { useUserStore } from '../../../hooks/userStore';
 import './nav.css';
 
 type prop = {
@@ -10,17 +9,19 @@ type prop = {
   active: string;
   onClick: (key: string) => void;
 };
-const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+
 const Nav = (prop: prop) => {
   const navigate = useNavigate();
+  const userStore = useUserStore();
+  const isLogin = userStore.isLogin;
+
   const logout = () => {
-    window.localStorage.setItem('isLogin', '0');
-    window.localStorage.setItem('loginType', 'ooooooo');
-    window.localStorage.setItem('principal', '');
-    window.localStorage.clear();
-    storage.set('loginType', '');
+    // window.localStorage.setItem('isLogin', '0');
+    // window.localStorage.setItem('loginType', 'ooooooo');
+    // window.localStorage.setItem('principal', '');
+    // window.localStorage.clear();
+    // storage.set('loginType', '');
     navigate('/home');
-    NdpService.resetService();
   };
   return (
     <>

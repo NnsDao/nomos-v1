@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import logo from '../../../assets/main/logo.png';
 import nnsAvatar from '../../../assets/nnsdao-logo-200.png';
+import { useUserStore } from '../../../hooks/userStore';
 import './header.css';
 type Prop = {
   clickActor: Function;
@@ -8,8 +10,11 @@ type Prop = {
 };
 
 const Header = (prop: Prop) => {
-  const accountId: string = window.localStorage.getItem('accountId') ? window.localStorage.getItem('accountId') + '' : '';
-  const isLogin: boolean = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const accountId: string = window.localStorage.getItem('accountId')
+    ? window.localStorage.getItem('accountId') + ''
+    : '';
+  const userStore = useUserStore();
+  const isLogin = userStore.isLogin;
   const [isShowMenu, setIsShowMenu] = useState(false);
   const handleShowMenu = (bool: boolean) => {
     setIsShowMenu(bool);
@@ -21,9 +26,9 @@ const Header = (prop: Prop) => {
     <>
       <div className={'flex justify-between py-24'}>
         <div className="ml-44 ">
-          <a href="/home" className="cursor-pointer transition duration-300  ">
+          <NavLink to="/home" className="cursor-pointer transition duration-300  ">
             <img className="h-40 w-96" src={logo} alt="nnsdao logo" />
-          </a>
+          </NavLink>
         </div>
         {/* <div className={'relative ml-32'}>
           <Input
@@ -38,7 +43,10 @@ const Header = (prop: Prop) => {
           </div> */}
           {isLogin ? (
             // <div className={'w-200px h-10 leading-10 text-right text-white cursor-pointer'}>Address:{accountId?.slice(0, 8) + '...'}</div>
-            <div className="flex justify-center items-center cursor-pointer " onClickCapture={() => prop.clickActor('Account')} onMouseLeave={() => handleShowMenu(false)}>
+            <div
+              className="flex justify-center items-center cursor-pointer "
+              onClickCapture={() => prop.clickActor('Account')}
+              onMouseLeave={() => handleShowMenu(false)}>
               <div className="ml-36 relative z-50">
                 <img className="h-32 w-32" src={nnsAvatar} alt="nnsdao logo" onMouseOver={() => handleShowMenu(true)} />
                 {isShowMenu ? (

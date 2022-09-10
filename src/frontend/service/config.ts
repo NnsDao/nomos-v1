@@ -4,7 +4,7 @@ import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index
 import { idlFactory as nnsdaoIDL } from '@nnsdao/nnsdao-kit/nnsdao/index';
 export { distributeIDL };
 export { nnsdaoIDL };
-const canister = {
+export const canister = {
   distribute: {
     cid: 'pdvmy-7iaaa-aaaal-qbabq-cai',
     idl: distributeIDL,

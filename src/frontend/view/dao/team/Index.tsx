@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
 import { nnsdaoKeys } from '../../../api/nnsdao/queries';
+import { useUserStore } from '../../../hooks/userStore';
 import About from '../newProposal/Index';
 import Proposal from './proposal/Index';
 import SetUp from './setUp/Index';
@@ -20,7 +21,8 @@ const Team = () => {
   const quitAction = useQuit();
   const memberList = useMemberList(cid);
   const queryClient = useQueryClient();
-  const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const userStore = useUserStore();
+  const isLogin = userStore.isLogin;
   const [state, setState] = useState({
     open: false,
     message: '',

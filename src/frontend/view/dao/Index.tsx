@@ -3,13 +3,13 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Box, Tooltip } from '@mui/material';
 import Zoom from '@mui/material/Zoom';
 import React from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../assets/main/logo.png';
+import { useUserStore } from '../../hooks/userStore';
 
 const Dao = () => {
-  // useAuth();
-
-  const isLogin = Boolean(Number(window.localStorage.getItem('isLogin')));
+  const userStore = useUserStore();
+  const isLogin = userStore.isLogin;
 
   const activeList = [
     {
@@ -33,9 +33,9 @@ const Dao = () => {
         className="bg-primary w-full flex justify-between items-center px-100px sticky top-0 z-50 h-72"
         sx={{ borderBottom: '1px solid #282828' }}>
         <div className=" py-15 ">
-          <a href="/home" className="cursor-pointer transition duration-300  ">
+          <NavLink to="/home" className="cursor-pointer transition duration-300  ">
             <img className="h-40 w-96" src={logo} alt="nnsdao logo" />
-          </a>
+          </NavLink>
         </div>
         {isLogin ? (
           <div

@@ -1,15 +1,15 @@
-import storage from '@nnsdao/nnsdao-kit/helper/storage';
-import React, { useEffect, useState } from 'react';
+import { plugLogout, stoicLogout } from '@nnsdao/nnsdao-kit';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import nnsDaoIcon from '../../assets/home/nnsdao.png';
-import NdpService from '../../utils/NdpService';
+import { useUserStore } from '../../hooks/userStore';
 import { useAuth } from '../../utils/useAuth';
 import Account from '../proflie/account/Index';
+import Wallet from '../proflie/wallet/Index';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Daos from './daos/Index';
 import DashBoard from './DashBoard/Index';
-import Wallet from '../proflie/wallet/Index';
 
 const MainIndex = () => {
   useAuth();
@@ -31,13 +31,24 @@ const MainIndex = () => {
   };
   const tabList = ['Activity', 'DAOs', 'DAOn', 'Badges'];
   const [accountTab, setAccountTab] = useState('Badges');
-  const logout = () => {
-    window.localStorage.setItem('isLogin', '0');
-    window.localStorage.setItem('loginType', 'ooooooo');
-    window.localStorage.setItem('principal', '');
-    window.localStorage.clear();
-    storage.set('loginType', '');
-    NdpService.resetService();
+  const userStore = useUserStore();
+  const logout = async () => {
+    // window.localStorage.setItem('isLogin', '0');
+    // window.localStorage.setItem('loginType', 'ooooooo');
+    // window.localStorage.setItem('principal', '');
+    // window.localStorage.clear();
+    // storage.set('loginType', '');
+    const loginType = userStore.loginType;
+    if (loginType == 'plug') {
+      try {
+        await plugLogout();
+      } catch (error) {
+        console.error('logout error', error);
+      }
+    } else if (loginType == 'stoic') {
+      await stoicLogout();
+    }
+    userStore.dispatch({ type: 'logout' });
     navigate('/home');
   };
   const handleMenu = (str: string) => {
@@ -62,10 +73,6 @@ const MainIndex = () => {
     }
   };
 
-  // getPlugActor
-  useEffect(() => {
-    NdpService.getPlugActor();
-  }, []);
   return (
     <div className="bg-primary">
       <Header clickActor={clickActor} handleMenu={handleMenu} />

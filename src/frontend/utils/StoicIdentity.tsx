@@ -67,7 +67,6 @@ export default function StoicProvider({ children }: ContextProviderProps) {
     //   host: 'http://localhost:8000',
     // });
 
-    await NdpService.stoicLogin();
     setIsConnected(true);
     agentCopy?.replaceIdentity(identity);
     console.log(5555555555555);

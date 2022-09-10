@@ -1,12 +1,14 @@
 import { Actor, HttpAgent, Identity } from '@dfinity/agent';
-import { agent } from '@nnsdao/nnsdao-kit/helper/agent';
-import { StoicIdentity } from 'ic-stoic-identity';
+import { getActor } from '@nnsdao/nnsdao-kit/helper/agent';
+import { Badge as BadgeActor } from '../../declarations/badge/badge.did';
 import { idlFactory as badgeIdlFactory } from '../../declarations/badge/index';
 import { idlFactory } from '../../declarations/ndp/index';
+import { NDPTest } from '../../declarations/ndp/ndp.did';
+
 import { idlFactory as nftIdlFactory } from '../../declarations/starfish/index';
 import { idlFactory as userIdlFactory } from '../../declarations/user/index';
+import { User as UserActor } from '../../declarations/user/user.did';
 import { idlFactory as xdrIdlFactory } from '../../declarations/xdr/index';
-import { canisterIdList } from '../service/config';
 class NdpService {
   agent!: HttpAgent;
   identity!: Identity;
@@ -40,198 +42,76 @@ class NdpService {
     // this.loginType = window.localStorage.getItem('loginType')!;
     this.pending = false;
   }
-  async initService(type?: string) {
-    // Concurrent
-    if (this.pending) {
-      return;
-    }
-    // Fetch auth identity,if Not authorized identity will be false, need auth
-    let identity = null;
-    // type && window.localStorage.setItem('loginType', type);
-    // Previous Login Type
-    if (type == undefined) {
-      type = window.localStorage.getItem('loginType')!;
-    }
-    switch (type) {
-      case 'stoic':
-        await this.getStoicActor();
-        break;
-      case 'plug':
-        await this.getPlugActor();
-        break;
-      default:
-        // await this.getStoicActor();
-        break;
-    }
-
-    this.pending = false;
-    return;
+  async initActor() {
+    return getActor<NDPTest>({ needAuth: true, idl: idlFactory, cid: this.canisterId });
   }
-  resetService() {
-    // @ts-ignore
-    this.actor = undefined;
-    // @ts-ignore
-    this.agent = undefined;
-    // @ts-ignore
-    this.identity = null;
-    StoicIdentity.disconnect();
+  async initBadgeActor() {
+    return getActor<BadgeActor>({ needAuth: true, idl: badgeIdlFactory, cid: this.badgeCanisterId });
   }
-  async getStoicActor() {
-    let that = this;
-    let identity = await StoicIdentity.load();
-    agent.replaceIdentity(identity);
-    if (identity === false) {
-      // Has not beed authorized,
-      identity = await StoicIdentity.connect();
-      agent.replaceIdentity(identity);
-    }
-    that.identity = identity;
-    that.agent = new HttpAgent({ identity });
-    that.actor = Actor.createActor(idlFactory, { agent: this.agent, canisterId: this.canisterId });
-    that.badgeActor = Actor.createActor(badgeIdlFactory, { agent: this.agent, canisterId: this.badgeCanisterId });
-    that.userActor = Actor.createActor(userIdlFactory, { agent: this.agent, canisterId: this.userCanisterId });
+  async initUserActor() {
+    return getActor<UserActor>({ needAuth: true, idl: userIdlFactory, cid: this.userCanisterId });
   }
-  async getPlugActor() {
-    // let that = this;
-    console.log('plug');
-
-    let loginType = window.localStorage.getItem('loginType')!;
-    if (loginType == 'plug') {
-      const connected = await window.ic.plug.isConnected();
-      if (connected) {
-        if (!window.ic.plug.agent) {
-          await window.ic.plug.createAgent({
-            whitelist: canisterIdList,
-          });
-
-          this.identity = await window.ic.plug.agent._identity;
-          console.log('Plug Disconnected,reconnect');
-          const addr = await window.ic?.plug?.sessionManager.sessionData.accountId;
-          console.log(addr, 'addr');
-          window.localStorage.setItem('accountId', addr);
-        }
-        const principal = await window.ic.plug.getPrincipal().then(r => {
-          return r.toText();
-        });
-
-        console.log(principal, 'principal');
-        window.localStorage.setItem('principal', principal);
-        // const { addr } = await this.actor.approve();
-        // window.localStorage.setItem('accountId', addr);
-
-        // this.actor = await window.ic.plug.createActor({
-        //   canisterId: this.canisterId,
-        //   interfaceFactory: idlFactory,
-        // });
-
-        // this.badgeActor = await window.ic.plug.createActor({
-        //   canisterId: this.badgeCanisterId,
-        //   interfaceFactory: badgeIdlFactory,
-        // });
-        // this.userActor = await window.ic.plug.createActor({
-        //   canisterId: this.userCanisterId,
-        //   interfaceFactory: userIdlFactory,
-        // });
-        // const { addr } = await this.actor.approve();
-
-        // console.log(addr, 3131313131313);
-        // window.localStorage.setItem('accountId', addr);
-
-        // console.log(this.actor, 1111111);
-      } else {
-        const result = await window.ic.plug.requestConnect({
-          whitelist: canisterIdList,
-          timeout: 1e4, // Ten seconds
-        });
-
-        if (result) {
-          this.identity = await window.ic.plug.agent._identity;
-        } else {
-          throw new Error('Failed to connect to your wallet');
-        }
-      }
-      this.actor = await window.ic.plug.createActor({
-        canisterId: this.canisterId,
-        interfaceFactory: idlFactory,
-      });
-      this.badgeActor = await window.ic.plug.createActor({
-        canisterId: this.badgeCanisterId,
-        interfaceFactory: badgeIdlFactory,
-      });
-      this.userActor = await window.ic.plug.createActor({
-        canisterId: this.userCanisterId,
-        interfaceFactory: userIdlFactory,
-      });
-    }
-  }
-  async stoicLogin() {
-    await this.initService('stoic');
-  }
-  async plugLogin() {
-    await this.initService('plug');
-  }
-
-  // NDP conister interface function
+  // NDP canister interface function
   async approve() {
-    await this.initService();
-    return this.actor.approve();
+    const actor = await this.initActor();
+    return actor.approve();
   }
   async getBalance(arg: any) {
-    await this.initService();
-    return this.actor.balance(arg);
+    const actor = await this.initActor();
+    return actor.balance(arg);
   }
   async getClaim() {
-    await this.initService();
-    return this.actor.claim();
+    const actor = await this.initActor();
+    return actor.claim();
   }
   async getAccountId() {
-    await this.initService();
-    return this.actor.getAccountId();
+    const actor = await this.initActor();
+    return actor.getAccountId();
   }
-  async getMetadata() {
-    await this.initService();
-    return this.actor.metadata();
-  }
-  async getTransfer(TransferRequest: string) {
-    await this.initService();
-    return this.actor.transfer();
-  }
+  // async getMetadata() {
+  //   const actor = await this.initActor();
+  //   return actor.metadata();
+  // }
+  // async getTransfer(TransferRequest: string) {
+  //   const actor = await this.initActor();
+  //   return actor.transfer();
+  // }
   async getMinted() {
-    await this.initService();
-    return this.actor.minted();
+    const actor = await this.initActor();
+    return actor.minted();
   }
 
   async getSupply(TokenIdentifier: string) {
-    await this.initService();
-    return this.actor.supply(TokenIdentifier);
+    const actor = await this.initActor();
+    return actor.supply(TokenIdentifier);
   }
 
   async getClaimStatus() {
-    await this.initService();
-    return this.actor.claimStatus();
+    const actor = await this.initActor();
+    return actor.claimStatus();
   }
 
   async getReward() {
-    await this.initService();
-    return this.actor.reward();
+    const actor = await this.initActor();
+    return actor.reward();
   }
   async dropExchange(arg: any) {
-    await this.initService();
-    return this.actor.dropExchange(arg);
+    const actor = await this.initActor();
+    return actor.dropExchange(arg);
   }
-  // badgeActor conister interface function
+  // badgeActor canister interface function
   async getAllBadgeList() {
-    await this.initService();
-    return this.badgeActor.getAllBadgeList();
+    const actor = await this.initBadgeActor();
+    return actor.getAllBadgeList();
   }
   async getUserBadgeList(arg: any) {
-    await this.initService();
-    return this.badgeActor.getUserBadgeList(arg);
+    const actor = await this.initBadgeActor();
+    return actor.getUserBadgeList(arg);
   }
 
-  // userActor conister interface function
+  // userActor canister interface function
   async getUserInfo() {
-    await this.initService();
+    const actor = await this.initUserActor();
     return this.userActor.getUserInfo();
   }
   // get nft list
@@ -250,8 +130,11 @@ class NdpService {
       const agent = new HttpAgent({});
       const nftActor = Actor.createActor(xdrIdlFactory, { agent: agent, canisterId: this.xdrCanisterId });
       const b: any = await nftActor.get_icp_xdr_conversion_rate();
-      var b2 = await fetch('https://free.currconv.com/api/v7/convert?q=XDR_USD&compact=ultra&apiKey=fc7d261fade031a3212e').then(r => r.json());
-      _rate = Number(b.data.xdr_permyriad_per_icp / BigInt(10000)) * (b2.hasOwnProperty('XDR_USD') ? b2.XDR_USD : 1.4023);
+      var b2 = await fetch(
+        'https://free.currconv.com/api/v7/convert?q=XDR_USD&compact=ultra&apiKey=fc7d261fade031a3212e'
+      ).then(r => r.json());
+      _rate =
+        Number(b.data.xdr_permyriad_per_icp / BigInt(10000)) * (b2.hasOwnProperty('XDR_USD') ? b2.XDR_USD : 1.4023);
     }
     return _rate;
   }

@@ -4,6 +4,7 @@ import { CreateDaoInfo } from '@nnsdao/nnsdao-kit/src/dao_manager/types';
 import React, { useReducer, useRef, useState } from 'react';
 import { getPayInfo, useCreateAction } from '../../../api/dao_manager';
 import RichText from '../../../components/RichText';
+import { useUserStore } from '../../../hooks/userStore';
 import style from './style.module.css';
 const DaoCreate = () => {
   const steps = [
@@ -101,9 +102,12 @@ const DaoCreate = () => {
       } as const
     );
 
+    const userStore = useUserStore();
+
     const confirm = async () => {
       // validate
-
+      console.log('userStore', userStore);
+      if (userStore) return;
       const { name, poster, avatar, tag } = form;
       const params: CreateDaoInfo = {
         name,

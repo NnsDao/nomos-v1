@@ -1,4 +1,4 @@
-import { agent } from '@nnsdao/nnsdao-kit/helper/agent';
+import { plugLogin, stoicLogin } from '@nnsdao/nnsdao-kit';
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import { message } from 'antd';
 import React, { useState } from 'react';
@@ -6,14 +6,15 @@ import { useNavigate } from 'react-router-dom';
 
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
+import { useUserStore } from '../hooks/userStore';
 import { getDistributeActor } from '../service';
-import { principalToAccountIdentifier } from '../utils/account';
-import NdpService from '../utils/NdpService';
+import canister, { canisterIdList } from '../service/config';
 import Loading from './Loading';
 import './login.css';
 
 const Index = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const userStore = useUserStore();
   const routerLink = (hash: string) => {
     if (hash === 'Story') {
       const wins: any = window.open('/story', '_blank');
@@ -25,49 +26,35 @@ const Index = () => {
       navigate('/home');
     }
   };
-  const [isloading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onStoic = async () => {
-    window.localStorage.setItem('loginType', 'stoic');
-    storage.set('loginType', 'stoic');
+  async function signIn(type: string) {
+    storage.set('loginType', type ?? '');
     setIsLoading(true);
-    await NdpService.stoicLogin();
-    let identity = NdpService.identity;
-    console.log(identity, 'identity');
 
-    agent.replaceIdentity(identity);
-    console.log(agent, 'agent');
-
-    if (identity.getPrincipal().toText()) {
-      window.localStorage.setItem('principal', identity.getPrincipal().toText());
-      window.localStorage.setItem('usePrincipal', JSON.stringify(identity.getPrincipal()));
-      window.localStorage.setItem('isLogin', '1');
-      window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      const addr = principalToAccountIdentifier(identity.getPrincipal().toText(), 0);
-      window.localStorage.setItem('accountId', addr);
-      successLogin();
+    let loginRes = null as any;
+    if (type == 'plug') {
+      const whiteList = canisterIdList.concat(Object.values(canister).map(item => item.cid));
+      loginRes = await plugLogin(whiteList);
+    } else if (type == 'stoic') {
+      loginRes = await stoicLogin();
     }
-  };
-  const onPlug = async () => {
-    window.localStorage.setItem('loginType', 'plug');
-    storage.set('loginType', 'plug');
-    // Detect Plug extension
-    if (!window.ic?.plug) {
-      return message.warning('Plug Not installed');
-    }
-    setIsLoading(true);
-    await NdpService.plugLogin();
-    //address
-    const id = await window.ic.plug.agent._identity;
-
-    if (id) {
-      const ads = principalToAccountIdentifier(id.getPrincipal().toText(), 0);
-      window.localStorage.setItem('accountId', ads);
-      window.localStorage.setItem('isLogin', '1');
-      window.localStorage.setItem('logonTime', new Date().getTime() + '');
-      successLogin();
-    }
-  };
+    if (!loginRes) return;
+    console.log(`loginRes`, loginRes);
+    const loginInfo = {
+      loginType: type ?? '',
+      principalId: loginRes.principalId,
+      accountId: loginRes.accountId,
+      isLogin: true,
+    };
+    // @ts-ignore
+    storage.set('userInfo', loginInfo);
+    userStore.dispatch({
+      type: 'login',
+      data: loginInfo,
+    });
+    successLogin();
+  }
 
   const successLogin = () => {
     getExChange();
@@ -84,7 +71,6 @@ const Index = () => {
 
   return (
     <>
-      <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />
       <div className="login-wrapper min-w-1200px m-auto">
         <div className="login-left">
           <div className="login-title">DAOs To Earn</div>
@@ -110,7 +96,7 @@ const Index = () => {
             </span>
           </div>
           <div className="login-function-wrapper">
-            <div className="login-item login-item-stoic" onClick={() => onStoic().then()}>
+            <div className="login-item login-item-stoic" onClick={() => signIn('stoic')}>
               <img src={stoic} alt="stoic" />
               <span>Stoic Identity</span>
             </div>
@@ -119,7 +105,7 @@ const Index = () => {
               <span>Internet Identity</span>
             </div> */}
             <div className="login-outside cursor-pointer">
-              <div className="login-item-plug" onClick={() => onPlug()}>
+              <div className="login-item-plug" onClick={() => signIn('plug')}>
                 <img src={plug} alt="plug" />
                 <span>Plug Identity</span>
                 {/* <span className="absolute bottom-0 right-0 p-1 text-xs">Coming</span> */}
@@ -128,6 +114,7 @@ const Index = () => {
           </div>
         </div>
       </div>
+      <Loading isLoading={isLoading} changeState={() => setIsLoading(isLoading)} />
     </>
   );
 };
