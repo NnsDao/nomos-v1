@@ -1,4 +1,16 @@
-import { Alert, Box, Button, Chip, Divider, Snackbar, Stack, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Backdrop,
+  Box,
+  Button,
+  Chip,
+  CircularProgress,
+  Divider,
+  Snackbar,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { payWithICP } from '@nnsdao/nnsdao-kit/helper/pay';
 import { CreateDaoInfo } from '@nnsdao/nnsdao-kit/src/dao_manager/types';
 import React, { useReducer, useRef, useState } from 'react';
@@ -104,10 +116,9 @@ const DaoCreate = () => {
 
     const userStore = useUserStore();
 
+    const [loadingText, setLoadingText] = useState('');
     const confirm = async () => {
       // validate
-      console.log('userStore', userStore);
-      if (userStore) return;
       const { name, poster, avatar, tag } = form;
       const params: CreateDaoInfo = {
         name,
@@ -128,28 +139,36 @@ const DaoCreate = () => {
         }
       }
       console.log('confirm', params);
+      try {
+        setLoadingText('Getting Payment Information...');
+        const payInfo = await getPayInfo().catch(() => null);
+        if (!payInfo) {
+          setSnackBarStr(`Failed getPayInfo`);
+          return;
+        }
+        params.memo = payInfo.memo;
 
-      const payInfo = await getPayInfo().catch(() => null);
-      if (!payInfo) {
-        setSnackBarStr(`Failed getPayInfo`);
-        return;
+        setLoadingText('Paying...');
+        // transfer
+        const blockHeight = await payWithICP(payInfo.amount, payInfo.to, payInfo.memo);
+        console.log('blockHeight', blockHeight);
+        params.block_height = BigInt(blockHeight);
+        // create
+        setLoadingText('Initialize Canister...');
+        const dao = createAction.mutate(params, {
+          onSuccess(data, variable) {
+            // console.log('createAction onSuccess', data, variable);
+            //
+          },
+          onError(err, variable) {
+            console.log('createAction onError', err, variable);
+          },
+        });
+      } catch (error) {
+        console.error('err', error);
+      } finally {
+        setLoadingText('');
       }
-      params.memo = payInfo.memo;
-
-      // transfer
-      const blockHeight = await payWithICP(payInfo.amount, payInfo.to, payInfo.memo);
-      console.log('blockHeight', blockHeight);
-      params.block_height = BigInt(blockHeight);
-      // create
-      const dao = createAction.mutate(params, {
-        onSuccess(data, variable) {
-          // console.log('createAction onSuccess', data, variable);
-          //
-        },
-        onError(err, variable) {
-          console.log('createAction onError', err, variable);
-        },
-      });
     };
     function checkField(key, value) {
       if (!value || !value?.length) {
@@ -269,6 +288,16 @@ const DaoCreate = () => {
             {snackBarStr}
           </Alert>
         </Snackbar>
+        <Backdrop
+          sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }}
+          open={!!loadingText}
+          // onClick={() => setLoading(state => !state)}
+        >
+          <Stack direction="column" justifyContent="center" alignItems="center" spacing={2}>
+            <CircularProgress color="inherit" />
+            <div>{loadingText}</div>
+          </Stack>
+        </Backdrop>
       </Box>
     );
   };
