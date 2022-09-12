@@ -33,11 +33,6 @@ const MainIndex = () => {
   const [accountTab, setAccountTab] = useState('Badges');
   const userStore = useUserStore();
   const logout = async () => {
-    // window.localStorage.setItem('isLogin', '0');
-    // window.localStorage.setItem('loginType', 'ooooooo');
-    // window.localStorage.setItem('principal', '');
-    // window.localStorage.clear();
-    // storage.set('loginType', '');
     const loginType = userStore.loginType;
     if (loginType == 'plug') {
       try {

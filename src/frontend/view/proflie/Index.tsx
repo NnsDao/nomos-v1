@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-// import storage from '@nnsdao/nnsdao-kit/src/helper/storage';
+// import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import Header from '@view/main/components/Header';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,11 +16,6 @@ const Profile = () => {
     setActive(val);
   };
   const logout = () => {
-    // window.localStorage.setItem('isLogin', '0');
-    // window.localStorage.setItem('loginType', 'ooooooo');
-    // window.localStorage.setItem('principal', '');
-    // window.localStorage.clear();
-    // storage.set('loginType', '');
     navigate('/home');
   };
   const handleMenu = (str: string) => {

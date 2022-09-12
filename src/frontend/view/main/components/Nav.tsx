@@ -16,11 +16,6 @@ const Nav = (prop: prop) => {
   const isLogin = userStore.isLogin;
 
   const logout = () => {
-    // window.localStorage.setItem('isLogin', '0');
-    // window.localStorage.setItem('loginType', 'ooooooo');
-    // window.localStorage.setItem('principal', '');
-    // window.localStorage.clear();
-    // storage.set('loginType', '');
     navigate('/home');
   };
   return (

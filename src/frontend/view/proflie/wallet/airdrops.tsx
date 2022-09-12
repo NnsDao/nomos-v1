@@ -1,9 +1,11 @@
 import { message } from 'antd';
 import React, { useState } from 'react';
 import Loading from '../../../components/Loading';
+import { useUserStore } from '../../../hooks/userStore';
 import NdpService from '../../../utils/NdpService';
 const Airdrop = () => {
-  const accountId = window.localStorage.getItem('accountId');
+  const userStore = useUserStore();
+  const accountId = userStore.accountId;
   let emailValue: any = '';
   let codeValue: any = '';
   const [isloading, setIsLoading] = useState(false);
@@ -34,7 +36,7 @@ const Airdrop = () => {
   // const getBalance = async () => {
   //   const getBalanceParams = {
   //     token: 'NDP',
-  //     user: { address: window.localStorage.getItem('accountId') },
+  //     user: { address: userStore.accountId },
   //   };
   //   try {
   //     const NDP = await NdpService.getBalance(getBalanceParams);

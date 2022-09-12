@@ -13,7 +13,6 @@ import Treasury from './treasury/Index';
 
 const Team = () => {
   const { cid = '' } = useParams();
-  const accountId = window.localStorage.getItem('accountId')!;
   const tabList = ['proposal', 'new proposal', 'about', 'treasury', 'set up'];
   const [activeTab, setActiveTab] = useState('proposal');
   const useInfo = useGetUserInfo(cid);
@@ -22,6 +21,7 @@ const Team = () => {
   const memberList = useMemberList(cid);
   const queryClient = useQueryClient();
   const userStore = useUserStore();
+  const accountId = userStore.accountId;
   const isLogin = userStore.isLogin;
   const [state, setState] = useState({
     open: false,

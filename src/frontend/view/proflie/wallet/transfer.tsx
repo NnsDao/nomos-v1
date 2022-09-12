@@ -2,14 +2,15 @@ import { Principal } from '@dfinity/principal';
 import { message } from 'antd';
 import React, { useState } from 'react';
 import { RingLoader } from 'react-spinners';
+import { useUserStore } from '../../../hooks/userStore';
 
 import { getNICPActor } from '../../../service/index';
 import Confirm from './confirm';
 const Transfer = (props: any) => {
   const [isConfirmLoading, setConfirmLoading] = useState(false);
-
-  const accountId = window.localStorage.getItem('accountId');
-  const principal = window.localStorage.getItem('principal') as string;
+  const useStore = useUserStore();
+  const accountId = useStore.accountId;
+  const principal = useStore.principalId;
   let transferPrincipalValue: any = '';
   let transferNICPValue: any = '';
   const [principalText, setPrinipal] = useState('');
@@ -95,7 +96,14 @@ const Transfer = (props: any) => {
           </button>
         </div>
       </div>
-      {isConfirm ? <Confirm principalText={principalText} number={number} setNDP={val => props.setNDP(val)} cancelConfirm={() => setConfirm(false)} cancelFrom={() => props.cancel()}></Confirm> : null}
+      {isConfirm ? (
+        <Confirm
+          principalText={principalText}
+          number={number}
+          setNDP={val => props.setNDP(val)}
+          cancelConfirm={() => setConfirm(false)}
+          cancelFrom={() => props.cancel()}></Confirm>
+      ) : null}
     </div>
   );
 };

@@ -25,10 +25,6 @@ import { useUserStore } from '../hooks/userStore';
 import './index.css';
 
 export default function index(prop: any) {
-  const accountId: string = window.localStorage.getItem('accountId')
-    ? window.localStorage.getItem('accountId') + ''
-    : '';
-
   // const [count, setCount] = useState<string>();
 
   // const { data: mintedCount } = useQuery('data', () => TokenInfo.getMinted());
@@ -45,9 +41,9 @@ export default function index(prop: any) {
   //   console.log('debug', accountId, mintedCount, new BigNumber(mintedCount.toString()).div(new BigNumber('100000000')).toString());
   // };
 
-  // const usePrincipal = window.localStorage.getItem('usePrincipal');
   const userStore = useUserStore();
   const isLogin = userStore.isLogin;
+  const accountId = userStore.accountId;
 
   const contributesAdress = 'cf66e87d469890ca0f1f6504eebce076fa587449e9e325dd597b189347c37908';
   const [totalContributes, setTotalContributes] = useState(14000 * 100000000);

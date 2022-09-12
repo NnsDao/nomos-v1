@@ -11,7 +11,7 @@ export default function info(props) {
   const cid = canister_id.toText();
   const userStore = useUserStore();
   const isLogin = userStore.isLogin;
-  const accountId = window.localStorage.getItem('accountId')!;
+  const accountId = userStore.accountId;
   const joinAction = useJoin();
   const quitAction = useQuit();
   const queryClient = useQueryClient();
@@ -23,15 +23,24 @@ export default function info(props) {
       navigate('/login');
     }
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
-    await joinAction.mutateAsync(joinParams);
-    queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+    joinAction.mutate(joinParams, {
+      onSuccess() {
+        queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+      },
+    });
   };
   const quit = async () => {
     if (!isLogin) {
       navigate('/login');
     }
-    await quitAction.mutateAsync();
-    queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+    await quitAction.mutate(
+      {},
+      {
+        onSuccess() {
+          queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+        },
+      }
+    );
   };
 
   const IsGroup = () => {

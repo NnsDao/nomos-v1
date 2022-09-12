@@ -3,6 +3,7 @@ import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useRef, useState } from 'react';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
+import { useUserStore } from '../../../hooks/userStore';
 import { getNICPActor } from '../../../service/index';
 import NdpService from '../../../utils/NdpService';
 import Card from '../../main/components/Card';
@@ -18,8 +19,9 @@ type tokenItem = {
   isMint: boolean;
 };
 const Wallet = () => {
-  let address = localStorage.getItem('accountId');
-  let principal = localStorage.getItem('principal')!;
+  const userStore = useUserStore();
+  let address = userStore.accountId;
+  let principal = userStore.principalId;
   const [isOpen, setOpen] = useState(false);
   const wallet = [
     {
@@ -85,7 +87,7 @@ const Wallet = () => {
   const getBalance = async () => {
     const getBalanceParams = {
       token: 'NDP',
-      user: { address: window.localStorage.getItem('accountId') },
+      user: { address: userStore.accountId },
     };
     try {
       const NDP = await NdpService.getBalance(getBalanceParams);
@@ -190,7 +192,7 @@ const Wallet = () => {
   const [balanceICP, setBalance] = useState(0);
   const [ndp, setNDP] = useState('0');
   const [nfts, setNFTS] = useState(0);
-  const accountId = window.localStorage.getItem('accountId');
+  const accountId = userStore.accountId;
 
   const to32bits = (num: any) => {
     const b = new ArrayBuffer(4);

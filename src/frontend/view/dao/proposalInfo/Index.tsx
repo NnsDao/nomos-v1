@@ -40,7 +40,7 @@ const ProposalInfo = () => {
   const getBalance = async () => {
     const getBalanceParams = {
       token: 'NDP',
-      user: { address: window.localStorage.getItem('accountId') },
+      user: { address: userStore.accountId },
     };
     try {
       const NDP = await NdpService.getBalance(getBalanceParams);
@@ -49,7 +49,7 @@ const ProposalInfo = () => {
       console.error('getBalance', error);
     }
   };
-  let principal = localStorage.getItem('principal')!;
+  let principal = userStore.principalId;
 
   const voteFN = async () => {
     const nnsdaoActor = await getNnsdaoActor(true);

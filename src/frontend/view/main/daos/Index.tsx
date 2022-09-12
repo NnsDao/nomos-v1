@@ -1,5 +1,6 @@
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useUserStore } from '../../../hooks/userStore';
 import { getNnsdaoActor } from '../../../service/index';
 import CreateProposal from './createProposal/Index';
 import './index.css';
@@ -8,9 +9,10 @@ import Proposal from './proposal/Index';
 import Rule from './rule/Index';
 import SetProfile from './setProfile/Index';
 const Index = () => {
+  const userStore = useUserStore();
   const [active, setActive] = useState('Rule');
   const navList = ['Rule', 'Members', 'Proposal', 'CreateProposal', 'SetProfile'];
-  const accountId = window.localStorage.getItem('accountId')!;
+  const accountId = userStore.accountId;
   const [status_code, setStatusCode] = useState(0);
   const join = async () => {
     const nnsdaoActor = await getNnsdaoActor(true);
@@ -60,7 +62,10 @@ const Index = () => {
       <div className=" wrapper flex  justify-between  text-white">
         <div className=" mt-6 mr-16">
           {navList.map(item => (
-            <div className={`daos-button mb-6 + ${active == item ? ' daos-button-selected ' : ' '}`} onClick={() => setActive(item)} key={item}>
+            <div
+              className={`daos-button mb-6 + ${active == item ? ' daos-button-selected ' : ' '}`}
+              onClick={() => setActive(item)}
+              key={item}>
               {item}
             </div>
           ))}

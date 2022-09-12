@@ -4,9 +4,11 @@ import Avatar from '../../../components/Avatar';
 import React, { useState } from 'react';
 import copy from '../../../assets/home/copy.png';
 import reputation from '../../../assets/main/reputation.png';
+import { useUserStore } from '../../../hooks/userStore';
 
 const UseInfo = () => {
-  const accountId = window.localStorage.getItem('accountId');
+  const userStore = useUserStore();
+  const accountId = userStore.accountId;
   const [userInfo, setUserInfo] = useState({
     acatar: '',
     nickName: '',

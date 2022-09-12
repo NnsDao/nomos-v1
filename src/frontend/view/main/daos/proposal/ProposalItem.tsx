@@ -1,18 +1,23 @@
 import { Principal } from '@dfinity/principal';
 import { UserVoteArgs } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
 import React, { useState } from 'react';
+import { useUserStore } from '../../../../hooks/userStore';
 import { getNICPActor, getNnsdaoActor } from '../../../../service/index';
 import Info from './Info';
 
 const ProposalItem = props => {
   const [isOpen, setOpen] = useState(false);
+  const userStore = useUserStore();
   const vote = async (type: string) => {
     console.log('vote start');
     let balance = 0;
-    const principal = window.localStorage.getItem('principal')!;
+    const principal = userStore.principalId;
     type === 'Yes' ? (balance = 1) : (balance = 1);
     const NICPActor = await getNICPActor(true);
-    const approve = await NICPActor.approve(Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'), BigInt(Number(balance) * 1e8));
+    const approve = await NICPActor.approve(
+      Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'),
+      BigInt(Number(balance) * 1e8)
+    );
     console.log(`approve`, approve);
     const nnsdaoActor = await getNnsdaoActor(true);
     const params: UserVoteArgs = {
@@ -32,7 +37,9 @@ const ProposalItem = props => {
       }>
       <div className="flex justify-between">
         <div className="flex justify-start">
-          <div className="font-bold text-xl text-blue-500 pr-10">{props.data[1].title ? props.data[1].title : null}</div>
+          <div className="font-bold text-xl text-blue-500 pr-10">
+            {props.data[1].title ? props.data[1].title : null}
+          </div>
           <div className="text-gray-200"> (ID: {Number(props.data[1].id) + 1})</div>
         </div>
         <div> proposal_state:</div>

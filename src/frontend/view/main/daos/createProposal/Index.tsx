@@ -1,10 +1,13 @@
 import { Principal } from '@dfinity/principal';
 import { message } from 'antd';
 import React, { useState } from 'react';
+import { useUserStore } from '../../../../hooks/userStore';
 import { getNICPActor, getNnsdaoActor } from '../../../../service/index';
 
 const CreateProposal = props => {
-  const principal = window.localStorage.getItem('principal')!;
+  const userStore = useUserStore();
+
+  const principal = userStore.principalId;
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   // const getPayAddress = async () => {
@@ -50,10 +53,15 @@ const CreateProposal = props => {
     // 1. authorize
     const proposalCost = 1;
     const NICPActor = await getNICPActor(true);
-    const approve = await NICPActor.approve(Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'), BigInt(Number(proposalCost) * 1e8));
+    const approve = await NICPActor.approve(
+      Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'),
+      BigInt(Number(proposalCost) * 1e8)
+    );
     console.log(`approve`, approve);
     // 2. initiate_proposal
-    const res = await getNnsdaoActor(true).then(actor => actor.propose({ title: new Date().toLocaleString(), content: 'xxx', end_time: BigInt((Date.now() + 3e5) * 1e6) }));
+    const res = await getNnsdaoActor(true).then(actor =>
+      actor.propose({ title: new Date().toLocaleString(), content: 'xxx', end_time: BigInt((Date.now() + 3e5) * 1e6) })
+    );
     console.log(res);
   };
 
@@ -93,7 +101,9 @@ const CreateProposal = props => {
           placeholder="Enter your content"
         />
       </div>
-      <div onClick={createProposal} className="daos-content-join w-56 h-50 px-1 bg-sign rounded text-#fff whitespace-nowrap cursor-pointer">
+      <div
+        onClick={createProposal}
+        className="daos-content-join w-56 h-50 px-1 bg-sign rounded text-#fff whitespace-nowrap cursor-pointer">
         Create Proposal
       </div>
     </div>

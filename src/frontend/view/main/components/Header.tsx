@@ -10,10 +10,8 @@ type Prop = {
 };
 
 const Header = (prop: Prop) => {
-  const accountId: string = window.localStorage.getItem('accountId')
-    ? window.localStorage.getItem('accountId') + ''
-    : '';
   const userStore = useUserStore();
+  const accountId = userStore.accountId;
   const isLogin = userStore.isLogin;
   const [isShowMenu, setIsShowMenu] = useState(false);
   const handleShowMenu = (bool: boolean) => {

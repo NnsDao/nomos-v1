@@ -1,6 +1,8 @@
 import { Principal } from '@dfinity/principal';
+import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useUserStore } from '../../../hooks/userStore';
 import NdpService from '../../../utils/NdpService';
 import Activity from './activity/Index';
 import Badges from './badges/Index';
@@ -17,7 +19,7 @@ import './index.css';
 const Account = prop => {
   const tabList = ['Activity', 'DAOs', 'DAOn', 'Badges'];
   const [accountTab, setAccountTab] = useState('Badges');
-
+  const userStore = useUserStore();
   // const getAllBadgeList = async () => {
   //   try {
   //     const AllBadgeList = await NdpService.getAllBadgeList();
@@ -38,10 +40,10 @@ const Account = prop => {
 
   let identity = NdpService.identity;
 
-  const pid = window.localStorage.getItem('loginType');
-  const principal = window.localStorage.getItem('principal')!;
+  const pid = storage.get('loginType');
+  const principal = userStore.principalId;
   let pids: any = null;
-  const accountId = window.localStorage.getItem('accountId');
+  const accountId = userStore.accountId;
 
   if (pid == 'plug') {
     pids = Principal.fromText(principal);

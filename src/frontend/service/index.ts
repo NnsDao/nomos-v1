@@ -4,9 +4,10 @@ import { _SERVICE as DistributeActor } from '@nnsdao/nnsdao-kit/distribute/types
 import { _SERVICE as nnsdaoActor } from '@nnsdao/nnsdao-kit/nnsdao/types';
 // import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index.js';
 import { getActor } from '@nnsdao/nnsdao-kit/helper/agent';
+import storage from '@nnsdao/nnsdao-kit/helper/storage';
 import canister from './config';
 
-export const LOGINTYPE = localStorage.getItem('loginType');
+export const LOGINTYPE = storage.get('loginType');
 export const PLUGLOGIN = LOGINTYPE === 'plug';
 
 export const getDistributeActor = async (needAuth?: boolean) =>

@@ -39,7 +39,6 @@ class NdpService {
     this.xdrCanisterId = xdrCanisterId;
     this.lastUpdate = lastUpdate;
 
-    // this.loginType = window.localStorage.getItem('loginType')!;
     this.pending = false;
   }
   async initActor() {

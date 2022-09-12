@@ -3,6 +3,7 @@ import { message } from 'antd';
 import React, { useState } from 'react';
 import { RingLoader } from 'react-spinners';
 import Loading from '../../../components/Loading';
+import { useUserStore } from '../../../hooks/userStore';
 import { getNICPActor } from '../../../service/index';
 
 type Prop = {
@@ -17,7 +18,8 @@ const confirm = (props: Prop) => {
   const [isloading, setIsLoading] = useState(false);
   const [isTransferLoading, setTransferLoading] = useState(false);
   const [transferText, setTransferText] = useState('Transfer');
-  const principal = window.localStorage.getItem('principal')!;
+  const userStore = useUserStore();
+  const principal = userStore.principalId;
   const getBalanceNicp = async () => {
     const NICPActor = await getNICPActor(true);
     console.log(NICPActor, 'NICPActor');
@@ -32,7 +34,10 @@ const confirm = (props: Prop) => {
     setTransferLoading(true);
     setTransferText('In Sync Block... ');
     const NICPActor = await getNICPActor(true);
-    const res = await NICPActor.transfer(Principal.fromText(props.principalText), BigInt(Number(props.number) * 1e8)).then(r => {
+    const res = await NICPActor.transfer(
+      Principal.fromText(props.principalText),
+      BigInt(Number(props.number) * 1e8)
+    ).then(r => {
       console.log(r);
       return r;
     });
