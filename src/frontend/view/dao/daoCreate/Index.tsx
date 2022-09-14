@@ -12,10 +12,11 @@ import {
   Typography,
 } from '@mui/material';
 import { payWithICP } from '@nnsdao/nnsdao-kit/helper/pay';
-import { CreateDaoInfo } from '@nnsdao/nnsdao-kit/src/dao_manager/types';
+import { DaoInfo } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
 import React, { useReducer, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getPayInfo, useCreateAction } from '../../../api/dao_manager';
+import { useUpdateDaoInfo } from '../../../api/nnsdao';
 import RichText from '../../../components/RichText';
 import { useUserStore } from '../../../hooks/userStore';
 import style from './style.module.css';
@@ -63,6 +64,7 @@ const DaoCreate = () => {
     const [snackBarStr, setSnackBarStr] = useState('');
     const createAction = useCreateAction();
     const navigator = useNavigate();
+    const updateAction = useUpdateDaoInfo();
     const initialValue = [
       {
         type: 'paragraph',
@@ -122,18 +124,16 @@ const DaoCreate = () => {
     const confirm = async () => {
       // validate
       const { name, poster, avatar, tag } = form;
-      const params: CreateDaoInfo = {
+      const params: DaoInfo = {
         name,
         poster,
         avatar,
         tags: tag,
         intro: JSON.stringify(editorRef.current),
         option: [],
-        memo: 0n,
-        block_height: 0n,
       };
       for (const key of Object.keys(params)) {
-        if (['option', 'memo', 'block_height'].includes(key)) {
+        if (['option'].includes(key)) {
           continue;
         }
         if (!checkField(key, params[key])) {
@@ -148,18 +148,26 @@ const DaoCreate = () => {
           setSnackBarStr(`Failed getPayInfo`);
           return;
         }
-        params.memo = payInfo.memo;
+        // params.memo = payInfo.memo;
 
         setLoadingText('Paying...');
         // transfer
         const blockHeight = await payWithICP(payInfo.amount, payInfo.to, payInfo.memo);
         console.log('blockHeight', blockHeight);
-        params.block_height = BigInt(blockHeight);
+        // params.block_height = BigInt(blockHeight);
         // create
         setLoadingText('Initialize Canister...');
-        const data = await createAction.mutateAsync(params);
+        const data = await createAction.mutateAsync({
+          tags: tag,
+          memo: payInfo.memo,
+          block_height: BigInt(blockHeight),
+        });
+
         console.log('createAction onSuccess', data);
-        navigator(`daos/team/${data.canister_id.toText()}`);
+        await updateAction.mutateAsync({ ...params, cid: data.canister_id.toText() });
+        setTimeout(() => {
+          navigator(`daos/team/${data.canister_id.toText()}`);
+        }, 0);
       } catch (error) {
         console.error('err', error);
       } finally {

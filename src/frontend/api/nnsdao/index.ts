@@ -1,5 +1,5 @@
-import type { JoinDaoParams } from '@nnsdao/nnsdao-kit/nnsdao/types';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import type { DaoInfo, JoinDaoParams } from '@nnsdao/nnsdao-kit/nnsdao/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getNnsdaoActor } from '../../service';
 import { nnsdaoKeys } from './queries';
 
@@ -132,13 +132,13 @@ export const useGetProposalList = (cid: string) => {
 
 export const useGetUserInfo = (cid: string) => {
   return useQuery(nnsdaoKeys.userInfo(cid), user_info, {
-    staleTime: 6e4,
+    staleTime: Infinity,
   });
 };
 
 export const useGetDaoInfo = (cid: string) => {
   return useQuery(nnsdaoKeys.daoInfo(cid), getDaoInfo, {
-    staleTime: 6e4,
+    staleTime: Infinity,
   });
 };
 
@@ -162,6 +162,26 @@ export const useJoin = (cid: string) => {
   return useMutation((params: JoinDaoParams) => {
     return join({ ...params, cid });
   });
+};
+
+export const useUpdateDaoInfo = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (params: DaoInfo & { cid: string }) => {
+      const actor = await getNnsdaoActor(params.cid, false);
+      const res = await actor.update_dao_info(params);
+      console.log(res, 'update_dao_info');
+      if ('Ok' in res) {
+        return res.Ok;
+      }
+      return Promise.reject(null);
+    },
+    {
+      onSuccess(data, variables) {
+        queryClient.setQueryData(nnsdaoKeys.daoInfo(variables.cid), data);
+      },
+    }
+  );
 };
 
 export const useGetProposal = () => {

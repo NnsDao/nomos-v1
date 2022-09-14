@@ -129,6 +129,7 @@ export default function info(props) {
         '&:hover': { border: '1px solid #818994' },
       }}>
       <Box>
+        {console.log('daoInfo', daoInfo)}
         <Avatar sx={{ width: 82, height: 82 }} src={daoInfo.data?.avatar ?? ''}></Avatar>
       </Box>
       <Box className="text-22 pt-11">{daoInfo.data?.name ?? ''}</Box>

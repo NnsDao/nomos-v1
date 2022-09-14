@@ -1,4 +1,4 @@
-import type { CreateDaoInfo } from '@nnsdao/nnsdao-kit/dao_manager/types';
+import type { CreateDaoOptions } from '@nnsdao/nnsdao-kit/dao_manager/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDaoManagerActor } from '../../service';
 import { daoManagerKeys } from './queries';
@@ -40,7 +40,7 @@ export const getPayInfo = async () => {
   return res.Ok;
 };
 
-export async function createDao(params: CreateDaoInfo) {
+export async function createDao(params: CreateDaoOptions) {
   const actor = await getDaoManagerActor(true);
   const res = await actor.create_dao(params);
   if ('Err' in res) {
