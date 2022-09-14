@@ -28,32 +28,25 @@ export const get_proposal = async ({ queryKey }) => {
     return Promise.reject(null);
   }
 };
-export const join = async (params: JoinDaoParams) => {
-  const actor = await getNnsdaoActor(true);
-  try {
-    const res = await actor.join(params);
-    console.log('join', res);
-    return res;
-  } catch (error) {
-    console.log('join', error);
-    return Promise.reject(null);
+export const join = async (params: JoinDaoParams & { cid: string }) => {
+  const actor = await getNnsdaoActor(params.cid, true);
+  Reflect.deleteProperty(params, 'cid');
+  const res = await actor.join(params);
+  console.log('join', res);
+  if ('Ok' in res) {
+    return res.Ok;
   }
+  return Promise.reject(null);
 };
 export const member_list = async ({ queryKey }) => {
   const { cid } = queryKey[0];
   const actor = await getNnsdaoActor(cid, false);
-  try {
-    const res = await actor.member_list();
-    console.log('member_list', res);
-    if ('Ok' in res) {
-      return res.Ok;
-    } else {
-      return [];
-    }
-  } catch (error) {
-    console.log('member_list', error);
-    return [];
+  const res = await actor.member_list();
+  console.log('member_list', res);
+  if ('Ok' in res) {
+    return res.Ok;
   }
+  return Promise.reject(null);
 };
 export const propose = async ({ queryKey }) => {
   const { module, scope } = queryKey[0];
@@ -67,10 +60,20 @@ export const propose = async ({ queryKey }) => {
     return Promise.reject(null);
   }
 };
-export const quit = async ({ queryKey }) => {
-  const { module, scope, cid } = queryKey[0];
+export const quit = async (cid: string) => {
   const actor = await getNnsdaoActor(cid, false);
   const res = await actor.quit();
+  console.log('quit', res);
+  if ('Ok' in res) {
+    return res.Ok;
+  }
+  return Promise.reject(null);
+};
+export const getDaoInfo = async ({ queryKey }) => {
+  const { module, scope, cid } = queryKey[0];
+  const actor = await getNnsdaoActor(cid, false);
+  const res = await actor.dao_info();
+  console.log('dao_info', res);
   if ('Ok' in res) {
     return res.Ok;
   }
@@ -128,22 +131,37 @@ export const useGetProposalList = (cid: string) => {
 };
 
 export const useGetUserInfo = (cid: string) => {
-  return useQuery(nnsdaoKeys.userInfo(cid), user_info);
+  return useQuery(nnsdaoKeys.userInfo(cid), user_info, {
+    staleTime: 6e4,
+  });
 };
-export const useVote = () => {
+
+export const useGetDaoInfo = (cid: string) => {
+  return useQuery(nnsdaoKeys.daoInfo(cid), getDaoInfo, {
+    staleTime: 6e4,
+  });
+};
+
+export const useVote = (cid: string) => {
   return useQuery(nnsdaoKeys.vote(), vote);
 };
-export const useQuit = () => {
-  return useMutation(quit);
+export const useQuit = (cid: string) => {
+  return useMutation(() => {
+    return quit(cid);
+  });
 };
 export const usePropose = () => {
   return useQuery(nnsdaoKeys.propose(), propose);
 };
 export const useMemberList = (cid: string) => {
-  return useQuery(nnsdaoKeys.member_list(cid), member_list);
+  return useQuery(nnsdaoKeys.member_list(cid), member_list, {
+    staleTime: 6e4,
+  });
 };
-export const useJoin = () => {
-  return useMutation(join);
+export const useJoin = (cid: string) => {
+  return useMutation((params: JoinDaoParams) => {
+    return join({ ...params, cid });
+  });
 };
 
 export const useGetProposal = () => {

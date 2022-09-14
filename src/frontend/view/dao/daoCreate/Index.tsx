@@ -14,6 +14,7 @@ import {
 import { payWithICP } from '@nnsdao/nnsdao-kit/helper/pay';
 import { CreateDaoInfo } from '@nnsdao/nnsdao-kit/src/dao_manager/types';
 import React, { useReducer, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getPayInfo, useCreateAction } from '../../../api/dao_manager';
 import RichText from '../../../components/RichText';
 import { useUserStore } from '../../../hooks/userStore';
@@ -61,6 +62,7 @@ const DaoCreate = () => {
   const ActiveContent = () => {
     const [snackBarStr, setSnackBarStr] = useState('');
     const createAction = useCreateAction();
+    const navigator = useNavigate();
     const initialValue = [
       {
         type: 'paragraph',
@@ -155,15 +157,9 @@ const DaoCreate = () => {
         params.block_height = BigInt(blockHeight);
         // create
         setLoadingText('Initialize Canister...');
-        const dao = createAction.mutate(params, {
-          onSuccess(data, variable) {
-            // console.log('createAction onSuccess', data, variable);
-            //
-          },
-          onError(err, variable) {
-            console.log('createAction onError', err, variable);
-          },
-        });
+        const data = await createAction.mutateAsync(params);
+        console.log('createAction onSuccess', data);
+        navigator(`daos/team/${data.canister_id.toText()}`);
       } catch (error) {
         console.error('err', error);
       } finally {

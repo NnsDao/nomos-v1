@@ -1,5 +1,6 @@
-import { useGetUserInfo, useJoin, useQuit } from '@api/nnsdao';
+import { useGetDaoInfo, useGetUserInfo, useJoin, useMemberList, useQuit } from '@api/nnsdao';
 import { nnsdaoKeys } from '@api/nnsdao/queries';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { Avatar, Box, CircularProgress } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
@@ -12,49 +13,51 @@ export default function info(props) {
   const userStore = useUserStore();
   const isLogin = userStore.isLogin;
   const accountId = userStore.accountId;
-  const joinAction = useJoin();
-  const quitAction = useQuit();
+  const joinAction = useJoin(cid);
+  const quitAction = useQuit(cid);
   const queryClient = useQueryClient();
   const useInfo = useGetUserInfo(cid);
+  const daoInfo = useGetDaoInfo(cid);
   const navigate = useNavigate();
+  const memberList = useMemberList(cid);
 
-  const join = async () => {
+  const join = async e => {
+    e.stopPropagation();
     if (!isLogin) {
       navigate('/login');
     }
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
     joinAction.mutate(joinParams, {
-      onSuccess() {
-        queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+      onSuccess(data) {
+        // queryClient.invalidateQueries(nnsdaoKeys.userInfo(cid));
+        queryClient.setQueryData(nnsdaoKeys.userInfo(cid), data);
+        const memberListKey = nnsdaoKeys.member_list(cid);
+        const preList: any[] = queryClient.getQueryData(memberListKey) ?? [];
+        queryClient.setQueryData(memberListKey, [...preList, data]);
       },
     });
   };
-  const quit = async () => {
+  const quit = async e => {
+    e.stopPropagation();
     if (!isLogin) {
       navigate('/login');
     }
-    await quitAction.mutate(
-      {},
-      {
-        onSuccess() {
-          queryClient.invalidateQueries(nnsdaoKeys.userInfo());
-        },
-      }
-    );
+    // @ts-ignore
+    quitAction.mutate(null, {
+      onSuccess(data) {
+        // queryClient.invalidateQueries(nnsdaoKeys.userInfo(cid));
+        queryClient.setQueryData(nnsdaoKeys.userInfo(cid), data);
+        const memberListKey = nnsdaoKeys.member_list(cid);
+        const preList: any[] = queryClient.getQueryData(memberListKey) ?? [];
+        queryClient.setQueryData(
+          memberListKey,
+          preList.filter(item => item.nickname !== data.nickname)
+        );
+      },
+    });
   };
 
   const IsGroup = () => {
-    if (!isLogin) {
-      return (
-        <Box
-          onClick={() => {
-            navigate('/login');
-          }}>
-          JOIN
-        </Box>
-      );
-    }
-
     if (useInfo.isFetching || joinAction.isLoading || quitAction.isLoading) {
       return (
         <Box className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
@@ -62,13 +65,13 @@ export default function info(props) {
         </Box>
       );
     }
-    // if (useInfo.error) {
-    //   return (
-    //     <Box onClick={() => useInfo.refetch()}>
-    //       <UpdateIcon />
-    //     </Box>
-    //   );
-    // }
+    if (useInfo.error) {
+      return (
+        <Box onClick={() => useInfo.refetch()}>
+          <RefreshIcon />
+        </Box>
+      );
+    }
     return (
       <Box>
         {useInfo.data?.status_code === 1 ? (
@@ -126,23 +129,11 @@ export default function info(props) {
         '&:hover': { border: '1px solid #818994' },
       }}>
       <Box>
-        <Avatar sx={{ width: 82, height: 82 }} src={props.avatar}></Avatar>
+        <Avatar sx={{ width: 82, height: 82 }} src={daoInfo.data?.avatar ?? ''}></Avatar>
       </Box>
-      <Box className="text-22 pt-11">{props.name}1</Box>
-      <Box sx={{ paddingY: '12px', color: 'gray' }}>{props.member}MEMBER</Box>
+      <Box className="text-22 pt-11">{daoInfo.data?.name ?? ''}</Box>
+      <Box sx={{ paddingY: '12px', color: 'gray' }}>{memberList.data?.length ?? '*'} MEMBER</Box>
       <IsGroup></IsGroup>
-      {/* <Box
-        onClick={() => handleDao(props.join)}
-        sx={{
-          paddingX: '40px',
-          paddingY: '8px',
-          cursor: 'pointer',
-          border: '1px solid #282828',
-          borderRadius: '45px',
-          '&:hover': { border: '1px solid #818994' },
-        }}>
-        {props.join === 1 ? 'Quit' : 'JOIN'}
-      </Box> */}
     </Box>
   );
 }

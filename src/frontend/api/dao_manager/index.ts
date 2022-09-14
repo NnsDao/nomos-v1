@@ -59,7 +59,7 @@ export async function createDao(params: CreateDaoInfo) {
 
 export const useTotalDaoLists = () => {
   return useQuery(daoManagerKeys.lists(), totalDaoList, {
-    refetchInterval: 3e4,
+    refetchInterval: 6e4,
     staleTime: Infinity,
     refetchOnWindowFocus: import.meta.env.PROD,
   });

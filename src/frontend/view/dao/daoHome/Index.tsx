@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
 import * as React from 'react';
 import { useTotalDaoLists } from '../../../api/dao_manager';
+import { daoListFilter } from '../../../utils/helpers';
 import Info from './info/Index';
 import DaoInput from './search/Index';
 
@@ -12,7 +13,8 @@ const DaoHome = () => {
   // const top100Films = [{ label: '1' }, { label: '2' }, { label: '3' }, { label: '4' }];
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const totalList = useTotalDaoLists();
-
+  const [searchFilter, setSearchFilter] = React.useState('');
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -20,7 +22,12 @@ const DaoHome = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const MenuItemConfig = ['Dev', 'Team', 'Idea', 'Create'];
+  let MenuItemConfig: any = totalList.data?.length
+    ? // @ts-ignore
+      [...new Set(totalList.data.map(item => item.tags).flat(Infinity))]
+    : [];
+
+  MenuItemConfig = ['ALL'].concat().concat(MenuItemConfig);
   const Data = [
     {
       name: '12',
@@ -77,18 +84,23 @@ const DaoHome = () => {
     //     </Box>
     //   );
     // }
-    if (!totalList.data?.length) {
-      return Data.map(item => <Info data={item} key={item.name}></Info>);
-    }
+    // if (!totalList.data?.length) {
+    //   return Data.map(item => <Info data={item} key={item.name}></Info>);
+    // }
 
-    return totalList.data.map(item => <Info data={item} key={item.id}></Info>);
+    return daoListFilter(totalList.data, searchFilter).map(item => <Info data={item} key={item.id}></Info>);
   };
+  function handleMenuItemClick(e, index: number): void {
+    setSelectedIndex(index);
+    handleClose();
+  }
+
   return (
     <div className="flex justify-center">
       <Box className="w-full m-auto bg-primary  text-white">
         <Box className="w-full flex flex-row justify-between items-center pb-24">
           <Box className="flex items-center ">
-            <DaoInput></DaoInput>
+            <DaoInput onchange={setSearchFilter}></DaoInput>
             <Box bgcolor={'#0C0633'} marginLeft={'10px'}>
               <Button
                 sx={{
@@ -105,16 +117,18 @@ const DaoHome = () => {
                 endIcon={<KeyboardArrowDownIcon />}
                 variant="outlined"
                 id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}>
-                DAON
+                {MenuItemConfig[selectedIndex]}
               </Button>
               <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} TransitionComponent={Fade}>
-                {MenuItemConfig.map(item => (
-                  <MenuItem onClick={handleClose} key={item} sx={{ width: 122 }}>
-                    <Box>{item}</Box>
+                {MenuItemConfig.map((item, index) => (
+                  <MenuItem
+                    onClick={e => handleMenuItemClick(e, index)}
+                    key={String(item + index)}
+                    sx={{ width: 122 }}
+                    // disabled={index === 0}
+                    selected={index === selectedIndex}>
+                    {item}
                   </MenuItem>
                 ))}
               </Menu>
@@ -131,7 +145,7 @@ const DaoHome = () => {
         </Box>
         <Box className="flex justify-start flex-wrap">
           {/* @ts-ignore */}
-          <List></List>
+          <List key="list"></List>
         </Box>
 
         {/* <Box

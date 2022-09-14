@@ -35,6 +35,11 @@ const routerConfig = [
           { path: '*', index: true, element: <Team /> },
         ],
       },
+      {
+        index: true,
+        path: '*',
+        element: <DaoHome />,
+      },
     ],
   },
   { path: '/product', element: <Product /> },

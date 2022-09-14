@@ -5,7 +5,9 @@ const module = 'nnsdao';
 export const nnsdaoKeys = {
   all: composeQueryKeys([{ module }]),
   userInfos: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'userInfo' }),
-  userInfo: (principalText: string) => composeQueryKeys(nnsdaoKeys.userInfos(), { principalText }),
+  userInfo: (cid: string) => composeQueryKeys(nnsdaoKeys.userInfos(), { cid }),
+  daoInfos: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'daoInfo' }),
+  daoInfo: (cid: string) => composeQueryKeys(nnsdaoKeys.userInfos(), { cid }),
   votes: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'vote' }),
   vote: (id: string) => composeQueryKeys(nnsdaoKeys.votes(), { id }),
   member_lists: () => composeQueryKeys(nnsdaoKeys.all, { scope: 'member_lists' }),
