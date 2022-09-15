@@ -57,6 +57,7 @@ class NdpService {
   }
   async getBalance(arg: any) {
     const actor = await this.initActor();
+    // console.log('actor', actor);
     return actor.balance(arg);
   }
   async getClaim() {

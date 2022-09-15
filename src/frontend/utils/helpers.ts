@@ -1,4 +1,4 @@
-type QueryItemType = Record<string, string | number>;
+type QueryItemType = Record<string, any>;
 type QueryType = [QueryItemType];
 
 export function composeQueryKeys(baseQuery: QueryType, params?: QueryItemType): QueryType {

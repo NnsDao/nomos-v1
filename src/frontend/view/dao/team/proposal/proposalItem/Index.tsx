@@ -116,7 +116,7 @@ const ProposalItem = props => {
                   value={tempVote(item.vote_data).yesPercent}
                   color={'primary'}></LinearProgress>
                 <Box className="flex justify-between items-center" sx={{ fontWeight: '700', marginY: '8px' }}>
-                  <Box> FOR Structure {tempVote(item.vote_data).yes} K NDP </Box>
+                  <Box>YES {tempVote(item.vote_data).yes} K NDP </Box>
                   <Box>{tempVote(item.vote_data).yesPercent || 0}%</Box>
                 </Box>
                 <LinearProgress
@@ -125,7 +125,7 @@ const ProposalItem = props => {
                   value={tempVote(item.vote_data).noPercent}
                   color={'primary'}></LinearProgress>
                 <Box className="flex justify-between items-center" sx={{ fontWeight: '700', marginY: '5px' }}>
-                  <Box>AGAINST Structure {tempVote(item.vote_data).no} K NDP </Box>
+                  <Box>NO {tempVote(item.vote_data).no} K NDP </Box>
                   <Box>{tempVote(item.vote_data).noPercent || 0}%</Box>
                 </Box>
               </Box>

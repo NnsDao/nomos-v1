@@ -1,4 +1,4 @@
-import type { DaoInfo, JoinDaoParams, ProposalContent } from '@nnsdao/nnsdao-kit/nnsdao/types';
+import type { DaoInfo, JoinDaoParams, ProposalContent, UserVoteArgs } from '@nnsdao/nnsdao-kit/nnsdao/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { getNnsdaoActor } from '../../service';
@@ -92,17 +92,6 @@ export const user_info = async ({ queryKey }) => {
   }
   return Promise.reject(null);
 };
-export const vote = async params => {
-  const actor = await getNnsdaoActor(true);
-  try {
-    const res = await actor.vote(params);
-    console.log('vote', res);
-    return res;
-  } catch (error) {
-    console.log('vote', error);
-    return Promise.reject(null);
-  }
-};
 
 export const getProposalList = async ({ queryKey }) => {
   const { module, scope, cid } = queryKey[0];
@@ -128,6 +117,39 @@ export const useGetProposalList = (cid: string, selector?: (data) => any) => {
   });
 };
 
+export const useGetProposal = (cid: string, id: string) => {
+  const queryClient = useQueryClient();
+  const listKey = nnsdaoKeys.proposal_lists(cid);
+  return useQuery(
+    nnsdaoKeys.proposal(cid, id),
+    async ({ queryKey }) => {
+      // const { module, scope } = queryKey[0];
+      const actor = await getNnsdaoActor(cid, false);
+      const res = await actor.get_proposal(BigInt(+id));
+      console.log(res, 'get_proposal');
+      if ('Ok' in res) {
+        return res.Ok;
+      }
+      return Promise.reject(null);
+    },
+    {
+      staleTime: Infinity,
+      initialData: () => {
+        const list: any[] = queryClient.getQueryData(listKey) ?? [];
+        let item = list.find(([ID]) => ID == id);
+        if (item) {
+          return item[1];
+        }
+      },
+      onSuccess(data) {
+        // console.log('onSuccess', data);
+        const preList = queryClient.getQueryData(listKey);
+        queryClient.setQueryData(listKey, [data.id, data].concat(preList));
+      },
+    }
+  );
+};
+
 export const useGetUserInfo = (cid: string) => {
   return useQuery(nnsdaoKeys.userInfo(cid), user_info, {
     staleTime: Infinity,
@@ -140,8 +162,26 @@ export const useGetDaoInfo = (cid: string) => {
   });
 };
 
-export const useVote = (cid: string) => {
-  return useQuery(nnsdaoKeys.vote(), vote);
+export const useVote = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (params: UserVoteArgs & { cid: string }) => {
+      const actor = await getNnsdaoActor(params.cid, true);
+      const res = await actor.vote(params);
+      console.log('vote', res);
+      if ('Ok' in res) {
+        return res.Ok;
+      }
+      return Promise.reject(res.Err);
+    },
+    {
+      onSuccess(data, variables) {
+        const { cid, id } = variables;
+        // const queryKey = nnsdaoKeys.proposal_lists(cid);
+        queryClient.invalidateQueries(nnsdaoKeys.proposal(cid, String(Number(id))));
+      },
+    }
+  );
 };
 export const useQuit = (cid: string) => {
   return useMutation(() => {
@@ -203,11 +243,4 @@ export const usePropose = () => {
       },
     }
   );
-};
-
-export const useGetProposal = (cid: string) => {
-  return useQuery(nnsdaoKeys.proposal(cid), get_proposal);
-};
-export const useGetHandledProposal = () => {
-  return useQuery(nnsdaoKeys.get_handled_proposal(), get_handled_proposal);
 };

@@ -1,16 +1,24 @@
 import { Principal } from '@dfinity/principal';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Avatar, Box, Button, Dialog, DialogActions, Divider, InputBase, LinearProgress } from '@mui/material';
-import Input from '@mui/material/Input';
-import { UserVoteArgs } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
-import NdpService from '@utils/NdpService';
-import BigNumber from 'bignumber.js';
+
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  Divider,
+  InputBase,
+  LinearProgress,
+} from '@mui/material';
 import React, { useEffect } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetProposalList, useMemberList } from '../../../api/nnsdao';
+import { useGetProposal, useMemberList, useVote } from '../../../api/nnsdao';
 import RichText from '../../../components/RichText';
 import { useUserStore } from '../../../hooks/userStore';
-import { getNICPActor, getNnsdaoActor } from '../../../service';
+import { getNICPActor } from '../../../service';
 import { principalToAccountIdentifier } from '../../../utils/account';
 
 import ProposalActive from '../component/proposalActive/Index';
@@ -18,16 +26,13 @@ import ProposalActive from '../component/proposalActive/Index';
 const ProposalInfo = () => {
   const navigate = useNavigate();
   const { cid = '', id = '' } = useParams();
-  const Proposal = useGetProposalList(
-    cid,
-    React.useCallback(data => data.filter(([ID]) => Number(ID) == Number(id)).map(item => item[1])[0], [])
-  );
-
+  const voteMutation = useVote();
+  const Proposal = useGetProposal(cid, id);
   const StructureList = ['1', '2', '3'];
   const [open, setOpen] = React.useState(false);
   const [voteType, setVoteType] = React.useState('');
   const [NDP, setNDP] = React.useState(0);
-  const [inputValue, setInput] = React.useState('');
+  const [inputValue, setInput] = React.useState(0);
 
   const userStore = useUserStore();
   const isLogin = userStore.isLogin;
@@ -38,7 +43,6 @@ const ProposalInfo = () => {
   };
 
   const handleClose = () => {
-    setVoteType('');
     setOpen(false);
   };
 
@@ -47,41 +51,25 @@ const ProposalInfo = () => {
   };
 
   const getBalance = async () => {
-    const getBalanceParams = {
-      token: 'NDP',
-      user: { address: userStore.accountId },
-    };
-    try {
-      const NDP = await NdpService.getBalance(getBalanceParams);
-      setNDP(Number(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString()));
-    } catch (error) {
-      console.error('getBalance', error);
-    }
+    const NICPActor = await getNICPActor(true);
+    // console.log(NICPActor, 'NICPActor');
+    const balanceNICP = await NICPActor.balanceOf(Principal.fromText(principal)).then(r => {
+      return r;
+    });
+    console.log(balanceNICP, 'balanceNICP');
+    setNDP((Number(balanceNICP) / 1e8) >> 0);
+    // const getBalanceParams = {
+    //   token: 'NDP',
+    //   user: { address: userStore.accountId },
+    // };
+    // try {
+    //   const NDP = await NdpService.getBalance(getBalanceParams);
+    //   setNDP(Number(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString()));
+    // } catch (error) {
+    //   console.error('getBalance', error);
+    // }
   };
   let principal = userStore.principalId;
-
-  const voteFN = async () => {
-    const nnsdaoActor = await getNnsdaoActor(true);
-    const params: UserVoteArgs = {
-      id: BigInt(0),
-      principal: [Principal.fromText(principal)],
-      vote: voteType == 'yes' ? { Yes: BigInt(inputValue) } : { No: BigInt(inputValue) },
-    };
-
-    // 2. approve
-
-    // 3. vote
-    const res = await nnsdaoActor.vote(params);
-    console.log(res);
-    //@ts-ignore
-  };
-  const approve = async () => {
-    const NICPActor = await getNICPActor(true);
-    const approve = await NICPActor.approve(
-      Principal.fromText('67bzx-5iaaa-aaaam-aah5a-cai'),
-      BigInt(Number(inputValue) * 1e8)
-    );
-  };
 
   const confirm = async () => {
     // step
@@ -90,13 +78,32 @@ const ProposalInfo = () => {
     // 2 approve
     // 3 vote
     if (!isLogin) {
-      goLogin();
+      return goLogin();
     }
-    if (Number(inputValue) > Number(NDP) / 1e8) {
+    if (Number(inputValue) > NDP) {
+      toast.error(`You can provide up to your balance ${NDP}`);
       return;
     }
-    await approve;
-    voteFN();
+
+    const NICPActor = await getNICPActor(true);
+    const approve = await NICPActor.approve(Principal.fromText(cid), BigInt(Number(inputValue) * 1e8));
+    console.log('approve', approve);
+    voteMutation.mutate(
+      {
+        cid,
+        id: BigInt(+id),
+        principal: [],
+        vote: voteType == 'yes' ? { Yes: BigInt(inputValue) } : { No: BigInt(inputValue) },
+      },
+      {
+        onSuccess(data, variables, context) {
+          toast.success('Successfully voted');
+        },
+        onError(error: any, variables, context) {
+          toast.error(error.toString());
+        },
+      }
+    );
   };
   const goBack = () => {
     navigate(-1);
@@ -104,6 +111,15 @@ const ProposalInfo = () => {
   useEffect(() => {
     getBalance();
   }, []);
+
+  if (Proposal.isFetching) {
+    return (
+      <Box className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
+        <CircularProgress size={24} />
+      </Box>
+    );
+  }
+
   const UserBox = () => {
     const proposerPrincipalId = Proposal.data?.proposer.toText();
     const proposerInfo = useMemberList(
@@ -149,7 +165,7 @@ const ProposalInfo = () => {
                 <UserBox key={Proposal.data?.proposer.toText()}></UserBox>
               </Box>
               <Box className="cursor-pointer">
-                <Box>share</Box>
+                <Button variant="text">share</Button>
               </Box>
             </Box>
             {/* <Box sx={{ color: '#8b949e', fontSize: '18px', wordWrap: 'break-word' }}></Box> */}
@@ -269,32 +285,40 @@ const ProposalInfo = () => {
           <Box sx={{ paddingY: '10px', textAlign: 'center' }}>Polling overview</Box>
           <Box>
             <Box className="flex justify-between items-center">
-              <Box>options: </Box>
-              <Box>{voteType === 'yes' ? 'FOR' : 'AGAINST'} </Box>
+              <Box>Options: </Box>
+              <Box>{voteType.toUpperCase()}</Box>
             </Box>
-            <Box className="flex justify-between items-center">
-              <Box>your right to vote: </Box>
-              <Box>{NDP} </Box>
+            <Box className="flex justify-between items-center" sx={{ lineHeight: 2 }}>
+              <Box>Vote Weights: </Box>
+              <Box>
+                <InputBase
+                  sx={{ border: '1px solid #282828', '&:hover': { border: '1px solid #818994' }, padding: '8px' }}
+                  type="number"
+                  onChange={e => setInput(parseInt(e.target.value) ?? 0)}></InputBase>{' '}
+                NDP
+              </Box>
             </Box>
-            <Box>
-              <Input type="number"></Input>
+            {/* <Box>
               <InputBase
                 onChange={e => setInput(e.target.value)}
                 sx={{ ml: 1, flex: 1, color: '#fff', marginLeft: '0px' }}
                 placeholder="Search for dao of interest"
                 inputProps={{ 'aria-label': 'search google maps' }}
               />
-            </Box>
+            </Box> */}
           </Box>
 
-          <DialogActions>
-            <Button onClick={confirm}>Confirm</Button>
-            <Button onClick={handleClose} autoFocus>
+          <DialogActions sx={{ marginTop: '20px' }}>
+            <Button variant="outlined" onClick={confirm}>
+              Confirm
+            </Button>
+            <Button variant="outlined" onClick={handleClose} autoFocus>
               Close
             </Button>
           </DialogActions>
         </Box>
       </Dialog>
+      <Toaster></Toaster>
     </Box>
   );
 };
