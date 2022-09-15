@@ -1,5 +1,6 @@
-import type { DaoInfo, JoinDaoParams } from '@nnsdao/nnsdao-kit/nnsdao/types';
+import type { DaoInfo, JoinDaoParams, ProposalContent } from '@nnsdao/nnsdao-kit/nnsdao/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import React from 'react';
 import { getNnsdaoActor } from '../../service';
 import { nnsdaoKeys } from './queries';
 
@@ -19,14 +20,12 @@ export const get_handled_proposal = async ({ queryKey }) => {
 export const get_proposal = async ({ queryKey }) => {
   const { module, cid, id, scope } = queryKey[0];
   const actor = await getNnsdaoActor(cid, false);
-  try {
-    const res = await actor.get_proposal(id);
-    console.log('get_proposal', res);
-    return res;
-  } catch (error) {
-    console.log('get_proposal', error);
-    return Promise.reject(null);
+  const res = await actor.get_proposal(id);
+  console.log('get_proposal', res);
+  if ('Ok' in res) {
+    return res.Ok;
   }
+  return Promise.reject(null);
 };
 export const join = async (params: JoinDaoParams & { cid: string }) => {
   const actor = await getNnsdaoActor(params.cid, true);
@@ -105,20 +104,15 @@ export const vote = async params => {
   }
 };
 
-export const getProposalList = async () => {
-  const actor = await getNnsdaoActor(false);
+export const getProposalList = async ({ queryKey }) => {
+  const { module, scope, cid } = queryKey[0];
+  const actor = await getNnsdaoActor(cid, false);
   const res = await actor.get_proposal_list();
   console.log(res, 'get_proposal_list');
-  try {
-    if ('Ok' in res) {
-      return res.Ok;
-    } else {
-      return Promise.reject(null);
-    }
-  } catch (error) {
-    console.log('get_proposal_list', error);
-    return [];
+  if ('Ok' in res) {
+    return res.Ok;
   }
+  return Promise.reject(null);
 };
 
 /**
@@ -126,8 +120,12 @@ export const getProposalList = async () => {
  *  Hooks
  */
 
-export const useGetProposalList = (cid: string) => {
-  return useQuery(nnsdaoKeys.proposal_lists(cid), getProposalList);
+export const useGetProposalList = (cid: string, selector?: (data) => any) => {
+  const defaultSelector = data => data;
+  return useQuery(nnsdaoKeys.proposal_lists(cid), getProposalList, {
+    staleTime: 6e4,
+    select: selector || defaultSelector,
+  });
 };
 
 export const useGetUserInfo = (cid: string) => {
@@ -150,12 +148,12 @@ export const useQuit = (cid: string) => {
     return quit(cid);
   });
 };
-export const usePropose = () => {
-  return useQuery(nnsdaoKeys.propose(), propose);
-};
-export const useMemberList = (cid: string) => {
+
+export const useMemberList = (cid: string, selector?: (data) => any) => {
+  const defaultSelector = React.useCallback(data => data, []);
   return useQuery(nnsdaoKeys.member_list(cid), member_list, {
     staleTime: 6e4,
+    select: selector || defaultSelector,
   });
 };
 export const useJoin = (cid: string) => {
@@ -184,8 +182,31 @@ export const useUpdateDaoInfo = () => {
   );
 };
 
-export const useGetProposal = () => {
-  return useQuery(nnsdaoKeys.proposal(id), get_proposal);
+export const usePropose = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (params: ProposalContent & { cid: string }) => {
+      const actor = await getNnsdaoActor(params.cid, true);
+      const res = await actor.propose(params);
+      console.log('propose', res);
+      if ('Ok' in res) {
+        return res.Ok;
+      }
+      return Promise.reject(null);
+    },
+    {
+      onSuccess(data, variables) {
+        const cid = variables.cid;
+        const queryKey = nnsdaoKeys.proposal_lists(cid);
+        const preList: ProposalContent[] = queryClient.getQueryData(queryKey) ?? [];
+        queryClient.setQueryData(queryKey, preList.concat(data));
+      },
+    }
+  );
+};
+
+export const useGetProposal = (cid: string) => {
+  return useQuery(nnsdaoKeys.proposal(cid), get_proposal);
 };
 export const useGetHandledProposal = () => {
   return useQuery(nnsdaoKeys.get_handled_proposal(), get_handled_proposal);

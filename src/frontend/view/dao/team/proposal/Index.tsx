@@ -16,7 +16,6 @@ const Proposal = () => {
     setMenuActive(string);
     setAnchorEl(null);
   };
-  const data = ['1', '2', '3'];
 
   return (
     <Box>
@@ -45,12 +44,7 @@ const Proposal = () => {
             onClick={handleClick}>
             {MenuActive}
           </Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={() => handleClose(MenuActive)}
-            TransitionComponent={Fade}>
+          <Menu id="basic-menu" anchorEl={anchorEl} open={open} TransitionComponent={Fade}>
             {MenuItemConfig.map(item => (
               <MenuItem onClick={() => handleClose(item)} key={item} sx={{ width: 122 }}>
                 <Box sx={{ fontWeight: '500' }}>{item}</Box>
@@ -59,7 +53,7 @@ const Proposal = () => {
           </Menu>
         </Box>
       </Box>
-      <ProposalItem></ProposalItem>
+      <ProposalItem filter={MenuActive}></ProposalItem>
     </Box>
   );
 };

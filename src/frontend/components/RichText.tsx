@@ -28,22 +28,21 @@ const HOTKEYS = {
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
 
+interface RichTextProps {
+  initialValue: any;
+  onChange?: (...args) => void;
+}
+
 // @ts-ignore
-const RichText = ({ initialValue, onChange }) => {
+const RichText = ({ initialValue, onChange }: RichTextProps) => {
+  const readOnly = typeof onChange == 'undefined';
   const renderElement = useCallback(props => <Element {...props} />, []);
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
-  return (
-    <Box
-      sx={{
-        border: '1px solid #282828',
-        color: '#fff',
-        minHeight: '400px',
-        padding: '16px',
-        '&:hover': { border: '1px solid #818994' },
-      }}>
-      <Slate editor={editor} value={initialValue} onChange={onChange}>
+  const Menu = () => {
+    return (
+      <>
         <Stack spacing={1} direction="row" sx={{ height: '26px' }}>
           <MarkButton format="bold" icon={<FormatBoldIcon />} />
           <MarkButton format="italic" icon={<FormatItalicIcon />} />
@@ -60,8 +59,24 @@ const RichText = ({ initialValue, onChange }) => {
           <BlockButton format="justify" icon={<FormatAlignJustifyIcon />} />
         </Stack>
         <Divider sx={{ marginTop: '16px' }}></Divider>
+      </>
+    );
+  };
+  return (
+    <Box
+      sx={{
+        border: readOnly ? null : '1px solid #282828',
+        color: '#fff',
+        minHeight: '120px',
+        overflow: 'hidden',
+        padding: '16px',
+        '&:hover': { border: readOnly ? null : '1px solid #818994' },
+      }}>
+      <Slate editor={editor} value={initialValue} onChange={onChange}>
+        {readOnly ? null : <Menu />}
         <Editable
           style={{ color: '#fff' }}
+          readOnly={readOnly}
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           placeholder="Enter some rich text…"

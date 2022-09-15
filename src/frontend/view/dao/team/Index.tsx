@@ -3,7 +3,7 @@ import { Alert, AlertColor, Avatar, Box, CircularProgress, Snackbar } from '@mui
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
-import { useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
+import { useGetDaoInfo, useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
 import { nnsdaoKeys } from '../../../api/nnsdao/queries';
 import { useUserStore } from '../../../hooks/userStore';
 import About from '../newProposal/Index';
@@ -16,9 +16,10 @@ const Team = () => {
   const tabList = ['proposal', 'new proposal', 'about', 'treasury', 'set up'];
   const [activeTab, setActiveTab] = useState('proposal');
   const useInfo = useGetUserInfo(cid);
-  const joinAction = useJoin();
-  const quitAction = useQuit();
+  const joinAction = useJoin(cid);
+  const quitAction = useQuit(cid);
   const memberList = useMemberList(cid);
+  const daoInfo = useGetDaoInfo(cid);
   const queryClient = useQueryClient();
   const userStore = useUserStore();
   const accountId = userStore.accountId;
@@ -40,7 +41,10 @@ const Team = () => {
     setState({ ...state, open: false });
   };
   const join = async () => {
-    if (!isLogin) return;
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
     const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
     await joinAction.mutateAsync(joinParams);
     handleClick({
@@ -48,7 +52,7 @@ const Team = () => {
       type: 'success',
       message: 'Join success!',
     });
-    queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+    queryClient.invalidateQueries(nnsdaoKeys.userInfo(cid));
     handleClick({
       open: true,
       type: 'success',
@@ -64,7 +68,7 @@ const Team = () => {
       type: 'success',
       message: 'Quit success!',
     });
-    queryClient.invalidateQueries(nnsdaoKeys.userInfo());
+    queryClient.invalidateQueries(nnsdaoKeys.userInfo(cid));
     handleClick({
       open: true,
       type: 'success',
@@ -72,7 +76,7 @@ const Team = () => {
     });
   };
   const MemberNumber = () => {
-    if (memberList.isFetching || memberList.isLoading || memberList.isLoading) {
+    if (memberList.isFetching || memberList.isLoading) {
       return (
         <Box className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
           <CircularProgress size={16} />
@@ -133,9 +137,9 @@ const Team = () => {
           // '&:hover': {},
         }}>
         <Box>
-          <Avatar sx={{ width: 82, height: 82 }} src={'avatar'}></Avatar>
+          <Avatar sx={{ width: 82, height: 82 }} src={daoInfo.data?.avatar ?? ''}></Avatar>
         </Box>
-        <Box className="text-22 pt-11">{'name'}1</Box>
+        <Box className="text-22 pt-11">{daoInfo.data?.name ?? ''}</Box>
         <Box sx={{ paddingY: '12px', color: 'gray' }}>
           <MemberNumber></MemberNumber>
         </Box>
@@ -169,7 +173,7 @@ const Team = () => {
             <Box
               onClick={() => {
                 if (item === 'new proposal') {
-                  navigate('/daos/newProposal');
+                  navigate('newProposal');
                 } else {
                   setActiveTab(item);
                 }

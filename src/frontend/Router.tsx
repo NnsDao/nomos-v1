@@ -30,14 +30,13 @@ const routerConfig = [
         path: 'team/:cid',
         element: <DaoTeam />,
         children: [
-          { path: 'proposalInfo', element: <ProposalInfo /> },
+          { path: 'proposalInfo/:id', element: <ProposalInfo /> },
           { path: 'newProposal', element: <NewProposal /> },
-          { path: '*', index: true, element: <Team /> },
+          { index: true, element: <Team /> },
         ],
       },
       {
         index: true,
-        path: '*',
         element: <DaoHome />,
       },
     ],

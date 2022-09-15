@@ -1,19 +1,28 @@
 import { Principal } from '@dfinity/principal';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Avatar, Box, Button, Dialog, DialogActions, Divider, InputBase, LinearProgress } from '@mui/material';
 import Input from '@mui/material/Input';
 import { UserVoteArgs } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
 import NdpService from '@utils/NdpService';
 import BigNumber from 'bignumber.js';
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useGetProposalList, useMemberList } from '../../../api/nnsdao';
+import RichText from '../../../components/RichText';
 import { useUserStore } from '../../../hooks/userStore';
 import { getNICPActor, getNnsdaoActor } from '../../../service';
+import { principalToAccountIdentifier } from '../../../utils/account';
 
 import ProposalActive from '../component/proposalActive/Index';
 
 const ProposalInfo = () => {
   const navigate = useNavigate();
+  const { cid = '', id = '' } = useParams();
+  const Proposal = useGetProposalList(
+    cid,
+    React.useCallback(data => data.filter(([ID]) => Number(ID) == Number(id)).map(item => item[1])[0], [])
+  );
+
   const StructureList = ['1', '2', '3'];
   const [open, setOpen] = React.useState(false);
   const [voteType, setVoteType] = React.useState('');
@@ -95,34 +104,59 @@ const ProposalInfo = () => {
   useEffect(() => {
     getBalance();
   }, []);
+  const UserBox = () => {
+    const proposerPrincipalId = Proposal.data?.proposer.toText();
+    const proposerInfo = useMemberList(
+      cid,
+      React.useCallback(data => {
+        return data.filter(item => item?.principal?.toText() === proposerPrincipalId);
+      }, [])
+    );
+    let address = principalToAccountIdentifier(Proposal.data?.proposer.toText(), 0);
+    address = address.slice(0, 6) + '...' + address.slice(-6);
+    return (
+      <>
+        <Avatar
+          sx={{ width: 18, height: 18, marginX: '10px', cursor: 'pointer' }}
+          src={proposerInfo.data?.avatar}></Avatar>
+        <Box sx={{ cursor: 'pointer' }}>{address}</Box>
+      </>
+    );
+  };
   return (
     <Box>
       <Box className="flex justify-between pt-10 pb-20 w-1000px">
         <Box sx={{ width: '620px', marginRight: '20px' }}>
-          <Box sx={{ color: '#8b949e', cursor: 'pointer' }} onClick={goBack}>
-            <KeyboardBackspaceIcon sx={{ width: '20px', height: '20px', marginRight: '6px' }}></KeyboardBackspaceIcon>
+          <Box
+            sx={{
+              color: '#8b949e',
+              cursor: 'pointer',
+              fontSize: 32,
+              '&:hover': {
+                color: '#fff',
+              },
+            }}
+            onClick={goBack}>
+            <ArrowBackIcon
+              sx={{ width: '20px', height: '20px', marginRight: '6px', fontSize: 'large' }}></ArrowBackIcon>
             return
           </Box>
           <Box className="">
-            <Box sx={{ paddingY: '15px', fontSize: '26px', wordWrap: 'break-word' }}>
-              title111111111111111111111111111111111111111111111
-            </Box>
+            <Box sx={{ paddingY: '15px', fontSize: '26px', wordWrap: 'break-word' }}>{Proposal.data?.title}</Box>
             <Box className="flex justify-between py-20 ">
               <Box className="flex items-center">
-                <ProposalActive state={'active'}></ProposalActive>
-                <Avatar sx={{ width: 18, height: 18, marginX: '10px', cursor: 'pointer' }} src={'avatar'}></Avatar>
-                <Box sx={{ cursor: 'pointer' }}>name</Box>
+                <ProposalActive state={Object.keys(Proposal.data?.proposal_state || {})[0]}></ProposalActive>
+                <UserBox key={Proposal.data?.proposer.toText()}></UserBox>
               </Box>
               <Box className="cursor-pointer">
                 <Box>share</Box>
               </Box>
             </Box>
-            <Box sx={{ color: '#8b949e', fontSize: '18px', wordWrap: 'break-word' }}>
-              contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
-            </Box>
+            {/* <Box sx={{ color: '#8b949e', fontSize: '18px', wordWrap: 'break-word' }}></Box> */}
+            <RichText initialValue={JSON.parse(Proposal?.data.content)}></RichText>
           </Box>
           <Box sx={{ marginTop: '90px', border: '1px solid #282828', borderRadius: '10px' }}>
-            <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>cast your vote</Box>
+            <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>Cast Your Vote</Box>
             <Divider sx={{ height: '1px', width: '618px', background: '#282828' }} orientation="vertical" />
             <Box sx={{ padding: '24px' }}>
               <Button
@@ -139,7 +173,7 @@ const ProposalInfo = () => {
                   '&:hover': { border: '1px solid #818994' },
                 }}
                 onClick={() => handleClickOpen('yes')}>
-                FOR Structure
+                Agree
               </Button>
 
               <Button
@@ -156,13 +190,13 @@ const ProposalInfo = () => {
                   '&:hover': { border: '1px solid #818994' },
                 }}
                 onClick={() => handleClickOpen('no')}>
-                AGAINST Structure
+                Disagree
               </Button>
             </Box>
           </Box>
           <Box sx={{ marginTop: '90px', border: '1px solid #282828', borderRadius: '10px' }}>
-            <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>votes</Box>
-            {StructureList.map(item => (
+            <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>Votes</Box>
+            {Proposal.data?.vote_data.map(item => (
               <Box>
                 <Divider sx={{ height: '1px', width: '618px', background: '#282828' }} orientation="vertical" />
                 <Box className="flex justify-between items-center p-14" sx={{ fontWeight: '600' }}>
