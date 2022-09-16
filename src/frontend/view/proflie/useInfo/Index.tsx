@@ -1,7 +1,7 @@
 import Avatar from '../../../components/Avatar';
 
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import copy from '../../../assets/home/copy.png';
 import reputation from '../../../assets/main/reputation.png';
 import { useUserStore } from '../../../hooks/userStore';

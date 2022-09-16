@@ -2,7 +2,7 @@ import { plugLogin, stoicLogin } from '@nnsdao/nnsdao-kit';
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
 
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import plug from '../assets/login/plug.png';
