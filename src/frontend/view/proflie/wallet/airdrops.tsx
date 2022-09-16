@@ -1,5 +1,5 @@
-import { message } from 'antd';
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import Loading from '../../../components/Loading';
 import { useUserStore } from '../../../hooks/userStore';
 import NdpService from '../../../utils/NdpService';
@@ -21,9 +21,9 @@ const Airdrop = () => {
       setIsLoading(false);
       changeShowAirdrop();
       if (result.err) {
-        message.error({ content: result.err, duration: 3 });
+        toast.error(result.err);
       } else {
-        message.success({ content: 'The redemption is successful.', duration: 3 });
+        toast.success('The redemption is successful.');
         // getBalance();
       }
     } catch (err) {
@@ -64,10 +64,10 @@ const Airdrop = () => {
         setIsLoading(true);
         dropExchange(email, code);
       } else {
-        message.warning({ content: 'Enter the correct email address or code', duration: 2 });
+        toast.error('Enter the correct email address or code');
       }
     } else {
-      message.warning({ content: 'Enter form', duration: 2 });
+      toast.error('Enter form');
     }
   };
   return (
@@ -102,6 +102,7 @@ const Airdrop = () => {
         </div>
       </div>
       <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />
+      <Toaster></Toaster>
     </div>
   );
 };

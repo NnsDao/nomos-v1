@@ -1,5 +1,4 @@
 import { Principal } from '@dfinity/principal';
-import { message } from 'antd';
 import React, { useState } from 'react';
 import { useUserStore } from '../../../../hooks/userStore';
 import { getNICPActor, getNnsdaoActor } from '../../../../service/index';
@@ -37,12 +36,12 @@ const CreateProposal = props => {
       // setTransferText('Transfer');
       // props.cancelConfirm();
       // props.cancelFrom();
-      message.success({ content: ' success', duration: 3 });
+      // message.success({ content: ' success', duration: 3 });
     } else {
       // setTransferLoading(false);
       // setTransferText('Transfer');
       // props.cancelConfirm();
-      message.error({ content: ' error', duration: 3 });
+      // message.error({ content: ' error', duration: 3 });
     }
   };
   const createProposal = async () => {

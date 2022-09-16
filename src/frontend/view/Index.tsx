@@ -1,5 +1,7 @@
-import { Collapse, Input, message } from 'antd';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import Collaboration from '../assets/home/Collaboration.png';
 import creation from '../assets/home/creation.png';
@@ -131,8 +133,7 @@ export default function index(prop: any) {
       text: 'DAOs',
     },
   ];
-  //Collapse
-  const { Panel } = Collapse;
+
   const faqList = [
     {
       frequently: 'What is NnsDAO Protocol?',
@@ -201,7 +202,7 @@ export default function index(prop: any) {
   const copyAddress = () => {
     if (isLogin) {
       navigator.clipboard.writeText(contributesAdress);
-      message.info('The account address has been copied to the clipboard');
+      toast('The account address has been copied to the clipboard');
     } else {
       navigate('/login');
     }
@@ -297,10 +298,11 @@ export default function index(prop: any) {
               <span className={'find-text-title font-mono mb-4'}> DAOn or DAOs </span>
               <span className={'find-text-info mb-20'}> The next generation of blockchain consensus is DAOs. </span>
               <div className={'relative 2xl:mt-12'}>
-                <Input
+                <input
                   style={{
                     width: '470px',
                     height: '54px',
+                    paddingLeft: '8px',
                     background: 'rgba(225, 225, 225, 0.13)',
                     borderColor: '#3F62E4',
                     borderRadius: '4px',
@@ -457,17 +459,21 @@ export default function index(prop: any) {
           className={'max-w-1200px m-auto mt-100px  flex flex-col justify-content items-start  text-white '}>
           <span className={'find-text-title font-mono mb-4'}>FAQs</span>
           <div className={'flex flex-wrap justify-between my-24 text-white w-full'}>
-            <Collapse defaultActiveKey={['0']} ghost accordion expandIconPosition={'right'}>
-              {faqList.map((item, index) => (
-                <Panel header={item.frequently} key={index.toString()} forceRender={true}>
-                  <p>{item.questions}</p>
-                </Panel>
-              ))}
-            </Collapse>
+            {faqList.map((item, index) => (
+              <Accordion sx={{ background: 'none', width: '100%' }} key={index}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>{item.frequently}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography sx={{ color: 'text.secondary' }}>{item.questions}</Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))}
           </div>
         </div>
         <Footer />
       </div>
+      <Toaster></Toaster>
     </>
   );
 }

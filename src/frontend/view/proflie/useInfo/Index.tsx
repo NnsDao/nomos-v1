@@ -1,7 +1,7 @@
-import { message } from 'antd';
 import Avatar from '../../../components/Avatar';
 
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import copy from '../../../assets/home/copy.png';
 import reputation from '../../../assets/main/reputation.png';
 import { useUserStore } from '../../../hooks/userStore';
@@ -18,7 +18,7 @@ const UseInfo = () => {
   });
   const copyAddress = () => {
     navigator.clipboard.writeText(userInfo.address);
-    message.success('The account address has been copied to the clipboard');
+    toast.success('The account address has been copied to the clipboard');
   };
   const getCurrentDate = () => {
     const myDate = new Date();
@@ -58,6 +58,7 @@ const UseInfo = () => {
           <div className="reputation-date">{getCurrentDate()}</div>
         </div>
       </div>
+      <Toaster></Toaster>
     </div>
   );
 };

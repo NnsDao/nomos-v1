@@ -1,6 +1,6 @@
 import { Principal } from '@dfinity/principal';
-import { message } from 'antd';
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { RingLoader } from 'react-spinners';
 import { useUserStore } from '../../../hooks/userStore';
 
@@ -37,10 +37,10 @@ const Transfer = (props: any) => {
         setConfirm(true);
       } else {
         setConfirmLoading(false);
-        message.error({ content: 'Insufficient balance.', duration: 3 });
+        toast.error('Insufficient balance.');
       }
     } else {
-      message.error({ content: 'Enter NICP or Principal', duration: 3 });
+      toast.error('Enter NICP or Principal');
     }
   };
 
@@ -104,6 +104,7 @@ const Transfer = (props: any) => {
           cancelConfirm={() => setConfirm(false)}
           cancelFrom={() => props.cancel()}></Confirm>
       ) : null}
+      <Toaster></Toaster>
     </div>
   );
 };

@@ -1,5 +1,5 @@
+import { Avatar } from '@mui/material';
 import { MemberItems } from '@nnsdao/nnsdao-kit/nnsdao/types';
-import { Avatar, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { getNnsdaoActor } from '../../../../service/index';
 const Members = props => {
@@ -16,7 +16,6 @@ const Members = props => {
       setmemberList(res.Ok);
     } else {
       console.log(res, 'member_list error');
-      message.error({ content: 'member_list error', duration: 3 });
     }
   };
   useEffect(() => {
@@ -32,7 +31,7 @@ const Members = props => {
         {memberList.map((item, index) => (
           <div className=" daos-members-content " key={index}>
             <div>
-              <Avatar size={22} />
+              <Avatar />
               <span className="ml-4  ">{item.nickname}</span>
             </div>
             <div>{item.intro ? item.intro : '/'}</div>

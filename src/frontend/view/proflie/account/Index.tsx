@@ -1,7 +1,7 @@
 import { Principal } from '@dfinity/principal';
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
-import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useUserStore } from '../../../hooks/userStore';
 import NdpService from '../../../utils/NdpService';
 import Activity from './activity/Index';
@@ -33,7 +33,7 @@ const Account = prop => {
   // }, []);
   const copyAddress = () => {
     navigator.clipboard.writeText(userInfo.address);
-    message.success('The account address has been copied to the clipboard');
+    toast.success('The account address has been copied to the clipboard');
   };
 
   const [userBadgeList, setUserBadgeList] = useState([]);
@@ -112,6 +112,7 @@ const Account = prop => {
         {prop.active === 'DAOn' ? <DAOn /> : ''}
         {prop.active === 'Badges' ? <Badges badgesList={userBadgeList} /> : ''}
       </div>
+      <Toaster></Toaster>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Principal } from '@dfinity/principal';
-import { message } from 'antd';
 import { BigNumber } from 'bignumber.js';
 import React, { useEffect, useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import nnsdaoLogo from '../../../assets/nnsdao-logo-200.png';
 import { useUserStore } from '../../../hooks/userStore';
 import { getNICPActor } from '../../../service/index';
@@ -183,7 +183,7 @@ const Wallet = () => {
         },
       ]);
       getBalance();
-      message.success({ content: 'claim Success!', duration: 2 });
+      toast.success(`Claim Success!`);
     }
   };
 
@@ -321,6 +321,7 @@ const Wallet = () => {
       {isOpen ? <Transfer cancel={() => setOpen(false)} setNDP={val => setNDP(val)} /> : null}
       {/* <Airdrop /> */}
       {/* {isShowAirdrop ? <Airdrop /> : null} */}
+      <Toaster></Toaster>
     </>
   );
 };

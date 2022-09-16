@@ -1,4 +1,3 @@
-// import { message } from 'antd';
 // import { idlFactory } from '../../declarations/ndp/index';
 
 // const plugActor = async () => {

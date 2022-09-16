@@ -1,5 +1,5 @@
-import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useUserStore } from '../../../hooks/userStore';
 import { getNnsdaoActor } from '../../../service/index';
 import CreateProposal from './createProposal/Index';
@@ -22,9 +22,9 @@ const Index = () => {
     //@ts-ignore
     if (res.Ok) {
       setStatusCode(1);
-      message.success({ content: 'Join success', duration: 3 });
+      toast.success('Join success');
     } else {
-      message.error({ content: 'Join error', duration: 3 });
+      toast.error('Join error');
     }
   };
   const quit = async () => {
@@ -34,9 +34,9 @@ const Index = () => {
     //@ts-ignore
     if (res.Ok) {
       setStatusCode(1);
-      message.success({ content: 'Quit success', duration: 3 });
+      toast.success('Quit success');
     } else {
-      message.error({ content: 'Quit error', duration: 3 });
+      toast.error(`Quit error`);
     }
   };
   const getUserInfo = async () => {
@@ -98,6 +98,7 @@ const Index = () => {
           </div>
         </div>
       </div>
+      <Toaster></Toaster>
     </>
   );
 };

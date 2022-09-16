@@ -1,6 +1,6 @@
 import { Principal } from '@dfinity/principal';
-import { message } from 'antd';
 import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { RingLoader } from 'react-spinners';
 import Loading from '../../../components/Loading';
 import { useUserStore } from '../../../hooks/userStore';
@@ -47,12 +47,12 @@ const confirm = (props: Prop) => {
       setTransferText('Transfer');
       props.cancelConfirm();
       props.cancelFrom();
-      message.success({ content: 'Transfer success', duration: 3 });
+      toast.success('Transfer success');
     } else {
       setTransferLoading(false);
       setTransferText('Transfer');
       props.cancelConfirm();
-      message.error({ content: 'Transfer error', duration: 3 });
+      toast.error('Transfer error');
     }
   };
 
@@ -81,6 +81,7 @@ const confirm = (props: Prop) => {
         </div>
       </div>
       <Loading isLoading={isloading} changeState={() => setIsLoading(isloading)} />
+      <Toaster></Toaster>
     </div>
   );
 };

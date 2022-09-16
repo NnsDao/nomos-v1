@@ -1,7 +1,8 @@
 import { plugLogin, stoicLogin } from '@nnsdao/nnsdao-kit';
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
-import { message } from 'antd';
+
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import plug from '../assets/login/plug.png';
@@ -60,7 +61,7 @@ const Index = () => {
     getExChange();
     setIsLoading(false);
     navigate('/home');
-    message.success({ content: 'Login Success!', key: 'loginLoading', duration: 2 });
+    toast.success('Login Success!');
   };
   const getExChange = async () => {
     const distributeActor = await getDistributeActor(true);
@@ -115,6 +116,7 @@ const Index = () => {
         </div>
       </div>
       <Loading isLoading={isLoading} changeState={() => setIsLoading(isLoading)} />
+      <Toaster></Toaster>
     </>
   );
 };
