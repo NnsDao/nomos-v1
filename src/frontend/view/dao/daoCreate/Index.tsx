@@ -1,19 +1,8 @@
-import {
-  Alert,
-  Backdrop,
-  Box,
-  Button,
-  Chip,
-  CircularProgress,
-  Divider,
-  Snackbar,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Backdrop, Box, Button, Chip, CircularProgress, Divider, Stack, TextField, Typography } from '@mui/material';
 import { payWithICP } from '@nnsdao/nnsdao-kit/helper/pay';
 import { DaoInfo } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
 import React, { useReducer, useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { getPayInfo, useCreateAction } from '../../../api/dao_manager';
 import { useUpdateDaoInfo } from '../../../api/nnsdao';
@@ -61,44 +50,14 @@ const DaoCreate = () => {
     );
   };
   const ActiveContent = () => {
-    const [snackBarStr, setSnackBarStr] = useState('');
     const createAction = useCreateAction();
     const navigator = useNavigate();
     const updateAction = useUpdateDaoInfo();
     const initialValue = [
       {
         type: 'paragraph',
-        children: [
-          // { text: 'This is editable ' },
-          // { text: 'rich', bold: true },
-          // { text: ' text, ' },
-          // { text: 'much', italic: true },
-          // { text: ' better than a ' },
-          // { text: '<textarea>', code: true },
-          { text: 'Please enter the introduction about this dao!' },
-        ],
+        children: [{ text: 'Please enter the introduction about this dao!' }],
       },
-      // {
-      //   type: 'paragraph',
-      //   children: [
-      //     {
-      //       text: "Since it's rich text, you can do things like turn a selection of text ",
-      //     },
-      //     { text: 'bold', bold: true },
-      //     {
-      //       text: ', or add a semantically rendered block quote in the middle of the page, like this:',
-      //     },
-      //   ],
-      // },
-      // {
-      //   type: 'block-quote',
-      //   children: [{ text: 'A wise quote.' }],
-      // },
-      // {
-      //   type: 'paragraph',
-      //   align: 'center',
-      //   children: [{ text: 'Try it out for yourself!' }],
-      // },
     ];
     const editorRef = useRef([]);
 
@@ -145,7 +104,7 @@ const DaoCreate = () => {
         setLoadingText('Getting Payment Information...');
         const payInfo = await getPayInfo().catch(() => null);
         if (!payInfo) {
-          setSnackBarStr(`Failed getPayInfo`);
+          toast.error(`Failed getPayInfo`);
           return;
         }
         // params.memo = payInfo.memo;
@@ -176,7 +135,7 @@ const DaoCreate = () => {
     };
     function checkField(key, value) {
       if (!value || !value?.length) {
-        setSnackBarStr(`${key} field cannot be empty!`);
+        toast.error(`${key} field cannot be empty!`);
         return false;
       }
       return true;
@@ -213,7 +172,7 @@ const DaoCreate = () => {
       const value = e.target.value;
       let newList = form.tag.concat(value?.split(/\s+/).filter(val => val));
       if (newList.length > 3) {
-        setSnackBarStr('The maximum number of tags is 3');
+        toast.error('The maximum number of tags is 3');
         newList = newList.slice(0, 3);
       }
       setFormField({ key: 'tag', value: newList });
@@ -282,16 +241,6 @@ const DaoCreate = () => {
         <Button sx={{ margin: '16px 0' }} size="large" fullWidth variant="contained" onClick={confirm}>
           Confirm
         </Button>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={!!snackBarStr}
-          autoHideDuration={6000}
-          onClose={() => setSnackBarStr('')}
-          message={snackBarStr}>
-          <Alert severity="warning" onClose={() => setSnackBarStr('')}>
-            {snackBarStr}
-          </Alert>
-        </Snackbar>
         <Backdrop
           sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }}
           open={!!loadingText}
@@ -302,6 +251,7 @@ const DaoCreate = () => {
             <div>{loadingText}</div>
           </Stack>
         </Backdrop>
+        <Toaster></Toaster>
       </Box>
     );
   };

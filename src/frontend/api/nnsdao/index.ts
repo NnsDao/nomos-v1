@@ -90,7 +90,7 @@ export const user_info = async ({ queryKey }) => {
   if ('Ok' in res) {
     return res.Ok;
   }
-  return Promise.reject(null);
+  return null;
 };
 
 export const getProposalList = async ({ queryKey }) => {

@@ -6,7 +6,7 @@ import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useGetDaoInfo, useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
 import { nnsdaoKeys } from '../../../api/nnsdao/queries';
 import { useUserStore } from '../../../hooks/userStore';
-import About from '../newProposal/Index';
+// import About from '../newProposal/Index';
 import Proposal from './proposal/Index';
 import SetUp from './setUp/Index';
 import Treasury from './treasury/Index';
@@ -195,7 +195,7 @@ const Team = () => {
       </Box>
       <Box className=" max-w-700 ml-265px">
         {activeTab === 'proposal' ? <Proposal></Proposal> : null}
-        {activeTab === 'about' ? <About /> : null}
+        {activeTab === 'about' ? <div>about</div> : null}
         {activeTab === 'treasury' ? <Treasury /> : null}
         {activeTab === 'set up' ? <SetUp /> : null}
       </Box>
