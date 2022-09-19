@@ -74,7 +74,8 @@ export const user_info = async ({ queryKey }) => {
     return Promise.reject(null);
   }
   const actor = await getNnsdaoActor(cid, true);
-  const res = await actor.user_info();
+  // can also get someone other than caller`s user info
+  const res = await actor.user_info([]);
   console.log('user_info', res);
   if ('Ok' in res) {
     return res.Ok;
