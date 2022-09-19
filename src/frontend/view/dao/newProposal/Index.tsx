@@ -5,6 +5,7 @@ import { Backdrop, Box, Button, CircularProgress, Stack, TextField } from '@mui/
 import { ProposalContent } from '@nnsdao/nnsdao-kit/nnsdao/types';
 import { getNICPActor } from '@service';
 import React, { useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { usePropose } from '../../../api/nnsdao';
 
@@ -42,15 +43,17 @@ const NewProposal = () => {
     const params: ProposalContent & { cid: string } = {
       title: snackBarStr,
       content: JSON.stringify(editorRef.current),
-      end_time: BigInt(Date.now() + 6e4 * 30),
+      end_time: BigInt((Date.now() + 6e4 * 30) * 1e6), // nano seconds
       property: [],
       cid,
     };
     setLoadingText('Under creation...');
     proposeAction.mutate(params, {
       onSuccess(data, variable) {
-        console.log('propose', data);
         navigate(`/daos/team/${cid}`);
+      },
+      onError(error: any, variables, context) {
+        toast.error(error);
       },
       onSettled() {
         setLoadingText('');
@@ -155,6 +158,7 @@ const NewProposal = () => {
           <div>{loadingText}</div>
         </Stack>
       </Backdrop>
+      <Toaster></Toaster>
     </Box>
   );
 };

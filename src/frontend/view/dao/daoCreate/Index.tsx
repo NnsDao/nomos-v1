@@ -72,7 +72,7 @@ const DaoCreate = () => {
         name: '',
         poster: '',
         avatar: '',
-        tag: [] as string[], // store original string
+        tag: ['nnsdao'] as string[], // store original string
         intro: '',
       } as const
     );
@@ -99,7 +99,7 @@ const DaoCreate = () => {
           return;
         }
       }
-      console.log('confirm', params);
+      // console.log('confirm', params);
       try {
         setLoadingText('Getting Payment Information...');
         const payInfo = await getPayInfo().catch(() => null);
@@ -125,7 +125,7 @@ const DaoCreate = () => {
         console.log('createAction onSuccess', data);
         await updateAction.mutateAsync({ ...params, cid: data.canister_id.toText() });
         setTimeout(() => {
-          navigator(`daos/team/${data.canister_id.toText()}`);
+          navigator(`/daos/team/${data.canister_id.toText()}`);
         }, 0);
       } catch (error) {
         console.error('err', error);
@@ -172,9 +172,10 @@ const DaoCreate = () => {
       const value = e.target.value;
       let newList = form.tag.concat(value?.split(/\s+/).filter(val => val));
       if (newList.length > 3) {
-        toast.error('The maximum number of tags is 3');
+        toast.error('No more then 3 tags!');
         newList = newList.slice(0, 3);
       }
+      e.target.value = '';
       setFormField({ key: 'tag', value: newList });
     }
 
@@ -217,7 +218,7 @@ const DaoCreate = () => {
               id="tag"
               fullWidth
               label="Tag"
-              placeholder="Metaverse web3 xxx"
+              placeholder="xxx"
               onKeyDown={e => onEnterTag(e)}
               // onBlur={e => onTagChange(e)}
             />

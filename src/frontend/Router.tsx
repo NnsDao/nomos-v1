@@ -48,5 +48,6 @@ const routerConfig = [
 ];
 
 export function RouterConfig() {
+  window.scroll(0, 0);
   return useRoutes(routerConfig);
 }

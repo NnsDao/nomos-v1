@@ -6,6 +6,7 @@ import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useGetDaoInfo, useGetUserInfo, useJoin, useMemberList, useQuit } from '../../../api/nnsdao/index';
 import { nnsdaoKeys } from '../../../api/nnsdao/queries';
 import { useUserStore } from '../../../hooks/userStore';
+import MemberList from '../component/MemberList';
 // import About from '../newProposal/Index';
 import Proposal from './proposal/Index';
 import SetUp from './setUp/Index';
@@ -13,7 +14,7 @@ import Treasury from './treasury/Index';
 
 const Team = () => {
   const { cid = '' } = useParams();
-  const tabList = ['proposal', 'new proposal', 'about', 'treasury', 'set up'];
+  const tabList = ['proposal', 'member list', 'new proposal', 'about', 'treasury', 'set up'];
   const [activeTab, setActiveTab] = useState('proposal');
   const useInfo = useGetUserInfo(cid);
   const joinAction = useJoin(cid);
@@ -195,6 +196,7 @@ const Team = () => {
       </Box>
       <Box className=" max-w-700 ml-265px">
         {activeTab === 'proposal' ? <Proposal></Proposal> : null}
+        {activeTab === 'member list' ? <MemberList /> : null}
         {activeTab === 'about' ? <div>about</div> : null}
         {activeTab === 'treasury' ? <Treasury /> : null}
         {activeTab === 'set up' ? <SetUp /> : null}

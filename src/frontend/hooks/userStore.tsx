@@ -1,5 +1,6 @@
 import { plugLogin, stoicLogin } from '@nnsdao/nnsdao-kit';
 import storage from '@nnsdao/nnsdao-kit/helper/storage';
+import { useQueryClient } from '@tanstack/react-query';
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import canister, { canisterIdList } from '../service/config';
 
@@ -32,9 +33,15 @@ const UserStore = createContext(null as unknown as UserStoreT);
 
 export function UserStoreProvider({ children }) {
   const [userInfo, dispatch] = useReducer(reducer, defaultValue);
+  const queryClient = useQueryClient();
+
   useEffect(() => {
-    console.log('userInfo', userInfo);
-    userInfo.loginType && autoLogin(userInfo.loginType);
+    console.log('login_userInfo', userInfo);
+    if (userInfo.loginType) {
+      autoLogin(userInfo.loginType);
+    } else {
+      queryClient.invalidateQueries();
+    }
   }, [userInfo.loginType]);
 
   async function autoLogin(loginType: string) {

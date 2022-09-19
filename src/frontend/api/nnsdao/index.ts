@@ -47,18 +47,7 @@ export const member_list = async ({ queryKey }) => {
   }
   return Promise.reject(null);
 };
-export const propose = async ({ queryKey }) => {
-  const { module, scope } = queryKey[0];
-  const actor = await getNnsdaoActor(false);
-  try {
-    const res = await actor.propose();
-    console.log('propose', res);
-    return res;
-  } catch (error) {
-    console.log('propose', error);
-    return Promise.reject(null);
-  }
-};
+
 export const quit = async (cid: string) => {
   const actor = await getNnsdaoActor(cid, false);
   const res = await actor.quit();
@@ -101,7 +90,7 @@ export const getProposalList = async ({ queryKey }) => {
   if ('Ok' in res) {
     return res.Ok;
   }
-  return Promise.reject(null);
+  return Promise.reject(res.Err);
 };
 
 /**
@@ -111,6 +100,7 @@ export const getProposalList = async ({ queryKey }) => {
 
 export const useGetProposalList = (cid: string, selector?: (data) => any) => {
   const defaultSelector = data => data;
+  const queryClient = useQueryClient();
   return useQuery(nnsdaoKeys.proposal_lists(cid), getProposalList, {
     staleTime: 6e4,
     select: selector || defaultSelector,
@@ -130,10 +120,10 @@ export const useGetProposal = (cid: string, id: string) => {
       if ('Ok' in res) {
         return res.Ok;
       }
-      return Promise.reject(null);
+      return Promise.reject(res.Err);
     },
     {
-      staleTime: Infinity,
+      staleTime: 6e4,
       initialData: () => {
         const list: any[] = queryClient.getQueryData(listKey) ?? [];
         let item = list.find(([ID]) => ID == id);
@@ -141,10 +131,22 @@ export const useGetProposal = (cid: string, id: string) => {
           return item[1];
         }
       },
+      initialDataUpdatedAt() {
+        return queryClient.getQueryState(listKey)?.dataUpdatedAt;
+      },
       onSuccess(data) {
-        // console.log('onSuccess', data);
-        const preList = queryClient.getQueryData(listKey);
-        queryClient.setQueryData(listKey, [data.id, data].concat(preList));
+        const preList: any[] = queryClient.getQueryData(listKey) ?? [];
+        if (!preList.length) return;
+        // console.log('preList', preList, data);
+        const index = preList.findIndex(([id, item]) => data.id === id);
+
+        queryClient.setQueryData(
+          listKey,
+          preList
+            .slice(0, index)
+            .concat([[data.id, data]])
+            .concat(preList.slice(index + 1))
+        );
       },
     }
   );
@@ -232,14 +234,15 @@ export const usePropose = () => {
       if ('Ok' in res) {
         return res.Ok;
       }
-      return Promise.reject(null);
+      return Promise.reject(res.Err);
     },
     {
       onSuccess(data, variables) {
         const cid = variables.cid;
         const queryKey = nnsdaoKeys.proposal_lists(cid);
-        const preList: ProposalContent[] = queryClient.getQueryData(queryKey) ?? [];
-        queryClient.setQueryData(queryKey, preList.concat(data));
+        const preList = queryClient.getQueryData(queryKey) ?? [];
+        // @ts-ignore
+        queryClient.setQueryData(queryKey, preList.concat([[data.id, data]]));
       },
     }
   );

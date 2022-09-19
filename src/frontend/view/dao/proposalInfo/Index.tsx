@@ -1,17 +1,7 @@
 import { Principal } from '@dfinity/principal';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import {
-  Avatar,
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  Divider,
-  InputBase,
-  LinearProgress,
-} from '@mui/material';
+import { Avatar, Box, Button, CircularProgress, Dialog, DialogActions, Divider, InputBase } from '@mui/material';
 import React, { useEffect } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -22,6 +12,7 @@ import { getNICPActor } from '../../../service';
 import { principalToAccountIdentifier } from '../../../utils/account';
 
 import ProposalActive from '../component/proposalActive/Index';
+import VoteProgress from '../component/VoteProgress';
 
 const ProposalInfo = () => {
   const navigate = useNavigate();
@@ -49,7 +40,7 @@ const ProposalInfo = () => {
   const goLogin = () => {
     navigate('/login', { replace: true });
   };
-
+  let principal = userStore.principalId;
   const getBalance = async () => {
     const NICPActor = await getNICPActor(true);
     // console.log(NICPActor, 'NICPActor');
@@ -69,7 +60,6 @@ const ProposalInfo = () => {
     //   console.error('getBalance', error);
     // }
   };
-  let principal = userStore.principalId;
 
   const confirm = async () => {
     // step
@@ -84,10 +74,11 @@ const ProposalInfo = () => {
       toast.error(`You can provide up to your balance ${NDP}`);
       return;
     }
-
+    const toastID = toast.loading('Awaiting approve...');
     const NICPActor = await getNICPActor(true);
     const approve = await NICPActor.approve(Principal.fromText(cid), BigInt(Number(inputValue) * 1e8));
     console.log('approve', approve);
+    toast.loading('Updating...', { id: toastID });
     voteMutation.mutate(
       {
         cid,
@@ -97,10 +88,10 @@ const ProposalInfo = () => {
       },
       {
         onSuccess(data, variables, context) {
-          toast.success('Successfully voted');
+          toast.success('Successfully voted', { id: toastID });
         },
         onError(error: any, variables, context) {
-          toast.error(error.toString());
+          toast.error(error.toString(), { id: toastID });
         },
       }
     );
@@ -114,33 +105,30 @@ const ProposalInfo = () => {
 
   if (Proposal.isFetching) {
     return (
-      <Box className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
+      <Box key="loading" className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
         <CircularProgress size={24} />
       </Box>
     );
   }
 
-  const UserBox = () => {
-    const proposerPrincipalId = Proposal.data?.proposer.toText();
-    const proposerInfo = useMemberList(
+  const MemberInfo = ({ principalID }) => {
+    const user = useMemberList(
       cid,
       React.useCallback(data => {
-        return data.filter(item => item?.principal?.toText() === proposerPrincipalId);
+        return data.filter(item => item?.principal?.toText() === principalID);
       }, [])
     );
-    let address = principalToAccountIdentifier(Proposal.data?.proposer.toText(), 0);
+    let address = principalToAccountIdentifier(principalID, 0);
     address = address.slice(0, 6) + '...' + address.slice(-6);
     return (
       <>
-        <Avatar
-          sx={{ width: 18, height: 18, marginX: '10px', cursor: 'pointer' }}
-          src={proposerInfo.data?.avatar}></Avatar>
+        <Avatar sx={{ width: 18, height: 18, marginX: '10px', cursor: 'pointer' }} src={user.data?.avatar}></Avatar>
         <Box sx={{ cursor: 'pointer' }}>{address}</Box>
       </>
     );
   };
   return (
-    <Box>
+    <Box key="data">
       <Box className="flex justify-between pt-10 pb-20 w-1000px">
         <Box sx={{ width: '620px', marginRight: '20px' }}>
           <Box
@@ -162,7 +150,9 @@ const ProposalInfo = () => {
             <Box className="flex justify-between py-20 ">
               <Box className="flex items-center">
                 <ProposalActive state={Object.keys(Proposal.data?.proposal_state || {})[0]}></ProposalActive>
-                <UserBox key={Proposal.data?.proposer.toText()}></UserBox>
+                <MemberInfo
+                  key={Proposal.data?.proposer.toText()}
+                  principalID={Proposal.data?.proposer.toText()}></MemberInfo>
               </Box>
               <Box className="cursor-pointer">
                 <Button variant="text">share</Button>
@@ -212,18 +202,19 @@ const ProposalInfo = () => {
           </Box>
           <Box sx={{ marginTop: '90px', border: '1px solid #282828', borderRadius: '10px' }}>
             <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>Votes</Box>
-            {Proposal.data?.vote_data.map(item => (
-              <Box>
+            {Proposal.data?.vote_data.map(([principal, vote]) => (
+              <Box key={principal.toText()}>
                 <Divider sx={{ height: '1px', width: '618px', background: '#282828' }} orientation="vertical" />
                 <Box className="flex justify-between items-center p-14" sx={{ fontWeight: '600' }}>
                   <Box className="flex items-center">
-                    <Avatar
+                    {/* <Avatar
                       sx={{ width: 18, height: 18, marginRight: '10px', cursor: 'pointer' }}
                       src={'avatar'}></Avatar>
-                    <Box sx={{ cursor: 'pointer' }}>name</Box>
+                    <Box sx={{ cursor: 'pointer' }}>name</Box> */}
+                    <MemberInfo key={principal.toText()} principalID={principal.toText()}></MemberInfo>
                   </Box>
-                  <Box>FOR Structure/AGAINST Structure</Box>
-                  <Box>xxx NDP </Box>
+                  <Box>{Object.keys(vote || {})?.[0]}</Box>
+                  <Box>{Number(Object.values(vote || {})?.[0])} NDP </Box>
                 </Box>
               </Box>
             ))}
@@ -256,27 +247,17 @@ const ProposalInfo = () => {
               </Box>
             </Box>
           </Box>
-          <Box sx={{ border: '1px solid #282828', borderRadius: '10px', width: '320px', marginTop: '50px' }}>
-            <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>current results</Box>
-            <Divider sx={{ height: '1px', width: '318px', background: '#282828' }} orientation="vertical" />
-            <Box sx={{ padding: '24px' }}>
-              <Box sx={{ fontWeight: '700' }}>
-                FOR Structure {0}K NDP {100}%
-              </Box>
-              <LinearProgress
-                sx={{ border: '5px', marginY: '10px' }}
-                variant="determinate"
-                value={80}
-                color={'primary'}></LinearProgress>
-              <Box sx={{ fontWeight: '700', marginY: '10px' }}>
-                AGAINST Structure {0}K NDP {0}%
-              </Box>
-              <LinearProgress
-                sx={{ border: '5px', marginY: '10px' }}
-                variant="determinate"
-                value={80}
-                color={'primary'}></LinearProgress>
-            </Box>
+          <Box
+            sx={{
+              border: '1px solid #282828',
+              borderRadius: '10px',
+              width: '320px',
+              marginTop: '50px',
+              paddingX: '25px',
+            }}>
+            <Box sx={{ paddingY: '18px', fontWeight: '900' }}>Vote Result</Box>
+            <Divider sx={{ height: '1px', width: '100%', background: '#282828' }} orientation="vertical" />
+            <VoteProgress voteData={Proposal.data.vote_data}></VoteProgress>
           </Box>
         </Box>
       </Box>
