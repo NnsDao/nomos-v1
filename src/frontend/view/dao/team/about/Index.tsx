@@ -1,7 +1,23 @@
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useGetDaoInfo } from '../../../../api/nnsdao';
+import RichText from '../../../../components/RichText';
 
 const About = () => {
-  return <Box>About</Box>;
+  const { cid = '' } = useParams();
+  const daoInfo = useGetDaoInfo(cid);
+  if (daoInfo.isFetching) {
+    return (
+      <Box className="flex justify-center items-center" sx={{ textAlign: 'center' }}>
+        <CircularProgress size={24} />
+      </Box>
+    );
+  }
+  return (
+    <Box>
+      <RichText initialValue={JSON.parse(daoInfo.data.intro)}></RichText>
+    </Box>
+  );
 };
 export default About;

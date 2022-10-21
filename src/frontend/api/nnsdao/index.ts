@@ -209,7 +209,7 @@ export const useUpdateDaoInfo = () => {
   const queryClient = useQueryClient();
   return useMutation(
     async (params: DaoInfo & { cid: string }) => {
-      const actor = await getNnsdaoActor(params.cid, false);
+      const actor = await getNnsdaoActor(params.cid, true);
       const res = await actor.update_dao_info(params);
       console.log(res, 'update_dao_info');
       if ('Ok' in res) {
