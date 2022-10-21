@@ -1,6 +1,6 @@
 import React from 'react';
-import deployIc from '../assets/deploy-ic.png';
-import jdaLogo from '../assets/jda-logo.png';
+import dfusionLogo from '../assets/dfusion.jpg';
+import deployIc from '../assets/ic-badge-powered.png';
 import icpswapLogo from '../assets/logo-icpswap.png';
 const footer = () => {
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer mr-10';
@@ -20,7 +20,7 @@ const footer = () => {
       </div>
       <div className={'w-840px mx-auto flex justify-center items-start opacity-60'}>
         <img src={icpswapLogo} width={'220px'} height={'45px'} className="mr-5" alt="icpswap" />
-        <img src={jdaLogo} width={'115px'} height={'45px'} alt="" />
+        <img src={dfusionLogo} width={'115px'} height={'45px'} className="mt-7" alt="" />
         {/* <img src={google} width={'135px'} height={'45px'} alt="" /> */}
         {/* <img src={IosDownload} width={'135px'} height={'45px'} alt="" /> */}
       </div>
@@ -40,8 +40,8 @@ const footer = () => {
       </div>
       <div className="w-full h-px  bg-opacity-10 bg-white"></div>
       <div className="flex justify-center my-7 text-center text-white pb-5 text-sl opacity-50">
-        NnsDAO Labs Limited © 2022. Build on
-        <img src={deployIc} className="w-24 h-full ml-2 mt-2" />
+        NnsDAO Labs © 2022. Build on
+        <img src={deployIc} width="80" height={80} className="ml-5 mt-1" />
       </div>
     </>
   );

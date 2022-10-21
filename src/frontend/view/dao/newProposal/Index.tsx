@@ -147,7 +147,7 @@ const NewProposal = () => {
                 '&:hover': { border: '1px solid #818994' },
               }}
               onClick={() => createProposal()}>
-              New Proposal
+              Create Proposal
             </Button>
           </Box>
         </Box>

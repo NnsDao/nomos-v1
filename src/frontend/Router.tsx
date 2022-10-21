@@ -9,7 +9,6 @@ import CreateDao from './view/dao/daoCreate/Index';
 import DaoHome from './view/dao/daoHome/Index';
 import Dao from './view/dao/Index';
 import Index from './view/Index';
-import Main from './view/main/MainIndex';
 import Product from './view/product/Index';
 import Story from './view/story/Story';
 
@@ -42,7 +41,7 @@ const routerConfig = [
     ],
   },
   { path: '/product', element: <Product /> },
-  { path: '/main', element: <Main /> },
+  { path: '/main', element: <Index /> },
   { path: '/home', element: <Index /> },
   { path: '/profile', element: <Profile /> },
 ];

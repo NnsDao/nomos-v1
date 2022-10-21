@@ -211,7 +211,7 @@ export default function index(prop: any) {
   const goMain = () => {
     // const wins: any = window.open('/main', '_blank');
     // wins.focus();
-    navigate('/main');
+    navigate('/daos/home');
   };
 
   const goDaos = () => {

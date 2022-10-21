@@ -222,7 +222,7 @@ const ProposalInfo = () => {
         </Box>
         <Box className="flex-1">
           <Box sx={{ border: '1px solid #282828', borderRadius: '10px', width: '320px' }}>
-            <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>information</Box>
+            <Box sx={{ paddingY: '18px', paddingX: '25px', fontWeight: '900' }}>Information</Box>
             <Divider sx={{ height: '1px', width: '318px', background: '#282828' }} orientation="vertical" />
             <Box sx={{ padding: '24px' }}>
               <Box className="flex justify-between items-center">
@@ -230,20 +230,16 @@ const ProposalInfo = () => {
                 <Box>0</Box>
               </Box>
               <Box className="flex justify-between items-center">
-                <Box className="py-4 text-gray-500 font-bold">IPFS</Box>
-                <Box>1</Box>
+                <Box className="py-4 text-gray-500 font-bold">Voting system</Box>
+                <Box>Basic NDP voting</Box>
               </Box>
               <Box className="flex justify-between items-center">
-                <Box className="py-4 text-gray-500 font-bold">voting system</Box>
-                <Box>2</Box>
+                <Box className="py-4 text-gray-500 font-bold">Start date</Box>
+                <Box>Sep 9, 2022, 9:14 AM</Box>
               </Box>
               <Box className="flex justify-between items-center">
-                <Box className="py-4 text-gray-500 font-bold">start date</Box>
-                <Box>3</Box>
-              </Box>
-              <Box className="flex justify-between items-center">
-                <Box className="py-4 text-gray-500 font-bold">end date</Box>
-                <Box>4</Box>
+                <Box className="py-4 text-gray-500 font-bold">End date</Box>
+                <Box>Sep 20, 2022, 9:14 AM</Box>
               </Box>
             </Box>
           </Box>

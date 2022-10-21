@@ -186,9 +186,9 @@ const DaoCreate = () => {
             <TextField
               required
               id="name"
-              label="DaoName"
+              label="DAOs Name"
               key="DaoName"
-              placeholder="DaoName"
+              placeholder="DAOs Name"
               value={form.name}
               onChange={e => changeForm('name', e)}
             />
@@ -196,18 +196,18 @@ const DaoCreate = () => {
               required
               id="poster"
               value={form.poster}
-              label="Poster"
+              label="Website"
               key="Poster"
-              placeholder="http://xxx"
+              placeholder="url"
               onChange={e => changeForm('poster', e)}
             />
             <TextField
               required
               value={form.avatar}
               id="avatar"
-              label="Avatar"
+              label="PFPs"
               key="Avatar"
-              placeholder="http://xxx"
+              placeholder="IC NFTs Url"
               onChange={e => changeForm('avatar', e)}
             />
           </Stack>
@@ -218,7 +218,7 @@ const DaoCreate = () => {
               id="tag"
               fullWidth
               label="Tag"
-              placeholder="xxx"
+              placeholder="Please create a tag."
               onKeyDown={e => onEnterTag(e)}
               // onBlur={e => onTagChange(e)}
             />
@@ -230,7 +230,7 @@ const DaoCreate = () => {
               );
             })}
           </Stack>
-          <Divider>Intro</Divider>
+          <Divider>Abstract</Divider>
           {/* <div style={{ background: '#fff' }}> */}
           <RichText
             initialValue={initialValue}
