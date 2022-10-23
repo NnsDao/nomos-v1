@@ -162,7 +162,7 @@ module.exports = {
         '1200px': '1200px',
       },
       backgroundColor: theme => ({
-        primary: '#0C0633',
+        primary: '#000',
         secondary: '#ffed4a',
         danger: '#e3342f',
         sign: '#D130B3',

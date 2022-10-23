@@ -120,7 +120,7 @@ export default function info(props) {
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: '12px',
-        background: '#0C0633',
+        background: '#000',
         border: '1px solid #282828',
         color: '#fff',
         marginRight: '21px',

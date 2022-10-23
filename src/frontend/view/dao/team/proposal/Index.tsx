@@ -21,14 +21,14 @@ const Proposal = () => {
     <Box>
       <Box className="flex justify-between pt-10 pb-20">
         <Box className="text-2xl font-bold">proposal</Box>
-        <Box bgcolor={'#0C0633'} marginLeft={'10px'}>
+        <Box bgcolor={'#000'} marginLeft={'10px'}>
           <Button
             sx={{
               height: 45,
               display: 'flex',
               alignItems: 'center',
               borderRadius: 23,
-              background: '#0C0633',
+              background: '#000',
               border: '1px solid #282828',
               color: '#fff',
               fontWeight: '500',

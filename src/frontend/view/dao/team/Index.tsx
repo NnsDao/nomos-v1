@@ -130,7 +130,7 @@ const Team = () => {
           justifyContent: 'center',
           alignItems: 'center',
           borderRadius: '12px',
-          background: '#0C0633',
+          background: '#000',
           border: '1px solid #818994',
           color: '#fff',
           marginRight: '40px',

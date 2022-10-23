@@ -258,7 +258,7 @@ const ProposalInfo = () => {
         </Box>
       </Box>
       <Dialog open={open} onClose={handleClose}>
-        <Box sx={{ width: '450px', padding: '20px', margin: '0 auto', background: '#0C0633' }}>
+        <Box sx={{ width: '450px', padding: '20px', margin: '0 auto', background: '#000' }}>
           <Box sx={{ paddingY: '10px', textAlign: 'center' }}>Polling overview</Box>
           <Box>
             <Box className="flex justify-between items-center">

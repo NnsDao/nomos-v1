@@ -101,14 +101,14 @@ const DaoHome = () => {
         <Box className="w-full flex flex-row justify-between items-center pb-24">
           <Box className="flex items-center ">
             <DaoInput onchange={setSearchFilter}></DaoInput>
-            <Box bgcolor={'#0C0633'} marginLeft={'10px'}>
+            <Box bgcolor={'#000'} marginLeft={'10px'}>
               <Button
                 sx={{
                   height: 45,
                   display: 'flex',
                   alignItems: 'center',
                   borderRadius: 23,
-                  background: '#0C0633',
+                  background: '#000',
                   border: '1px solid #282828',
                   color: '#fff',
                   '&:hover': { border: '1px solid #818994' },
@@ -137,8 +137,8 @@ const DaoHome = () => {
             disablePortal
             id="combo-box-demo"
             options={top100Films}
-            sx={{ width: 100, height: 45, background: '#0C0633', border: '1px solid #282828', marginLeft: 2 }}
-            renderInput={params => <TextField sx={{ background: '#0C0633' }} {...params} label="Daos" />}
+            sx={{ width: 100, height: 45, background: '#000', border: '1px solid #282828', marginLeft: 2 }}
+            renderInput={params => <TextField sx={{ background: '#000' }} {...params} label="Daos" />}
           /> */}
           </Box>
           <Box className="mr-10 text-20 font-bold">{totalList.data?.length || 0} DAOs</Box>
@@ -157,7 +157,7 @@ const DaoHome = () => {
           justifyContent: 'center',
           alignItems: 'center',
           borderRadius: '12px',
-          background: '#0C0633',
+          background: '#000',
           border: '1px solid #282828',
           color: '#fff',
           '&:hover': { border: '1px solid #818994' },

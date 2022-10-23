@@ -32,7 +32,7 @@ export default function DaoInput(props) {
         display: 'flex',
         alignItems: 'center',
         borderRadius: 23,
-        background: '#0C0633',
+        background: '#000',
         border: '1px solid #818994',
         '&:hover': { border: '1px solid #fff' },
       }}>

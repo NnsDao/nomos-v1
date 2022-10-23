@@ -1,6 +1,6 @@
 .product-wrapper {
   width: 100%;
-  background: #0C0633;
+  background: #000;
 
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
   align-items: center;
   color: #fff;
 }
-.product-bg{
+.product-bg {
   width: 100%;
   background: url('../../assets/product/bg.png') no-repeat;
   background-size: 100% 100%;
