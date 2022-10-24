@@ -57,6 +57,7 @@ const Account = prop => {
     try {
       const list = await NdpService.getUserBadgeList(pids);
 
+      // @ts-ignore
       setUserBadgeList(list);
     } catch (error) {
       console.error('getUserBadgeList', error);

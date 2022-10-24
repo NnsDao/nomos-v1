@@ -1,22 +1,20 @@
 import { Avatar } from '@mui/material';
 import { MemberItems } from '@nnsdao/nnsdao-kit/nnsdao/types';
 import React, { useEffect, useState } from 'react';
-import { getNnsdaoActor } from '../../../../service/index';
 const Members = props => {
   const [memberList, setmemberList] = useState<Array<MemberItems>>([]);
 
   const getMemberList = async () => {
-    const nnsdaoActor = await getNnsdaoActor(true);
-    const res = await nnsdaoActor.member_list();
-    console.log(res, 'member_list');
-
-    //@ts-ignore
-    if (res.Ok) {
-      //@ts-ignore
-      setmemberList(res.Ok);
-    } else {
-      console.log(res, 'member_list error');
-    }
+    // const nnsdaoActor = await getNnsdaoActor(true);
+    // const res = await nnsdaoActor.member_list();
+    // console.log(res, 'member_list');
+    // //@ts-ignore
+    // if (res.Ok) {
+    //   //@ts-ignore
+    //   setmemberList(res.Ok);
+    // } else {
+    //   console.log(res, 'member_list error');
+    // }
   };
   useEffect(() => {
     getMemberList();

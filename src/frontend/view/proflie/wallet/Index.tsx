@@ -91,6 +91,7 @@ const Wallet = () => {
     };
     try {
       const NDP = await NdpService.getBalance(getBalanceParams);
+      // @ts-ignore
       setNDP(new BigNumber(NDP.ok.toString()).div(new BigNumber('100000000')).toString());
     } catch (error) {
       console.error('getBalance', error);
@@ -170,7 +171,7 @@ const Wallet = () => {
   const claim = async () => {
     const bool = await NdpService.getClaim();
     console.log(bool, 'claim');
-    if (bool.ok) {
+    if ('ok' in bool) {
       setWalletList([
         {
           name: 'NnsDAO Protocol',

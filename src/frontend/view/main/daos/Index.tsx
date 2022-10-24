@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { useUserStore } from '../../../hooks/userStore';
-import { getNnsdaoActor } from '../../../service/index';
 import CreateProposal from './createProposal/Index';
 import './index.css';
 import Members from './members/Index';
@@ -15,43 +14,42 @@ const Index = () => {
   const accountId = userStore.accountId;
   const [status_code, setStatusCode] = useState(0);
   const join = async () => {
-    const nnsdaoActor = await getNnsdaoActor(true);
-    const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
-    const res = await nnsdaoActor.join(joinParams);
-    console.log(res);
-    //@ts-ignore
-    if (res.Ok) {
-      setStatusCode(1);
-      toast.success('Join success');
-    } else {
-      toast.error('Join error');
-    }
+    // const nnsdaoActor = await getNnsdaoActor(true);
+    // const joinParams = { nickname: accountId, social: [], intro: '', avatar: '' };
+    // const res = await nnsdaoActor.join(joinParams);
+    // console.log(res);
+    // //@ts-ignore
+    // if (res.Ok) {
+    //   setStatusCode(1);
+    //   toast.success('Join success');
+    // } else {
+    //   toast.error('Join error');
+    // }
   };
   const quit = async () => {
-    const nnsdaoActor = await getNnsdaoActor(true);
-    const res = await nnsdaoActor.quit();
-    console.log(res);
-    //@ts-ignore
-    if (res.Ok) {
-      setStatusCode(1);
-      toast.success('Quit success');
-    } else {
-      toast.error(`Quit error`);
-    }
+    // const nnsdaoActor = await getNnsdaoActor(true);
+    // const res = await nnsdaoActor.quit();
+    // console.log(res);
+    // //@ts-ignore
+    // if (res.Ok) {
+    //   setStatusCode(1);
+    //   toast.success('Quit success');
+    // } else {
+    //   toast.error(`Quit error`);
+    // }
   };
   const getUserInfo = async () => {
-    const nnsdaoActor = await getNnsdaoActor(true);
-    const res = await nnsdaoActor.user_info();
-    console.log(res);
-
-    //@ts-ignore
-    if (res.Ok) {
-      //@ts-ignore
-      const { status_code } = res.Ok;
-      setStatusCode(status_code);
-    } else {
-      setStatusCode(0);
-    }
+    // const nnsdaoActor = await getNnsdaoActor(true);
+    // const res = await nnsdaoActor.user_info();
+    // console.log(res);
+    // //@ts-ignore
+    // if (res.Ok) {
+    //   //@ts-ignore
+    //   const { status_code } = res.Ok;
+    //   setStatusCode(status_code);
+    // } else {
+    //   setStatusCode(0);
+    // }
   };
 
   useEffect(() => {

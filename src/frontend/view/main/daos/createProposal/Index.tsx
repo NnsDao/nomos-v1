@@ -1,7 +1,7 @@
 import { Principal } from '@dfinity/principal';
 import React, { useState } from 'react';
 import { useUserStore } from '../../../../hooks/userStore';
-import { getNICPActor, getNnsdaoActor } from '../../../../service/index';
+import { getNICPActor } from '../../../../service/index';
 
 const CreateProposal = props => {
   const userStore = useUserStore();
@@ -58,10 +58,10 @@ const CreateProposal = props => {
     );
     console.log(`approve`, approve);
     // 2. initiate_proposal
-    const res = await getNnsdaoActor(true).then(actor =>
-      actor.propose({ title: new Date().toLocaleString(), content: 'xxx', end_time: BigInt((Date.now() + 3e5) * 1e6) })
-    );
-    console.log(res);
+    // const res = await getNnsdaoActor(true).then(actor =>
+    //   actor.propose({ title: new Date().toLocaleString(), content: 'xxx', end_time: BigInt((Date.now() + 3e5) * 1e6) })
+    // );
+    // console.log(res);
   };
 
   return (

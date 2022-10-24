@@ -20,7 +20,7 @@ const Airdrop = () => {
       const result = await NdpService.dropExchange(Params);
       setIsLoading(false);
       changeShowAirdrop();
-      if (result.err) {
+      if ('err' in result) {
         toast.error(result.err);
       } else {
         toast.success('The redemption is successful.');

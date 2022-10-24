@@ -1,8 +1,7 @@
 import { Principal } from '@dfinity/principal';
-import { UserVoteArgs } from '@nnsdao/nnsdao-kit/src/nnsdao/types';
 import React, { useState } from 'react';
 import { useUserStore } from '../../../../hooks/userStore';
-import { getNICPActor, getNnsdaoActor } from '../../../../service/index';
+import { getNICPActor } from '../../../../service/index';
 import Info from './Info';
 
 const ProposalItem = props => {
@@ -19,14 +18,14 @@ const ProposalItem = props => {
       BigInt(Number(balance) * 1e8)
     );
     console.log(`approve`, approve);
-    const nnsdaoActor = await getNnsdaoActor(true);
-    const params: UserVoteArgs = {
-      id: BigInt(props.data[1].id),
-      principal: [Principal.fromText(principal)],
-      vote: type === 'Yes' ? { Yes: BigInt(balance * 1e8) } : { No: BigInt(balance * 1e8) },
-    };
-    const res = await nnsdaoActor.vote(params);
-    console.log(res, 'vote res');
+    // const nnsdaoActor = await getNnsdaoActor(true);
+    // const params: UserVoteArgs = {
+    //   id: BigInt(props.data[1].id),
+    //   principal: [Principal.fromText(principal)],
+    //   vote: type === 'Yes' ? { Yes: BigInt(balance * 1e8) } : { No: BigInt(balance * 1e8) },
+    // };
+    // const res = await nnsdaoActor.vote(params);
+    // console.log(res, 'vote res');
   };
   return (
     <div
