@@ -1,6 +1,6 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import Collaboration from '../assets/home/Collaboration.png';
@@ -58,9 +58,9 @@ export default function index(prop: any) {
     changeContributesImg(currentContributes / totalContributes);
   };
   //
-  useEffect(() => {
-    getCurrentContributes();
-  }, []);
+  // useEffect(() => {
+  //   getCurrentContributes();
+  // }, []);
 
   const activeClass = 'text-white transition delay-150 duration-500 cursor-pointer';
   const inactiveClass = 'text-white opacity-50 transform hover:scale-90 cursor-pointer';
@@ -211,7 +211,7 @@ export default function index(prop: any) {
   const goMain = () => {
     // const wins: any = window.open('/main', '_blank');
     // wins.focus();
-    navigate('/daos/home');
+    navigate('/profile');
   };
 
   const goDaos = () => {
@@ -332,7 +332,7 @@ export default function index(prop: any) {
               <p className="find-text-info text-center mb-5 -ml-10">Contribute with stoicwallet wallet authorization (otherwise you can't participate in claim):</p>
               <div className="daos-address " onClick={copyAddress}>
                 <span
-                  className={`mr-4  + 
+                  className={`mr-4  +
                   ${isLogin ? '' : ' filter '}`}>
                   {contributesAdress}
                 </span>

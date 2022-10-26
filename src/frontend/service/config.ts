@@ -1,6 +1,7 @@
 import { idlFactory as dao_manager_IDL } from '@nnsdao/nnsdao-kit/dao_manager/index';
 import { idlFactory as nicpIDL } from '@nnsdao/nnsdao-kit/dip20/index';
 import { idlFactory as distributeIDL } from '@nnsdao/nnsdao-kit/distribute/index';
+import { idlFactory as nid_IDL } from '@nnsdao/nnsdao-kit/nid/index';
 import { idlFactory as nnsdaoIDL } from '@nnsdao/nnsdao-kit/nnsdao/index';
 export { distributeIDL };
 export { nnsdaoIDL };
@@ -20,6 +21,10 @@ export const canister = {
   dao_manager: {
     cid: 'w3p32-waaaa-aaaah-aboyq-cai',
     idl: dao_manager_IDL,
+  },
+  nid: {
+    cid: 'nfawh-syaaa-aaaah-abtpq-cai',
+    idl: nid_IDL,
   },
 };
 // ndp prod = 'vgqnj-miaaa-aaaal-qaapa-cai'
@@ -41,3 +46,7 @@ export const canisterIdList = [
   'w3p32-waaaa-aaaah-aboyq-cai',
 ];
 export default canister;
+
+export const getTotalCanisterIdList = (): string[] => {
+  return canisterIdList.concat(Object.values(canister).map(item => item.cid));
+};

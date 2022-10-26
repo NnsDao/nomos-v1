@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import plug from '../assets/login/plug.png';
 import stoic from '../assets/login/stoic.png';
 import { useUserStore } from '../hooks/userStore';
-import { getDistributeActor } from '../service';
+import { getDistributeActor, getNIDActor } from '../service';
 import canister, { canisterIdList } from '../service/config';
 import Loading from './Loading';
 import './login.css';
@@ -40,6 +40,11 @@ const Index = () => {
     } else if (type == 'stoic') {
       loginRes = await stoicLogin();
     }
+    // nid login,bind principal  & auto generate a nid
+    getNIDActor(true)
+      .then(actor => actor.login(type))
+      .then(res => console.log('nid res', res));
+
     if (!loginRes) return;
     console.log(`loginRes`, loginRes);
     const loginInfo = {

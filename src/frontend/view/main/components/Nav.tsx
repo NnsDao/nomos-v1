@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import wallet from '../../../assets/main/Wallet.png';
+import { useCommonLogout } from '../../../hooks/login';
 import { useUserStore } from '../../../hooks/userStore';
 import './nav.css';
 
@@ -14,9 +15,9 @@ const Nav = (prop: prop) => {
   const navigate = useNavigate();
   const userStore = useUserStore();
   const isLogin = userStore.isLogin;
-
-  const logout = () => {
-    navigate('/home');
+  const { logout: commonLogout } = useCommonLogout();
+  const logout = async () => {
+    await commonLogout();
   };
   return (
     <>

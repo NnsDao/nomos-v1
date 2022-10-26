@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import Header from '@view/main/components/Header';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCommonLogout } from '../../hooks/login';
 import Account from './account/Index';
 import UseInfo from './useInfo/Index';
 import Wallet from './wallet/Index';
@@ -11,12 +12,12 @@ const Profile = () => {
   const [active, setActive] = useState('Patrick');
   const [accountTab, setAccountTab] = useState('Badges');
   const navigate = useNavigate();
-
+  const { logout: commonLogout } = useCommonLogout();
   const clickActor = (val: string) => {
     setActive(val);
   };
-  const logout = () => {
-    navigate('/home');
+  const logout = async () => {
+    await commonLogout();
   };
   const handleMenu = (str: string) => {
     console.log(str, 'str');

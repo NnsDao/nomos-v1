@@ -5,5 +5,8 @@
   "": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "cSpell.words": ["NICP", "QUERYKEYS"]
+  "cSpell.words": ["NICP", "QUERYKEYS"],
+  "breadcrumbs.symbolPath": "last",
+  "json.maxItemsComputed": 1000,
+  "search.quickOpen.includeSymbols": true
 }
