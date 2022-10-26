@@ -78,9 +78,9 @@ const Account = prop => {
   useEffect(() => {
     getUserInfo();
   }, []);
-  useEffect(() => {
-    getUserBadgeList();
-  }, []);
+  // useEffect(() => {
+  //   getUserBadgeList();
+  // }, []);
   const getCurrentDate = () => {
     const myDate = new Date();
     const year = myDate.getFullYear();

@@ -57,22 +57,21 @@ const UseInfo = () => {
     return year + '/' + (month + 1) + '/' + (day - 1);
   };
   async function bindWallet(type: string): Promise<void> {
-    const actor = await getNIDActor(true);
-
     if ((nidInfo.isError, !nidInfo.data)) {
       toast.error('Re-login and try again !');
       return;
     }
     let principalText = '';
     if (type == 'plug') {
-      let res = await plugLogin(getTotalCanisterIdList(), false);
+      let res = await plugLogin(getTotalCanisterIdList());
       // @ts-ignore
       principalText = res?.principalId;
     } else if (type == 'stoic') {
-      let res = await stoicLogin(false);
+      let res = await stoicLogin();
       // @ts-ignore
       principalText = res?.principalId;
     }
+    const actor = await getNIDActor(true);
     let bindRes = await actor.bind_wallet([nidInfo.data?.nid, type, principalText]);
     if ('Err' in bindRes) {
       toast.error(bindRes.Err);
