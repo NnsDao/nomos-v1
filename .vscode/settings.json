@@ -8,5 +8,6 @@
   "cSpell.words": ["NICP", "QUERYKEYS"],
   "breadcrumbs.symbolPath": "last",
   "json.maxItemsComputed": 1000,
-  "search.quickOpen.includeSymbols": true
+  "search.quickOpen.includeSymbols": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

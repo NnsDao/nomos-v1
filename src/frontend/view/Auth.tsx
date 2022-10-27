@@ -23,7 +23,9 @@ function Auth() {
     }
   };
 
+  // @ts-ignore
   const signIn = async () => {
+    // @ts-ignore
     const { identity, principal } = await new Promise((resolve, reject) => {
       client.login({
         identityProvider: 'https://identity.ic0.app',
@@ -39,6 +41,7 @@ function Auth() {
     setPrincipal(principal);
   };
 
+  // @ts-ignore
   const signOut = async () => {
     await client.logout();
     setSignedIn(false);

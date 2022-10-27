@@ -4,19 +4,6 @@ import React from 'react';
 import { getNnsdaoActor } from '../../service';
 import { nnsdaoKeys } from './queries';
 
-export const get_handled_proposal = async ({ queryKey }) => {
-  const { cid, module, scope } = queryKey[0];
-  const actor = await getNnsdaoActor(cid, false);
-  try {
-    const res = await actor.get_handled_proposal();
-    console.log('get_handled_proposal', res);
-    return res;
-  } catch (error) {
-    console.log('get_handled_proposal', error);
-    return Promise.reject(null);
-  }
-};
-
 export const get_proposal = async ({ queryKey }) => {
   const { module, cid, id, scope } = queryKey[0];
   const actor = await getNnsdaoActor(cid, false);
