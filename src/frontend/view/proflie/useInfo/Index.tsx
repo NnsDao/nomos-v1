@@ -108,7 +108,7 @@ const UseInfo = () => {
           <Avatar />
 
           {/* <div className="account-header-actor"></div> */}
-          <div className="account-header-text-wrapper">
+          <div className="account-header-text-wrapper flex items-center flex-col justify-center">
             {nidInfo.data ? (
               nidInfo.data.wallet
                 .map(wallet => [...wallet, principalIdToAccountId(wallet[2])])
@@ -127,7 +127,10 @@ const UseInfo = () => {
                   );
                 })
             ) : (
-              <div>AccountID</div>
+              <div>
+                <CircularProgress size={32}></CircularProgress>
+                <span>loading wallet</span>
+              </div>
             )}
 
             <div className="account-header-info">
